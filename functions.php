@@ -83,6 +83,35 @@ function meu_tema_scripts() {
         true
     );
 
+    // ---- BANNER DA HOME ----
+    // Só carrega o CSS/JS do banner quando a página atual for a home,
+    // já que ele só é usado no front-page.php.
+    if ( is_front_page() ) {
+
+        // Font Awesome (ícones das redes sociais)
+        wp_enqueue_style(
+            'font-awesome',
+            'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css',
+            array(),
+            '6.5.1'
+        );
+
+        wp_enqueue_style(
+            'meu-tema-banner',
+            get_template_directory_uri() . '/assets/css/banner.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/assets/css/banner.css' )
+        );
+
+        wp_enqueue_script(
+            'meu-tema-banner',
+            get_template_directory_uri() . '/assets/js/banner.js',
+            array(), // sem dependências (sem GSAP)
+            filemtime( get_template_directory() . '/assets/js/banner.js' ),
+            true
+        );
+    }
+
     // CSS da página 404 só é carregado quando a página atual for, de fato, uma 404.
     // Aponta pra versão minificada (.min.css) — menor pro visitante baixar.
     // O error-404.css normal continua existindo na pasta só como cópia de edição.
