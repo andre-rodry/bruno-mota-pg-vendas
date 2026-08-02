@@ -2,10 +2,7 @@
    TOKENS (cores originais do tema, próprios deste arquivo — não depende de mais nada)
    ========================================================================== */
 :root {
-    /* --navy-deep:   #0B1220; */
-
-     --navy-deep:   #7A1E1E; /* TESTE: era #0B1220 (azul-marinho), troquei pra vermelho escuro só pra testar o onchange */
-
+    --navy-deep:   #0B1220;
     --navy-mid:    #14213D;
     --gold:        #C9962C;
     --gold-soft:   #E4BE72;
