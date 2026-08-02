@@ -19,6 +19,14 @@ function meu_tema_setup() {
     // Habilita imagem destacada (thumbnail) nos posts.
     add_theme_support( 'post-thumbnails' );
 
+    // Permite logo personalizada via Personalizar > Identidade do site.
+    add_theme_support( 'custom-logo', array(
+        'height'      => 60,
+        'width'       => 60,
+        'flex-height' => true,
+        'flex-width'  => true,
+    ) );
+
     // Suporte a HTML5 para formulários de busca, comentários, galerias etc.
     add_theme_support( 'html5', array(
         'search-form',
@@ -37,7 +45,7 @@ function meu_tema_setup() {
 add_action( 'after_setup_theme', 'meu_tema_setup' );
 
 /**
- * Carrega CSS e JS de forma correta (nunca colocar <link> direto no header.php).
+ * Carrega CSS e JS de forma correta (nunca colocar <link> ou <script> direto no header.php).
  */
 function meu_tema_scripts() {
     // Fontes do Google: Fraunces (títulos), Inter (corpo), IBM Plex Mono (dados/números).
@@ -53,6 +61,26 @@ function meu_tema_scripts() {
         get_stylesheet_uri(),
         array( 'meu-tema-fonts' ),
         wp_get_theme()->get( 'Version' )
+    );
+
+    // CSS do header: carrega em TODAS as páginas, logo depois do style.css principal.
+    // Usa filemtime() em vez da versão do tema: assim, toda vez que você editar
+    // o header.css, o navegador é obrigado a baixar a versão nova (sem cache antigo).
+    wp_enqueue_style(
+        'meu-tema-header',
+        get_template_directory_uri() . '/assets/css/header.css',
+        array( 'meu-tema-style' ), // garante que as variáveis do :root já existam
+        filemtime( get_template_directory() . '/assets/css/header.css' )
+    );
+
+    // JS do header: controla o efeito de scroll e o menu mobile.
+    // in_footer = true: carrega perto do </body>, sem travar a renderização da página.
+    wp_enqueue_script(
+        'meu-tema-header',
+        get_template_directory_uri() . '/assets/js/header.js',
+        array(), // sem dependências (jQuery não é necessário)
+        filemtime( get_template_directory() . '/assets/js/header.js' ),
+        true
     );
 
     // CSS da página 404 só é carregado quando a página atual for, de fato, uma 404.

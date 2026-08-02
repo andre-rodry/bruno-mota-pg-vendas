@@ -1,38 +1,118 @@
 <?php
 /**
  * header.php
- * Início do documento HTML, carregado em toda página via get_header().
+ * Cabeçalho do site — logo, menu principal e botão de contato.
+ * Estilos em assets/css/header.css e interatividade em assets/js/header.js
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php wp_head(); // OBRIGATÓRIO: plugins e o próprio WP dependem disso ?>
+    <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
-<?php wp_body_open(); // OBRIGATÓRIO desde WP 5.2 ?>
+<?php wp_body_open(); ?>
 
-<header class="site-header">
-    <div class="container">
-        <p class="site-title">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-                <?php bloginfo( 'name' ); ?>
-            </a>
-        </p>
+<header id="site-header" class="site-header">
+    <div class="site-header__inner">
 
-        <nav class="main-navigation">
+        <!-- LOGO -->
+        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="site-header__logo" aria-label="Bruno Mota - Página inicial">
+            <?php if ( function_exists( 'the_custom_logo' ) && has_custom_logo() ) : ?>
+                <?php the_custom_logo(); ?>
+            <?php else : ?>
+                <span class="site-header__logo-mark">BM</span>
+                <span class="site-header__logo-divider"></span>
+                <span class="site-header__logo-text">
+                    <span class="site-header__logo-name">Bruno Mota</span>
+                    <span class="site-header__logo-sub">Economista</span>
+                </span>
+            <?php endif; ?>
+        </a>
+
+        <!-- MENU PRINCIPAL (desktop) -->
+        <nav class="site-header__nav" aria-label="Menu principal">
             <?php
+            if ( has_nav_menu( 'primary' ) ) {
+                wp_nav_menu( array(
+                    'theme_location' => 'primary',
+                    'container'      => false,
+                    'menu_class'     => 'site-header__menu',
+                    'depth'          => 1,
+                    'fallback_cb'    => false,
+                ) );
+            } else {
+                // Menu de exemplo, só aparece se nenhum menu "primary" foi definido no wp-admin.
+                ?>
+                <ul class="site-header__menu">
+                    <li class="current-menu-item"><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Início</a></li>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="#atuacao">Atuação</a></li>
+                    <li><a href="#conquistas">Conquistas</a></li>
+                    <li><a href="#publicacoes">Publicações</a></li>
+                    <li><a href="#midia">Mídia</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+                <?php
+            }
+            ?>
+        </nav>
+
+        <!-- BOTÃO CTA (desktop) -->
+        <a href="https://wa.me/55SEUNUMEROAQUI" target="_blank" rel="noopener" class="site-header__cta">
+            <svg class="site-header__cta-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path fill="currentColor" d="M16.004 3C9.377 3 4 8.373 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.77-1.68A11.9 11.9 0 0 0 16.004 27C22.63 27 28 21.627 28 15S22.63 3 16.004 3Zm0 21.7a9.63 9.63 0 0 1-4.93-1.35l-.353-.21-4.61 1 1.02-4.5-.23-.36A9.64 9.64 0 1 1 25.64 15a9.65 9.65 0 0 1-9.636 9.7Zm5.3-7.25c-.29-.145-1.71-.845-1.976-.94-.265-.097-.458-.145-.65.145-.19.29-.746.94-.915 1.133-.168.194-.336.218-.626.073-.29-.145-1.223-.451-2.33-1.437-.86-.767-1.44-1.715-1.61-2.005-.168-.29-.018-.447.127-.591.13-.13.29-.338.435-.508.145-.17.193-.29.29-.483.096-.194.048-.363-.024-.508-.073-.145-.65-1.567-.892-2.146-.235-.564-.474-.487-.65-.496l-.554-.01c-.194 0-.508.073-.774.363-.265.29-1.014.99-1.014 2.415 0 1.425 1.038 2.803 1.183 2.997.145.194 2.043 3.12 4.95 4.376.692.298 1.232.476 1.653.61.694.221 1.325.19 1.824.115.556-.083 1.71-.699 1.951-1.373.242-.674.242-1.252.169-1.373-.072-.121-.265-.194-.554-.34Z"/>
+            </svg>
+            <span>Contato</span>
+        </a>
+
+        <!-- BOTÃO HAMBURGUER (mobile) -->
+        <button type="button" class="site-header__toggle" aria-expanded="false" aria-controls="site-header-mobile" aria-label="Abrir menu">
+            <span class="site-header__toggle-bar"></span>
+            <span class="site-header__toggle-bar"></span>
+            <span class="site-header__toggle-bar"></span>
+        </button>
+    </div>
+
+    <!-- MENU MOBILE -->
+    <div id="site-header-mobile" class="site-header__mobile">
+        <?php
+        if ( has_nav_menu( 'primary' ) ) {
             wp_nav_menu( array(
                 'theme_location' => 'primary',
                 'container'      => false,
-                'fallback_cb'    => false, // não mostra nada se o menu não existir
+                'menu_class'     => 'site-header__mobile-menu',
+                'depth'          => 1,
+                'fallback_cb'    => false,
             ) );
+        } else {
             ?>
-        </nav>
+            <ul class="site-header__mobile-menu">
+                <li class="current-menu-item"><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Início</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#atuacao">Atuação</a></li>
+                <li><a href="#conquistas">Conquistas</a></li>
+                <li><a href="#publicacoes">Publicações</a></li>
+                <li><a href="#midia">Mídia</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+            <?php
+        }
+        ?>
+        <a href="https://wa.me/55SEUNUMEROAQUI" target="_blank" rel="noopener" class="site-header__mobile-cta">
+            <svg class="site-header__cta-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path fill="currentColor" d="M16.004 3C9.377 3 4 8.373 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.77-1.68A11.9 11.9 0 0 0 16.004 27C22.63 27 28 21.627 28 15S22.63 3 16.004 3Zm0 21.7a9.63 9.63 0 0 1-4.93-1.35l-.353-.21-4.61 1 1.02-4.5-.23-.36A9.64 9.64 0 1 1 25.64 15a9.65 9.65 0 0 1-9.636 9.7Zm5.3-7.25c-.29-.145-1.71-.845-1.976-.94-.265-.097-.458-.145-.65.145-.19.29-.746.94-.915 1.133-.168.194-.336.218-.626.073-.29-.145-1.223-.451-2.33-1.437-.86-.767-1.44-1.715-1.61-2.005-.168-.29-.018-.447.127-.591.13-.13.29-.338.435-.508.145-.17.193-.29.29-.483.096-.194.048-.363-.024-.508-.073-.145-.65-1.567-.892-2.146-.235-.564-.474-.487-.65-.496l-.554-.01c-.194 0-.508.073-.774.363-.265.29-1.014.99-1.014 2.415 0 1.425 1.038 2.803 1.183 2.997.145.194 2.043 3.12 4.95 4.376.692.298 1.232.476 1.653.61.694.221 1.325.19 1.824.115.556-.083 1.71-.699 1.951-1.373.242-.674.242-1.252.169-1.373-.072-.121-.265-.194-.554-.34Z"/>
+            </svg>
+            <span>Contato</span>
+        </a>
     </div>
 </header>
 
-<main class="site-content">
-    <div class="container">
+<!-- Espaçador para compensar o header fixo (evita que o conteúdo fique escondido atrás dele) -->
+<div class="site-header__spacer" aria-hidden="true"></div>
