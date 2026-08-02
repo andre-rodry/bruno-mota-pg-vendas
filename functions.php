@@ -40,20 +40,32 @@ add_action( 'after_setup_theme', 'meu_tema_setup' );
  * Carrega CSS e JS de forma correta (nunca colocar <link> direto no header.php).
  */
 function meu_tema_scripts() {
+    // Fontes do Google: Fraunces (títulos), Inter (corpo), IBM Plex Mono (dados/números).
+    wp_enqueue_style(
+        'meu-tema-fonts',
+        'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap',
+        array(),
+        null
+    );
+
     wp_enqueue_style(
         'meu-tema-style',
         get_stylesheet_uri(),
-        array(),
+        array( 'meu-tema-fonts' ),
         wp_get_theme()->get( 'Version' )
     );
 
-    wp_enqueue_script(
-        'meu-tema-script',
-        get_template_directory_uri() . '/assets/js/main.js',
-        array(),
-        wp_get_theme()->get( 'Version' ),
-        true // carrega no rodapé
-    );
+    // CSS da página 404 só é carregado quando a página atual for, de fato, uma 404.
+    // Aponta pra versão minificada (.min.css) — menor pro visitante baixar.
+    // O error-404.css normal continua existindo na pasta só como cópia de edição.
+    if ( is_404() ) {
+        wp_enqueue_style(
+            'meu-tema-error-404',
+            get_template_directory_uri() . '/assets/css/error-404.min.css',
+            array( 'meu-tema-style' ), // garante que as variáveis do :root já existam
+            wp_get_theme()->get( 'Version' )
+        );
+    }
 }
 add_action( 'wp_enqueue_scripts', 'meu_tema_scripts' );
 
