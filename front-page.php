@@ -23,6 +23,8 @@ get_header();
 
     <?php get_template_part( 'template-parts/gallery' ); ?>
 
+    <?php get_template_part( 'template-parts/publications' ); ?>
+
     <!-- Aqui entram as próximas seções: atuação, conquistas, publicações, contato -->
 
 </main>

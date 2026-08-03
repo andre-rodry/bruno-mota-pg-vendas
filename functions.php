@@ -175,6 +175,28 @@ function meu_tema_scripts() {
             filemtime( get_template_directory() . '/assets/js/gallery.js' ),
             true
         );
+
+        // ---- Publicações e Artigos ----
+        wp_enqueue_style(
+            'meu-tema-publications',
+            get_template_directory_uri() . '/assets/css/publications.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/assets/css/publications.css' )
+        );
+
+        wp_enqueue_script(
+            'meu-tema-publications',
+            get_template_directory_uri() . '/assets/js/publications.js',
+            array(), // sem dependências
+            filemtime( get_template_directory() . '/assets/js/publications.js' ),
+            true
+        );
+
+        // Passa a URL da REST API do site ATUAL para o JS (evita hardcode de domínio,
+        // essencial porque o WordPress está instalado numa subpasta: /tema-andre/)
+        wp_localize_script( 'meu-tema-publications', 'publicationsData', array(
+            'restUrl' => esc_url_raw( rest_url( 'wp/v2/' ) ),
+        ) );
     }
 
     // CSS da página 404 só é carregado quando a página atual for, de fato, uma 404.
