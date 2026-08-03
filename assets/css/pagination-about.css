@@ -20,6 +20,22 @@
 	/* ALTURA DO HEADER FIXO — ajuste este valor para a altura real do seu header
 	   (a barra "BM · BRUNO MOTA" + menu). Medindo pelo print, algo entre 88px e 100px. */
 	--site-header-height: 96px;
+
+	/* RESPIRO EXTRA entre o header e o TEXTO (título "Bruno Mota" etc.).
+	   Aumente este valor se quiser mais distância, diminua se quiser menos. */
+	--pagination-about-hero-gap: 56px;
+
+	/* RESPIRO EXTRA entre o header e a IMAGEM. Fica bem menor que o do texto
+	   de propósito: a cabeça já nasce perto do topo do enquadramento da foto,
+	   então um respiro pequeno aqui é suficiente pra afastar do menu sem
+	   empurrar a cabeça pra baixo do nível do título. Ajuste se quiser. */
+	--pagination-about-hero-media-gap: -90px;
+
+	/* offset do texto (via padding-top) */
+	--pagination-about-hero-top-offset: calc(var(--site-header-height) + var(--pagination-about-hero-gap));
+
+	/* offset da imagem (via top) — independente do offset do texto */
+	--pagination-about-hero-media-offset: calc(var(--site-header-height) + var(--pagination-about-hero-media-gap));
 }
 
 /* -------------------------------------------------- Hero / Sobre -------- */
@@ -27,7 +43,7 @@
 .pagination-about-hero{
 	background: var(--pagination-about-bg);
 	color: var(--pagination-about-text);
-	padding: 32px 0 0;
+	padding: var(--pagination-about-hero-top-offset) 0 0;
 	font-family: var(--pagination-about-font-body);
 	scroll-margin-top: var(--site-header-height);
 	position: relative;
@@ -40,7 +56,10 @@
 /* imagem cobrindo TODA a seção, como um banner de fundo */
 .pagination-about-hero__media{
 	position: absolute;
-	inset: 0;
+	top: var(--pagination-about-hero-media-offset);
+	right: 0;
+	bottom: 0;
+	left: 0;
 	z-index: 0;
 	overflow: hidden;
 	background: #050505;
@@ -82,11 +101,15 @@
 			rgba(10,10,10,.5) 0%,
 			transparent 45%
 		),
-		/* esmaecimento topo/base */
+		/* esmaecimento topo/base — topo agora vai até o preto SÓLIDO, numa
+		   faixa mais larga, pra a foto se fundir de verdade com o fundo em
+		   vez de mostrar aquele corte reto no início da imagem */
 		linear-gradient(
-			180deg,
-			rgba(10,10,10,.55) 0%,
-			transparent 14%,
+			177deg,
+			var(--pagination-about-bg) 0%,
+			rgba(10,10,10,.85) 8%,
+			rgba(10,10,10,.35) 18%,
+			transparent 30%,
 			transparent 78%,
 			var(--pagination-about-bg) 100%
 		);
@@ -458,11 +481,12 @@
 		display: block;
 		min-height: 0;
 		overflow: visible;
-		padding: 20px 0 40px;
+		padding: calc(var(--site-header-height) + 24px) 0 40px;
 	}
 	.pagination-about-hero__media{
 		position: relative; /* sai do modo "banner de fundo absoluto" */
 		inset: auto;
+		top: auto;
 		height: 380px;
 		margin: 0 0 32px;
 		border-radius: 0;

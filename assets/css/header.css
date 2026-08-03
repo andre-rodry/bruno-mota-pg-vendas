@@ -26,7 +26,7 @@
     box-sizing: border-box;
 }
 
-/* ---------- Header fixo ---------- */
+/* ---------- Header fixo (sempre visível, nunca desliza pra fora da tela) ---------- */
 .site-header {
     position: fixed;
     top: 0;
@@ -35,12 +35,7 @@
     z-index: 999;
     background-color: transparent;
     border-bottom: 1px solid transparent;
-    transform: translateY(-100%);
-    transition: transform 0.3s ease, background-color var(--transition), border-color var(--transition), box-shadow var(--transition), top 0.2s ease;
-}
-
-.site-header.is-visible {
-    transform: translateY(0);
+    transition: background-color var(--transition), border-color var(--transition), box-shadow var(--transition), top 0.2s ease;
 }
 
 .site-header.is-scrolled {
@@ -160,6 +155,19 @@ body.admin-bar .site-header {
     flex: 1;
     display: flex;
     justify-content: center;
+
+    /* No topo (sem scroll): só logo + botão "Fale comigo" aparecem.
+       O menu fica invisível (mas ainda ocupa o espaço, então logo/CTA
+       não "pulam" de posição quando o menu aparece). */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+/* Assim que a página é rolada (.is-scrolled), o menu aparece com um fade. */
+.site-header.is-scrolled .site-header__nav {
+    opacity: 1;
+    visibility: visible;
 }
 
 .site-header__menu {

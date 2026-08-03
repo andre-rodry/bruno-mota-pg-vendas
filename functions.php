@@ -232,6 +232,27 @@ function meu_tema_scripts() {
         );
     }
 
+    // ---- PÁGINA ATUAÇÃO ----
+    // Carrega o CSS da página "Atuação" (template-parts/atuacao.php)
+    // só quando a página atual estiver usando o page-atuacao.php.
+    if ( is_page_template( 'page-atuacao.php' ) ) {
+        wp_enqueue_style(
+            'andrewp-atuacao',
+            get_template_directory_uri() . '/assets/css/atuacao.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/assets/css/atuacao.css' )
+        );
+
+        // Header só aparece ao rolar a página (também na página "Atuação")
+    wp_enqueue_script(
+        'andrewp-header-scroll',
+        get_template_directory_uri() . '/assets/js/header-scroll.js',
+        array( 'meu-tema-header' ),
+        filemtime( get_template_directory() . '/assets/js/header-scroll.js' ),
+        true
+    );
+    }
+
     // CSS da página 404 só é carregado quando a página atual for, de fato, uma 404.
     // Aponta pra versão minificada (.min.css) — menor pro visitante baixar.
     // O error-404.css normal continua existindo na pasta só como cópia de edição.
