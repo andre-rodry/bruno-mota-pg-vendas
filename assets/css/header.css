@@ -36,7 +36,7 @@
     background-color: transparent;
     border-bottom: 1px solid transparent;
     transform: translateY(-100%);
-    transition: transform 0.3s ease, background-color var(--transition), border-color var(--transition), box-shadow var(--transition);
+    transition: transform 0.3s ease, background-color var(--transition), border-color var(--transition), box-shadow var(--transition), top 0.2s ease;
 }
 
 .site-header.is-visible {
@@ -47,6 +47,19 @@
     background-color: var(--header-bg-scrolled);
     border-bottom-color: var(--header-border);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* Quando o usuário está logado, o WP adiciona a classe "admin-bar" no <body>
+   e fixa a admin bar no topo da viewport (32px no desktop, 46px no mobile).
+   Sem isso, nosso header fixo (top: 0) fica embaixo/atrás dela e parece "cortado". */
+body.admin-bar .site-header {
+    top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+    body.admin-bar .site-header {
+        top: 46px;
+    }
 }
 
 .site-header__inner {
