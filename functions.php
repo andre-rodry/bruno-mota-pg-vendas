@@ -209,6 +209,29 @@ function meu_tema_scripts() {
         ) );
     }
 
+   // ---- PÁGINA SOBRE ----
+    // Carrega o CSS da página "Sobre" (template-parts/pagination-about.php)
+    // só quando a página atual for a Página cujo slug é "sobre".
+    // is_front_page() não cobre esse caso porque /sobre/ é uma página separada,
+    // não a home — por isso esse bloco precisa existir independente do de cima.
+    if ( is_page( 'sobre' ) ) {
+        wp_enqueue_style(
+            'andrewp-pagination-about',
+            get_template_directory_uri() . '/assets/css/pagination-about.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/assets/css/pagination-about.css' )
+        );
+
+        // Header só aparece ao rolar a página (só nesta página, "Sobre")
+        wp_enqueue_script(
+            'andrewp-header-scroll',
+            get_template_directory_uri() . '/assets/js/header-scroll.js',
+            array( 'meu-tema-header' ), // carrega DEPOIS do header.js
+            filemtime( get_template_directory() . '/assets/js/header-scroll.js' ),
+            true
+        );
+    }
+
     // CSS da página 404 só é carregado quando a página atual for, de fato, uma 404.
     // Aponta pra versão minificada (.min.css) — menor pro visitante baixar.
     // O error-404.css normal continua existindo na pasta só como cópia de edição.

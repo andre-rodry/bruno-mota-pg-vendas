@@ -52,7 +52,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                 ?>
                 <ul class="site-header__menu">
                     <li class="current-menu-item"><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Início</a></li>
-                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="<?php echo esc_url( home_url( '/sobre/' ) ); ?>">Sobre</a></li>
                     <li><a href="#atuacao">Atuação</a></li>
                     <li><a href="#conquistas">Conquistas</a></li>
                     <li><a href="#publicacoes">Publicações</a></li>
@@ -95,7 +95,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             ?>
             <ul class="site-header__mobile-menu">
                 <li class="current-menu-item"><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Início</a></li>
-                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="<?php echo esc_url( home_url( '/sobre/' ) ); ?>">Sobre</a></li>
                 <li><a href="#atuacao">Atuação</a></li>
                 <li><a href="#conquistas">Conquistas</a></li>
                 <li><a href="#publicacoes">Publicações</a></li>
