@@ -83,18 +83,28 @@ function meu_tema_scripts() {
         true
     );
 
+    // Font Awesome (ícones das redes sociais) — usado no header e no footer,
+    // por isso carrega em TODAS as páginas, fora do bloco is_front_page().
+    wp_enqueue_style(
+        'font-awesome',
+        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css',
+        array(),
+        '6.5.1'
+    );
+
+    // CSS do footer: carrega em TODAS as páginas, já que o footer aparece
+    // no site inteiro (não só na home).
+    wp_enqueue_style(
+        'andrewp-footer',
+        get_template_directory_uri() . '/assets/css/footer.css',
+        array( 'meu-tema-style' ),
+        filemtime( get_template_directory() . '/assets/css/footer.css' )
+    );
+
     // ---- SEÇÕES DA HOME ----
     // Só carrega o CSS/JS dessas seções quando a página atual for a home,
     // já que elas só são usadas no front-page.php.
     if ( is_front_page() ) {
-
-        // Font Awesome (ícones das redes sociais)
-        wp_enqueue_style(
-            'font-awesome',
-            'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css',
-            array(),
-            '6.5.1'
-        );
 
         // ---- Banner ----
         wp_enqueue_style(
