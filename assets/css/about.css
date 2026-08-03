@@ -1,0 +1,152 @@
+/* =========================================================
+   about.css
+   Seção "Quem é Bruno Mota"
+   Todo o CSS está namespaced sob .bml-sobre-mota para evitar
+   colisão com o resto do tema.
+   ========================================================= */
+
+/* ---- Custom properties escopadas (não usam :root) ---- */
+.bml-sobre-mota{
+  --bml-navy: #0c1a2b;
+  --bml-gold: #c8963f;
+  --bml-gold-light: #d9ab5c;
+  --bml-bg-light: #eeeeec;
+  --bml-text-dark: #1b1b1b;
+  --bml-text-body: #333333;
+}
+
+/* ---- Reset local (em vez de * global) ---- */
+.bml-sobre-mota,
+.bml-sobre-mota *{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.bml-sobre-mota{
+  font-family: 'Inter', sans-serif;
+  background: var(--bml-bg-light);
+  color: var(--bml-text-dark);
+}
+
+.bml-sobre-mota img{
+  display: block;
+  max-width: 100%;
+}
+
+/* ===== Seção Quem é ===== */
+.bml-sobre-mota .bml-about{
+  padding: 64px 40px;
+}
+
+.bml-sobre-mota .bml-about-inner{
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 60px;
+  align-items: stretch;
+}
+
+.bml-sobre-mota .bml-about-photo{
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(120% 100% at 15% 20%, #1a2c3f 0%, #0c1420 55%, #060b12 100%);
+}
+
+.bml-sobre-mota .bml-about-photo::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: linear-gradient(to right, transparent 75%, rgba(238,238,236,.5) 90%, var(--bml-bg-light) 100%);
+  pointer-events: none;
+}
+
+.bml-sobre-mota .bml-photo-fx{
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.bml-sobre-mota .bml-about-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 20px 20px 0;
+}
+
+.bml-sobre-mota .bml-eyebrow{
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--bml-gold);
+  margin-bottom: 10px;
+}
+
+.bml-sobre-mota .bml-name{
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 46px;
+  color: #171717;
+  margin-bottom: 22px;
+}
+
+.bml-sobre-mota .bml-about-content p{
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--bml-text-body);
+  margin-bottom: 18px;
+  max-width: 560px;
+}
+
+.bml-sobre-mota .bml-cta-button{
+  margin-top: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  align-self: flex-start;
+  padding: 16px 26px;
+  border: 1.5px solid #1b1b1b;
+  background: transparent;
+  color: #1b1b1b;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  text-decoration: none;
+  transition: background .25s ease, color .25s ease;
+}
+
+.bml-sobre-mota .bml-cta-button svg{
+  width: 18px;
+  height: 18px;
+  transition: transform .25s ease;
+}
+
+.bml-sobre-mota .bml-cta-button:hover{
+  background: #1b1b1b;
+  color: #fff;
+}
+
+.bml-sobre-mota .bml-cta-button:hover svg{
+  transform: translateX(4px);
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 900px){
+  .bml-sobre-mota .bml-about-inner{
+    grid-template-columns: 1fr;
+  }
+  .bml-sobre-mota .bml-about-photo img{
+    height: 420px;
+  }
+  .bml-sobre-mota .bml-about-content{
+    padding: 0;
+  }
+}
+
+@media (max-width: 560px){
+  .bml-sobre-mota .bml-name{
+    font-size: 36px;
+  }
+}

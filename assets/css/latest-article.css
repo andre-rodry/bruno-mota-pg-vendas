@@ -1,0 +1,101 @@
+/* =========================================================
+   latest-article.css
+   Barra clara — "Último artigo publicado"
+   ========================================================= */
+
+.latest-article-bar {
+    background-color: #f1efe9;
+    border-bottom: 1px solid rgba(11, 15, 30, 0.08);
+}
+
+.latest-article-bar__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.latest-article-bar__label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #c9973f;
+    white-space: nowrap;
+}
+
+.latest-article-bar__icon {
+    font-size: 16px;
+}
+
+.latest-article-bar__title {
+    flex: 1;
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 500;
+    font-size: 17px;
+    color: #0b0f1e;
+    padding-left: 20px;
+    border-left: 1px solid rgba(11, 15, 30, 0.15);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.latest-article-bar__link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #0b0f1e;
+    text-decoration: none;
+    padding-left: 20px;
+    border-left: 1px solid rgba(11, 15, 30, 0.15);
+    white-space: nowrap;
+    transition: color 0.25s ease, gap 0.25s ease;
+}
+
+.latest-article-bar__link i {
+    color: #c9973f;
+    transition: transform 0.25s ease;
+}
+
+.latest-article-bar__link:hover {
+    color: #c9973f;
+}
+
+.latest-article-bar__link:hover i {
+    transform: translateX(3px);
+}
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 780px) {
+    .latest-article-bar__inner {
+        flex-wrap: wrap;
+        padding: 16px 20px;
+    }
+
+    .latest-article-bar__title {
+        order: 3;
+        flex-basis: 100%;
+        border-left: none;
+        padding-left: 0;
+        padding-top: 8px;
+        white-space: normal;
+    }
+
+    .latest-article-bar__link {
+        margin-left: auto;
+    }
+}

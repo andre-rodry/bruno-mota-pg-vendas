@@ -83,9 +83,9 @@ function meu_tema_scripts() {
         true
     );
 
-    // ---- BANNER DA HOME ----
-    // Só carrega o CSS/JS do banner quando a página atual for a home,
-    // já que ele só é usado no front-page.php.
+    // ---- SEÇÕES DA HOME ----
+    // Só carrega o CSS/JS dessas seções quando a página atual for a home,
+    // já que elas só são usadas no front-page.php.
     if ( is_front_page() ) {
 
         // Font Awesome (ícones das redes sociais)
@@ -96,6 +96,7 @@ function meu_tema_scripts() {
             '6.5.1'
         );
 
+        // ---- Banner ----
         wp_enqueue_style(
             'meu-tema-banner',
             get_template_directory_uri() . '/assets/css/banner.css',
@@ -109,6 +110,30 @@ function meu_tema_scripts() {
             array(), // sem dependências (sem GSAP)
             filemtime( get_template_directory() . '/assets/js/banner.js' ),
             true
+        );
+
+        // ---- Último artigo publicado ----
+        wp_enqueue_style(
+            'meu-tema-latest-article',
+            get_template_directory_uri() . '/assets/css/latest-article.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/assets/css/latest-article.css' )
+        );
+
+        // ---- Barra de estatísticas ----
+        wp_enqueue_style(
+            'meu-tema-stats',
+            get_template_directory_uri() . '/assets/css/stats.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/assets/css/stats.css' )
+        );
+
+        // ---- Quem é Bruno Mota ----
+        wp_enqueue_style(
+            'meu-tema-about',
+            get_template_directory_uri() . '/assets/css/about.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/assets/css/about.css' )
         );
     }
 
