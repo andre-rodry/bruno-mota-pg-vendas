@@ -17,7 +17,11 @@ get_header();
 
     <?php get_template_part( 'template-parts/about' ); ?>
 
-    <!-- Aqui entram as próximas seções: atuação, conquistas, publicações, mídia, contato -->
+    <?php get_template_part( 'template-parts/media' ); ?>
+
+    <?php get_template_part( 'template-parts/institutions' ); ?>
+
+    <!-- Aqui entram as próximas seções: atuação, conquistas, publicações, contato -->
 
 </main>
 

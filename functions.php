@@ -135,6 +135,30 @@ function meu_tema_scripts() {
             array( 'meu-tema-style' ),
             filemtime( get_template_directory() . '/assets/css/about.css' )
         );
+
+        // ---- Participações na mídia ----
+        wp_enqueue_style(
+            'meu-tema-media',
+            get_template_directory_uri() . '/assets/css/media.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/assets/css/media.css' )
+        );
+
+        wp_enqueue_script(
+            'meu-tema-media',
+            get_template_directory_uri() . '/assets/js/media.js',
+            array(),
+            filemtime( get_template_directory() . '/assets/js/media.js' ),
+            true
+        );
+
+        // ---- Instituições ----
+        wp_enqueue_style(
+            'meu-tema-institutions',
+            get_template_directory_uri() . '/assets/css/institutions.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/assets/css/institutions.css' )
+        );
     }
 
     // CSS da página 404 só é carregado quando a página atual for, de fato, uma 404.

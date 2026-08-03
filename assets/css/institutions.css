@@ -1,0 +1,61 @@
+/* =========================================================
+   institutions.css
+   Barra "Atuação reconhecida por importantes instituições"
+   ========================================================= */
+
+.bml-instituicoes {
+    background-color: #f1efe9;
+    padding: 28px 32px;
+}
+
+.bml-instituicoes__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.bml-instituicoes__titulo {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #1b1b1b;
+    margin: 0 0 20px;
+}
+
+.bml-instituicoes__logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 48px;
+}
+
+.bml-instituicoes__logo {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+    opacity: 0.9;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.bml-instituicoes__logo:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+}
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 780px) {
+    .bml-instituicoes {
+        padding: 24px 20px;
+    }
+
+    .bml-instituicoes__logos {
+        gap: 28px;
+    }
+
+    .bml-instituicoes__logo {
+        height: 44px;
+    }
+}
