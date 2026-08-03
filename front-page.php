@@ -21,6 +21,8 @@ get_header();
 
     <?php get_template_part( 'template-parts/institutions' ); ?>
 
+    <?php get_template_part( 'template-parts/gallery' ); ?>
+
     <!-- Aqui entram as próximas seções: atuação, conquistas, publicações, contato -->
 
 </main>
