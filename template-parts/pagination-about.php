@@ -10,7 +10,7 @@
 <section class="pagination-about-hero" id="sobre">
 	<div class="pagination-about-hero__container">
 
-		<div class="pagination-about-hero__media">
+		<div class="pagination-about-hero__media reveal">
 			<div class="pagination-about-hero__glow" aria-hidden="true"></div>
 			<div class="pagination-about-hero__bars" aria-hidden="true">
 				<span></span><span></span><span></span><span></span><span></span>
@@ -22,7 +22,7 @@
 			/>
 		</div>
 
-		<div class="pagination-about-hero__content">
+		<div class="pagination-about-hero__content reveal reveal-delay-1">
 			<span class="pagination-about-eyebrow">SOBRE</span>
 			<h1 class="pagination-about-hero__title">Bruno Mota</h1>
 
@@ -71,7 +71,7 @@
 <section class="pagination-about-highlights">
 	<div class="pagination-about-highlights__container">
 
-		<div class="highlight-card">
+		<div class="highlight-card reveal">
 			<span class="highlight-card__icon">
 				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 18L24 7l18 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 18h32v3H8z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M11 21v15M18 21v15M24 21v15M30 21v15M37 21v15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M6 39h36" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
 			</span>
@@ -80,7 +80,7 @@
 			<p class="highlight-card__text">Educação Financeira nas escolas de Salvador.</p>
 		</div>
 
-		<div class="highlight-card">
+		<div class="highlight-card reveal reveal-delay-1">
 			<span class="highlight-card__icon">
 				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24 10L4 19l20 9 20-9-20-9z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M13 23.5v8c0 2.5 5 6 11 6s11-3.5 11-6v-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M44 19v11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
 			</span>
@@ -89,7 +89,7 @@
 			<p class="highlight-card__text">em Desenvolvimento Regional e Urbano.</p>
 		</div>
 
-		<div class="highlight-card">
+		<div class="highlight-card reveal reveal-delay-2">
 			<span class="highlight-card__icon">
 				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="17" stroke="currentColor" stroke-width="1.8"/><path d="M7 24h34M24 7c5 5 7 11 7 17s-2 12-7 17c-5-5-7-11-7-17s2-12 7-17z" stroke="currentColor" stroke-width="1.8"/></svg>
 			</span>
@@ -98,7 +98,7 @@
 			<p class="highlight-card__text">CEPAL • UNISC</p>
 		</div>
 
-		<div class="highlight-card">
+		<div class="highlight-card reveal reveal-delay-3">
 			<span class="highlight-card__icon">
 				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24 12c-3.5-2.5-8-3.5-14-3v25c6-.5 10.5.5 14 3 3.5-2.5 8-3.5 14-3V9c-6-.5-10.5.5-14 3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M24 12v25" stroke="currentColor" stroke-width="1.8"/></svg>
 			</span>
@@ -107,7 +107,7 @@
 			<p class="highlight-card__text">e capítulos em obras coletivas.</p>
 		</div>
 
-		<div class="highlight-card">
+		<div class="highlight-card reveal">
 			<span class="highlight-card__icon">
 				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="18" y="6" width="12" height="22" rx="6" stroke="currentColor" stroke-width="1.8"/><path d="M12 22v2c0 6.6 5.4 12 12 12s12-5.4 12-12v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M24 36v6M17 42h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
 			</span>
@@ -116,7 +116,7 @@
 			<p class="highlight-card__text">Rádios • Podcasts • Portais de notícia</p>
 		</div>
 
-		<div class="highlight-card">
+		<div class="highlight-card reveal reveal-delay-1">
 			<span class="highlight-card__icon">
 				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 8h20v11c0 5.5-4.5 10-10 10s-10-4.5-10-10V8z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M14 11H8c0 5 3 9 6.5 9.5M34 11h6c0 5-3 9-6.5 9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M24 29v6M17 41h14l-2-6H19l-2 6z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
 			</span>
@@ -129,13 +129,13 @@
 </section>
 
 <section class="pagination-about-timeline">
-	<h2 class="pagination-about-timeline__title">
+	<h2 class="pagination-about-timeline__title reveal">
 		<span>TRAJETÓRIA DE IMPACTO</span>
 	</h2>
 
 	<div class="pagination-about-timeline__track">
 
-		<div class="timeline-item">
+		<div class="timeline-item reveal">
 			<span class="timeline-item__icon">
 				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="7" y="10" width="34" height="30" rx="3" stroke="currentColor" stroke-width="1.8"/><path d="M7 18h34M15 6v7M33 6v7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
 			</span>
@@ -144,7 +144,7 @@
 			<p class="timeline-item__text">Capítulo publicado em importante obra sobre Desenvolvimento Regional.</p>
 		</div>
 
-		<div class="timeline-item">
+		<div class="timeline-item reveal reveal-delay-1">
 			<span class="timeline-item__icon">
 				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 18L24 7l18 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 18h32v3H8z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M11 21v15M18 21v15M24 21v15M30 21v15M37 21v15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M6 39h36" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
 			</span>
@@ -153,7 +153,7 @@
 			<p class="timeline-item__text">Projeto avaliado como excelente no painel sobre Economia Brasileira.</p>
 		</div>
 
-		<div class="timeline-item timeline-item--active">
+		<div class="timeline-item timeline-item--active reveal reveal-delay-2">
 			<span class="timeline-item__icon">
 				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 5h16l8 8v30H12V5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M28 5v8h8" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M18 34l4-9 9-9 4 4-9 9-9 4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
 			</span>
@@ -162,7 +162,7 @@
 			<p class="timeline-item__text">Criação da Lei de Educação Financeira nas escolas municipais de Salvador.</p>
 		</div>
 
-		<div class="timeline-item">
+		<div class="timeline-item reveal reveal-delay-3">
 			<span class="timeline-item__icon">
 				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 6h18l-6 15h-6L15 6z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="24" cy="30" r="12" stroke="currentColor" stroke-width="1.8"/><path d="M24 24l2.5 5 5.5.6-4 4 1 5.4-5-2.8-5 2.8 1-5.4-4-4 5.5-.6z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
 			</span>
@@ -171,7 +171,7 @@
 			<p class="timeline-item__text">Conselheiro do Corecon-BA e premiado pelo Banco do Nordeste (Etene).</p>
 		</div>
 
-		<div class="timeline-item">
+		<div class="timeline-item reveal">
 			<span class="timeline-item__icon">
 				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="16" r="8" stroke="currentColor" stroke-width="1.8"/><path d="M8 42c0-8.8 7.2-16 16-16s16 7.2 16 16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
 			</span>

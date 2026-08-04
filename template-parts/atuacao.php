@@ -47,13 +47,13 @@ if ( ! function_exists( 'bm_atuacao_icon' ) ) {
     <img
       src="https://i.ibb.co/jPtVVVSb/eb8889bc-eba2-4ede-9c09-2be04cb9c7f9.png"
       alt="Bruno Mota, economista"
-      class="atuacao-hero__photo"
+      class="atuacao-hero__photo reveal"
       loading="eager"
     >
   </div>
 
   <div class="atuacao-container atuacao-hero__container">
-    <div class="atuacao-hero__text">
+    <div class="atuacao-hero__text reveal">
       <h1 class="atuacao-hero__title">
         Áreas de<br>
         <span class="is-gold">Atuação</span>
@@ -135,9 +135,14 @@ if ( ! function_exists( 'bm_atuacao_icon' ) ) {
       ),
     );
 
-    foreach ( $atuacao_cards as $card ) :
+    // Delays em cascata: 1º card sem delay, 2º/3º/4º com delay crescente,
+    // repetindo o ciclo (1,2,3) a cada 3 cards.
+    $delay_classes = array( '', 'reveal-delay-1', 'reveal-delay-2', 'reveal-delay-3' );
+
+    foreach ( $atuacao_cards as $index => $card ) :
+      $delay_class = $delay_classes[ ( $index % 3 ) + 1 ];
     ?>
-      <article class="atuacao-card">
+      <article class="atuacao-card reveal <?php echo esc_attr( $delay_class ); ?>">
         <div class="atuacao-card__bg" style="background-image:url('<?php echo esc_url( $card['image'] ); ?>');"></div>
 
         <div class="atuacao-card__content">

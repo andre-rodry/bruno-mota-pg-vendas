@@ -101,6 +101,25 @@ function meu_tema_scripts() {
         filemtime( get_template_directory() . '/assets/css/footer.css' )
     );
 
+    // ---- ANIMAÇÃO DE SCROLL (reveal-scroll) ----
+    // CSS/JS nativo, sem biblioteca externa (sem ScrollReveal, sem CDN de terceiros).
+    // Usa IntersectionObserver do próprio navegador. Carrega em TODAS as páginas,
+    // já que a classe "reveal" pode ser usada em qualquer seção/template do site.
+    wp_enqueue_style(
+        'meu-tema-reveal-scroll',
+        get_template_directory_uri() . '/assets/css/reveal-scroll.css',
+        array( 'meu-tema-style' ),
+        filemtime( get_template_directory() . '/assets/css/reveal-scroll.css' )
+    );
+
+    wp_enqueue_script(
+        'meu-tema-reveal-scroll',
+        get_template_directory_uri() . '/assets/js/reveal-scroll.js',
+        array(), // sem dependências (JS puro)
+        filemtime( get_template_directory() . '/assets/js/reveal-scroll.js' ),
+        true // carrega no rodapé
+    );
+
     // ---- SEÇÕES DA HOME ----
     // Só carrega o CSS/JS dessas seções quando a página atual for a home,
     // já que elas só são usadas no front-page.php.
