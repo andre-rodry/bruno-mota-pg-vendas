@@ -1,56 +1,60 @@
 <?php
 /**
  * Template part: Sobre (About)
- * Replica do layout de referência — seção "Sobre Bruno Mota"
+ * Réplica do layout de referência — seção "Sobre Bruno Mota"
  *
  * @package andreWP
  */
+
+$andrewp_img_base = get_template_directory_uri() . '/assets/img';
 ?>
 
-<section class="pagination-about-hero" id="sobre">
-	<div class="pagination-about-hero__container">
+<section class="pagination-about-hero pagination-about-midia" id="sobre">
 
-		<div class="pagination-about-hero__media reveal">
-			<div class="pagination-about-hero__glow" aria-hidden="true"></div>
-			<div class="pagination-about-hero__bars" aria-hidden="true">
-				<span></span><span></span><span></span><span></span><span></span>
-			</div>
+	<div class="pagination-about-hero__media reveal">
+		<div class="pagination-about-hero__glow" aria-hidden="true"></div>
+		<div class="pagination-about-hero__bars" aria-hidden="true">
+			<span></span><span></span><span></span><span></span><span></span>
+		</div>
+
+		<picture>
+			<!-- Tablet e Mobile (até 899px) -> versão centralizada -->
+			<source
+				media="(max-width: 899px)"
+				srcset="<?php echo esc_url( $andrewp_img_base . '/bruno-mota-economista-banner-sobre-centralizado.webp' ); ?>"
+				type="image/webp"
+			/>
+			<!-- Desktop (>= 900px) -> versão hero -->
+			<source
+				media="(min-width: 900px)"
+				srcset="<?php echo esc_url( $andrewp_img_base . '/bruno-mota-economista-banner-sobre-hero.webp' ); ?>"
+				type="image/webp"
+			/>
+			<!-- Fallback -->
 			<img
 				class="pagination-about-hero__photo"
-				src="https://i.ibb.co/Mx4QBrNK/70910e5b-4ed6-48a4-b684-d8a93421af8f.png"
+				src="<?php echo esc_url( $andrewp_img_base . '/bruno-mota-economista-banner-sobre-hero.webp' ); ?>"
 				alt="<?php esc_attr_e( 'Bruno Mota, economista', 'andrewp' ); ?>"
+				loading="eager"
+				decoding="async"
 			/>
-		</div>
+		</picture>
+	</div>
+
+	<div class="pagination-about-hero__container">
 
 		<div class="pagination-about-hero__content reveal reveal-delay-1">
 			<span class="pagination-about-eyebrow">SOBRE</span>
 			<h1 class="pagination-about-hero__title">Bruno Mota</h1>
 
 			<p class="pagination-about-hero__subtitle">
-				Economista • Mestre • Doutorando<br>
-				Educador Financeiro • Consultor • Palestrante
+				Economista, professor universitário e pesquisador, com atuação voltada ao desenvolvimento regional, educação financeira e políticas públicas.
 			</p>
 
-			<div class="pagination-about-hero__text">
-				<p>
-					Bruno Mota é economista, pesquisador e educador financeiro, reconhecido por unir
-					conhecimento acadêmico, atuação em políticas públicas e presença constante na mídia
-					para transformar a relação das pessoas com a economia.
-				</p>
-				<p>
-					Sua trajetória reúne produção científica, participação em eventos internacionais,
-					consultorias, palestras e projetos de educação financeira que aproximam a economia
-					da realidade da população.
-				</p>
-				<p>
-					É idealizador do projeto <strong>Finanças para Jovens Oficial</strong> e responsável
-					pela iniciativa que originou a <strong>Lei Municipal nº 9.838/2025</strong>, que
-					instituiu a <strong>Semana de Educação Financeira</strong> nas escolas municipais de Salvador.
-				</p>
-				<p>
-					Seu trabalho também ganhou reconhecimento nacional e internacional, com participações
-					em instituições como <strong>Harvard, MIT, CEPAL, UNISC</strong> e <strong>Corecon-BA</strong>.
-				</p>
+			<div class="pagination-about-badges">
+				<span class="pagination-about-badge">Conselheiro Corecon-BA</span>
+				<span class="pagination-about-badge">Pesquisador UNIFACS</span>
+				<span class="pagination-about-badge">Autor e Palestrante Internacional</span>
 			</div>
 
 			<blockquote class="pagination-about-quote">
@@ -60,7 +64,7 @@
 				</p>
 				<p class="pagination-about-quote__caption">
 					Acredita que educação financeira, desenvolvimento econômico e políticas públicas
-					caminham juntos para construir uma sociedade mais justa e preparada para o futuro.
+					caminham juntas para construir uma sociedade mais justa e preparada para o futuro.
 				</p>
 			</blockquote>
 		</div>
@@ -68,117 +72,134 @@
 	</div>
 </section>
 
-<section class="pagination-about-highlights">
-	<div class="pagination-about-highlights__container">
+<section class="pagination-about-stats">
+	<div class="pagination-about-stats__container">
 
-		<div class="highlight-card reveal">
-			<span class="highlight-card__icon">
-				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 18L24 7l18 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 18h32v3H8z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M11 21v15M18 21v15M24 21v15M30 21v15M37 21v15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M6 39h36" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+		<div class="stat-card reveal">
+			<span class="stat-card__icon">
+				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 34l12-12 8 8 16-18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M32 12h10v10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
 			</span>
-			<span class="highlight-card__label">LEI MUNICIPAL</span>
-			<h3 class="highlight-card__title">Lei nº 9.838/2025</h3>
-			<p class="highlight-card__text">Educação Financeira nas escolas de Salvador.</p>
+			<span class="stat-card__number">+10 Mil</span>
+			<p class="stat-card__text">Operações de crédito com empreendedores locais e microempresários.</p>
 		</div>
 
-		<div class="highlight-card reveal reveal-delay-1">
-			<span class="highlight-card__icon">
-				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24 10L4 19l20 9 20-9-20-9z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M13 23.5v8c0 2.5 5 6 11 6s11-3.5 11-6v-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M44 19v11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+		<div class="stat-card reveal reveal-delay-1">
+			<span class="stat-card__icon">
+				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="17" stroke="currentColor" stroke-width="1.8"/><path d="M24 14v10l7 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
 			</span>
-			<span class="highlight-card__label">FORMAÇÃO ACADÊMICA</span>
-			<h3 class="highlight-card__title">Mestre e Doutorando</h3>
-			<p class="highlight-card__text">em Desenvolvimento Regional e Urbano.</p>
+			<span class="stat-card__number">+4.000h</span>
+			<p class="stat-card__text">De conteúdos e entrevistas gravadas sobre Educação Financeira.</p>
 		</div>
 
-		<div class="highlight-card reveal reveal-delay-2">
-			<span class="highlight-card__icon">
-				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="17" stroke="currentColor" stroke-width="1.8"/><path d="M7 24h34M24 7c5 5 7 11 7 17s-2 12-7 17c-5-5-7-11-7-17s2-12 7-17z" stroke="currentColor" stroke-width="1.8"/></svg>
+		<div class="stat-card reveal reveal-delay-2">
+			<span class="stat-card__icon">
+				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="7" y="10" width="34" height="30" rx="3" stroke="currentColor" stroke-width="1.8"/><path d="M7 18h34M15 6v7M33 6v7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
 			</span>
-			<span class="highlight-card__label">RECONHECIMENTO INTERNACIONAL</span>
-			<h3 class="highlight-card__title">Harvard • MIT</h3>
-			<p class="highlight-card__text">CEPAL • UNISC</p>
+			<span class="stat-card__number">Desde 2006</span>
+			<p class="stat-card__text">Atuando como Professor Universitário e Palestrante.</p>
 		</div>
 
-		<div class="highlight-card reveal reveal-delay-3">
-			<span class="highlight-card__icon">
-				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24 12c-3.5-2.5-8-3.5-14-3v25c6-.5 10.5.5 14 3 3.5-2.5 8-3.5 14-3V9c-6-.5-10.5.5-14 3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M24 12v25" stroke="currentColor" stroke-width="1.8"/></svg>
+		<div class="stat-card reveal reveal-delay-3">
+			<span class="stat-card__icon">
+				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 5h16l8 8v30H12V5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M28 5v8h8" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M17 26l4 4 10-10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
 			</span>
-			<span class="highlight-card__label">PRODUÇÃO ACADÊMICA</span>
-			<h3 class="highlight-card__title">Livros, artigos</h3>
-			<p class="highlight-card__text">e capítulos em obras coletivas.</p>
-		</div>
-
-		<div class="highlight-card reveal">
-			<span class="highlight-card__icon">
-				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="18" y="6" width="12" height="22" rx="6" stroke="currentColor" stroke-width="1.8"/><path d="M12 22v2c0 6.6 5.4 12 12 12s12-5.4 12-12v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M24 36v6M17 42h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-			</span>
-			<span class="highlight-card__label">PRESENÇA NA MÍDIA</span>
-			<h3 class="highlight-card__title">Band • TV Bahia</h3>
-			<p class="highlight-card__text">Rádios • Podcasts • Portais de notícia</p>
-		</div>
-
-		<div class="highlight-card reveal reveal-delay-1">
-			<span class="highlight-card__icon">
-				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 8h20v11c0 5.5-4.5 10-10 10s-10-4.5-10-10V8z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M14 11H8c0 5 3 9 6.5 9.5M34 11h6c0 5-3 9-6.5 9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M24 29v6M17 41h14l-2-6H19l-2 6z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
-			</span>
-			<span class="highlight-card__label">RECONHECIMENTOS</span>
-			<h3 class="highlight-card__title">Corecon-BA</h3>
-			<p class="highlight-card__text">BNB (Etene) • Brazil Conference</p>
+			<span class="stat-card__number">Lei 93/2024</span>
+			<p class="stat-card__text">Idealizador da Educação Financeira nas escolas de Salvador.</p>
+			<a href="#" class="stat-card__link">
+				Conheça a Lei <span aria-hidden="true">↗</span>
+			</a>
 		</div>
 
 	</div>
 </section>
 
-<section class="pagination-about-timeline">
-	<h2 class="pagination-about-timeline__title reveal">
-		<span>TRAJETÓRIA DE IMPACTO</span>
-	</h2>
+<section class="pagination-about-bio">
+	<div class="pagination-about-bio__container">
+		<h2 class="pagination-about-bio__title reveal">Sobre Bruno Mota</h2>
 
-	<div class="pagination-about-timeline__track">
+		<div class="pagination-about-bio__text reveal reveal-delay-1">
+			<p>
+				Pai e economista, Bruno Mota Lopes destaca-se por sua atuação multifacetada e pelo
+				impacto relevante no desenvolvimento regional e urbano. Sua trajetória iniciou-se em
+				uma ONG de microcrédito, onde participou diretamente de mais de
+				<strong>10 mil operações</strong> voltadas a empreendedores informais, micro e
+				pequenos empresários.
+			</p>
+			<p>
+				Essa vivência prática permitiu uma compreensão aprofundada da microeconomia do
+				crédito e de seu impacto transformador nas famílias e comunidades. Unindo a
+				experiência de campo a uma sólida formação, tornou-se referência nacional no tema,
+				transformando suas pesquisas no premiado livro
+				<em>&ldquo;Análise da Evolução do Microcrédito na Bahia (1973-2008)&rdquo;</em>,
+				obra de consulta obrigatória na área.
+			</p>
+			<p>
+				No ambiente digital, criou o canal <strong>Finanças para Jovens Oficial</strong>
+				(presente no Instagram, LinkedIn, YouTube e TikTok), acumulando mais de 4.000 horas
+				de entrevistas e conteúdos focados em educação financeira e desenvolvimento econômico.
+			</p>
+		</div>
+	</div>
+</section>
 
-		<div class="timeline-item reveal">
-			<span class="timeline-item__icon">
-				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="7" y="10" width="34" height="30" rx="3" stroke="currentColor" stroke-width="1.8"/><path d="M7 18h34M15 6v7M33 6v7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-			</span>
-			<span class="timeline-item__year">2023</span>
-			<h3 class="timeline-item__title">Livro na Biblioteca da CEPAL/ONU</h3>
-			<p class="timeline-item__text">Capítulo publicado em importante obra sobre Desenvolvimento Regional.</p>
+<section class="pagination-about-details">
+	<div class="pagination-about-details__container">
+
+		<div class="info-panel reveal">
+			<h3 class="info-panel__title">Formação Acadêmica</h3>
+			<ul class="info-panel__list">
+				<li><strong>Doutorado (em andamento):</strong> Desenvolvimento Regional e Urbano (UNIFACS).</li>
+				<li><strong>Mestrado:</strong> Desenvolvimento Regional e Urbano (UNIFACS).</li>
+				<li><strong>Graduação:</strong> Ciências Econômicas (UNIFACS).</li>
+			</ul>
 		</div>
 
-		<div class="timeline-item reveal reveal-delay-1">
-			<span class="timeline-item__icon">
-				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 18L24 7l18 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 18h32v3H8z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M11 21v15M18 21v15M24 21v15M30 21v15M37 21v15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M6 39h36" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-			</span>
-			<span class="timeline-item__year">2024</span>
-			<h3 class="timeline-item__title">Brazil Conference Harvard e MIT</h3>
-			<p class="timeline-item__text">Projeto avaliado como excelente no painel sobre Economia Brasileira.</p>
+		<div class="info-panel reveal reveal-delay-1">
+			<h3 class="info-panel__title">Atuação Acadêmica e Internacional</h3>
+			<ul class="info-panel__list">
+				<li><strong>Docência:</strong> Professor universitário atuante em diversas graduações desde 2006.</li>
+				<li><strong>Presença Internacional:</strong> Apresentação de artigos científicos em congressos na Argentina, Portugal, Espanha e Cuba.</li>
+				<li><strong>Palestras:</strong> Conferencista em eventos nacionais e internacionais sobre economia e inclusão.</li>
+			</ul>
 		</div>
 
-		<div class="timeline-item timeline-item--active reveal reveal-delay-2">
-			<span class="timeline-item__icon">
-				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 5h16l8 8v30H12V5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M28 5v8h8" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M18 34l4-9 9-9 4 4-9 9-9 4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
-			</span>
-			<span class="timeline-item__year">2025</span>
-			<h3 class="timeline-item__title">Lei Municipal 9.838/2025</h3>
-			<p class="timeline-item__text">Criação da Lei de Educação Financeira nas escolas municipais de Salvador.</p>
+		<div class="info-panel reveal reveal-delay-2">
+			<h3 class="info-panel__title">Impacto e Políticas Públicas</h3>
+			<ul class="info-panel__list">
+				<li>
+					<strong>Lei Municipal 93/2024:</strong> Idealizador do projeto de lei que instituiu a educação financeira nas escolas de Salvador.
+					<a href="#" class="info-panel__link">Conheça a Lei <span aria-hidden="true">↗</span></a>
+				</li>
+				<li><strong>Desenvolvimento Local:</strong> Foco constante em projetos de microcrédito e fortalecimento da economia regional.</li>
+			</ul>
 		</div>
 
-		<div class="timeline-item reveal reveal-delay-3">
-			<span class="timeline-item__icon">
-				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 6h18l-6 15h-6L15 6z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="24" cy="30" r="12" stroke="currentColor" stroke-width="1.8"/><path d="M24 24l2.5 5 5.5.6-4 4 1 5.4-5-2.8-5 2.8 1-5.4-4-4 5.5-.6z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-			</span>
-			<span class="timeline-item__year">2025</span>
-			<h3 class="timeline-item__title">Reconhecimentos Corecon-BA e BNB</h3>
-			<p class="timeline-item__text">Conselheiro do Corecon-BA e premiado pelo Banco do Nordeste (Etene).</p>
+		<div class="info-panel reveal reveal-delay-3">
+			<h3 class="info-panel__title">Prêmios e Publicações</h3>
+			<ul class="info-panel__list">
+				<li><strong>Premiações:</strong> Reconhecido com prêmios de excelência do Corecon-BA e do Banco do Nordeste do Brasil (BNB).</li>
+				<li><strong>Livro Publicado:</strong> <em>Análise da Evolução do Microcrédito na Bahia (1973-2008)</em>.</li>
+				<li><strong>Artigos Publicados:</strong> Colaborador de obras como <em>Reflexões dos Economistas Baianos</em> (Corecon-BA), <em>Leituras de Economia Política</em> (Unicamp), <em>Panorama das Contas Públicas</em> (SEI), <em>Conjuntura e Planejamento</em> &ndash; Especial Mulher e a <em>Revista de Desenvolvimento Regional</em>.</li>
+			</ul>
 		</div>
 
-		<div class="timeline-item reveal">
-			<span class="timeline-item__icon">
-				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="16" r="8" stroke="currentColor" stroke-width="1.8"/><path d="M8 42c0-8.8 7.2-16 16-16s16 7.2 16 16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-			</span>
-			<span class="timeline-item__year">HOJE</span>
-			<h3 class="timeline-item__title">Consultorias, Palestras e Educação Financeira</h3>
-			<p class="timeline-item__text">Atuação permanente transformando conhecimento em desenvolvimento social.</p>
-		</div>
+	</div>
+</section>
 
+<section class="pagination-about-cta">
+	<div class="pagination-about-cta__container reveal">
+		<div class="pagination-about-cta__info">
+			<span class="pagination-about-cta__icon" aria-hidden="true">
+				<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 10h32v22H18l-8 7V10z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M15 18h18M15 25h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+			</span>
+			<div>
+				<h3 class="pagination-about-cta__title">Acompanhe o Trabalho</h3>
+				<p class="pagination-about-cta__text">Conecte-se para palestras, conteúdos educativos e análises sobre economia e finanças.</p>
+			</div>
+		</div>
+		<div class="pagination-about-cta__actions">
+			<a href="#" class="pagination-about-cta__btn pagination-about-cta__btn--outline">Currículo Lattes</a>
+			<a href="#" class="pagination-about-cta__btn pagination-about-cta__btn--filled">Canal no YouTube</a>
+		</div>
 	</div>
 </section>
