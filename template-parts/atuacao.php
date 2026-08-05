@@ -5,51 +5,59 @@
  */
 
 if ( ! function_exists( 'bm_atuacao_icon' ) ) {
-	/**
-	 * Retorna o SVG (monoline, cor herdada via currentColor) de cada ícone
-	 * usado nos cards, para ficar idêntico ao layout de referência.
-	 */
-	function bm_atuacao_icon( $type ) {
-		$icons = array(
-			'chart' => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-				<path d="M4 20V13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-				<path d="M9.5 20V9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-				<path d="M15 20V11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-				<path d="M20.5 20V5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-				<path d="M4 9.5 9.5 5l5.5 3.5L20.5 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-			</svg>',
-			'mic' => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-				<rect x="9" y="2.5" width="6" height="12" rx="3" stroke="currentColor" stroke-width="1.6"/>
-				<path d="M5.5 11a6.5 6.5 0 0 0 13 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-				<path d="M12 17.5v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-				<path d="M8.5 21.5h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-			</svg>',
-			'cap' => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-				<path d="M12 3 2 8l10 5 10-5-10-5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-				<path d="M6.5 10.5V16c0 1.5 2.7 3 5.5 3s5.5-1.5 5.5-3v-5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-				<path d="M21.5 8.5v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-			</svg>',
-			'people' => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-				<circle cx="8.5" cy="7.5" r="3" stroke="currentColor" stroke-width="1.6"/>
-				<circle cx="17" cy="9" r="2.4" stroke="currentColor" stroke-width="1.6"/>
-				<path d="M2.5 20.5c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-				<path d="M15 14.6c2.9.3 5.5 2.6 5.5 5.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-			</svg>',
-		);
+    /**
+     * Retorna o SVG (monoline, cor herdada via currentColor) de cada ícone
+     * usado nos cards.
+     */
+    function bm_atuacao_icon( $type ) {
+        $icons = array(
+            'chart' => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M4 20V13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M9.5 20V9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M15 20V11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M20.5 20V5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M4 9.5 9.5 5l5.5 3.5L20.5 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>',
+            'mic' => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="9" y="2.5" width="6" height="12" rx="3" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M5.5 11a6.5 6.5 0 0 0 13 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M12 17.5v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M8.5 21.5h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>',
+            'cap' => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 3 2 8l10 5 10-5-10-5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M6.5 10.5V16c0 1.5 2.7 3 5.5 3s5.5-1.5 5.5-3v-5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M21.5 8.5v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>',
+            'people' => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle cx="8.5" cy="7.5" r="3" stroke="currentColor" stroke-width="1.6"/>
+                <circle cx="17" cy="9" r="2.4" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M2.5 20.5c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M15 14.6c2.9.3 5.5 2.6 5.5 5.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>',
+        );
 
-		return isset( $icons[ $type ] ) ? $icons[ $type ] : '';
-	}
+        return isset( $icons[ $type ] ) ? $icons[ $type ] : '';
+    }
 }
 ?>
 
 <section class="atuacao-hero">
   <div class="atuacao-hero__media">
-    <img
-      src="https://i.ibb.co/jPtVVVSb/eb8889bc-eba2-4ede-9c09-2be04cb9c7f9.png"
-      alt="Bruno Mota, economista"
-      class="atuacao-hero__photo reveal"
-      loading="eager"
-    >
+    <picture>
+      <!-- Tablet e celular (até 960px) → imagem centralizada -->
+      <source
+        media="(max-width: 960px)"
+        srcset="https://i.ibb.co/7JdHR8t6/1b6fd3c0-a541-4c4b-94f2-308a0572da14.png"
+      >
+      <!-- Notebook/desktop (padrão) -->
+      <img
+        src="https://i.ibb.co/jPtVVVSb/eb8889bc-eba2-4ede-9c09-2be04cb9c7f9.png"
+        alt="Bruno Mota, economista"
+        class="atuacao-hero__photo reveal"
+        loading="eager"
+      >
+    </picture>
   </div>
 
   <div class="atuacao-container atuacao-hero__container">
@@ -148,7 +156,7 @@ if ( ! function_exists( 'bm_atuacao_icon' ) ) {
         <div class="atuacao-card__content">
           <div class="atuacao-card__head">
             <span class="atuacao-card__icon" aria-hidden="true"><?php echo bm_atuacao_icon( $card['icon'] ); ?></span>
-            <div>
+            <div class="atuacao-card__head-text">
               <h3 class="atuacao-card__title"><?php echo esc_html( $card['title'] ); ?></h3>
               <p class="atuacao-card__subtitle"><?php echo esc_html( $card['subtitle'] ); ?></p>
             </div>
