@@ -3,6 +3,11 @@
  * header.php
  * Cabeçalho do site — logo, menu principal e botão de contato.
  * Estilos em assets/css/header.css e interatividade em assets/js/header.js
+ *
+ * O loader de entrada (#bm-loader) fica aqui, global (todas as páginas),
+ * mas só é exibido quando a página foi carregada por um F5/refresh —
+ * nunca quando o usuário navega clicando em um link do site.
+ * Detecção via Navigation Timing API (window.performance).
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,6 +23,69 @@ if ( ! defined( 'ABSPATH' ) ) {
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
+
+<!-- LOADER GLOBAL — só aparece quando a página é recarregada (F5), não ao navegar -->
+<div id="bm-loader" style="display:none;">
+    <div class="bm-loader-inner">
+        <span class="bm-loader-logo">BM</span>
+        <div class="bm-loader-sub">Bruno Mota · Economista</div>
+        <div class="bm-loader-bar"></div>
+    </div>
+</div>
+<script>
+(function () {
+    'use strict';
+
+    var loader = document.getElementById('bm-loader');
+    if (!loader) return;
+
+    function getNavType() {
+        try {
+            if ( window.performance && typeof window.performance.getEntriesByType === 'function' ) {
+                var entries = window.performance.getEntriesByType('navigation');
+                if ( entries && entries.length && entries[0].type ) {
+                    return entries[0].type; // 'navigate' | 'reload' | 'back_forward' | 'prerender'
+                }
+            }
+            // Fallback para navegadores mais antigos (API deprecated, mas ainda suportada)
+            if ( window.performance && window.performance.navigation ) {
+                var t = window.performance.navigation.type;
+                if ( t === 1 ) return 'reload';
+                if ( t === 2 ) return 'back_forward';
+                return 'navigate';
+            }
+        } catch (e) {}
+        return 'navigate';
+    }
+
+    var isReload = getNavType() === 'reload';
+
+    if ( ! isReload ) {
+        // Chegou aqui navegando (clicou num link) — não mostra o loader.
+        return;
+    }
+
+    // É um refresh de verdade — mostra o loader.
+    loader.style.display = '';
+    document.body.classList.add('bm-loading');
+
+    function hideLoader() {
+        loader.classList.add('is-hidden');
+        document.body.classList.remove('bm-loading');
+    }
+
+    window.addEventListener('load', function () {
+        setTimeout(hideLoader, 1400);
+    });
+
+    // Fallback: força esconder após 2.2s, caso o `load` demore demais
+    setTimeout(function () {
+        if (!loader.classList.contains('is-hidden')) {
+            hideLoader();
+        }
+    }, 2200);
+})();
+</script>
 
 <header id="site-header" class="site-header">
     <div class="site-header__inner">
@@ -48,7 +116,6 @@ if ( ! defined( 'ABSPATH' ) ) {
                     'fallback_cb'    => false,
                 ) );
             } else {
-                // Menu de exemplo, só aparece se nenhum menu "primary" foi definido no wp-admin.
                 ?>
                 <ul class="site-header__menu">
                     <li class="current-menu-item"><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Início</a></li>

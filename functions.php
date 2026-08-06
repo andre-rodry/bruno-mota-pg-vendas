@@ -92,6 +92,17 @@ function meu_tema_scripts() {
         '6.5.1'
     );
 
+    // ---- LOADER GLOBAL ----
+    // Vive no header.php e aparece em TODAS as páginas (a decisão de mostrar
+    // ou não — só em F5/refresh — é feita via JS, inline no header.php).
+    // Por isso o CSS carrega global, sem condicional is_front_page()/is_page().
+    wp_enqueue_style(
+        'andrewp-loader',
+        get_template_directory_uri() . '/assets/css/loader.css',
+        array( 'meu-tema-fonts', 'meu-tema-style' ),
+        filemtime( get_template_directory() . '/assets/css/loader.css' )
+    );
+
     // CSS do footer: carrega em TODAS as páginas, já que o footer aparece
     // no site inteiro (não só na home).
     wp_enqueue_style(

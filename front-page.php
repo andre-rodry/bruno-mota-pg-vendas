@@ -2,6 +2,9 @@
 /**
  * front-page.php
  * Template usado especificamente para a página inicial do site.
+ *
+ * O loader de entrada agora é global e vive no header.php — aparece em
+ * qualquer página quando há um F5/refresh, não só na home.
  */
 
 get_header();

@@ -1,0 +1,95 @@
+/* =========================================================
+   Loader Global — Bruno Mota
+   Paleta navy + dourado (alinhada com header.css e atuacao.css)
+   Logo com mesma tipografia/efeito do header (Fraunces + shine dourado)
+   ========================================================= */
+
+#bm-loader {
+    --loader-bg: #0a0f1c;      /* navy-950, mesma da atuação */
+    --gold: #c9962c;
+    --gold-light: #f5a623;     /* gold-accent */
+    --gold-dark: #8f651f;
+    --text-muted: #b7bdcc;
+
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: var(--loader-bg);
+    display: grid;
+    place-items: center;
+    transition: transform 1.1s cubic-bezier(0.76, 0, 0.24, 1) .2s;
+}
+
+#bm-loader.is-hidden {
+    transform: translateY(-100%);
+    pointer-events: none;
+}
+
+#bm-loader .bm-loader-inner {
+    text-align: center;
+    opacity: 0;
+    animation: bm-fadeup .6s .2s forwards;
+}
+
+/* ---------- Logo "BM" — idêntica ao header ---------- */
+#bm-loader .bm-loader-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(100deg, var(--gold-dark) 0%, var(--gold) 20%, #fbe7b8 40%, var(--gold) 60%, var(--gold-dark) 100%);
+    background-size: 250% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 450;
+    font-size: 4.5rem;
+    line-height: 1;
+    letter-spacing: -0.5px;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45));
+    animation: logo-shine 3.5s linear infinite;
+}
+
+@keyframes logo-shine {
+    0%   { background-position: 200% center; }
+    100% { background-position: -50% center; }
+}
+
+#bm-loader .bm-loader-sub {
+    margin-top: 1.25rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 10.5px;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    opacity: 0.9;
+}
+
+#bm-loader .bm-loader-bar {
+    margin: 2rem auto 0;
+    width: 160px;
+    height: 1px;
+    background: linear-gradient(100deg, var(--gold-dark) 0%, var(--gold) 20%, #fbe7b8 40%, var(--gold) 60%, var(--gold-dark) 100%);
+    transform-origin: left;
+    transform: scaleX(0);
+    animation: bm-barfill 1s .35s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+
+@keyframes bm-fadeup { to { opacity: 1; transform: translateY(0); } }
+@keyframes bm-barfill { to { transform: scaleX(1); } }
+
+@media (prefers-reduced-motion: reduce) {
+    #bm-loader, #bm-loader * {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+    #bm-loader .bm-loader-logo {
+        animation: none;
+    }
+}
+
+body.bm-loading {
+    overflow: hidden;
+}
