@@ -58,10 +58,27 @@ if ( ! defined( 'ABSPATH' ) ) {
         return 'navigate';
     }
 
-    var isReload = getNavType() === 'reload';
+    function isEnteringSite() {
+        try {
+            if ( ! document.referrer ) {
+                return true; // sem referrer: URL digitada, favorito, aba nova, app externo
+            }
+            var refHost = new URL( document.referrer ).hostname;
+            return refHost !== window.location.hostname; // veio de outro domínio (Google, link externo etc.)
+        } catch (e) {
+            return true;
+        }
+    }
 
-    if ( ! isReload ) {
-        // Chegou aqui navegando (clicou num link) — não mostra o loader.
+    var navType = getNavType();
+    var isReload = navType === 'reload';
+
+    // Mostra o loader se: foi um F5/refresh, OU se a pessoa está entrando
+    // no site agora (não veio navegando de outra página do próprio site).
+    var shouldShow = isReload || ( navType === 'navigate' && isEnteringSite() );
+
+    if ( ! shouldShow ) {
+        // Navegação normal dentro do site (clicou num link interno) — não mostra.
         return;
     }
 
