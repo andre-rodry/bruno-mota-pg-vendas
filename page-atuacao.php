@@ -6,7 +6,9 @@
 get_header();
 ?>
 
-<?php get_template_part( 'template-parts/atuacao' ); ?>
+<main id="main-content">
+	<?php get_template_part( 'template-parts/content-atuacao' ); ?>
+</main>
 
 <?php
 get_footer();

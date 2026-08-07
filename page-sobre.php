@@ -6,7 +6,7 @@
  * (endereço) seja "sobre" — ou seja, para seusite.com/sobre/.
  * Não precisa selecionar nenhum template manualmente no admin.
  *
- * O CSS desta página fica em assets/css/pagination-about.css,
+ * O CSS desta página fica em assets/css/page-sobre.css,
  * enfileirado no functions.php só quando is_page( 'sobre' ).
  *
  * @package andreWP
@@ -16,7 +16,7 @@ get_header();
 ?>
 
 <main id="main-content">
-	<?php get_template_part( 'template-parts/pagination-about' ); ?>
+	<?php get_template_part( 'template-parts/content-sobre' ); ?>
 </main>
 
 <?php

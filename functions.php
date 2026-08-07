@@ -134,122 +134,59 @@ function meu_tema_scripts() {
     // ---- SEÇÕES DA HOME ----
     // Só carrega o CSS/JS dessas seções quando a página atual for a home,
     // já que elas só são usadas no front-page.php.
+    //
+    // IMPORTANTE: tanto o CSS quanto o JS de todas as seções (banner,
+    // último artigo, stats, about, mídia, instituições, galeria,
+    // publicações) foram CONSOLIDADOS em um único arquivo cada:
+    //   /assets/css/home.css
+    //   /assets/js/home.js
+    // Os arquivos separados (banner.css/js, latest-article.css, stats.css,
+    // about.css, media.css/js, institutions.css, gallery.css/js,
+    // publications.css/js) não existem mais no disco — por isso os
+    // wp_enqueue_style()/wp_enqueue_script() individuais de cada um foram
+    // substituídos pelas duas chamadas únicas abaixo.
     if ( is_front_page() ) {
 
-        // ---- Banner ----
+        // ---- CSS consolidado de todas as seções da home ----
         wp_enqueue_style(
-            'meu-tema-banner',
-            get_template_directory_uri() . '/assets/css/banner.css',
+            'meu-tema-home',
+            get_template_directory_uri() . '/assets/css/home.css',
             array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/assets/css/banner.css' )
+            filemtime( get_template_directory() . '/assets/css/home.css' )
         );
 
+        // ---- JS consolidado de todas as seções da home ----
+        // (banner, participações na mídia, galeria de momentos e
+        // publicações/artigos — tudo dentro de home.js, cada bloco
+        // mantendo seu próprio IIFE original)
         wp_enqueue_script(
-            'meu-tema-banner',
-            get_template_directory_uri() . '/assets/js/banner.js',
-            array(), // sem dependências (sem GSAP)
-            filemtime( get_template_directory() . '/assets/js/banner.js' ),
-            true
-        );
-
-        // ---- Último artigo publicado ----
-        wp_enqueue_style(
-            'meu-tema-latest-article',
-            get_template_directory_uri() . '/assets/css/latest-article.css',
-            array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/assets/css/latest-article.css' )
-        );
-
-        // ---- Barra de estatísticas ----
-        wp_enqueue_style(
-            'meu-tema-stats',
-            get_template_directory_uri() . '/assets/css/stats.css',
-            array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/assets/css/stats.css' )
-        );
-
-        // ---- Quem é Bruno Mota ----
-        wp_enqueue_style(
-            'meu-tema-about',
-            get_template_directory_uri() . '/assets/css/about.css',
-            array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/assets/css/about.css' )
-        );
-
-        // ---- Participações na mídia ----
-        wp_enqueue_style(
-            'meu-tema-media',
-            get_template_directory_uri() . '/assets/css/media.css',
-            array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/assets/css/media.css' )
-        );
-
-        wp_enqueue_script(
-            'meu-tema-media',
-            get_template_directory_uri() . '/assets/js/media.js',
-            array(),
-            filemtime( get_template_directory() . '/assets/js/media.js' ),
-            true
-        );
-
-        // ---- Instituições ----
-        wp_enqueue_style(
-            'meu-tema-institutions',
-            get_template_directory_uri() . '/assets/css/institutions.css',
-            array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/assets/css/institutions.css' )
-        );
-
-        // ---- Galeria de Momentos ----
-        wp_enqueue_style(
-            'meu-tema-gallery',
-            get_template_directory_uri() . '/assets/css/gallery.css',
-            array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/assets/css/gallery.css' )
-        );
-
-        wp_enqueue_script(
-            'meu-tema-gallery',
-            get_template_directory_uri() . '/assets/js/gallery.js',
+            'meu-tema-home',
+            get_template_directory_uri() . '/assets/js/home.js',
             array(), // sem dependências
-            filemtime( get_template_directory() . '/assets/js/gallery.js' ),
-            true
-        );
-
-        // ---- Publicações e Artigos ----
-        wp_enqueue_style(
-            'meu-tema-publications',
-            get_template_directory_uri() . '/assets/css/publications.css',
-            array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/assets/css/publications.css' )
-        );
-
-        wp_enqueue_script(
-            'meu-tema-publications',
-            get_template_directory_uri() . '/assets/js/publications.js',
-            array(), // sem dependências
-            filemtime( get_template_directory() . '/assets/js/publications.js' ),
+            filemtime( get_template_directory() . '/assets/js/home.js' ),
             true
         );
 
         // Passa a URL da REST API do site ATUAL para o JS (evita hardcode de domínio,
-        // essencial porque o WordPress está instalado numa subpasta: /tema-andre/)
-        wp_localize_script( 'meu-tema-publications', 'publicationsData', array(
+        // essencial porque o WordPress está instalado numa subpasta: /andre-wp/)
+        // Precisa ficar vinculado ao handle 'meu-tema-home' agora, já que o
+        // bloco de Publicações passou a viver dentro de home.js.
+        wp_localize_script( 'meu-tema-home', 'publicationsData', array(
             'restUrl' => esc_url_raw( rest_url( 'wp/v2/' ) ),
         ) );
     }
 
    // ---- PÁGINA SOBRE ----
-    // Carrega o CSS da página "Sobre" (template-parts/pagination-about.php)
+    // Carrega o CSS da página "Sobre" (template-parts/content-sobre.php)
     // só quando a página atual for a Página cujo slug é "sobre".
     // is_front_page() não cobre esse caso porque /sobre/ é uma página separada,
     // não a home — por isso esse bloco precisa existir independente do de cima.
     if ( is_page( 'sobre' ) ) {
         wp_enqueue_style(
-            'andrewp-pagination-about',
-            get_template_directory_uri() . '/assets/css/pagination-about.css',
+            'andrewp-page-sobre',
+            get_template_directory_uri() . '/assets/css/page-sobre.css',
             array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/assets/css/pagination-about.css' )
+            filemtime( get_template_directory() . '/assets/css/page-sobre.css' )
         );
 
         // Header só aparece ao rolar a página (só nesta página, "Sobre")
@@ -263,14 +200,17 @@ function meu_tema_scripts() {
     }
 
     // ---- PÁGINA ATUAÇÃO ----
-    // Carrega o CSS da página "Atuação" (template-parts/atuacao.php)
-    // só quando a página atual estiver usando o page-atuacao.php.
-    if ( is_page_template( 'page-atuacao.php' ) ) {
+    // Carrega o CSS da página "Atuação" (page-atuacao.php, na raiz do tema).
+    // Esse arquivo é pego automaticamente pela hierarquia de templates do
+    // WordPress (page-{slug}.php), igual ao page-sobre.php — por isso o
+    // check correto é is_page('atuacao'), e não is_page_template(), que só
+    // funciona quando o modelo é selecionado manualmente via Template Name.
+    if ( is_page( 'atuacao' ) ) {
         wp_enqueue_style(
             'andrewp-atuacao',
-            get_template_directory_uri() . '/assets/css/atuacao.css',
+            get_template_directory_uri() . '/assets/css/page-atuacao.css',
             array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/assets/css/atuacao.css' )
+            filemtime( get_template_directory() . '/assets/css/page-atuacao.css' )
         );
 
         // Header só aparece ao rolar a página (também na página "Atuação")
