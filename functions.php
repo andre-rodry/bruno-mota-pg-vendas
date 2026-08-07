@@ -10,6 +10,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * CPT "Conquista" + taxonomia "Tipo de Conquista" + metabox de destaque.
+ * Usado pela página /conquistas/ (timeline + grid).
+ */
+require_once get_template_directory() . '/inc/cpt-conquistas.php';
+
+/**
+ * AJAX: filtro, ordenação e "carregar mais" do grid de conquistas.
+ * Registra os hooks wp_ajax_andrewp_load_conquistas e
+ * wp_ajax_nopriv_andrewp_load_conquistas usados por
+ * assets/js/content-grid-conquistas.js na página /conquistas/.
+ */
+require_once get_template_directory() . '/inc/ajax-conquistas.php';
+
+/**
  * Configurações básicas do tema.
  */
 function meu_tema_setup() {
@@ -48,10 +62,11 @@ add_action( 'after_setup_theme', 'meu_tema_setup' );
  * Carrega CSS e JS de forma correta (nunca colocar <link> ou <script> direto no header.php).
  */
 function meu_tema_scripts() {
-    // Fontes do Google: Fraunces (títulos), Inter (corpo), IBM Plex Mono (dados/números).
+    // Fontes do Google: Fraunces (títulos), Inter (corpo), IBM Plex Mono (dados/números),
+    // Poppins (label/CTA em uppercase — página Conquistas).
     wp_enqueue_style(
         'meu-tema-fonts',
-        'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap',
+        'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&family=Poppins:wght@400;500;600;700&display=swap',
         array(),
         null
     );
@@ -101,6 +116,17 @@ function meu_tema_scripts() {
         get_template_directory_uri() . '/assets/css/loader.css',
         array( 'meu-tema-fonts', 'meu-tema-style' ),
         filemtime( get_template_directory() . '/assets/css/loader.css' )
+    );
+
+    // JS do loader (estava faltando: o arquivo existe em /assets/js/loader.js
+    // mas nunca era enfileirado). Carrega global, junto com o CSS acima,
+    // já que o loader aparece em todas as páginas.
+    wp_enqueue_script(
+        'andrewp-loader',
+        get_template_directory_uri() . '/assets/js/loader.js',
+        array(), // sem dependências
+        filemtime( get_template_directory() . '/assets/js/loader.js' ),
+        true
     );
 
     // CSS do footer: carrega em TODAS as páginas, já que o footer aparece
@@ -214,13 +240,83 @@ function meu_tema_scripts() {
         );
 
         // Header só aparece ao rolar a página (também na página "Atuação")
-    wp_enqueue_script(
-        'andrewp-header-scroll',
-        get_template_directory_uri() . '/assets/js/header-scroll.js',
-        array( 'meu-tema-header' ),
-        filemtime( get_template_directory() . '/assets/js/header-scroll.js' ),
-        true
-    );
+        wp_enqueue_script(
+            'andrewp-header-scroll',
+            get_template_directory_uri() . '/assets/js/header-scroll.js',
+            array( 'meu-tema-header' ),
+            filemtime( get_template_directory() . '/assets/js/header-scroll.js' ),
+            true
+        );
+    }
+
+   // ---- PÁGINA CONQUISTAS ----
+    // Carrega o CSS/JS da página "Conquistas" (page-conquistas.php +
+    // template-parts/content-banner-conquistas.php +
+    // template-parts/content-marquee-conquistas.php +
+    // template-parts/content-timeline-conquistas.php +
+    // template-parts/content-grid-conquistas.php).
+    if ( is_page( 'conquistas' ) ) {
+
+        wp_enqueue_style(
+            'andrewp-conquistas-banner',
+            get_template_directory_uri() . '/assets/css/page-banner-conquistas.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/assets/css/page-banner-conquistas.css' )
+        );
+
+        // CSS da faixa "Legado · Excelência · Autoridade..." (marquee) logo abaixo do banner.
+        wp_enqueue_style(
+            'andrewp-conquistas-marquee',
+            get_template_directory_uri() . '/assets/css/page-marquee-conquistas.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/assets/css/page-marquee-conquistas.css' )
+        );
+
+        // CSS da timeline de trajetória (scroll pinado) + biblioteca de conquistas + modal.
+        wp_enqueue_style(
+            'andrewp-conquistas-timeline',
+            get_template_directory_uri() . '/assets/css/page-timeline-conquistas.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/assets/css/page-timeline-conquistas.css' )
+        );
+
+        // CSS do grid "Todas as Conquistas" (filtros + cards + carregar mais), logo abaixo da timeline.
+        wp_enqueue_style(
+            'andrewp-conquistas-grid',
+            get_template_directory_uri() . '/assets/css/content-grid-conquistas.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/assets/css/content-grid-conquistas.css' )
+        );
+
+        // JS da timeline de trajetória (scroll pinado).
+        wp_enqueue_script(
+            'andrewp-conquistas-timeline',
+            get_template_directory_uri() . '/assets/js/page-timeline-conquistas.js',
+            array(), // vanilla JS puro, sem GSAP/Lenis/dependências externas
+            filemtime( get_template_directory() . '/assets/js/page-timeline-conquistas.js' ),
+            true
+        );
+
+        // JS do grid "Todas as Conquistas" (pílulas de categoria, filtro de ano,
+        // ordenação e "carregar mais" via AJAX). Antes não era enfileirado —
+        // por isso os filtros e o botão de carregar mais não funcionavam.
+        wp_enqueue_script(
+            'andrewp-conquistas-grid',
+            get_template_directory_uri() . '/assets/js/content-grid-conquistas.js',
+            array(), // vanilla JS puro, sem dependências
+            filemtime( get_template_directory() . '/assets/js/content-grid-conquistas.js' ),
+            true
+        );
+
+        // Passa a URL do admin-ajax.php e o nonce de segurança para o JS do grid.
+        // O nome do objeto ('andrewpConquistas') precisa bater com
+        // window.andrewpConquistas usado em content-grid-conquistas.js, e a
+        // string do nonce ('andrewp_conquistas_nonce') precisa bater com
+        // check_ajax_referer() em inc/ajax-conquistas.php.
+        wp_localize_script( 'andrewp-conquistas-grid', 'andrewpConquistas', array(
+            'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+            'nonce'   => wp_create_nonce( 'andrewp_conquistas_nonce' ),
+        ) );
     }
 
     // CSS da página 404 só é carregado quando a página atual for, de fato, uma 404.

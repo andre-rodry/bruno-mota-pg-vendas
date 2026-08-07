@@ -1,0 +1,37 @@
+<?php
+/**
+ * Template Part: Timeline de Conquistas (SOMENTE a seção pinada)
+ * Uso: get_template_part( 'template-parts/content-timeline-conquistas' );
+ *
+ * Estilos:  page-timeline-conquistas.css
+ * Script:   page-timeline-conquistas.js  (vanilla JS puro, sem GSAP/Lenis)
+ */
+?>
+<div class="tlc">
+
+  <!-- STORY / PINNED VIA CSS STICKY -->
+  <section class="story" id="tlcStory">
+    <div class="story-stage" id="tlcStage">
+      <div class="timeline">
+        <div class="tl-head">
+          <span class="eyebrow">Trajetória de Impacto</span>
+          <p>Role para reviver os cinco marcos que definiram uma jornada.</p>
+        </div>
+        <div class="tl-track">
+          <div class="tl-line"></div>
+          <div class="tl-progress" id="tlcProgress"></div>
+          <div class="tl-points" id="tlcPoints"></div>
+        </div>
+      </div>
+      <div class="stage-body">
+        <div class="stage-visual" id="tlcStageVisual">
+          <div class="visual-foot">
+            <div class="roll">Role para continuar <span class="arrow">↓</span></div>
+          </div>
+        </div>
+        <div class="stage-text" id="tlcStageText"></div>
+      </div>
+    </div>
+  </section>
+
+</div>
