@@ -3,9 +3,9 @@
  * CPT "Conquista" + taxonomia "Tipo de Conquista" + campos do Modal
  *
  * Registra o tipo de conteúdo usado pela página /conquistas/
- * (template-parts/content-grid-conquistas.php) e todos os campos
+ * (conquistas/content-grid-conquistas.php) e todos os campos
  * personalizados que alimentam o modal "Ver mais" de cada conquista
- * (template-parts/modal-conquista.php).
+ * (conquistas/modal-conquista.php).
  *
  * @package andreWP
  */
@@ -691,16 +691,16 @@ function andrewp_admin_assets_conquista( $hook ) {
 
 	wp_enqueue_style(
 		'andrewp-admin-conquista-modal',
-		get_template_directory_uri() . '/assets/css/admin-conquista-modal.css',
+		get_template_directory_uri() . '/conquistas/admin-conquista-modal.css',
 		array(),
-		filemtime( get_template_directory() . '/assets/css/admin-conquista-modal.css' )
+		filemtime( get_template_directory() . '/conquistas/admin-conquista-modal.css' )
 	);
 
 	wp_enqueue_script(
 		'andrewp-admin-conquista-modal',
-		get_template_directory_uri() . '/assets/js/admin-conquista-modal.js',
+		get_template_directory_uri() . '/conquistas/admin-conquista-modal.js',
 		array( 'jquery' ),
-		filemtime( get_template_directory() . '/assets/js/admin-conquista-modal.js' ),
+		filemtime( get_template_directory() . '/conquistas/admin-conquista-modal.js' ),
 		true
 	);
 }

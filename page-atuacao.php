@@ -7,7 +7,7 @@ get_header();
 ?>
 
 <main id="main-content">
-	<?php get_template_part( 'template-parts/content-atuacao' ); ?>
+	<?php get_template_part( 'atuacao/content-atuacao' ); ?>
 </main>
 
 <?php

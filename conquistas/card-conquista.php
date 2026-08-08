@@ -3,7 +3,7 @@
  * Partial: um card de conquista.
  * Espera estar dentro de um loop com the_post() já chamado (usa globais do post atual).
  *
- * O "Ver mais" agora abre o modal (template-parts/modal-conquista.php)
+ * O "Ver mais" agora abre o modal (conquistas/modal-conquista.php)
  * via AJAX em vez de navegar para o permalink do post — ver
  * assets/js/content-grid-conquistas.js (classe .js-abrir-conquista-modal).
  *

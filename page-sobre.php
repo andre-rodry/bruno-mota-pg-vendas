@@ -16,7 +16,7 @@ get_header();
 ?>
 
 <main id="main-content">
-	<?php get_template_part( 'template-parts/content-sobre' ); ?>
+	<?php get_template_part( 'sobre/content-sobre' ); ?>
 </main>
 
 <?php

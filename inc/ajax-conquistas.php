@@ -3,7 +3,7 @@
  * AJAX: "carregar mais" do grid de conquistas + busca do modal "Ver mais".
  *
  * Sem filtro por categoria — só pagina os posts do CPT 'conquista',
- * com destaques primeiro (ver template-parts/content-grid-conquistas.php).
+ * com destaques primeiro (ver conquistas/content-grid-conquistas.php).
  *
  * @package andreWP
  */
@@ -46,7 +46,7 @@ function andrewp_ajax_load_conquistas() {
 	if ( $query->have_posts() ) {
 		while ( $query->have_posts() ) {
 			$query->the_post();
-			get_template_part( 'template-parts/card', 'conquista' );
+			get_template_part( 'conquistas/card', 'conquista' );
 		}
 		wp_reset_postdata();
 	} else {

@@ -4,7 +4,7 @@
  *
  * Junta os campos cadastrados no metabox "Conteúdo do Modal"
  * (inc/cpt-conquistas.php) com o template visual
- * (template-parts/modal-conquista.php) e devolve o HTML pronto.
+ * (conquistas/modal-conquista.php) e devolve o HTML pronto.
  *
  * @package andreWP
  */
@@ -21,6 +21,6 @@ function andrewp_render_modal_conquista_html( $post_id ) {
 	}
 
 	ob_start();
-	include get_template_directory() . '/template-parts/modal-conquista.php';
+	include get_template_directory() . '/conquistas/modal-conquista.php';
 	return ob_get_clean();
 }

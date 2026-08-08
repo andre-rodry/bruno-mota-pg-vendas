@@ -57,7 +57,7 @@ $query = new WP_Query( array(
 		<div class="grid-conquistas__grid" id="grid-conquistas-lista" data-paged="1" data-per-page="<?php echo esc_attr( $per_page ); ?>">
 			<?php if ( $query->have_posts() ) : ?>
 				<?php while ( $query->have_posts() ) : $query->the_post();
-					get_template_part( 'template-parts/card', 'conquista' );
+					get_template_part( 'conquistas/card', 'conquista' );
 				endwhile; ?>
 				<?php wp_reset_postdata(); ?>
 			<?php else : ?>
@@ -77,7 +77,7 @@ $query = new WP_Query( array(
 	</div>
 
 	<!-- Shell do modal "Ver mais". Fica vazio até o visitante clicar num
-	     card; o conteúdo (template-parts/modal-conquista.php) é injetado
+	     card; o conteúdo (conquistas/modal-conquista.php) é injetado
 	     aqui via AJAX. -->
 	<div class="conquista-modal-overlay" id="conquista-modal-overlay" aria-hidden="true">
 		<div class="conquista-modal" role="dialog" aria-modal="true" aria-label="<?php esc_attr_e( 'Detalhes da conquista', 'andrewp' ); ?>">

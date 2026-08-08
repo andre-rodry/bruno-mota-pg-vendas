@@ -1,7 +1,7 @@
 <?php
 /**
  * Template Part: Áreas de Atuação
- * Uso: get_template_part( 'template-parts/atuacao' );
+ * Uso: get_template_part( 'atuacao/content-atuacao' );
  */
 
 if ( ! function_exists( 'bm_atuacao_icon' ) ) {

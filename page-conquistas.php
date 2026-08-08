@@ -8,10 +8,10 @@
 get_header();
 ?>
 
-<?php get_template_part( 'template-parts/content-banner', 'conquistas' ); ?>
-<?php get_template_part( 'template-parts/content-marquee', 'conquistas' ); ?>
-<?php get_template_part( 'template-parts/content-timeline', 'conquistas' ); ?>
-<?php get_template_part( 'template-parts/content-grid', 'conquistas' ); ?>
+<?php get_template_part( 'conquistas/content-banner', 'conquistas' ); ?>
+<?php get_template_part( 'conquistas/content-marquee', 'conquistas' ); ?>
+<?php get_template_part( 'conquistas/content-timeline', 'conquistas' ); ?>
+<?php get_template_part( 'conquistas/content-grid', 'conquistas' ); ?>
 <!-- próximas seções entram aqui, uma get_template_part por vez -->
 
 <?php

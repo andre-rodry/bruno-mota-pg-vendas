@@ -1,7 +1,7 @@
 <?php
 /**
  * Template Part: Timeline de Conquistas (SOMENTE a seção pinada)
- * Uso: get_template_part( 'template-parts/content-timeline-conquistas' );
+ * Uso: get_template_part( 'conquistas/content-timeline-conquistas' );
  *
  * Estilos:  page-timeline-conquistas.css
  * Script:   page-timeline-conquistas.js  (vanilla JS puro, sem GSAP/Lenis)
