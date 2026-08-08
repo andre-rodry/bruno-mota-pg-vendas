@@ -40,7 +40,7 @@ get_header();
 
 <?php else : ?>
 
-    <p><?php esc_html_e( 'Nenhum conteúdo encontrado.', 'meu-tema' ); ?></p>
+    <p><?php esc_html_e( 'Nenhum conteúdo encontrado.', 'andrewp' ); ?></p>
 
 <?php endif; ?>
 

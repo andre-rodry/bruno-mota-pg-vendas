@@ -19,13 +19,13 @@ get_header();
                 <?php echo esc_html( get_the_date() ); ?>
             </span>
             <span class="byline">
-                <?php esc_html_e( 'por', 'meu-tema' ); ?>
+                <?php esc_html_e( 'por', 'andrewp' ); ?>
                 <?php the_author(); ?>
             </span>
 
             <?php if ( has_category() ) : ?>
                 <span class="cat-links">
-                    <?php esc_html_e( 'em', 'meu-tema' ); ?>
+                    <?php esc_html_e( 'em', 'andrewp' ); ?>
                     <?php the_category( ', ' ); ?>
                 </span>
             <?php endif; ?>
@@ -43,7 +43,7 @@ get_header();
 
         <?php if ( has_tag() ) : ?>
             <div class="tag-links">
-                <?php esc_html_e( 'Tags:', 'meu-tema' ); ?>
+                <?php esc_html_e( 'Tags:', 'andrewp' ); ?>
                 <?php the_tags( '', ', ', '' ); ?>
             </div>
         <?php endif; ?>

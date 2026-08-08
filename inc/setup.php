@@ -28,15 +28,15 @@ function meu_tema_setup() {
     ) );
 
     register_nav_menus( array(
-        'primary' => __( 'Menu Principal', 'meu-tema' ),
-        'footer'  => __( 'Menu do Rodapé', 'meu-tema' ),
+        'primary' => __( 'Menu Principal', 'andrewp' ),
+        'footer'  => __( 'Menu do Rodapé', 'andrewp' ),
     ) );
 }
 add_action( 'after_setup_theme', 'meu_tema_setup' );
 
 function meu_tema_widgets_init() {
     register_sidebar( array(
-        'name'          => __( 'Barra Lateral', 'meu-tema' ),
+        'name'          => __( 'Barra Lateral', 'andrewp' ),
         'id'            => 'sidebar-1',
         'before_widget' => '<div class="widget">',
         'after_widget'  => '</div>',

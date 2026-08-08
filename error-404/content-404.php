@@ -11,7 +11,7 @@
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?php esc_html_e( 'Página não encontrada', 'meu-tema' ); ?> — <?php bloginfo( 'name' ); ?></title>
+    <title><?php esc_html_e( 'Página não encontrada', 'andrewp' ); ?> — <?php bloginfo( 'name' ); ?></title>
     <?php wp_head(); ?>
 </head>
 <body <?php body_class( 'error-404-standalone' ); ?>>
