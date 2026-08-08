@@ -10,15 +10,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * CPT "Conquista" + taxonomia "Tipo de Conquista" + metabox de destaque.
- * Usado pela página /conquistas/ (timeline + grid).
+ * CPT "Conquista" + taxonomia "Tipo de Conquista" + metaboxes
+ * (Destaque/Ano e Conteúdo do Modal).
+ * Usado pela página /conquistas/ (grid + modal "Ver mais").
  */
 require_once get_template_directory() . '/inc/cpt-conquistas.php';
 
 /**
- * AJAX: filtro, ordenação e "carregar mais" do grid de conquistas.
- * Registra os hooks wp_ajax_andrewp_load_conquistas e
- * wp_ajax_nopriv_andrewp_load_conquistas usados por
+ * Função que renderiza o HTML do modal "Ver mais" de uma conquista
+ * a partir do post_id (usada pelo endpoint AJAX abaixo).
+ */
+require_once get_template_directory() . '/inc/modal-conquista.php';
+
+/**
+ * AJAX: "carregar mais" do grid de conquistas + busca do modal "Ver mais".
+ * Registra os hooks wp_ajax_andrewp_load_conquistas,
+ * wp_ajax_nopriv_andrewp_load_conquistas, wp_ajax_andrewp_get_conquista_modal
+ * e wp_ajax_nopriv_andrewp_get_conquista_modal usados por
  * assets/js/content-grid-conquistas.js na página /conquistas/.
  */
 require_once get_template_directory() . '/inc/ajax-conquistas.php';
@@ -79,27 +87,23 @@ function meu_tema_scripts() {
     );
 
     // CSS do header: carrega em TODAS as páginas, logo depois do style.css principal.
-    // Usa filemtime() em vez da versão do tema: assim, toda vez que você editar
-    // o header.css, o navegador é obrigado a baixar a versão nova (sem cache antigo).
     wp_enqueue_style(
         'meu-tema-header',
         get_template_directory_uri() . '/assets/css/header.css',
-        array( 'meu-tema-style' ), // garante que as variáveis do :root já existam
+        array( 'meu-tema-style' ),
         filemtime( get_template_directory() . '/assets/css/header.css' )
     );
 
     // JS do header: controla o efeito de scroll e o menu mobile.
-    // in_footer = true: carrega perto do </body>, sem travar a renderização da página.
     wp_enqueue_script(
         'meu-tema-header',
         get_template_directory_uri() . '/assets/js/header.js',
-        array(), // sem dependências (jQuery não é necessário)
+        array(),
         filemtime( get_template_directory() . '/assets/js/header.js' ),
         true
     );
 
-    // Font Awesome (ícones das redes sociais) — usado no header e no footer,
-    // por isso carrega em TODAS as páginas, fora do bloco is_front_page().
+    // Font Awesome (ícones das redes sociais) — usado no header e no footer.
     wp_enqueue_style(
         'font-awesome',
         'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css',
@@ -108,9 +112,6 @@ function meu_tema_scripts() {
     );
 
     // ---- LOADER GLOBAL ----
-    // Vive no header.php e aparece em TODAS as páginas (a decisão de mostrar
-    // ou não — só em F5/refresh — é feita via JS, inline no header.php).
-    // Por isso o CSS carrega global, sem condicional is_front_page()/is_page().
     wp_enqueue_style(
         'andrewp-loader',
         get_template_directory_uri() . '/assets/css/loader.css',
@@ -118,19 +119,15 @@ function meu_tema_scripts() {
         filemtime( get_template_directory() . '/assets/css/loader.css' )
     );
 
-    // JS do loader (estava faltando: o arquivo existe em /assets/js/loader.js
-    // mas nunca era enfileirado). Carrega global, junto com o CSS acima,
-    // já que o loader aparece em todas as páginas.
     wp_enqueue_script(
         'andrewp-loader',
         get_template_directory_uri() . '/assets/js/loader.js',
-        array(), // sem dependências
+        array(),
         filemtime( get_template_directory() . '/assets/js/loader.js' ),
         true
     );
 
-    // CSS do footer: carrega em TODAS as páginas, já que o footer aparece
-    // no site inteiro (não só na home).
+    // CSS do footer: carrega em TODAS as páginas.
     wp_enqueue_style(
         'andrewp-footer',
         get_template_directory_uri() . '/assets/css/footer.css',
@@ -139,9 +136,6 @@ function meu_tema_scripts() {
     );
 
     // ---- ANIMAÇÃO DE SCROLL (reveal-scroll) ----
-    // CSS/JS nativo, sem biblioteca externa (sem ScrollReveal, sem CDN de terceiros).
-    // Usa IntersectionObserver do próprio navegador. Carrega em TODAS as páginas,
-    // já que a classe "reveal" pode ser usada em qualquer seção/template do site.
     wp_enqueue_style(
         'meu-tema-reveal-scroll',
         get_template_directory_uri() . '/assets/css/reveal-scroll.css',
@@ -152,28 +146,14 @@ function meu_tema_scripts() {
     wp_enqueue_script(
         'meu-tema-reveal-scroll',
         get_template_directory_uri() . '/assets/js/reveal-scroll.js',
-        array(), // sem dependências (JS puro)
+        array(),
         filemtime( get_template_directory() . '/assets/js/reveal-scroll.js' ),
-        true // carrega no rodapé
+        true
     );
 
     // ---- SEÇÕES DA HOME ----
-    // Só carrega o CSS/JS dessas seções quando a página atual for a home,
-    // já que elas só são usadas no front-page.php.
-    //
-    // IMPORTANTE: tanto o CSS quanto o JS de todas as seções (banner,
-    // último artigo, stats, about, mídia, instituições, galeria,
-    // publicações) foram CONSOLIDADOS em um único arquivo cada:
-    //   /assets/css/home.css
-    //   /assets/js/home.js
-    // Os arquivos separados (banner.css/js, latest-article.css, stats.css,
-    // about.css, media.css/js, institutions.css, gallery.css/js,
-    // publications.css/js) não existem mais no disco — por isso os
-    // wp_enqueue_style()/wp_enqueue_script() individuais de cada um foram
-    // substituídos pelas duas chamadas únicas abaixo.
     if ( is_front_page() ) {
 
-        // ---- CSS consolidado de todas as seções da home ----
         wp_enqueue_style(
             'meu-tema-home',
             get_template_directory_uri() . '/assets/css/home.css',
@@ -181,32 +161,20 @@ function meu_tema_scripts() {
             filemtime( get_template_directory() . '/assets/css/home.css' )
         );
 
-        // ---- JS consolidado de todas as seções da home ----
-        // (banner, participações na mídia, galeria de momentos e
-        // publicações/artigos — tudo dentro de home.js, cada bloco
-        // mantendo seu próprio IIFE original)
         wp_enqueue_script(
             'meu-tema-home',
             get_template_directory_uri() . '/assets/js/home.js',
-            array(), // sem dependências
+            array(),
             filemtime( get_template_directory() . '/assets/js/home.js' ),
             true
         );
 
-        // Passa a URL da REST API do site ATUAL para o JS (evita hardcode de domínio,
-        // essencial porque o WordPress está instalado numa subpasta: /andre-wp/)
-        // Precisa ficar vinculado ao handle 'meu-tema-home' agora, já que o
-        // bloco de Publicações passou a viver dentro de home.js.
         wp_localize_script( 'meu-tema-home', 'publicationsData', array(
             'restUrl' => esc_url_raw( rest_url( 'wp/v2/' ) ),
         ) );
     }
 
    // ---- PÁGINA SOBRE ----
-    // Carrega o CSS da página "Sobre" (template-parts/content-sobre.php)
-    // só quando a página atual for a Página cujo slug é "sobre".
-    // is_front_page() não cobre esse caso porque /sobre/ é uma página separada,
-    // não a home — por isso esse bloco precisa existir independente do de cima.
     if ( is_page( 'sobre' ) ) {
         wp_enqueue_style(
             'andrewp-page-sobre',
@@ -215,22 +183,16 @@ function meu_tema_scripts() {
             filemtime( get_template_directory() . '/assets/css/page-sobre.css' )
         );
 
-        // Header só aparece ao rolar a página (só nesta página, "Sobre")
         wp_enqueue_script(
             'andrewp-header-scroll',
             get_template_directory_uri() . '/assets/js/header-scroll.js',
-            array( 'meu-tema-header' ), // carrega DEPOIS do header.js
+            array( 'meu-tema-header' ),
             filemtime( get_template_directory() . '/assets/js/header-scroll.js' ),
             true
         );
     }
 
     // ---- PÁGINA ATUAÇÃO ----
-    // Carrega o CSS da página "Atuação" (page-atuacao.php, na raiz do tema).
-    // Esse arquivo é pego automaticamente pela hierarquia de templates do
-    // WordPress (page-{slug}.php), igual ao page-sobre.php — por isso o
-    // check correto é is_page('atuacao'), e não is_page_template(), que só
-    // funciona quando o modelo é selecionado manualmente via Template Name.
     if ( is_page( 'atuacao' ) ) {
         wp_enqueue_style(
             'andrewp-atuacao',
@@ -239,7 +201,6 @@ function meu_tema_scripts() {
             filemtime( get_template_directory() . '/assets/css/page-atuacao.css' )
         );
 
-        // Header só aparece ao rolar a página (também na página "Atuação")
         wp_enqueue_script(
             'andrewp-header-scroll',
             get_template_directory_uri() . '/assets/js/header-scroll.js',
@@ -250,11 +211,6 @@ function meu_tema_scripts() {
     }
 
    // ---- PÁGINA CONQUISTAS ----
-    // Carrega o CSS/JS da página "Conquistas" (page-conquistas.php +
-    // template-parts/content-banner-conquistas.php +
-    // template-parts/content-marquee-conquistas.php +
-    // template-parts/content-timeline-conquistas.php +
-    // template-parts/content-grid-conquistas.php).
     if ( is_page( 'conquistas' ) ) {
 
         wp_enqueue_style(
@@ -264,7 +220,6 @@ function meu_tema_scripts() {
             filemtime( get_template_directory() . '/assets/css/page-banner-conquistas.css' )
         );
 
-        // CSS da faixa "Legado · Excelência · Autoridade..." (marquee) logo abaixo do banner.
         wp_enqueue_style(
             'andrewp-conquistas-marquee',
             get_template_directory_uri() . '/assets/css/page-marquee-conquistas.css',
@@ -272,7 +227,6 @@ function meu_tema_scripts() {
             filemtime( get_template_directory() . '/assets/css/page-marquee-conquistas.css' )
         );
 
-        // CSS da timeline de trajetória (scroll pinado) + biblioteca de conquistas + modal.
         wp_enqueue_style(
             'andrewp-conquistas-timeline',
             get_template_directory_uri() . '/assets/css/page-timeline-conquistas.css',
@@ -280,7 +234,7 @@ function meu_tema_scripts() {
             filemtime( get_template_directory() . '/assets/css/page-timeline-conquistas.css' )
         );
 
-        // CSS do grid "Todas as Conquistas" (filtros + cards + carregar mais), logo abaixo da timeline.
+        // CSS do grid "Todas as Conquistas" (cards + carregar mais).
         wp_enqueue_style(
             'andrewp-conquistas-grid',
             get_template_directory_uri() . '/assets/css/content-grid-conquistas.css',
@@ -288,45 +242,51 @@ function meu_tema_scripts() {
             filemtime( get_template_directory() . '/assets/css/content-grid-conquistas.css' )
         );
 
-        // JS da timeline de trajetória (scroll pinado).
+        // CSS do modal "Ver mais" (abas Resumo/Galeria/Documentos/Impacto).
+        wp_enqueue_style(
+            'andrewp-conquistas-modal',
+            get_template_directory_uri() . '/assets/css/modal-conquista.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/assets/css/modal-conquista.css' )
+        );
+
+        // Dashicons no front-end: o modal usa vários (globo, local, download
+        // etc). No admin já vem carregado por padrão; no front precisa
+        // habilitar manualmente.
+        wp_enqueue_style( 'dashicons' );
+
         wp_enqueue_script(
             'andrewp-conquistas-timeline',
             get_template_directory_uri() . '/assets/js/page-timeline-conquistas.js',
-            array(), // vanilla JS puro, sem GSAP/Lenis/dependências externas
+            array(),
             filemtime( get_template_directory() . '/assets/js/page-timeline-conquistas.js' ),
             true
         );
 
-        // JS do grid "Todas as Conquistas" (pílulas de categoria, filtro de ano,
-        // ordenação e "carregar mais" via AJAX). Antes não era enfileirado —
-        // por isso os filtros e o botão de carregar mais não funcionavam.
+        // JS do grid + modal "Ver mais" (carregar mais, abrir/fechar
+        // modal via AJAX, trocar de aba).
         wp_enqueue_script(
             'andrewp-conquistas-grid',
             get_template_directory_uri() . '/assets/js/content-grid-conquistas.js',
-            array(), // vanilla JS puro, sem dependências
+            array(),
             filemtime( get_template_directory() . '/assets/js/content-grid-conquistas.js' ),
             true
         );
 
-        // Passa a URL do admin-ajax.php e o nonce de segurança para o JS do grid.
-        // O nome do objeto ('andrewpConquistas') precisa bater com
-        // window.andrewpConquistas usado em content-grid-conquistas.js, e a
-        // string do nonce ('andrewp_conquistas_nonce') precisa bater com
-        // check_ajax_referer() em inc/ajax-conquistas.php.
+        // Passa a URL do admin-ajax.php e o nonce de segurança pro JS
+        // (usado tanto pelo "carregar mais" quanto pela busca do modal).
         wp_localize_script( 'andrewp-conquistas-grid', 'andrewpConquistas', array(
             'ajaxUrl' => admin_url( 'admin-ajax.php' ),
             'nonce'   => wp_create_nonce( 'andrewp_conquistas_nonce' ),
         ) );
     }
 
-    // CSS da página 404 só é carregado quando a página atual for, de fato, uma 404.
-    // Aponta pra versão minificada (.min.css) — menor pro visitante baixar.
-    // O error-404.css normal continua existindo na pasta só como cópia de edição.
+    // CSS da página 404.
     if ( is_404() ) {
         wp_enqueue_style(
             'meu-tema-error-404',
             get_template_directory_uri() . '/assets/css/error-404.min.css',
-            array( 'meu-tema-style' ), // garante que as variáveis do :root já existam
+            array( 'meu-tema-style' ),
             wp_get_theme()->get( 'Version' )
         );
     }

@@ -1,10 +1,9 @@
 <?php
 /**
- * AJAX: filtro por categoria e "carregar mais" do grid de conquistas.
+ * AJAX: "carregar mais" do grid de conquistas + busca do modal "Ver mais".
  *
- * Os parâmetros de ano e ordenação foram removidos junto com os selects
- * correspondentes no template (ver content-grid-conquistas.php) — a
- * listagem agora é sempre por mais recentes primeiro, filtrada só por tipo.
+ * Sem filtro por categoria — só pagina os posts do CPT 'conquista',
+ * com destaques primeiro (ver template-parts/content-grid-conquistas.php).
  *
  * @package andreWP
  */
@@ -17,24 +16,28 @@ function andrewp_ajax_load_conquistas() {
 	check_ajax_referer( 'andrewp_conquistas_nonce', 'nonce' );
 
 	$paged = isset( $_POST['paged'] ) ? max( 1, absint( $_POST['paged'] ) ) : 1;
-	$tipo  = isset( $_POST['tipo'] ) ? sanitize_title( wp_unslash( $_POST['tipo'] ) ) : '';
 
 	$args = array(
 		'post_type'      => 'conquista',
 		'post_status'    => 'publish',
 		'posts_per_page' => 8,
 		'paged'          => $paged,
-		'orderby'        => 'date',
-		'order'          => 'DESC',
+		'meta_query'     => array(
+			'relation'        => 'OR',
+			'destaque_clause' => array(
+				'key'     => '_conquista_destaque',
+				'compare' => 'EXISTS',
+			),
+			array(
+				'key'     => '_conquista_destaque',
+				'compare' => 'NOT EXISTS',
+			),
+		),
+		'orderby' => array(
+			'destaque_clause' => 'DESC',
+			'date'            => 'DESC',
+		),
 	);
-
-	if ( $tipo ) {
-		$args['tax_query'] = array( array(
-			'taxonomy' => 'tipo_conquista',
-			'field'    => 'slug',
-			'terms'    => $tipo,
-		) );
-	}
 
 	$query = new WP_Query( $args );
 
@@ -61,3 +64,28 @@ function andrewp_ajax_load_conquistas() {
 }
 add_action( 'wp_ajax_andrewp_load_conquistas', 'andrewp_ajax_load_conquistas' );
 add_action( 'wp_ajax_nopriv_andrewp_load_conquistas', 'andrewp_ajax_load_conquistas' );
+
+/**
+ * Devolve o HTML do modal "Ver mais" de UMA conquista, gerado sob demanda
+ * quando o visitante clica no card. Evita renderizar todos os modais
+ * (com galerias e listas de documentos) de uma vez na página inicial.
+ */
+function andrewp_ajax_get_conquista_modal() {
+	check_ajax_referer( 'andrewp_conquistas_nonce', 'nonce' );
+
+	$post_id = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
+
+	if ( ! $post_id || 'conquista' !== get_post_type( $post_id ) || 'publish' !== get_post_status( $post_id ) ) {
+		wp_send_json_error( array( 'message' => __( 'Conquista não encontrada.', 'andrewp' ) ) );
+	}
+
+	$html = andrewp_render_modal_conquista_html( $post_id );
+
+	if ( ! $html ) {
+		wp_send_json_error( array( 'message' => __( 'Não foi possível carregar os detalhes.', 'andrewp' ) ) );
+	}
+
+	wp_send_json_success( array( 'html' => $html ) );
+}
+add_action( 'wp_ajax_andrewp_get_conquista_modal', 'andrewp_ajax_get_conquista_modal' );
+add_action( 'wp_ajax_nopriv_andrewp_get_conquista_modal', 'andrewp_ajax_get_conquista_modal' );

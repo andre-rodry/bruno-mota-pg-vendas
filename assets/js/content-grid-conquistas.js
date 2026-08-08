@@ -1,167 +1,262 @@
 /**
- * Grid de Conquistas — filtro por categoria (pílulas) e "carregar mais".
+ * Grid de Conquistas
+ * - "Carregar mais" (paginação via AJAX)
+ * - Modal "Ver mais" (abre/fecha + busca conteúdo via AJAX + troca de abas)
  * Vanilla JS, sem dependências. Usa admin-ajax.php do WordPress.
- *
- * Os filtros de "ano" e "ordenar" foram removidos: a ordenação é sempre
- * por mais recentes primeiro, definida no backend (inc/ajax-conquistas.php).
  */
 ( function () {
 	'use strict';
 
+	/* =========================================================
+	   Parte 1: Grid + "Carregar mais"
+	   ========================================================= */
+
 	const grid = document.getElementById( 'grid-conquistas-lista' );
-	if ( ! grid ) {
-		return;
-	}
 
-	// Seção inteira (título "Todas as Conquistas" + subtítulo + pílulas + grid).
-	// Usada como alvo do scroll, pra sempre subir até o topo da seção, não só até os cards.
-	const section = document.getElementById( 'grid-conquistas' ) || grid;
+	if ( grid ) {
 
-	// O header do tema é fixo/sticky e fica por cima do conteúdo ao rolar.
-	// scrollIntoView() sozinho ignora isso e deixa o título escondido atrás do header.
-	// Por isso calculamos a altura real do header (em vez de "chutar" um valor fixo)
-	// e compensamos manualmente, animando o scroll com uma curva suave (easing)
-	// em vez do "smooth" nativo do navegador, que varia de velocidade entre browsers
-	// e costuma parecer brusco em distâncias curtas.
-	//
-	// easeInOutQuint: início e fim bem graduais, com uma aceleração maior só no
-	// meio do percurso — dá a sensação de "flutuar" até o destino em vez de
-	// ganhar/perder velocidade de forma abrupta.
-	function easeInOutQuint( t ) {
-		return t < 0.5
-			? 16 * t * t * t * t * t
-			: 1 - Math.pow( -2 * t + 2, 5 ) / 2;
-	}
+		const section = document.getElementById( 'grid-conquistas' ) || grid;
 
-	let scrollAnimationId = null;
-
-	function animateScrollTo( targetY, duration ) {
-		// Cancela uma animação de scroll anterior ainda em andamento (ex.: o usuário
-		// clicou em "carregar mais" ou trocou de filtro rapidamente), evitando que
-		// duas animações concorrentes disputem a posição do scroll e travem o efeito.
-		if ( scrollAnimationId !== null ) {
-			cancelAnimationFrame( scrollAnimationId );
+		function easeInOutQuint( t ) {
+			return t < 0.5
+				? 16 * t * t * t * t * t
+				: 1 - Math.pow( -2 * t + 2, 5 ) / 2;
 		}
 
-		const startY = window.pageYOffset;
-		const distance = targetY - startY;
-		const startTime = performance.now();
+		let scrollAnimationId = null;
 
-		function step( now ) {
-			const elapsed = now - startTime;
-			const progress = Math.min( elapsed / duration, 1 );
-			const eased = easeInOutQuint( progress );
+		function animateScrollTo( targetY, duration ) {
+			if ( scrollAnimationId !== null ) {
+				cancelAnimationFrame( scrollAnimationId );
+			}
 
-			window.scrollTo( 0, startY + distance * eased );
+			const startY = window.pageYOffset;
+			const distance = targetY - startY;
+			const startTime = performance.now();
 
-			if ( progress < 1 ) {
-				scrollAnimationId = requestAnimationFrame( step );
-			} else {
-				scrollAnimationId = null;
+			function step( now ) {
+				const elapsed = now - startTime;
+				const progress = Math.min( elapsed / duration, 1 );
+				const eased = easeInOutQuint( progress );
+
+				window.scrollTo( 0, startY + distance * eased );
+
+				if ( progress < 1 ) {
+					scrollAnimationId = requestAnimationFrame( step );
+				} else {
+					scrollAnimationId = null;
+				}
+			}
+
+			scrollAnimationId = requestAnimationFrame( step );
+		}
+
+		function scrollToSection() {
+			const header = document.querySelector( '.site-header' )
+				|| document.querySelector( 'header.header' )
+				|| document.querySelector( 'header' );
+			const headerHeight = header ? header.getBoundingClientRect().height : 0;
+			const extraGap = 16;
+			const top = section.getBoundingClientRect().top + window.pageYOffset - headerHeight - extraGap;
+
+			animateScrollTo( top, 900 );
+		}
+
+		const loadBtn = document.getElementById( 'carregar-mais-conquistas' );
+
+		const state = {
+			paged: 1,
+			hasMore: !! loadBtn,
+		};
+
+		function setLoading( isLoading ) {
+			grid.style.opacity = isLoading ? '0.5' : '1';
+			if ( loadBtn ) {
+				loadBtn.classList.toggle( 'is-loading', isLoading );
+				loadBtn.disabled = isLoading;
 			}
 		}
 
-		scrollAnimationId = requestAnimationFrame( step );
-	}
+		function fetchConquistas() {
+			setLoading( true );
 
-	function scrollToSection() {
-		const header = document.querySelector( '.site-header' )
-			|| document.querySelector( 'header.header' )
-			|| document.querySelector( 'header' );
-		const headerHeight = header ? header.getBoundingClientRect().height : 0;
-		const extraGap = 16; // respiro extra abaixo do header, só estética
-		const top = section.getBoundingClientRect().top + window.pageYOffset - headerHeight - extraGap;
+			const body = new URLSearchParams( {
+				action: 'andrewp_load_conquistas',
+				nonce: window.andrewpConquistas.nonce,
+				paged: state.paged,
+			} );
 
-		animateScrollTo( top, 900 ); // 900ms: suave, sem parecer arrastado
-	}
+			fetch( window.andrewpConquistas.ajaxUrl, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+				body: body.toString(),
+			} )
+				.then( function ( res ) { return res.json(); } )
+				.then( function ( json ) {
+					if ( ! json.success ) {
+						return;
+					}
 
-	const pillsWrap = document.querySelector( '.grid-conquistas__pills' );
-	const loadBtn   = document.getElementById( 'carregar-mais-conquistas' );
+					grid.innerHTML = json.data.html;
+					state.hasMore = json.data.has_more;
 
-	const state = {
-		tipo: '',
-		paged: 1,
-		hasMore: loadBtn ? true : false,
-	};
+					if ( loadBtn ) {
+						loadBtn.style.display = state.hasMore ? '' : 'none';
+					}
 
-	function setLoading( isLoading ) {
-		grid.style.opacity = isLoading ? '0.5' : '1';
+					scrollToSection();
+				} )
+				.catch( function () {
+					grid.innerHTML = '<p class="grid-conquistas__empty">Não foi possível carregar as conquistas. Tente novamente.</p>';
+				} )
+				.finally( function () {
+					setLoading( false );
+				} );
+		}
+
 		if ( loadBtn ) {
-			loadBtn.classList.toggle( 'is-loading', isLoading );
-			loadBtn.disabled = isLoading;
+			loadBtn.addEventListener( 'click', function () {
+				state.paged += 1;
+				fetchConquistas();
+			} );
 		}
 	}
 
-	function fetchConquistas( append ) {
-		setLoading( true );
+	/* =========================================================
+	   Parte 2: Modal "Ver mais"
+	   ========================================================= */
 
-		const body = new URLSearchParams( {
-			action: 'andrewp_load_conquistas',
-			nonce: window.andrewpConquistas.nonce,
-			paged: state.paged,
-			tipo: state.tipo,
-		} );
+	const modalOverlay = document.getElementById( 'conquista-modal-overlay' );
 
-		fetch( window.andrewpConquistas.ajaxUrl, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-			body: body.toString(),
-		} )
-			.then( function ( res ) { return res.json(); } )
-			.then( function ( json ) {
-				if ( ! json.success ) {
-					return;
-				}
+	if ( modalOverlay ) {
 
-				if ( append ) {
-					grid.insertAdjacentHTML( 'beforeend', json.data.html );
-				} else {
-					grid.innerHTML = json.data.html;
-				}
+		const modalLoading = document.getElementById( 'conquista-modal-loading' );
+		const modalContent = document.getElementById( 'conquista-modal-content' );
 
-				state.hasMore = json.data.has_more;
+		function abrirModal() {
+			modalOverlay.classList.add( 'is-open' );
+			modalOverlay.setAttribute( 'aria-hidden', 'false' );
+			document.body.classList.add( 'conquista-modal-aberto' );
+		}
 
-				if ( loadBtn ) {
-					loadBtn.style.display = state.hasMore ? '' : 'none';
-				}
+		function fecharModal() {
+			modalOverlay.classList.remove( 'is-open' );
+			modalOverlay.setAttribute( 'aria-hidden', 'true' );
+			document.body.classList.remove( 'conquista-modal-aberto' );
+			modalContent.innerHTML = '';
+		}
 
-				// Rola suavemente até o topo da seção (título "Todas as Conquistas"),
-				// já descontando a altura do header fixo, pra ver os novos cards
-				// sem precisar subir a página manualmente.
-				scrollToSection();
-			} )
-			.catch( function () {
-				grid.innerHTML = '<p class="grid-conquistas__empty">Não foi possível carregar as conquistas. Tente novamente.</p>';
-			} )
-			.finally( function () {
-				setLoading( false );
+		function carregarConquistaModal( postId ) {
+			modalContent.innerHTML = '';
+			modalLoading.style.display = 'flex';
+			abrirModal();
+
+			const body = new URLSearchParams( {
+				action: 'andrewp_get_conquista_modal',
+				nonce: window.andrewpConquistas.nonce,
+				post_id: postId,
 			} );
-	}
 
-	// Pílulas de categoria.
-	if ( pillsWrap ) {
-		pillsWrap.addEventListener( 'click', function ( e ) {
-			const btn = e.target.closest( '.grid-conquistas__pill' );
-			if ( ! btn ) {
+			fetch( window.andrewpConquistas.ajaxUrl, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+				body: body.toString(),
+			} )
+				.then( function ( res ) { return res.json(); } )
+				.then( function ( json ) {
+					modalLoading.style.display = 'none';
+
+					if ( json.success ) {
+						modalContent.innerHTML = json.data.html;
+					} else {
+						modalContent.innerHTML = '<p class="conquista-modal__erro">Não foi possível carregar os detalhes.</p>';
+					}
+				} )
+				.catch( function () {
+					modalLoading.style.display = 'none';
+					modalContent.innerHTML = '<p class="conquista-modal__erro">Erro ao carregar. Tente novamente.</p>';
+				} );
+		}
+
+		function trocarAba( tabBtn ) {
+			const modal = tabBtn.closest( '.conquista-modal' );
+			const alvo  = tabBtn.dataset.tab;
+
+			if ( ! modal ) {
 				return;
 			}
 
-			pillsWrap.querySelectorAll( '.grid-conquistas__pill' ).forEach( function ( p ) {
-				p.classList.remove( 'is-active' );
+			modal.querySelectorAll( '.conquista-modal__tab' ).forEach( function ( t ) {
+				t.classList.toggle( 'is-active', t === tabBtn );
 			} );
-			btn.classList.add( 'is-active' );
+			modal.querySelectorAll( '.conquista-modal__panel' ).forEach( function ( p ) {
+				p.classList.toggle( 'is-active', p.dataset.panel === alvo );
+			} );
+		}
 
-			state.tipo  = btn.dataset.tipo || '';
-			state.paged = 1;
-			fetchConquistas( false );
+		function irParaSlide( carousel, index ) {
+			const slides = carousel.querySelectorAll( '.conquista-modal__carousel-slide' );
+			const dots   = carousel.querySelectorAll( '.conquista-modal__carousel-dot' );
+
+			if ( ! slides.length ) {
+				return;
+			}
+
+			const total = slides.length;
+			const alvo  = ( ( index % total ) + total ) % total;
+
+			slides.forEach( function ( s, i ) {
+				s.classList.toggle( 'is-active', i === alvo );
+			} );
+			dots.forEach( function ( d, i ) {
+				d.classList.toggle( 'is-active', i === alvo );
+			} );
+
+			carousel.dataset.current = alvo;
+		}
+
+		// Delegação: cobre também os cards e abas que chegam depois via AJAX.
+		document.addEventListener( 'click', function ( e ) {
+			const abrirBtn = e.target.closest( '.js-abrir-conquista-modal' );
+			if ( abrirBtn ) {
+				carregarConquistaModal( abrirBtn.dataset.postId );
+				return;
+			}
+
+			const carouselNav = e.target.closest( '.conquista-modal__carousel-nav' );
+			if ( carouselNav ) {
+				e.preventDefault();
+				const carousel = carouselNav.closest( '.conquista-modal__carousel' );
+				const atual = parseInt( carousel.dataset.current || '0', 10 );
+				const delta = carouselNav.classList.contains( 'conquista-modal__carousel-nav--next' ) ? 1 : -1;
+				irParaSlide( carousel, atual + delta );
+				return;
+			}
+
+			const carouselDot = e.target.closest( '.conquista-modal__carousel-dot' );
+			if ( carouselDot ) {
+				const carousel = carouselDot.closest( '.conquista-modal__carousel' );
+				irParaSlide( carousel, parseInt( carouselDot.dataset.index, 10 ) );
+				return;
+			}
+
+			const tabBtn = e.target.closest( '.conquista-modal__tab' );
+			if ( tabBtn ) {
+				trocarAba( tabBtn );
+				return;
+			}
+
+			// Fecha clicando no botão de fechar (dentro do conteúdo AJAX) ou fora do modal.
+			if ( e.target.closest( '.conquista-modal__fechar' ) || e.target === modalOverlay ) {
+				fecharModal();
+			}
+		} );
+
+		document.addEventListener( 'keydown', function ( e ) {
+			if ( e.key === 'Escape' && modalOverlay.classList.contains( 'is-open' ) ) {
+				fecharModal();
+			}
 		} );
 	}
 
-	// Carregar mais: troca os cards atuais pelos da próxima leva (não empilha embaixo).
-	if ( loadBtn ) {
-		loadBtn.addEventListener( 'click', function () {
-			state.paged += 1;
-			fetchConquistas( false );
-		} );
-	}
 } )();

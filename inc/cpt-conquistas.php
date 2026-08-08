@@ -1,9 +1,11 @@
 <?php
 /**
- * CPT "Conquista" + taxonomia "Tipo de Conquista"
+ * CPT "Conquista" + taxonomia "Tipo de Conquista" + campos do Modal
  *
  * Registra o tipo de conteúdo usado pela página /conquistas/
- * (template-parts/content-grid-conquistas.php + content-timeline-conquistas.php).
+ * (template-parts/content-grid-conquistas.php) e todos os campos
+ * personalizados que alimentam o modal "Ver mais" de cada conquista
+ * (template-parts/modal-conquista.php).
  *
  * @package andreWP
  */
@@ -43,12 +45,12 @@ function andrewp_register_cpt_conquista() {
 		'query_var'          => true,
 		'rewrite'            => array( 'slug' => 'conquista' ),
 		'capability_type'    => 'post',
-		'has_archive'        => false, // a listagem já é feita pela página /conquistas/
+		'has_archive'        => false,
 		'hierarchical'       => false,
 		'menu_position'      => 20,
 		'menu_icon'          => 'dashicons-awards',
 		'supports'           => array( 'title', 'editor', 'excerpt', 'thumbnail' ),
-		'show_in_rest'       => true, // habilita editor em blocos / REST API
+		'show_in_rest'       => true,
 	);
 
 	register_post_type( 'conquista', $args );
@@ -57,8 +59,6 @@ add_action( 'init', 'andrewp_register_cpt_conquista' );
 
 /**
  * Taxonomia: Tipo de Conquista
- * (Legislação/Lei Municipal, Palestra, Podcast, Entrevista, Evento,
- * Publicação, Artigo, Curso, Premiação)
  */
 function andrewp_register_tax_tipo_conquista() {
 	$labels = array(
@@ -75,7 +75,7 @@ function andrewp_register_tax_tipo_conquista() {
 
 	$args = array(
 		'labels'            => $labels,
-		'hierarchical'      => true, // funciona como categoria (checkbox), não como tag
+		'hierarchical'      => true,
 		'public'            => true,
 		'show_ui'           => true,
 		'show_admin_column' => true,
@@ -88,12 +88,7 @@ function andrewp_register_tax_tipo_conquista() {
 }
 add_action( 'init', 'andrewp_register_tax_tipo_conquista' );
 
-/**
- * Cria os termos padrão automaticamente na primeira vez que o tema roda
- * (evita você ter que criar cada categoria manualmente no admin).
- */
 function andrewp_criar_termos_padrao_conquista() {
-	// Já rodou antes? Não roda de novo.
 	if ( get_option( 'andrewp_termos_conquista_criados' ) ) {
 		return;
 	}
@@ -118,17 +113,8 @@ function andrewp_criar_termos_padrao_conquista() {
 
 	update_option( 'andrewp_termos_conquista_criados', 1 );
 }
-add_action( 'init', 'andrewp_criar_termos_padrao_conquista', 20 ); // depois de registrar a taxonomia
+add_action( 'init', 'andrewp_criar_termos_padrao_conquista', 20 );
 
-/**
- * Renomeia o termo "Premiação" (slug: premiacao) para "Reconhecimento".
- * O slug não muda — só o nome exibido — então os posts já vinculados a
- * esse termo, o $icons_map e a lista de pílulas em content-grid-conquistas.php
- * continuam funcionando sem precisar de nenhum outro ajuste.
- *
- * Roda uma única vez, igual ao padrão usado em
- * andrewp_criar_termos_padrao_conquista() acima.
- */
 function andrewp_renomear_termo_premiacao() {
 	if ( get_option( 'andrewp_termo_premiacao_renomeado' ) ) {
 		return;
@@ -144,16 +130,40 @@ function andrewp_renomear_termo_premiacao() {
 
 	update_option( 'andrewp_termo_premiacao_renomeado', 1 );
 }
-add_action( 'init', 'andrewp_renomear_termo_premiacao', 21 ); // depois de criar os termos padrão
+add_action( 'init', 'andrewp_renomear_termo_premiacao', 21 );
 
 /**
- * Metabox: "Destaque" — checkbox que controla o badge "DESTAQUE" no card
- * (usado em content-grid-conquistas.php via get_post_meta( '_conquista_destaque' )).
+ * Lista de ícones disponíveis para o badge do topo do modal e para cada
+ * "destaque" da lista.
  */
+function andrewp_conquista_icones_disponiveis() {
+	return array(
+		'globo'      => array( 'dashicon' => 'dashicons-admin-site-alt3', 'label' => __( 'Globo (Internacional)', 'andrewp' ) ),
+		'premio'     => array( 'dashicon' => 'dashicons-awards',          'label' => __( 'Prêmio', 'andrewp' ) ),
+		'estrela'    => array( 'dashicon' => 'dashicons-star-filled',     'label' => __( 'Estrela', 'andrewp' ) ),
+		'livro'      => array( 'dashicon' => 'dashicons-book-alt',        'label' => __( 'Livro', 'andrewp' ) ),
+		'microfone'  => array( 'dashicon' => 'dashicons-microphone',      'label' => __( 'Microfone', 'andrewp' ) ),
+		'calendario' => array( 'dashicon' => 'dashicons-calendar-alt',    'label' => __( 'Calendário', 'andrewp' ) ),
+		'grupo'      => array( 'dashicon' => 'dashicons-groups',         'label' => __( 'Grupo / Pessoas', 'andrewp' ) ),
+		'lapis'      => array( 'dashicon' => 'dashicons-edit',            'label' => __( 'Lápis / Escrita', 'andrewp' ) ),
+		'local'      => array( 'dashicon' => 'dashicons-location',        'label' => __( 'Localização', 'andrewp' ) ),
+		'documento'  => array( 'dashicon' => 'dashicons-media-document',  'label' => __( 'Documento', 'andrewp' ) ),
+	);
+}
+
+function andrewp_conquista_icone_dashicon( $slug ) {
+	$icones = andrewp_conquista_icones_disponiveis();
+	return isset( $icones[ $slug ] ) ? $icones[ $slug ]['dashicon'] : 'dashicons-tag';
+}
+
+/* =========================================================================
+ * METABOX 1: "Detalhes da Conquista" — Ano + Destaque
+ * ========================================================================= */
+
 function andrewp_metabox_destaque() {
 	add_meta_box(
 		'andrewp_conquista_destaque',
-		__( 'Destaque', 'andrewp' ),
+		__( 'Detalhes da Conquista', 'andrewp' ),
 		'andrewp_metabox_destaque_html',
 		'conquista',
 		'side',
@@ -164,12 +174,36 @@ add_action( 'add_meta_boxes', 'andrewp_metabox_destaque' );
 
 function andrewp_metabox_destaque_html( $post ) {
 	wp_nonce_field( 'andrewp_salvar_destaque', 'andrewp_destaque_nonce' );
-	$valor = get_post_meta( $post->ID, '_conquista_destaque', true );
+
+	$destaque = get_post_meta( $post->ID, '_conquista_destaque', true );
+	$ano      = get_post_meta( $post->ID, '_conquista_ano', true );
 	?>
-	<label>
-		<input type="checkbox" name="conquista_destaque" value="1" <?php checked( $valor, '1' ); ?> />
-		<?php esc_html_e( 'Marcar como destaque (mostra a faixa "DESTAQUE" no card)', 'andrewp' ); ?>
-	</label>
+	<p>
+		<label for="conquista_ano" style="display:block; font-weight:600; margin-bottom:4px;">
+			<?php esc_html_e( 'Ano da conquista', 'andrewp' ); ?>
+		</label>
+		<input
+			type="number"
+			id="conquista_ano"
+			name="conquista_ano"
+			value="<?php echo esc_attr( $ano ); ?>"
+			placeholder="<?php echo esc_attr( get_the_date( 'Y', $post ) ); ?>"
+			min="1900"
+			max="2100"
+			step="1"
+			style="width:100%;"
+		/>
+		<span class="description">
+			<?php esc_html_e( 'Deixe em branco para usar a data de publicação do post.', 'andrewp' ); ?>
+		</span>
+	</p>
+	<hr />
+	<p>
+		<label>
+			<input type="checkbox" name="conquista_destaque" value="1" <?php checked( $destaque, '1' ); ?> />
+			<?php esc_html_e( 'Marcar como destaque (mostra a faixa "DESTAQUE" no card)', 'andrewp' ); ?>
+		</label>
+	</p>
 	<?php
 }
 
@@ -183,7 +217,491 @@ function andrewp_salvar_destaque( $post_id ) {
 		return;
 	}
 
-	$valor = isset( $_POST['conquista_destaque'] ) ? '1' : '';
-	update_post_meta( $post_id, '_conquista_destaque', $valor );
+	$destaque = isset( $_POST['conquista_destaque'] ) ? '1' : '';
+	update_post_meta( $post_id, '_conquista_destaque', $destaque );
+
+	if ( isset( $_POST['conquista_ano'] ) && '' !== trim( $_POST['conquista_ano'] ) ) {
+		$ano = absint( $_POST['conquista_ano'] );
+		if ( $ano >= 1900 && $ano <= 2100 ) {
+			update_post_meta( $post_id, '_conquista_ano', $ano );
+		}
+	} else {
+		delete_post_meta( $post_id, '_conquista_ano' );
+	}
 }
 add_action( 'save_post_conquista', 'andrewp_salvar_destaque' );
+
+/* =========================================================================
+ * METABOX 2: "Conteúdo do Modal" — tudo que alimenta o "Ver mais"
+ * ========================================================================= */
+
+function andrewp_metabox_modal() {
+	add_meta_box(
+		'andrewp_conquista_modal',
+		__( 'Conteúdo do Modal ("Ver mais")', 'andrewp' ),
+		'andrewp_metabox_modal_html',
+		'conquista',
+		'normal',
+		'high'
+	);
+}
+add_action( 'add_meta_boxes', 'andrewp_metabox_modal' );
+
+function andrewp_metabox_modal_html( $post ) {
+	wp_nonce_field( 'andrewp_salvar_modal', 'andrewp_modal_nonce' );
+
+	$badge_label = get_post_meta( $post->ID, '_conquista_badge_label', true );
+	$icone       = get_post_meta( $post->ID, '_conquista_icone', true );
+	$local       = get_post_meta( $post->ID, '_conquista_local', true );
+	$subtitulo   = get_post_meta( $post->ID, '_conquista_subtitulo', true );
+
+	$destaques_icone     = (array) get_post_meta( $post->ID, '_conquista_destaques_icone', true );
+	$destaques_titulo    = (array) get_post_meta( $post->ID, '_conquista_destaques_titulo', true );
+	$destaques_descricao = (array) get_post_meta( $post->ID, '_conquista_destaques_descricao', true );
+
+	// Galeria por upload (attachment IDs) — mantido pra produção.
+	$galeria_ids = get_post_meta( $post->ID, '_conquista_galeria', true );
+	$galeria_ids = $galeria_ids ? array_filter( array_map( 'absint', explode( ',', $galeria_ids ) ) ) : array();
+
+	// NOVO: galeria por URL (teste/rascunho, sem precisar subir arquivo).
+	$galeria_urls_raw = get_post_meta( $post->ID, '_conquista_galeria_urls', true );
+
+	$doc_titulo    = (array) get_post_meta( $post->ID, '_conquista_doc_titulo', true );
+	$doc_descricao = (array) get_post_meta( $post->ID, '_conquista_doc_descricao', true );
+	$doc_arquivo   = (array) get_post_meta( $post->ID, '_conquista_doc_arquivo_id', true );
+
+	$impacto = (array) get_post_meta( $post->ID, '_conquista_impacto', true );
+
+	$cta_texto = get_post_meta( $post->ID, '_conquista_cta_texto', true );
+	$cta_url   = get_post_meta( $post->ID, '_conquista_cta_url', true );
+
+	$icones = andrewp_conquista_icones_disponiveis();
+
+	// Link do botão de auto-preenchimento com dados de exemplo.
+	$seed_url = wp_nonce_url(
+		add_query_arg(
+			array( 'action' => 'andrewp_seed_conquista_demo', 'post_id' => $post->ID ),
+			admin_url( 'admin-post.php' )
+		),
+		'andrewp_seed_conquista_demo_' . $post->ID
+	);
+	?>
+	<div class="andrewp-modal-fields">
+
+		<p>
+			<a href="<?php echo esc_url( $seed_url ); ?>" class="button button-secondary"
+			   onclick="return confirm('Isso vai sobrescrever os campos do modal deste post com o exemplo (Universidad Nacional Rosario Castellanos). Continuar?');">
+				<?php esc_html_e( '⚡ Preencher com exemplo (Universidad Rosario)', 'andrewp' ); ?>
+			</a>
+		</p>
+
+		<h4><?php esc_html_e( 'Cabeçalho', 'andrewp' ); ?></h4>
+		<table class="form-table">
+			<tr>
+				<th><label for="conquista_badge_label"><?php esc_html_e( 'Rótulo do badge', 'andrewp' ); ?></label></th>
+				<td>
+					<input type="text" id="conquista_badge_label" name="conquista_badge_label" class="large-text" value="<?php echo esc_attr( $badge_label ); ?>" placeholder="Ex: CONQUISTA INTERNACIONAL" />
+				</td>
+			</tr>
+			<tr>
+				<th><label for="conquista_icone"><?php esc_html_e( 'Ícone do badge', 'andrewp' ); ?></label></th>
+				<td>
+					<select id="conquista_icone" name="conquista_icone">
+						<?php foreach ( $icones as $slug => $dados ) : ?>
+							<option value="<?php echo esc_attr( $slug ); ?>" <?php selected( $icone, $slug ); ?>>
+								<?php echo esc_html( $dados['label'] ); ?>
+							</option>
+						<?php endforeach; ?>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th><label for="conquista_local"><?php esc_html_e( 'Local', 'andrewp' ); ?></label></th>
+				<td>
+					<input type="text" id="conquista_local" name="conquista_local" class="large-text" value="<?php echo esc_attr( $local ); ?>" placeholder="Ex: Rosario, Argentina" />
+				</td>
+			</tr>
+			<tr>
+				<th><label for="conquista_subtitulo"><?php esc_html_e( 'Subtítulo', 'andrewp' ); ?></label></th>
+				<td>
+					<input type="text" id="conquista_subtitulo" name="conquista_subtitulo" class="large-text" value="<?php echo esc_attr( $subtitulo ); ?>" placeholder="Ex: Cooperação Acadêmica Internacional" />
+				</td>
+			</tr>
+		</table>
+		<p class="description">
+			<?php esc_html_e( 'A descrição longa do resumo usa o campo "Corpo" (editor principal) do post.', 'andrewp' ); ?>
+		</p>
+
+		<hr />
+
+		<h4><?php esc_html_e( 'Destaques (lista com ícone, título e descrição)', 'andrewp' ); ?></h4>
+		<div id="andrewp-repeater-destaques" class="andrewp-repeater">
+			<?php
+			$total_destaques = max( count( $destaques_titulo ), 1 );
+			for ( $i = 0; $i < $total_destaques; $i++ ) :
+				$d_icone = isset( $destaques_icone[ $i ] ) ? $destaques_icone[ $i ] : '';
+				$d_tit   = isset( $destaques_titulo[ $i ] ) ? $destaques_titulo[ $i ] : '';
+				$d_desc  = isset( $destaques_descricao[ $i ] ) ? $destaques_descricao[ $i ] : '';
+				?>
+				<div class="andrewp-repeater__row">
+					<select name="conquista_destaques_icone[]">
+						<?php foreach ( $icones as $slug => $dados ) : ?>
+							<option value="<?php echo esc_attr( $slug ); ?>" <?php selected( $d_icone, $slug ); ?>>
+								<?php echo esc_html( $dados['label'] ); ?>
+							</option>
+						<?php endforeach; ?>
+					</select>
+					<input type="text" name="conquista_destaques_titulo[]" value="<?php echo esc_attr( $d_tit ); ?>" placeholder="<?php esc_attr_e( 'Título', 'andrewp' ); ?>" />
+					<input type="text" name="conquista_destaques_descricao[]" value="<?php echo esc_attr( $d_desc ); ?>" placeholder="<?php esc_attr_e( 'Descrição', 'andrewp' ); ?>" />
+					<button type="button" class="button andrewp-repeater__remove">&times;</button>
+				</div>
+			<?php endfor; ?>
+		</div>
+		<template id="andrewp-template-destaque">
+			<div class="andrewp-repeater__row">
+				<select name="conquista_destaques_icone[]">
+					<?php foreach ( $icones as $slug => $dados ) : ?>
+						<option value="<?php echo esc_attr( $slug ); ?>"><?php echo esc_html( $dados['label'] ); ?></option>
+					<?php endforeach; ?>
+				</select>
+				<input type="text" name="conquista_destaques_titulo[]" placeholder="<?php esc_attr_e( 'Título', 'andrewp' ); ?>" />
+				<input type="text" name="conquista_destaques_descricao[]" placeholder="<?php esc_attr_e( 'Descrição', 'andrewp' ); ?>" />
+				<button type="button" class="button andrewp-repeater__remove">&times;</button>
+			</div>
+		</template>
+		<button type="button" class="button" data-repeater-add="andrewp-repeater-destaques" data-repeater-template="andrewp-template-destaque">
+			<?php esc_html_e( '+ Adicionar destaque', 'andrewp' ); ?>
+		</button>
+
+		<hr />
+
+		<h4><?php esc_html_e( 'Artigo (texto completo, opcional)', 'andrewp' ); ?></h4>
+		<?php
+		wp_editor(
+			get_post_meta( $post->ID, '_conquista_artigo_texto', true ),
+			'conquista_artigo_texto',
+			array(
+				'textarea_name' => 'conquista_artigo_texto',
+				'media_buttons' => false,
+				'textarea_rows' => 8,
+				'teeny'         => true,
+			)
+		);
+		?>
+		<p class="description"><?php esc_html_e( 'Preencha só se esta conquista tiver um texto/artigo completo próprio.', 'andrewp' ); ?></p>
+
+		<hr />
+
+		<h4><?php esc_html_e( 'Galeria de imagens', 'andrewp' ); ?></h4>
+
+		<p><strong><?php esc_html_e( 'Opção A — Upload (produção)', 'andrewp' ); ?></strong></p>
+		<input type="hidden" id="conquista_galeria_ids" name="conquista_galeria_ids" value="<?php echo esc_attr( implode( ',', $galeria_ids ) ); ?>" />
+		<div id="andrewp-galeria-preview" class="andrewp-galeria-preview">
+			<?php foreach ( $galeria_ids as $img_id ) : ?>
+				<div class="andrewp-galeria-preview__item" data-id="<?php echo esc_attr( $img_id ); ?>">
+					<?php echo wp_get_attachment_image( $img_id, 'thumbnail' ); ?>
+					<button type="button" class="andrewp-galeria-preview__remove">&times;</button>
+				</div>
+			<?php endforeach; ?>
+		</div>
+		<button type="button" class="button" id="andrewp-galeria-selecionar">
+			<?php esc_html_e( '+ Selecionar imagens do computador', 'andrewp' ); ?>
+		</button>
+
+		<p style="margin-top:16px;"><strong><?php esc_html_e( 'Opção B — Links de imagem (teste/rascunho)', 'andrewp' ); ?></strong></p>
+		<textarea name="conquista_galeria_urls" rows="4" class="large-text code" placeholder="https://exemplo.com/foto1.jpg&#10;https://exemplo.com/foto2.jpg"><?php echo esc_textarea( $galeria_urls_raw ); ?></textarea>
+		<p class="description">
+			<?php esc_html_e( 'Uma URL por linha. Útil para testar o modal sem precisar subir arquivos. Se preenchido, tem prioridade sobre o upload acima.', 'andrewp' ); ?>
+		</p>
+
+		<hr />
+
+		<h4><?php esc_html_e( 'Documentos (PDFs e arquivos)', 'andrewp' ); ?></h4>
+		<div id="andrewp-repeater-documentos" class="andrewp-repeater">
+			<?php
+			$total_docs = max( count( $doc_titulo ), 1 );
+			for ( $i = 0; $i < $total_docs; $i++ ) :
+				$dt = isset( $doc_titulo[ $i ] ) ? $doc_titulo[ $i ] : '';
+				$dd = isset( $doc_descricao[ $i ] ) ? $doc_descricao[ $i ] : '';
+				$da = isset( $doc_arquivo[ $i ] ) ? absint( $doc_arquivo[ $i ] ) : 0;
+				$nome_arquivo = $da ? basename( get_attached_file( $da ) ) : '';
+				?>
+				<div class="andrewp-repeater__row andrewp-repeater__row--doc">
+					<input type="text" name="conquista_doc_titulo[]" value="<?php echo esc_attr( $dt ); ?>" placeholder="<?php esc_attr_e( 'Título do documento', 'andrewp' ); ?>" />
+					<input type="text" name="conquista_doc_descricao[]" value="<?php echo esc_attr( $dd ); ?>" placeholder="<?php esc_attr_e( 'Descrição curta', 'andrewp' ); ?>" />
+					<input type="hidden" class="andrewp-doc-arquivo-id" name="conquista_doc_arquivo_id[]" value="<?php echo esc_attr( $da ); ?>" />
+					<span class="andrewp-doc-arquivo-nome"><?php echo esc_html( $nome_arquivo ); ?></span>
+					<button type="button" class="button andrewp-doc-selecionar"><?php esc_html_e( 'Selecionar arquivo', 'andrewp' ); ?></button>
+					<button type="button" class="button andrewp-repeater__remove">&times;</button>
+				</div>
+			<?php endfor; ?>
+		</div>
+		<template id="andrewp-template-documento">
+			<div class="andrewp-repeater__row andrewp-repeater__row--doc">
+				<input type="text" name="conquista_doc_titulo[]" placeholder="<?php esc_attr_e( 'Título do documento', 'andrewp' ); ?>" />
+				<input type="text" name="conquista_doc_descricao[]" placeholder="<?php esc_attr_e( 'Descrição curta', 'andrewp' ); ?>" />
+				<input type="hidden" class="andrewp-doc-arquivo-id" name="conquista_doc_arquivo_id[]" value="" />
+				<span class="andrewp-doc-arquivo-nome"></span>
+				<button type="button" class="button andrewp-doc-selecionar"><?php esc_html_e( 'Selecionar arquivo', 'andrewp' ); ?></button>
+				<button type="button" class="button andrewp-repeater__remove">&times;</button>
+			</div>
+		</template>
+		<button type="button" class="button" data-repeater-add="andrewp-repeater-documentos" data-repeater-template="andrewp-template-documento">
+			<?php esc_html_e( '+ Adicionar documento', 'andrewp' ); ?>
+		</button>
+
+		<hr />
+
+		<h4><?php esc_html_e( 'Impacto desta conquista (lista curta)', 'andrewp' ); ?></h4>
+		<div id="andrewp-repeater-impacto" class="andrewp-repeater">
+			<?php
+			$total_impacto = max( count( $impacto ), 1 );
+			for ( $i = 0; $i < $total_impacto; $i++ ) :
+				$imp = isset( $impacto[ $i ] ) ? $impacto[ $i ] : '';
+				?>
+				<div class="andrewp-repeater__row">
+					<input type="text" name="conquista_impacto[]" value="<?php echo esc_attr( $imp ); ?>" placeholder="<?php esc_attr_e( 'Ex: Internacionalização da produção científica', 'andrewp' ); ?>" style="flex:1;" />
+					<button type="button" class="button andrewp-repeater__remove">&times;</button>
+				</div>
+			<?php endfor; ?>
+		</div>
+		<template id="andrewp-template-impacto">
+			<div class="andrewp-repeater__row">
+				<input type="text" name="conquista_impacto[]" placeholder="<?php esc_attr_e( 'Ex: Internacionalização da produção científica', 'andrewp' ); ?>" style="flex:1;" />
+				<button type="button" class="button andrewp-repeater__remove">&times;</button>
+			</div>
+		</template>
+		<button type="button" class="button" data-repeater-add="andrewp-repeater-impacto" data-repeater-template="andrewp-template-impacto">
+			<?php esc_html_e( '+ Adicionar item de impacto', 'andrewp' ); ?>
+		</button>
+
+		<hr />
+
+		<h4><?php esc_html_e( 'Botão externo (opcional)', 'andrewp' ); ?></h4>
+		<table class="form-table">
+			<tr>
+				<th><label for="conquista_cta_texto"><?php esc_html_e( 'Texto do botão', 'andrewp' ); ?></label></th>
+				<td>
+					<input type="text" id="conquista_cta_texto" name="conquista_cta_texto" class="large-text" value="<?php echo esc_attr( $cta_texto ); ?>" placeholder="Ex: Ver mais detalhes" />
+				</td>
+			</tr>
+			<tr>
+				<th><label for="conquista_cta_url"><?php esc_html_e( 'Link', 'andrewp' ); ?></label></th>
+				<td>
+					<input type="url" id="conquista_cta_url" name="conquista_cta_url" class="large-text" value="<?php echo esc_attr( $cta_url ); ?>" placeholder="https://" />
+				</td>
+			</tr>
+		</table>
+
+	</div>
+	<?php
+}
+
+/**
+ * Salva todos os campos do metabox "Conteúdo do Modal".
+ */
+function andrewp_salvar_modal( $post_id ) {
+	if ( ! isset( $_POST['andrewp_modal_nonce'] ) ||
+		! wp_verify_nonce( $_POST['andrewp_modal_nonce'], 'andrewp_salvar_modal' ) ) {
+		return;
+	}
+
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+
+	update_post_meta( $post_id, '_conquista_badge_label', isset( $_POST['conquista_badge_label'] ) ? sanitize_text_field( wp_unslash( $_POST['conquista_badge_label'] ) ) : '' );
+	update_post_meta( $post_id, '_conquista_icone', isset( $_POST['conquista_icone'] ) ? sanitize_key( $_POST['conquista_icone'] ) : '' );
+	update_post_meta( $post_id, '_conquista_local', isset( $_POST['conquista_local'] ) ? sanitize_text_field( wp_unslash( $_POST['conquista_local'] ) ) : '' );
+	update_post_meta( $post_id, '_conquista_subtitulo', isset( $_POST['conquista_subtitulo'] ) ? sanitize_text_field( wp_unslash( $_POST['conquista_subtitulo'] ) ) : '' );
+
+	$d_icone = isset( $_POST['conquista_destaques_icone'] ) ? (array) $_POST['conquista_destaques_icone'] : array();
+	$d_tit   = isset( $_POST['conquista_destaques_titulo'] ) ? (array) $_POST['conquista_destaques_titulo'] : array();
+	$d_desc  = isset( $_POST['conquista_destaques_descricao'] ) ? (array) $_POST['conquista_destaques_descricao'] : array();
+
+	$out_icone = array();
+	$out_tit   = array();
+	$out_desc  = array();
+	foreach ( $d_tit as $i => $titulo ) {
+		$titulo = sanitize_text_field( wp_unslash( $titulo ) );
+		$desc   = isset( $d_desc[ $i ] ) ? sanitize_text_field( wp_unslash( $d_desc[ $i ] ) ) : '';
+		if ( '' === $titulo && '' === $desc ) {
+			continue;
+		}
+		$out_icone[] = isset( $d_icone[ $i ] ) ? sanitize_key( $d_icone[ $i ] ) : '';
+		$out_tit[]   = $titulo;
+		$out_desc[]  = $desc;
+	}
+	update_post_meta( $post_id, '_conquista_destaques_icone', $out_icone );
+	update_post_meta( $post_id, '_conquista_destaques_titulo', $out_tit );
+	update_post_meta( $post_id, '_conquista_destaques_descricao', $out_desc );
+
+	// Galeria por upload.
+	$galeria_raw = isset( $_POST['conquista_galeria_ids'] ) ? sanitize_text_field( wp_unslash( $_POST['conquista_galeria_ids'] ) ) : '';
+	$galeria_ids = array_filter( array_map( 'absint', explode( ',', $galeria_raw ) ) );
+	update_post_meta( $post_id, '_conquista_galeria', implode( ',', $galeria_ids ) );
+
+	// NOVO: Galeria por URL (teste). Uma por linha, sanitizada como URL, linhas vazias descartadas.
+	$galeria_urls_raw = isset( $_POST['conquista_galeria_urls'] ) ? wp_unslash( $_POST['conquista_galeria_urls'] ) : '';
+	$linhas           = preg_split( '/[\r\n]+/', $galeria_urls_raw );
+	$urls_limpas      = array();
+	foreach ( (array) $linhas as $linha ) {
+		$linha = trim( $linha );
+		if ( '' === $linha ) {
+			continue;
+		}
+		$url_valida = esc_url_raw( $linha );
+		if ( $url_valida ) {
+			$urls_limpas[] = $url_valida;
+		}
+	}
+	update_post_meta( $post_id, '_conquista_galeria_urls', implode( "\n", $urls_limpas ) );
+
+	$doc_tit  = isset( $_POST['conquista_doc_titulo'] ) ? (array) $_POST['conquista_doc_titulo'] : array();
+	$doc_desc = isset( $_POST['conquista_doc_descricao'] ) ? (array) $_POST['conquista_doc_descricao'] : array();
+	$doc_arq  = isset( $_POST['conquista_doc_arquivo_id'] ) ? (array) $_POST['conquista_doc_arquivo_id'] : array();
+
+	$out_doc_tit  = array();
+	$out_doc_desc = array();
+	$out_doc_arq  = array();
+	foreach ( $doc_tit as $i => $titulo ) {
+		$titulo  = sanitize_text_field( wp_unslash( $titulo ) );
+		$desc    = isset( $doc_desc[ $i ] ) ? sanitize_text_field( wp_unslash( $doc_desc[ $i ] ) ) : '';
+		$arquivo = isset( $doc_arq[ $i ] ) ? absint( $doc_arq[ $i ] ) : 0;
+		if ( '' === $titulo && ! $arquivo ) {
+			continue;
+		}
+		$out_doc_tit[]  = $titulo;
+		$out_doc_desc[] = $desc;
+		$out_doc_arq[]  = $arquivo;
+	}
+	update_post_meta( $post_id, '_conquista_doc_titulo', $out_doc_tit );
+	update_post_meta( $post_id, '_conquista_doc_descricao', $out_doc_desc );
+	update_post_meta( $post_id, '_conquista_doc_arquivo_id', $out_doc_arq );
+
+	$impacto_raw = isset( $_POST['conquista_impacto'] ) ? (array) $_POST['conquista_impacto'] : array();
+	$impacto_out = array();
+	foreach ( $impacto_raw as $texto ) {
+		$texto = sanitize_text_field( wp_unslash( $texto ) );
+		if ( '' !== $texto ) {
+			$impacto_out[] = $texto;
+		}
+	}
+	update_post_meta( $post_id, '_conquista_impacto', $impacto_out );
+
+	update_post_meta( $post_id, '_conquista_artigo_texto', isset( $_POST['conquista_artigo_texto'] ) ? wp_kses_post( wp_unslash( $_POST['conquista_artigo_texto'] ) ) : '' );
+
+	update_post_meta( $post_id, '_conquista_cta_texto', isset( $_POST['conquista_cta_texto'] ) ? sanitize_text_field( wp_unslash( $_POST['conquista_cta_texto'] ) ) : '' );
+	update_post_meta( $post_id, '_conquista_cta_url', isset( $_POST['conquista_cta_url'] ) ? esc_url_raw( wp_unslash( $_POST['conquista_cta_url'] ) ) : '' );
+}
+add_action( 'save_post_conquista', 'andrewp_salvar_modal' );
+
+/**
+ * Handler do botão "Preencher com exemplo": grava os mesmos dados
+ * do mock (Universidad Nacional Rosario Castellanos) direto no post,
+ * usando URLs de imagem (Unsplash) em vez de exigir upload.
+ */
+function andrewp_seed_conquista_demo_handler() {
+	$post_id = isset( $_GET['post_id'] ) ? absint( $_GET['post_id'] ) : 0;
+
+	if ( ! $post_id || 'conquista' !== get_post_type( $post_id ) ) {
+		wp_die( esc_html__( 'Post inválido.', 'andrewp' ) );
+	}
+
+	check_admin_referer( 'andrewp_seed_conquista_demo_' . $post_id );
+
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		wp_die( esc_html__( 'Sem permissão.', 'andrewp' ) );
+	}
+
+	update_post_meta( $post_id, '_conquista_badge_label', 'CONQUISTA INTERNACIONAL' );
+	update_post_meta( $post_id, '_conquista_icone', 'globo' );
+	update_post_meta( $post_id, '_conquista_local', 'Rosario, Argentina' );
+	update_post_meta( $post_id, '_conquista_subtitulo', 'Cooperação Acadêmica Internacional' );
+
+	wp_update_post( array(
+		'ID'           => $post_id,
+		'post_content' => 'Apresentação de trabalho acadêmico e doação da coletânea Reflexões dos Economistas Baianos, incluindo capítulo de autoria sobre a evolução do microcrédito na Bahia (1973–2008).',
+	) );
+
+	update_post_meta( $post_id, '_conquista_destaques_icone', array( 'grupo', 'livro', 'lapis', 'grupo' ) );
+	update_post_meta( $post_id, '_conquista_destaques_titulo', array(
+		'Apresentação Acadêmica',
+		'Doação Institucional',
+		'Capítulo de Autoria',
+		'Intercâmbio Acadêmico',
+	) );
+	update_post_meta( $post_id, '_conquista_destaques_descricao', array(
+		'Apresentação de pesquisa sobre desenvolvimento regional e economia brasileira durante visita acadêmica à Universidad Nacional Rosario Castellanos.',
+		'Entrega da coletânea Reflexões dos Economistas Baianos ao acervo da universidade.',
+		'Análise da evolução do microcrédito na Bahia (1973–2008).',
+		'Fortalecimento da cooperação e do intercâmbio entre instituições de ensino e pesquisa.',
+	) );
+
+	update_post_meta( $post_id, '_conquista_galeria_urls', implode( "\n", array(
+		'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80',
+		'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80',
+		'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80',
+		'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&q=80',
+	) ) );
+
+	update_post_meta( $post_id, '_conquista_doc_titulo', array(
+		'Coletânea doada',
+		'Capítulo de autoria',
+		'Comprovante de doação',
+		'Apresentação do trabalho',
+	) );
+	update_post_meta( $post_id, '_conquista_doc_descricao', array(
+		'Reflexões dos Economistas Baianos',
+		'Análise da evolução do microcrédito na Bahia (1973–2008)',
+		'Registro da entrega da obra à universidade',
+		'Slides da apresentação acadêmica',
+	) );
+	update_post_meta( $post_id, '_conquista_doc_arquivo_id', array( 0, 0, 0, 0 ) );
+
+	update_post_meta( $post_id, '_conquista_impacto', array(
+		'Internacionalização da produção científica',
+		'Difusão da pesquisa brasileira',
+		'Cooperação entre instituições',
+		'Fortalecimento do intercâmbio acadêmico latino-americano',
+	) );
+
+	update_post_meta( $post_id, '_conquista_cta_texto', 'Ver mais detalhes' );
+	update_post_meta( $post_id, '_conquista_cta_url', 'https://www.rosario.gob.ar/' );
+
+	wp_safe_redirect( add_query_arg( array( 'andrewp_seed_ok' => 1 ), get_edit_post_link( $post_id, 'raw' ) ) );
+	exit;
+}
+add_action( 'admin_post_andrewp_seed_conquista_demo', 'andrewp_seed_conquista_demo_handler' );
+
+/**
+ * Carrega o JS/CSS do admin (repeaters + seletor de mídia).
+ */
+function andrewp_admin_assets_conquista( $hook ) {
+	if ( 'post.php' !== $hook && 'post-new.php' !== $hook ) {
+		return;
+	}
+
+	global $post;
+	if ( ! $post || 'conquista' !== get_post_type( $post ) ) {
+		return;
+	}
+
+	wp_enqueue_media();
+
+	wp_enqueue_style(
+		'andrewp-admin-conquista-modal',
+		get_template_directory_uri() . '/assets/css/admin-conquista-modal.css',
+		array(),
+		filemtime( get_template_directory() . '/assets/css/admin-conquista-modal.css' )
+	);
+
+	wp_enqueue_script(
+		'andrewp-admin-conquista-modal',
+		get_template_directory_uri() . '/assets/js/admin-conquista-modal.js',
+		array( 'jquery' ),
+		filemtime( get_template_directory() . '/assets/js/admin-conquista-modal.js' ),
+		true
+	);
+}
+add_action( 'admin_enqueue_scripts', 'andrewp_admin_assets_conquista' );
