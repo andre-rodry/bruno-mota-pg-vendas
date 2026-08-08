@@ -118,9 +118,9 @@ function meu_tema_scripts() {
     if ( is_page( 'sobre' ) ) {
         wp_enqueue_style(
             'andrewp-page-sobre',
-            get_template_directory_uri() . '/sobre/page-sobre.css',
+            get_template_directory_uri() . '/sobre/sobre.css',
             array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/sobre/page-sobre.css' )
+            filemtime( get_template_directory() . '/sobre/sobre.css' )
         );
 
         wp_enqueue_script(
@@ -136,9 +136,9 @@ function meu_tema_scripts() {
     if ( is_page( 'atuacao' ) ) {
         wp_enqueue_style(
             'andrewp-atuacao',
-            get_template_directory_uri() . '/atuacao/page-atuacao.css',
+            get_template_directory_uri() . '/atuacao/atuacao.css',
             array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/atuacao/page-atuacao.css' )
+            filemtime( get_template_directory() . '/atuacao/atuacao.css' )
         );
 
         wp_enqueue_script(
