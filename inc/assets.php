@@ -182,6 +182,13 @@ function meu_tema_scripts() {
         );
 
         wp_enqueue_style(
+            'andrewp-conquistas-midia',
+            get_template_directory_uri() . '/conquistas/page-midia-conquistas.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/conquistas/page-midia-conquistas.css' )
+        );
+
+        wp_enqueue_style(
             'andrewp-conquistas-grid',
             get_template_directory_uri() . '/conquistas/content-grid-conquistas.css',
             array( 'meu-tema-style' ),
