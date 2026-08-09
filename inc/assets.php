@@ -226,6 +226,54 @@ function meu_tema_scripts() {
         ) );
     }
 
+    // ---- PÁGINA PUBLICAÇÕES ----
+    if ( is_page( 'publicacoes' ) ) {
+
+        wp_enqueue_style(
+            'andrewp-publicacoes-banner',
+            get_template_directory_uri() . '/publicacoes/page-banner-publicacoes.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/publicacoes/page-banner-publicacoes.css' )
+        );
+
+        wp_enqueue_style(
+            'andrewp-publicacoes-categorias',
+            get_template_directory_uri() . '/publicacoes/page-categorias-publicacoes.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/publicacoes/page-categorias-publicacoes.css' )
+        );
+
+        wp_enqueue_style(
+            'andrewp-publicacoes-lista',
+            get_template_directory_uri() . '/publicacoes/page-lista-publicacoes.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/publicacoes/page-lista-publicacoes.css' )
+        );
+
+        wp_enqueue_style( 'dashicons' );
+
+        wp_enqueue_script(
+            'andrewp-publicacoes-categorias',
+            get_template_directory_uri() . '/publicacoes/page-categorias-publicacoes.js',
+            array(),
+            filemtime( get_template_directory() . '/publicacoes/page-categorias-publicacoes.js' ),
+            true
+        );
+
+        wp_enqueue_script(
+            'andrewp-publicacoes-lista',
+            get_template_directory_uri() . '/publicacoes/page-lista-publicacoes.js',
+            array(),
+            filemtime( get_template_directory() . '/publicacoes/page-lista-publicacoes.js' ),
+            true
+        );
+
+        wp_localize_script( 'andrewp-publicacoes-lista', 'andrewpPublicacoes', array(
+            'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+            'nonce'   => wp_create_nonce( 'andrewp_publicacoes_nonce' ),
+        ) );
+    }
+
     // ---- PÁGINA 404 ----
     if ( is_404() ) {
         wp_enqueue_style(

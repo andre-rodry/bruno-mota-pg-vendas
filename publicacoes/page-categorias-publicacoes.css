@@ -1,0 +1,154 @@
+:root {
+  /* Navy usados */
+  --navy-950: #0a0f1c;
+  --navy-900: #0b0f1e;
+
+  /* Dourados usados */
+  --gold: #c9962c;
+  --gold-accent: #f5a623;
+  --gold-hover: #e0951a;
+
+  /* Textos usados */
+  --text-light: #ffffff;
+  --text-soft: #f4efe4;
+  --text-muted: #b7bdcc;
+  --text-soft-light: #e0e0e0;
+
+  /* Bordas usadas */
+  --border-white: rgba(255, 255, 255, 0.08);
+  --border-gold-glow: rgba(217, 164, 65, 0.25);
+
+  /* Fontes usadas */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body-alt: "Poppins", "Segoe UI", Arial, sans-serif;
+}
+
+/* ==========================================================================
+   Categorias de Publicações
+   Sobrepõe o rodapé do banner (margin-top negativo no grid puxando os
+   cards pra cima). Section fica transparente de propósito: os cards têm
+   fundo próprio, e assim a imagem/fade do banner aparece livremente
+   entre eles, sem nenhum retângulo sólido competindo com o degradê.
+   ========================================================================== */
+
+.categorias-publicacoes {
+  position: relative;
+  z-index: 3; /* fica acima do fade ::after do banner */
+  width: 100%;
+  background-color: var(--navy-900);
+  /* Qualquer padding-top (mesmo mínimo) trava o colapso de margem:
+     sem isto, o margin-top negativo do .categorias-publicacoes__grid
+     arrastaria a section inteira (com seu fundo sólido) pra cima,
+     em vez de deixar só os cards sobrepondo o fade. */
+  padding-top: 1px;
+}
+
+.categorias-publicacoes__container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.categorias-publicacoes__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  /* Puxa o grid pra cima, sobrepondo o rodapé do banner */
+  margin-top: -64px;
+}
+
+/* Card individual */
+.categoria-publicacao-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 28px 16px;
+  background-color: rgba(11, 15, 30, 0.92);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid var(--border-white);
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+  font-family: inherit;
+}
+
+.categoria-publicacao-card:hover {
+  border-color: var(--border-gold-glow);
+  transform: translateY(-2px);
+}
+
+.categoria-publicacao-card.is-active {
+  border-color: var(--gold-accent);
+  background-color: rgba(245, 166, 35, 0.06);
+  box-shadow: 0 0 0 1px var(--border-gold-glow);
+}
+
+/* Ícone */
+.categoria-publicacao-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--gold-accent);
+}
+
+.categoria-publicacao-card__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Label */
+.categoria-publicacao-card__label {
+  font-family: var(--font-body-alt);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-light);
+}
+
+/* Total de publicações */
+.categoria-publicacao-card__total {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+  .categorias-publicacoes__grid {
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: -48px;
+    gap: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .categorias-publicacoes__grid {
+    grid-template-columns: 1fr;
+    margin-top: -32px;
+  }
+
+  .categoria-publicacao-card {
+    flex-direction: row;
+    justify-content: flex-start;
+    text-align: left;
+    padding: 16px 18px;
+  }
+
+  .categoria-publicacao-card__icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+
+  .categoria-publicacao-card__label,
+  .categoria-publicacao-card__total {
+    display: block;
+  }
+}
