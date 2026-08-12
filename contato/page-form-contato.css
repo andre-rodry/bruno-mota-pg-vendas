@@ -1,0 +1,150 @@
+/*
+ * contato/page-form-contato.css
+ * Section 2 — Formulário de contato
+ */
+
+.contato-form {
+    background: var(--navy-900);
+    padding: 100px 24px;
+    border-top: 1px solid var(--border-white);
+}
+
+.contato-form__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 60px;
+    align-items: start;
+}
+
+.contato-form__eyebrow {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--gold-accent);
+    margin-bottom: 16px;
+}
+
+.contato-form__title {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(28px, 3.5vw, 38px);
+    line-height: 1.2;
+    color: var(--text-light);
+    margin: 0 0 20px;
+}
+
+.contato-form__divider {
+    width: 56px;
+    height: 3px;
+    background: var(--gold-accent);
+    margin-bottom: 24px;
+}
+
+.contato-form__text {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-muted);
+    max-width: 340px;
+}
+
+.contato-form__form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contato-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.contato-form__row--full {
+    grid-template-columns: 1fr;
+}
+
+.contato-form__field input,
+.contato-form__field textarea {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--border-white);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14.5px;
+    color: var(--text-soft-light);
+    resize: vertical;
+    transition: border-color .2s ease;
+}
+
+.contato-form__field input::placeholder,
+.contato-form__field textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.contato-form__field input:focus,
+.contato-form__field textarea:focus {
+    outline: none;
+    border-color: var(--gold-accent);
+}
+
+.contato-form__submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    align-self: flex-start;
+    background: linear-gradient(135deg, var(--gold-accent), var(--gold-hover));
+    color: var(--navy-950);
+    border: none;
+    border-radius: 8px;
+    padding: 14px 28px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity .2s ease, transform .2s ease;
+}
+
+.contato-form__submit:hover {
+    opacity: .92;
+    transform: translateY(-1px);
+}
+
+.contato-form__submit:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.contato-form__feedback {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--text-muted);
+    min-height: 20px;
+}
+
+.contato-form__feedback.is-success {
+    color: var(--gold-accent);
+}
+
+.contato-form__feedback.is-error {
+    color: #e5484d;
+}
+
+@media (max-width: 900px) {
+    .contato-form__inner {
+        grid-template-columns: 1fr;
+    }
+
+    .contato-form__row {
+        grid-template-columns: 1fr;
+    }
+}

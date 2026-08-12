@@ -140,8 +140,8 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <li><a href="<?php echo esc_url( home_url( '/atuacao/' ) ); ?>">Atuação</a></li>
                     <li><a href="<?php echo esc_url( home_url( '/conquistas/' ) ); ?>">Conquistas</a></li>
                     <li><a href="<?php echo esc_url( home_url( '/publicacoes/' ) ); ?>">Publicações</a></li>
-                    <li><a href="#midia">Mídia</a></li>
-                    <li><a href="#contato">Contato</a></li>
+                    <li><a href="<?php echo esc_url( home_url( '/midia/' ) ); ?>">Mídia</a></li>
+                    <li><a href="<?php echo esc_url( home_url( '/contato/' ) ); ?>">Contato</a></li>
                 </ul>
                 <?php
             }
@@ -183,8 +183,8 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <li><a href="<?php echo esc_url( home_url( '/atuacao/' ) ); ?>">Atuação</a></li>
                 <li><a href="<?php echo esc_url( home_url( '/conquistas/' ) ); ?>">Conquistas</a></li>
                 <li><a href="<?php echo esc_url( home_url( '/publicacoes/' ) ); ?>">Publicações</a></li>
-                <li><a href="#midia">Mídia</a></li>
-                <li><a href="#contato">Contato</a></li>
+                <li><a href="<?php echo esc_url( home_url( '/midia/' ) ); ?>">Mídia</a></li>
+                <li><a href="<?php echo esc_url( home_url( '/contato/' ) ); ?>">Contato</a></li>
             </ul>
             <?php
         }

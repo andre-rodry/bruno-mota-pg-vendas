@@ -253,14 +253,6 @@ function meu_tema_scripts() {
         wp_enqueue_style( 'dashicons' );
 
         wp_enqueue_script(
-            'andrewp-publicacoes-categorias',
-            get_template_directory_uri() . '/publicacoes/page-categorias-publicacoes.js',
-            array(),
-            filemtime( get_template_directory() . '/publicacoes/page-categorias-publicacoes.js' ),
-            true
-        );
-
-        wp_enqueue_script(
             'andrewp-publicacoes-lista',
             get_template_directory_uri() . '/publicacoes/page-lista-publicacoes.js',
             array(),
@@ -272,6 +264,91 @@ function meu_tema_scripts() {
             'ajaxUrl' => admin_url( 'admin-ajax.php' ),
             'nonce'   => wp_create_nonce( 'andrewp_publicacoes_nonce' ),
         ) );
+    }
+
+        // ---- PÁGINA MÍDIA ----
+    if ( is_page( 'midia' ) ) {
+
+        wp_enqueue_style(
+            'andrewp-midia-banner',
+            get_template_directory_uri() . '/midia/page-banner-midia.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/midia/page-banner-midia.css' )
+        );
+
+        wp_enqueue_style(
+            'andrewp-midia-destaques',
+            get_template_directory_uri() . '/midia/page-destaques-midia.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/midia/page-destaques-midia.css' )
+        );
+
+        wp_enqueue_style(
+            'andrewp-midia-emissoras',
+            get_template_directory_uri() . '/midia/page-emissoras-midia.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/midia/page-emissoras-midia.css' )
+        );
+
+        wp_enqueue_style(
+            'andrewp-midia-tv',
+            get_template_directory_uri() . '/midia/page-tv-midia.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/midia/page-tv-midia.css' )
+        );
+
+        wp_enqueue_style(
+            'andrewp-midia-canais',
+            get_template_directory_uri() . '/midia/page-canais-midia.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/midia/page-canais-midia.css' )
+        );
+
+    }
+
+    // ---- PÁGINA CONTATO ----
+    if ( is_page( 'contato' ) ) {
+
+        wp_enqueue_style(
+            'andrewp-contato-banner',
+            get_template_directory_uri() . '/contato/page-banner-contato.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/contato/page-banner-contato.css' )
+        );
+
+        wp_enqueue_style(
+            'andrewp-contato-form',
+            get_template_directory_uri() . '/contato/page-form-contato.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/contato/page-form-contato.css' )
+        );
+
+        wp_enqueue_style(
+            'andrewp-contato-faq',
+            get_template_directory_uri() . '/contato/page-faq-contato.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/contato/page-faq-contato.css' )
+        );
+
+        wp_enqueue_script(
+            'andrewp-contato-form',
+            get_template_directory_uri() . '/contato/page-form-contato.js',
+            array(),
+            filemtime( get_template_directory() . '/contato/page-form-contato.js' ),
+            true
+        );
+
+        wp_localize_script( 'andrewp-contato-form', 'andrewpContato', array(
+            'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+        ) );
+
+        wp_enqueue_script(
+            'andrewp-contato-faq',
+            get_template_directory_uri() . '/contato/page-faq-contato.js',
+            array(),
+            filemtime( get_template_directory() . '/contato/page-faq-contato.js' ),
+            true
+        );
     }
 
     // ---- PÁGINA 404 ----
