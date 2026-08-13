@@ -1,0 +1,652 @@
+/* ==========================================================================
+   page-canais-midia.css
+   Seção "Canais de Mídia" — Rádio / Podcasts / Imprensa
+   ========================================================================== */
+
+:root {
+  /* Navy usados */
+  --navy-950: #0a0f1c;
+  --navy-900: #0b0f1e;
+
+  /* Dourados usados */
+  --gold: #c9962c;
+  --gold-accent: #f5a623;
+  --gold-hover: #e0951a;
+
+  /* Textos usados */
+  --text-light: #ffffff;
+  --text-soft: #f4efe4;
+  --text-muted: #b7bdcc;
+  --text-soft-light: #e0e0e0;
+
+  /* Bordas usadas */
+  --border-white: rgba(255,255,255,.08);
+  --border-gold-glow: rgba(217,164,65,.25);
+
+  /* Fontes usadas */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body-alt: "Poppins", "Segoe UI", Arial, sans-serif;
+}
+
+.canais-midia,
+.canais-midia *,
+.canais-tv,
+.canais-tv * {
+  box-sizing: border-box;
+}
+
+/* ---------- Wrapper / grid ---------- */
+
+.canais-midia {
+  background: var(--navy-950);
+  padding: 64px 24px;
+}
+
+.canais-midia__inner {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  border: 1px solid var(--border-gold-glow);
+  border-radius: 20px;
+  padding: 32px 36px 36px;
+}
+
+.canais-midia__grid {
+  display: grid;
+  grid-template-columns: 0.9fr 0.9fr 1.2fr;
+  gap: 24px;
+  align-items: center;
+}
+
+/* ---------- Painel (coluna) ---------- */
+
+.canais-painel {
+  background: linear-gradient(180deg, #10182c 0%, var(--navy-900) 100%);
+  border: 1px solid var(--border-white);
+  border-radius: 18px;
+  padding: 28px 26px;
+  display: flex;
+  flex-direction: column;
+}
+
+.canais-painel__titulo {
+  font-family: var(--font-body-alt);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 22px;
+}
+
+/* ==========================================================================
+   RÁDIO
+   ========================================================================== */
+
+.radio-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.radio-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-white);
+}
+
+.radio-item:first-child {
+  padding-top: 0;
+}
+
+.radio-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.radio-item__icone {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.radio-item__icone--letra {
+  font-family: var(--font-body-alt);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--navy-950);
+}
+
+.radio-item__icone--sinal {
+  color: var(--text-light);
+}
+
+.radio-item__icone--bahiacast {
+  background: #1560bd;
+}
+
+.radio-item__icone--metropole {
+  background: #b7a53a;
+}
+
+.radio-item__icone--sociedade {
+  background: #145a86;
+}
+
+.radio-item__icone--itapoan {
+  background: #c0392b;
+}
+
+.radio-item__icone--img {
+  background: var(--text-light);
+}
+
+.radio-item__icone--img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.radio-item__info {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.radio-item__nome {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: .95rem;
+  color: var(--text-light);
+  margin: 0 0 2px;
+}
+
+.radio-item__desc {
+  font-family: var(--font-body);
+  font-size: .78rem;
+  color: var(--text-muted);
+  margin: 0 0 2px;
+}
+
+.radio-item__data {
+  font-family: var(--font-body);
+  font-size: .72rem;
+  color: var(--text-muted);
+  opacity: .8;
+  margin: 0;
+}
+
+/* Botão "Ouvir" (pill, outline dourado) */
+.btn-ouvir {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border: 1.5px solid var(--gold);
+  border-radius: 999px;
+  color: var(--gold-accent);
+  font-family: var(--font-body-alt);
+  font-weight: 700;
+  font-size: .72rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+
+.btn-ouvir:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--navy-950);
+}
+
+/* ==========================================================================
+   PODCASTS
+   ========================================================================== */
+
+.podcast-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.podcast-item {
+  display: flex;
+  gap: 16px;
+}
+
+.podcast-item__icone {
+  flex: 0 0 auto;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--text-light);
+}
+
+.podcast-item__icone img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.podcast-item__info {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.podcast-item__nome {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text-light);
+  margin: 0 0 6px;
+}
+
+.podcast-item__desc {
+  font-family: var(--font-body);
+  font-size: .82rem;
+  line-height: 1.45;
+  color: var(--text-soft-light);
+  margin: 0 0 6px;
+}
+
+.podcast-item__data {
+  font-family: var(--font-body);
+  font-size: .72rem;
+  color: var(--text-muted);
+  margin: 0 0 14px;
+}
+
+/* Botão "Ouvir no Spotify / Assistir no YouTube" */
+.btn-plataforma {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border: 1.5px solid var(--gold);
+  border-radius: 999px;
+  color: var(--gold-accent);
+  font-family: var(--font-body-alt);
+  font-weight: 700;
+  font-size: .72rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+
+.btn-plataforma:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--navy-950);
+}
+
+/* ==========================================================================
+   IMPRENSA
+   ========================================================================== */
+
+.canais-painel--imprensa {
+  padding-bottom: 30px;
+}
+
+.imprensa-figura {
+  display: block;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-white);
+  margin-bottom: 20px;
+  line-height: 0;
+  background: #0d1424;
+  aspect-ratio: 16 / 9;
+}
+
+.imprensa-figura img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform .35s ease;
+}
+
+.imprensa-figura:hover img {
+  transform: scale(1.03);
+}
+
+.imprensa-titulo {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--text-light);
+  margin: 0 0 10px;
+}
+
+.imprensa-texto {
+  font-family: var(--font-body);
+  font-size: .88rem;
+  line-height: 1.55;
+  color: var(--text-soft-light);
+  margin: 0 0 20px;
+}
+
+/* Botão "Ler matéria" */
+.btn-materia {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: 1.5px solid var(--gold);
+  border-radius: 999px;
+  color: var(--gold-accent);
+  font-family: var(--font-body-alt);
+  font-weight: 700;
+  font-size: .74rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+
+.btn-materia:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--navy-950);
+}
+
+/* ==========================================================================
+   TV
+   ========================================================================== */
+
+.canais-tv {
+  background: var(--navy-950);
+  padding: 0 24px 64px;
+}
+
+.canais-tv__inner {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  border: 1px solid var(--border-gold-glow);
+  border-radius: 20px;
+  padding: 32px 36px 36px;
+  background: linear-gradient(180deg, #10182c 0%, var(--navy-900) 100%);
+}
+
+.canais-tv__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.canais-tv__titulo {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: var(--gold);
+  margin: 0;
+}
+
+.canais-tv__ver-todas {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--gold-accent);
+  font-family: var(--font-body-alt);
+  font-weight: 700;
+  font-size: .78rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: opacity .2s ease;
+}
+
+.canais-tv__ver-todas:hover {
+  opacity: .75;
+}
+
+.canais-tv__grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+
+.tv-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--navy-900);
+  border: 1px solid var(--border-white);
+  border-radius: 14px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: transform .25s ease, border-color .25s ease;
+}
+
+.tv-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-gold-glow);
+}
+
+.tv-card__imagem {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #0d1424;
+}
+
+.tv-card__imagem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .35s ease;
+}
+
+.tv-card:hover .tv-card__imagem img {
+  transform: scale(1.05);
+}
+
+.tv-card__nome {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: .98rem;
+  color: var(--text-light);
+  padding: 14px 16px 0;
+}
+
+.tv-card__desc {
+  font-family: var(--font-body);
+  font-size: .82rem;
+  color: #7fa0e0;
+  padding: 4px 16px 0;
+}
+
+.tv-card__data {
+  font-family: var(--font-body);
+  font-size: .74rem;
+  color: var(--text-muted);
+  padding: 8px 16px 16px;
+}
+
+/* ==========================================================================
+   RESPONSIVO
+   ========================================================================== */
+
+/* Tablet grande: 3 colunas ficam apertadas → passa pra 2, Imprensa ocupa a linha toda */
+@media (max-width: 1100px) {
+  .canais-midia__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .canais-painel--imprensa {
+    grid-column: 1 / -1;
+  }
+  .canais-tv__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  /* Imprensa ocupa a linha toda aqui, então a proporção pode ficar mais baixa */
+  .imprensa-figura {
+    aspect-ratio: 21 / 8;
+  }
+}
+
+/* Tablet / mobile grande: tudo empilhado em 1 coluna */
+@media (max-width: 768px) {
+  .canais-midia {
+    padding: 48px 20px;
+  }
+  .canais-midia__grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .canais-painel--imprensa {
+    grid-column: auto;
+  }
+  .canais-painel {
+    padding: 24px 22px;
+  }
+  .imprensa-figura {
+    aspect-ratio: 16 / 7;
+  }
+  .canais-tv {
+    padding: 0 20px 48px;
+  }
+  .canais-tv__inner {
+    padding: 26px 22px 30px;
+  }
+  .canais-tv__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile: itens de rádio/podcast se ajustam, botões passam pra segunda linha quando precisar */
+@media (max-width: 480px) {
+  .canais-midia {
+    padding: 36px 14px;
+  }
+  .canais-midia__grid {
+    gap: 16px;
+  }
+  .canais-painel {
+    padding: 20px 18px;
+    border-radius: 14px;
+  }
+  .canais-painel__titulo {
+    font-size: .95rem;
+    margin-bottom: 16px;
+  }
+
+  /* Rádio: ícone + texto numa linha, botão "Ouvir" desce full-width abaixo */
+  .radio-item {
+    flex-wrap: wrap;
+    row-gap: 10px;
+    padding: 12px 0;
+  }
+  .radio-item__icone {
+    width: 40px;
+    height: 40px;
+  }
+  .radio-item__nome {
+    font-size: .9rem;
+  }
+  .radio-item__desc,
+  .radio-item__data {
+    font-size: .74rem;
+  }
+  .btn-ouvir {
+    flex: 1 1 100%;
+    justify-content: center;
+    margin-left: 0;
+  }
+
+  /* Podcasts: ícone menor, textos reduzidos, botão ocupa a largura toda */
+  .podcast-item {
+    gap: 12px;
+  }
+  .podcast-item__icone {
+    width: 44px;
+    height: 44px;
+  }
+  .podcast-item__nome {
+    font-size: .95rem;
+  }
+  .podcast-item__desc {
+    font-size: .78rem;
+  }
+  .btn-plataforma {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .imprensa-figura {
+    aspect-ratio: 16 / 10;
+  }
+  .imprensa-titulo {
+    font-size: 1.05rem;
+  }
+  .imprensa-texto {
+    font-size: .85rem;
+  }
+  .btn-materia {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .canais-tv {
+    padding: 0 14px 36px;
+  }
+  .canais-tv__inner {
+    padding: 20px 16px 24px;
+    border-radius: 16px;
+  }
+  .canais-tv__header {
+    margin-bottom: 18px;
+  }
+  .canais-tv__titulo {
+    font-size: 1.3rem;
+  }
+  .canais-tv__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .tv-card__nome {
+    font-size: .88rem;
+    padding: 12px 12px 0;
+  }
+  .tv-card__desc {
+    font-size: .76rem;
+    padding: 4px 12px 0;
+  }
+  .tv-card__data {
+    font-size: .68rem;
+    padding: 6px 12px 12px;
+  }
+}
+
+/* Telas muito pequenas (≤360px): reduz ainda mais o respiro lateral */
+@media (max-width: 360px) {
+  .canais-midia {
+    padding: 28px 10px;
+  }
+  .canais-painel {
+    padding: 18px 14px;
+  }
+}
