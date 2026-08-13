@@ -34,7 +34,22 @@ $destaques_midia = array(
 <section class="destaques-midia">
 	<div class="destaques-midia__container">
 
-		<span class="destaques-midia__kicker">Destaques na Mídia</span>
+		<div class="destaques-midia__header">
+			<div class="destaques-midia__heading">
+				<span class="destaques-midia__kicker">Destaques na Mídia</span>
+				<h2 class="destaques-midia__heading-title">Presença que gera impacto.</h2>
+				<p class="destaques-midia__heading-desc">
+					Reportagens, entrevistas e participações que mostram nosso compromisso com a educação financeira e o desenvolvimento do Brasil.
+				</p>
+			</div>
+
+			<a href="#" class="destaques-midia__cta">
+				Ver todos
+				<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+			</a>
+		</div>
 
 		<div class="destaques-midia__grid">
 			<?php foreach ( $destaques_midia as $item ) : ?>
@@ -42,7 +57,7 @@ $destaques_midia = array(
 
 					<div class="destaques-midia__media">
 						<img
-							src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/' . $item['imagem'] ); ?>"
+							src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/midia/' . $item['imagem'] ); ?>"
 							alt="<?php echo esc_attr( $item['titulo'] ); ?>"
 							class="destaques-midia__img"
 							loading="lazy"

@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-<section class="banner-midia">
+<section class="banner-midia" style="background-image: url('<?php echo esc_url( get_template_directory_uri() . '/assets/img/midia/midia-hero-bg.webp' ); ?>');">
 	<div class="banner-midia__container">
 		<div class="banner-midia__content">
 
