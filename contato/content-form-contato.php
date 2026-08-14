@@ -1,62 +1,87 @@
 <?php
 /**
- * contato/content-form-contato.php
- * Section 2 — Formulário de mensagem, enviado via AJAX (admin-ajax.php).
+ * content-form-contato.php
+ * Partial: seção de contato "Estou pronto para te ouvir."
+ *
+ * Gera um token simples (CSRF) guardado em sessão e validado em ajax-contato.php.
+ * Inclua este arquivo onde a seção de contato deve aparecer:
+ *   <?php include 'content-form-contato.php'; ?>
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
-?>
-<section class="contato-form" id="form-contato">
-    <div class="contato-form__inner">
 
-        <div class="contato-form__intro">
-            <span class="contato-form__eyebrow">Envie sua mensagem</span>
-            <h2 class="contato-form__title">
-                Estou pronto para<br>te ouvir.
-            </h2>
-            <div class="contato-form__divider"></div>
-            <p class="contato-form__text">
+// Token CSRF simples
+if (empty($_SESSION['contato_token'])) {
+    $_SESSION['contato_token'] = bin2hex(random_bytes(32));
+}
+$contato_token = $_SESSION['contato_token'];
+?>
+
+<section class="contato-section" id="contato">
+    <div class="contato-container">
+
+        <div class="contato-info">
+            <span class="contato-eyebrow">ENVIE SUA MENSAGEM</span>
+            <h2 class="contato-titulo">Estou pronto para<br>te ouvir.</h2>
+            <div class="contato-divisor" aria-hidden="true"></div>
+            <p class="contato-texto">
                 Preencha o formulário ao lado com sua mensagem.
                 Assim que possível, entrarei em contato.
             </p>
         </div>
 
-        <form class="contato-form__form" id="contato-form" novalidate>
-            <?php wp_nonce_field( 'andrewp_contato_nonce', 'contato_nonce' ); ?>
+        <div class="contato-form-wrapper">
+            <form id="form-contato" class="contato-form" method="post" action="ajax-contato.php" novalidate>
 
-            <div class="contato-form__row">
-                <div class="contato-form__field">
-                    <input type="text" id="contato-nome" name="nome" placeholder="Seu nome" required>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" id="nome" name="nome" class="form-input" placeholder="Seu nome" autocomplete="name" required>
+                        <span class="form-error" data-error-for="nome"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" class="form-input" placeholder="Seu e-mail" autocomplete="email" required>
+                        <span class="form-error" data-error-for="email"></span>
+                    </div>
                 </div>
-                <div class="contato-form__field">
-                    <input type="email" id="contato-email" name="email" placeholder="Seu e-mail" required>
-                </div>
-            </div>
 
-            <div class="contato-form__row">
-                <div class="contato-form__field">
-                    <input type="tel" id="contato-telefone" name="telefone" placeholder="Telefone / WhatsApp">
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="tel" id="telefone" name="telefone" class="form-input" placeholder="Telefone / WhatsApp" autocomplete="tel" required>
+                        <span class="form-error" data-error-for="telefone"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="assunto" name="assunto" class="form-input" placeholder="Assunto">
+                        <span class="form-error" data-error-for="assunto"></span>
+                    </div>
                 </div>
-                <div class="contato-form__field">
-                    <input type="text" id="contato-assunto" name="assunto" placeholder="Assunto">
+
+                <div class="form-group form-group-full">
+                    <textarea id="mensagem" name="mensagem" class="form-input form-textarea" rows="5" placeholder="Sua mensagem" required></textarea>
+                    <span class="form-error" data-error-for="mensagem"></span>
                 </div>
-            </div>
 
-            <div class="contato-form__row contato-form__row--full">
-                <div class="contato-form__field">
-                    <textarea id="contato-mensagem" name="mensagem" rows="5" placeholder="Sua mensagem" required></textarea>
+                <!-- Honeypot anti-spam (mantido escondido via CSS) -->
+                <div class="hp-wrapper" aria-hidden="true">
+                    <label for="website">Não preencha este campo</label>
+                    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
                 </div>
-            </div>
 
-            <button type="submit" class="contato-form__submit">
-                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
-                <span>Enviar mensagem</span>
-            </button>
+                <input type="hidden" name="contato_token" value="<?php echo htmlspecialchars($contato_token, ENT_QUOTES, 'UTF-8'); ?>">
 
-            <p class="contato-form__feedback" role="status" aria-live="polite"></p>
-        </form>
+                <button type="submit" class="btn-enviar">
+                    <svg class="btn-enviar-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M21.5 2.5L2.5 10.3L10.6 13.4L13.7 21.5L21.5 2.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+                        <path d="M21.5 2.5L10.6 13.4" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+                    </svg>
+                    <span class="btn-enviar-texto">ENVIAR MENSAGEM</span>
+                    <span class="btn-enviar-loader" aria-hidden="true"></span>
+                </button>
+
+                <div class="form-feedback" id="form-feedback" role="alert" aria-live="polite"></div>
+            </form>
+        </div>
 
     </div>
 </section>

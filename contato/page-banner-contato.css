@@ -34,7 +34,7 @@
   position: relative;
   background: linear-gradient(180deg, var(--navy-950) 0%, var(--navy-900) 100%);
   overflow: hidden;
-  padding: 160px 24px 96px;
+  padding: 160px 24px 26px;
   isolation: isolate;
 }
 
