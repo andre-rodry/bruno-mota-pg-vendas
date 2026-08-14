@@ -1,27 +1,83 @@
-/**
- * contato/page-faq-contato.js
- * Accordion do FAQ da página de contato.
- */
+/* =========================================================
+   page-faq-contato.js
+   Anima a abertura/fechamento dos <details> do FAQ para ficar
+   suave, em vez do "salto" padrão do navegador.
+   Não depende de nenhuma lib — usa a Web Animations API.
+   ========================================================= */
 (function () {
     'use strict';
 
     document.addEventListener('DOMContentLoaded', function () {
-        var questions = document.querySelectorAll('.contato-faq__question');
+        var items = document.querySelectorAll('.faq-item');
 
-        questions.forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                var item = btn.closest('.contato-faq__item');
-                var answer = item.querySelector('.contato-faq__answer');
-                var isOpen = btn.getAttribute('aria-expanded') === 'true';
+        items.forEach(function (item) {
+            var summary = item.querySelector('.faq-pergunta');
+            var content = item.querySelector('.faq-resposta');
+            var animation = null;
+            var isClosing = false;
+            var isExpanding = false;
 
-                btn.setAttribute('aria-expanded', String(!isOpen));
+            summary.addEventListener('click', function (e) {
+                e.preventDefault();
 
-                if (isOpen) {
-                    answer.style.maxHeight = null;
-                } else {
-                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                item.style.overflow = 'hidden';
+
+                if (isClosing || !item.open) {
+                    open();
+                } else if (isExpanding || item.open) {
+                    close();
                 }
             });
+
+            function open() {
+                item.style.height = item.offsetHeight + 'px';
+                item.open = true;
+                window.requestAnimationFrame(expand);
+            }
+
+            function expand() {
+                isExpanding = true;
+                var startHeight = item.offsetHeight;
+                var endHeight = summary.offsetHeight + content.offsetHeight;
+
+                runAnimation(startHeight, endHeight, true);
+            }
+
+            function close() {
+                isClosing = true;
+                var startHeight = item.offsetHeight;
+                var endHeight = summary.offsetHeight;
+
+                runAnimation(startHeight, endHeight, false);
+            }
+
+            function runAnimation(startHeight, endHeight, willBeOpen) {
+                if (animation) {
+                    animation.cancel();
+                }
+
+                animation = item.animate(
+                    { height: [startHeight + 'px', endHeight + 'px'] },
+                    { duration: 260, easing: 'cubic-bezier(.4, 0, .2, 1)' }
+                );
+
+                animation.onfinish = function () {
+                    onAnimationFinish(willBeOpen);
+                };
+                animation.oncancel = function () {
+                    isClosing = false;
+                    isExpanding = false;
+                };
+            }
+
+            function onAnimationFinish(open) {
+                item.open = open;
+                animation = null;
+                isClosing = false;
+                isExpanding = false;
+                item.style.height = '';
+                item.style.overflow = '';
+            }
         });
     });
 })();

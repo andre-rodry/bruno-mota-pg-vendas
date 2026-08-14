@@ -1,179 +1,312 @@
-/*
- * contato/page-faq-contato.css
- * Section 3 — FAQ
- */
+/* =========================================================
+   page-faq-contato.css
+   Seção "Perguntas frequentes" (FAQ) — accordion sem JS,
+   usando <details>/<summary> nativos.
+   Usa os tokens já definidos em :root (navy / gold / fontes)
+   ========================================================= */
 
-.contato-faq {
+.faq-section {
     background: var(--navy-950);
-    padding: 100px 24px 120px;
-    border-top: 1px solid var(--border-white);
+    padding: 30px 24px;
 }
 
-.contato-faq__inner {
-    max-width: 1280px;
+.faq-container {
+    max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 0.75fr 1.25fr;
-    gap: 60px;
+    grid-template-columns: minmax(260px, 340px) 1fr;
+    gap: 64px;
     align-items: start;
 }
 
-.contato-faq__eyebrow {
+/* ---------- Coluna esquerda (bloco de texto) ---------- */
+
+.faq-info {
+    padding-top: 8px;
+}
+
+.faq-eyebrow {
     display: inline-block;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 13px;
+    font-family: var(--font-body-alt);
     font-weight: 600;
-    letter-spacing: .12em;
-    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.12em;
     color: var(--gold-accent);
-    margin-bottom: 16px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
 }
 
-.contato-faq__title {
-    font-family: 'Fraunces', serif;
+.faq-titulo {
+    font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(28px, 3.5vw, 38px);
-    line-height: 1.2;
-    color: var(--text-light);
-    margin: 0 0 20px;
+    font-size: clamp(32px, 4vw, 44px);
+    line-height: 1.15;
+    color: var(--text-soft);
+    margin: 0 0 24px;
 }
 
-.contato-faq__divider {
+.faq-divisor {
     width: 56px;
     height: 3px;
     background: var(--gold-accent);
+    border-radius: 2px;
     margin-bottom: 24px;
 }
 
-.contato-faq__text {
-    font-family: 'Inter', sans-serif;
+.faq-texto {
+    font-family: var(--font-body);
     font-size: 15px;
     line-height: 1.7;
     color: var(--text-muted);
     max-width: 320px;
-    margin-bottom: 32px;
+    margin: 0 0 40px;
 }
 
-.contato-faq__help-box {
+/* ---------- Card "Ainda tem dúvidas?" ---------- */
+
+.faq-suporte {
     display: flex;
-    gap: 14px;
     align-items: flex-start;
-    border: 1px solid var(--border-gold-glow);
-    border-radius: 10px;
+    gap: 16px;
     padding: 20px;
-    background: rgba(217,164,65,.04);
-    max-width: 340px;
+    border: 1px solid var(--border-white);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, .015);
+    max-width: 320px;
 }
 
-.contato-faq__help-icon {
+.faq-suporte-icone {
     flex-shrink: 0;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    border: 1px solid var(--border-gold-glow);
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 50%;
+    border: 1px solid var(--border-gold-glow);
     color: var(--gold-accent);
-    font-size: 15px;
 }
 
-.contato-faq__help-box strong {
-    display: block;
-    font-family: 'Inter', sans-serif;
+.faq-suporte-icone svg {
+    width: 20px;
+    height: 20px;
+}
+
+.faq-suporte-titulo {
+    font-family: var(--font-body);
     font-weight: 600;
     font-size: 14.5px;
-    color: var(--text-soft-light);
-    margin-bottom: 3px;
+    color: var(--text-light);
+    margin: 0 0 2px;
 }
 
-.contato-faq__help-box span {
-    display: block;
-    font-family: 'Inter', sans-serif;
+.faq-suporte-sub {
+    font-family: var(--font-body);
     font-size: 13.5px;
     color: var(--text-muted);
-    margin-bottom: 8px;
+    margin: 0 0 8px;
 }
 
-.contato-faq__help-link {
-    font-family: 'Inter', sans-serif;
-    font-size: 13.5px;
-    font-weight: 600;
-    color: var(--gold-accent);
-    text-decoration: none;
+.faq-suporte-link {
     display: inline-flex;
     align-items: center;
     gap: 6px;
+    font-family: var(--font-body-alt);
+    font-weight: 600;
+    font-size: 13.5px;
+    color: var(--gold-accent);
+    text-decoration: none;
+    transition: gap .15s ease, opacity .15s ease;
 }
 
-.contato-faq__help-link:hover {
-    color: var(--gold-hover);
+.faq-suporte-link:hover {
+    gap: 10px;
+    opacity: .9;
 }
 
-.contato-faq__columns {
+/* ---------- Coluna direita: lista de perguntas ---------- */
+
+/*
+ * IMPORTANTE: NÃO usar CSS multi-column (`columns: 2`) aqui.
+ *
+ * Motivo: `columns` faz o navegador BALANCEAR a altura das colunas
+ * automaticamente (mesmo sem altura fixa no container). Como o JS anima
+ * a altura de cada <details> ao abrir/fechar, cada mudança de altura
+ * disparava um novo rebalanceamento — e o navegador realocava itens
+ * entre a coluna 1 e a coluna 2 no meio da animação. Resultado: clicar
+ * em um item "mexia" visualmente em outro item que não foi tocado.
+ *
+ * Também não usamos CSS Grid de 2 colunas simples, porque nesse caso
+ * cada PAR de itens (um da coluna 1, um da coluna 2) compartilha a
+ * mesma altura de linha — abrir um item fazia a linha toda crescer e
+ * sobrava espaço vazio embaixo do vizinho.
+ *
+ * Solução: duas colunas FIXAS e independentes. O HTML já entrega os
+ * itens pré-distribuídos em duas divs .faq-coluna (ver
+ * content-faq-contato.php). Cada .faq-coluna é um flex column simples,
+ * sem nenhum acoplamento de altura com a coluna vizinha. Abrir um item
+ * só empurra os itens abaixo DELE, na MESMA coluna — comportamento
+ * normal de accordion, sem interferir na outra coluna.
+ */
+.faq-lista {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0 24px;
-    align-content: start;
+    gap: 16px;
+    align-items: start;
 }
 
-.contato-faq__column {
+.faq-coluna {
     display: flex;
     flex-direction: column;
+    gap: 16px;
 }
 
-.contato-faq__item {
-    border-bottom: 1px solid var(--border-white);
+.faq-item-full {
+    grid-column: 1 / -1;
 }
 
-.contato-faq__question {
-    width: 100%;
+.faq-item {
+    border: 1px solid var(--border-white);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, .015);
+    overflow: hidden;
+    transition: border-color .2s ease, background-color .2s ease;
+}
+
+.faq-item:hover {
+    border-color: rgba(255, 255, 255, .16);
+}
+
+.faq-item[open] {
+    border-color: var(--border-gold-glow);
+    background: rgba(255, 255, 255, .025);
+}
+
+/* Remove o marcador padrão do <summary> em todos os browsers */
+.faq-pergunta {
+    list-style: none;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    background: none;
-    border: none;
-    padding: 18px 4px;
-    text-align: left;
-    font-family: 'Inter', sans-serif;
+    padding: 20px 22px;
+    font-family: var(--font-body);
     font-size: 14.5px;
+    line-height: 1.5;
     color: var(--text-soft-light);
-    cursor: pointer;
+    user-select: none;
 }
 
-.contato-faq__toggle-icon {
+.faq-pergunta::-webkit-details-marker {
+    display: none;
+}
+
+.faq-pergunta::marker {
+    content: '';
+}
+
+.faq-item[open] .faq-pergunta {
+    color: var(--text-light);
+}
+
+.faq-pergunta-texto {
+    flex: 1;
+}
+
+/* Ícone "+" que vira "-" (rotaciona 45°) quando aberto */
+.faq-toggle {
+    position: relative;
     flex-shrink: 0;
+    width: 20px;
+    height: 20px;
     color: var(--gold-accent);
-    font-size: 13px;
+}
+
+.faq-toggle::before,
+.faq-toggle::after {
+    content: '';
+    position: absolute;
+    background: currentColor;
+    border-radius: 2px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     transition: transform .2s ease;
 }
 
-.contato-faq__question[aria-expanded="true"] .contato-faq__toggle-icon {
-    transform: rotate(45deg);
+.faq-toggle::before {
+    width: 15px;
+    height: 2px;
 }
 
-.contato-faq__answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height .25s ease;
+.faq-toggle::after {
+    width: 2px;
+    height: 15px;
 }
 
-.contato-faq__answer p {
-    font-family: 'Inter', sans-serif;
+.faq-item[open] .faq-toggle::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+    opacity: 0;
+}
+
+/* ---------- Resposta ---------- */
+
+.faq-resposta {
+    padding: 0 22px 20px;
+    font-family: var(--font-body);
     font-size: 14px;
-    line-height: 1.6;
+    line-height: 1.7;
     color: var(--text-muted);
-    padding: 0 4px 18px;
+}
+
+.faq-resposta p {
     margin: 0;
 }
 
+/* Pequena animação de entrada do conteúdo */
+.faq-item[open] .faq-resposta {
+    animation: faq-fade-in .18s ease;
+}
+
+@keyframes faq-fade-in {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Responsivo ---------- */
+
 @media (max-width: 900px) {
-    .contato-faq__inner {
+    .faq-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .faq-texto,
+    .faq-suporte {
+        max-width: none;
+    }
+
+    .faq-lista {
         grid-template-columns: 1fr;
     }
 
-    .contato-faq__columns {
-        grid-template-columns: 1fr;
+    .faq-item-full {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 560px) {
+    .faq-section {
+        padding: 64px 18px;
+    }
+
+    .faq-pergunta {
+        padding: 16px 18px;
+        font-size: 14px;
+    }
+
+    .faq-resposta {
+        padding: 0 18px 16px;
     }
 }
