@@ -341,6 +341,9 @@
   filter: blur(28px);
 }
 
+/* Imagem: o filter url(#feather-cutout) borra o CONTORNO REAL do recorte
+   (o alpha do PNG/WEBP), suavizando a silhueta inteira — cabeça, ombros,
+   costas — em vez de só o topo/base como uma máscara geométrica faria. */
 .banner-contato__image {
   position: relative;
   z-index: 1;
@@ -350,16 +353,12 @@
   height: auto;
   max-height: 640px;
   object-fit: contain;
-  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, .55));
-  -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent 100%),
-    radial-gradient(ellipse 94% 100% at 50% 42%, #000 74%, transparent 100%);
-  -webkit-mask-composite: source-in, source-over;
+  filter: url(#feather-cutout) drop-shadow(0 30px 60px rgba(0, 0, 0, .55));
+  -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
   -webkit-mask-repeat: no-repeat;
-  -webkit-mask-size: 100% 100%;
-  mask-image: linear-gradient(to bottom, #000 80%, transparent 100%),
-    radial-gradient(ellipse 94% 100% at 50% 42%, #000 74%, transparent 100%);
-  mask-composite: intersect;
   mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
 }
 

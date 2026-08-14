@@ -11,6 +11,19 @@
 
 <section class="banner-contato">
 
+	<!-- Filtro SVG (invisível): suaviza a borda do recorte da imagem,
+	     borrando apenas o canal alpha e recompondo com a imagem nítida.
+	     Aumente stdDeviation para mais suavização, diminua para menos. -->
+	<svg width="0" height="0" style="position:absolute;overflow:hidden">
+		<filter id="feather-cutout" x="-20%" y="-20%" width="140%" height="140%">
+			<feComponentTransfer in="SourceAlpha" result="alpha-solid">
+				<feFuncA type="table" tableValues="0 1"/>
+			</feComponentTransfer>
+			<feGaussianBlur in="alpha-solid" stdDeviation="7" result="alpha-blur"/>
+			<feComposite in="SourceGraphic" in2="alpha-blur" operator="in"/>
+		</filter>
+	</svg>
+
 	<!-- Decoração de fundo (pontos dourados + brilhos) -->
 	<div class="banner-contato__decor" aria-hidden="true">
 		<span class="banner-contato__dots"></span>
