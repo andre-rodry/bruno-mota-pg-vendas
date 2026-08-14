@@ -2,8 +2,7 @@
 /**
  * O template do rodapé
  *
- * Contém o CTA "Vamos conversar?" e o footer institucional
- * (navegação, contato e redes sociais).
+ * Contém o footer institucional (navegação, contato e redes sociais).
  *
  * @package andreWP
  */
@@ -36,34 +35,6 @@ function andrewp_print_social_icons( $icons ) {
 ?>
 
 	<footer class="site-footer">
-
-		<!-- ==================== CTA: Vamos conversar? ==================== -->
-		<div class="footer-cta">
-			<span class="footer-cta__icon" aria-hidden="true">
-				<svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M12 3C6.48 3 2 6.87 2 11.5C2 13.86 3.16 15.99 5.03 17.5C5.03 18.5 4.5 19.8 3.5 21C5.5 20.7 7.24 19.9 8.5 19C9.6 19.36 10.78 19.5 12 19.5C17.52 19.5 22 15.63 22 11.5C22 6.87 17.52 3 12 3Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-					<circle cx="8" cy="11.5" r="1.1" fill="currentColor"/>
-					<circle cx="12" cy="11.5" r="1.1" fill="currentColor"/>
-					<circle cx="16" cy="11.5" r="1.1" fill="currentColor"/>
-				</svg>
-			</span>
-
-			<div class="footer-cta__text">
-				<h2 class="footer-cta__title">Vamos conversar?</h2>
-				<p class="footer-cta__subtitle">
-					Disponível para entrevistas, análises econômicas,
-					programas de TV, rádio, podcasts, imprensa e eventos.
-				</p>
-			</div>
-
-			<a href="<?php echo esc_url( home_url( '/contato' ) ); ?>" class="footer-cta__button">
-				<svg class="footer-cta__button-icon" width="16" height="16" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-					<path fill="currentColor" d="M16.004 3C9.377 3 4 8.373 4 15c0 2.34.63 4.53 1.72 6.42L4 29l7.77-1.68A11.9 11.9 0 0 0 16.004 27C22.63 27 28 21.627 28 15S22.63 3 16.004 3Zm0 21.7a9.63 9.63 0 0 1-4.93-1.35l-.353-.21-4.61 1 1.02-4.5-.23-.36A9.64 9.64 0 1 1 25.64 15a9.65 9.65 0 0 1-9.636 9.7Zm5.3-7.25c-.29-.145-1.71-.845-1.976-.94-.265-.097-.458-.145-.65.145-.19.29-.746.94-.915 1.133-.168.194-.336.218-.626.073-.29-.145-1.223-.451-2.33-1.437-.86-.767-1.44-1.715-1.61-2.005-.168-.29-.018-.447.127-.591.13-.13.29-.338.435-.508.145-.17.193-.29.29-.483.096-.194.048-.363-.024-.508-.073-.145-.65-1.567-.892-2.146-.235-.564-.474-.487-.65-.496l-.554-.01c-.194 0-.508.073-.774.363-.265.29-1.014.99-1.014 2.415 0 1.425 1.038 2.803 1.183 2.997.145.194 2.043 3.12 4.95 4.376.692.298 1.232.476 1.653.61.694.221 1.325.19 1.824.115.556-.083 1.71-.699 1.951-1.373.242-.674.242-1.252.169-1.373-.072-.121-.265-.194-.554-.34Z"/>
-				</svg>
-				ENTRAR EM CONTATO
-				<span class="footer-cta__arrow" aria-hidden="true">&rarr;</span>
-			</a>
-		</div>
 
 		<!-- ==================== Footer institucional ==================== -->
 		<div class="site-footer__main">

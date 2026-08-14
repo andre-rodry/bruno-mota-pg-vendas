@@ -43,115 +43,6 @@
 }
 
 /* --------------------------------------------------------------------------
-   CTA: "Vamos conversar?"
-   -------------------------------------------------------------------------- */
-
-.footer-cta {
-	display: flex;
-	align-items: center;
-	gap: 24px;
-	max-width: 1280px;
-	margin: 0 auto 56px;
-	padding: 32px 44px;
-	background-color: var(--header-bg-scrolled, #0e1426);
-	border: 1.5px solid var(--gold, #c9973f);
-	border-radius: 14px;
-}
-
-.footer-cta__icon {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 56px;
-	height: 56px;
-	flex-shrink: 0;
-	border-radius: 50%;
-	border: 1.5px solid var(--gold, #c9973f);
-	color: var(--gold-light, #e0a94f);
-}
-
-.footer-cta__text {
-	flex: 1;
-}
-
-.footer-cta__title {
-	margin: 0 0 6px;
-	font-family: 'Inter', sans-serif;
-	font-size: 1.5rem;
-	font-weight: 700;
-	color: var(--text-light, #ffffff);
-}
-
-.footer-cta__subtitle {
-	margin: 0;
-	font-size: 0.92rem;
-	color: var(--text-muted, #b7bdcc);
-	line-height: 1.5;
-}
-
-.footer-cta .footer-cta__button {
-	position: relative;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	gap: 10px;
-	flex-shrink: 0;
-	padding: 14px 28px;
-	border: 1.5px solid transparent;
-	border-radius: 4px;
-	font-family: 'Inter', sans-serif;
-	font-weight: 700;
-	font-size: 12.5px;
-	letter-spacing: 1.2px;
-	text-transform: uppercase;
-	color: var(--gold-light, #e0a94f);
-	text-decoration: none;
-	white-space: nowrap;
-	background-color: transparent;
-	background-image: linear-gradient(var(--header-bg-scrolled, #0e1426), var(--header-bg-scrolled, #0e1426)),
-	                   linear-gradient(100deg, #8f651f 0%, #c9973f 20%, #fbe7b8 40%, #c9973f 60%, #8f651f 100%);
-	background-origin: border-box;
-	background-clip: padding-box, border-box;
-	background-size: 100% 100%, 250% auto;
-	background-position: 0 0, 200% center;
-	animation: logo-shine 3.5s linear infinite;
-	transition: color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-.footer-cta .footer-cta__button:hover {
-	color: var(--gold-light, #e0a94f);
-	box-shadow: 0 6px 16px -6px rgba(201, 151, 63, 0.45);
-	transform: translateY(-1px);
-}
-
-.footer-cta .footer-cta__button:active {
-	transform: translateY(0);
-	box-shadow: 0 3px 8px -4px rgba(201, 151, 63, 0.4);
-}
-
-.footer-cta .footer-cta__button:focus-visible {
-	outline: 2px solid var(--gold-light, #e0a94f);
-	outline-offset: 3px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-	.footer-cta .footer-cta__button {
-		animation: none;
-		background-image: linear-gradient(var(--header-bg-scrolled, #0e1426), var(--header-bg-scrolled, #0e1426)),
-		                   linear-gradient(100deg, var(--gold, #c9973f), var(--gold, #c9973f));
-	}
-}
-
-.footer-cta__arrow {
-	font-size: 1.05rem;
-	line-height: 1;
-}
-
-.footer-cta__button-icon {
-	flex-shrink: 0;
-}
-
-/* --------------------------------------------------------------------------
    Footer institucional (colunas)
    -------------------------------------------------------------------------- */
 
@@ -360,29 +251,11 @@
 		grid-template-columns: 1fr 1fr;
 		row-gap: 32px;
 	}
-
-	.footer-cta {
-		flex-wrap: wrap;
-	}
-
-	.footer-cta__button {
-		width: 100%;
-		justify-content: center;
-	}
 }
 
 @media (max-width: 600px) {
 	.site-footer__container {
 		padding: 0 20px;
-	}
-
-	.footer-cta {
-		padding: 24px 20px;
-		margin: 0 20px 40px;
-	}
-
-	.footer-cta__icon {
-		display: none;
 	}
 
 	.site-footer__main .site-footer__container {
