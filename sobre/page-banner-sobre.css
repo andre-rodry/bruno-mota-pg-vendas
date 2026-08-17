@@ -34,8 +34,9 @@
   position: relative;
   background: linear-gradient(180deg, var(--navy-950) 0%, var(--navy-900) 100%);
   overflow: hidden;
-  padding: 160px 24px 26px;
+  padding: 160px 24px 0;
   isolation: isolate;
+  /* sem width/max-width/margin — igual ao .site-footer, ocupa 100% naturalmente */
 }
 
 .sobre-banner * {
@@ -69,7 +70,7 @@
 .sobre-banner__container {
   position: relative;
   z-index: 1;
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 0.95fr 1.05fr;
@@ -209,7 +210,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 560px;
+  min-height: 420px;
   height: 100%;
   overflow: hidden;
 }
@@ -294,7 +295,7 @@
 
 @media (max-width: 1024px) {
   .sobre-banner {
-    padding: 120px 24px 80px;
+    padding: 120px 24px 0;
   }
 
   .sobre-banner__container {
@@ -334,7 +335,7 @@
 
 @media (max-width: 560px) {
   .sobre-banner {
-    padding: 96px 18px 64px;
+    padding: 96px 18px 0;
   }
 
   .sobre-banner__title {

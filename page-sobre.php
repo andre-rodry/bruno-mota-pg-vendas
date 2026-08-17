@@ -16,7 +16,11 @@ get_header();
 ?>
 
 <main id="main-content">
-	<?php get_template_part( 'sobre/content-sobre' ); ?>
+	<?php get_template_part( 'sobre/content-banner-sobre' ); ?>
+	<?php get_template_part( 'sobre/content-numeros-sobre' ); ?>
+	<?php get_template_part( 'sobre/content-perfil-sobre' ); ?>
+	<?php get_template_part( 'sobre/content-pilares-sobre' ); ?>
+	<?php get_template_part( 'sobre/content-cta-sobre' ); ?>
 </main>
 
 <?php

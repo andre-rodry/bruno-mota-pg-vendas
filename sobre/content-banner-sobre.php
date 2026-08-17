@@ -1,5 +1,6 @@
 <?php
 /**
+ * content-banner-sobre.php
  * Template part: Banner Sobre
  *
  * Uso: get_template_part( 'template-parts/content', 'sobre' );

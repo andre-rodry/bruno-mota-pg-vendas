@@ -116,12 +116,30 @@ function meu_tema_scripts() {
 
     // ---- PÁGINA SOBRE ----
     if ( is_page( 'sobre' ) ) {
-        wp_enqueue_style(
-            'andrewp-page-sobre',
-            get_template_directory_uri() . '/sobre/sobre.css',
-            array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/sobre/sobre.css' )
+
+        // Um CSS por seção, seguindo o mesmo padrão usado em "conquistas".
+        // Se algum arquivo ainda não existir, ele é simplesmente ignorado
+        // (evita o erro de filemtime() em arquivo inexistente).
+        $secoes_sobre = array(
+            'banner'   => 'sobre/page-banner-sobre.css',
+            'numeros'  => 'sobre/page-numeros-sobre.css',
+            'perfil'   => 'sobre/page-perfil-sobre.css',
+            'pilares'  => 'sobre/page-pilares-sobre.css',
+            'cta'      => 'sobre/page-cta-sobre.css',
         );
+
+        foreach ( $secoes_sobre as $handle_sufixo => $caminho_relativo ) {
+            $caminho_absoluto = get_template_directory() . '/' . $caminho_relativo;
+
+            if ( file_exists( $caminho_absoluto ) ) {
+                wp_enqueue_style(
+                    'andrewp-sobre-' . $handle_sufixo,
+                    get_template_directory_uri() . '/' . $caminho_relativo,
+                    array( 'meu-tema-style' ),
+                    filemtime( $caminho_absoluto )
+                );
+            }
+        }
 
         wp_enqueue_script(
             'andrewp-header-scroll',
@@ -266,7 +284,7 @@ function meu_tema_scripts() {
         ) );
     }
 
-        // ---- PÁGINA MÍDIA ----
+    // ---- PÁGINA MÍDIA ----
     if ( is_page( 'midia' ) ) {
 
         wp_enqueue_style(
