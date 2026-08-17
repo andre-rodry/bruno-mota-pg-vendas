@@ -152,12 +152,27 @@ function meu_tema_scripts() {
 
     // ---- PÁGINA ATUAÇÃO ----
     if ( is_page( 'atuacao' ) ) {
-        wp_enqueue_style(
-            'andrewp-atuacao',
-            get_template_directory_uri() . '/atuacao/atuacao.css',
-            array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/atuacao/atuacao.css' )
+
+        // Um CSS por seção, seguindo o mesmo padrão usado em "sobre".
+        $secoes_atuacao = array(
+            'banner'          => 'atuacao/page-banner-atuacao.css',
+            'especializacao'  => 'atuacao/page-especializacao-atuacao.css',
+            'areas'           => 'atuacao/page-areas-atuacao.css',
+            'cta'             => 'atuacao/page-cta-atuacao.css',
         );
+
+        foreach ( $secoes_atuacao as $handle_sufixo => $caminho_relativo ) {
+            $caminho_absoluto = get_template_directory() . '/' . $caminho_relativo;
+
+            if ( file_exists( $caminho_absoluto ) ) {
+                wp_enqueue_style(
+                    'andrewp-atuacao-' . $handle_sufixo,
+                    get_template_directory_uri() . '/' . $caminho_relativo,
+                    array( 'meu-tema-style' ),
+                    filemtime( $caminho_absoluto )
+                );
+            }
+        }
 
         wp_enqueue_script(
             'andrewp-header-scroll',
