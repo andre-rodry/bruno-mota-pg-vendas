@@ -32,11 +32,25 @@
 
 .sobre-banner {
   position: relative;
-  background: linear-gradient(180deg, var(--navy-950) 0%, var(--navy-900) 100%);
+  background-color: var(--navy-950);
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
   overflow: hidden;
   padding: 160px 24px 0;
   isolation: isolate;
-  /* sem width/max-width/margin — igual ao .site-footer, ocupa 100% naturalmente */
+  /* background-image vem inline via PHP (style="") usando get_template_directory_uri();
+     sem width/max-width/margin — igual ao .site-footer, ocupa 100% naturalmente */
+}
+
+/* Overlay escuro por cima da imagem de fundo, pra manter o texto legível
+   (mesmo princípio do .atuacao-banner::before) */
+.sobre-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 15, 28, .88) 0%, rgba(11, 15, 30, .94) 100%);
+  z-index: 0;
 }
 
 .sobre-banner * {
@@ -210,7 +224,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 420px;
+  min-height: 340px;
   height: 100%;
   overflow: hidden;
 }
@@ -273,20 +287,71 @@
    vai suavizar a borda retangular da própria imagem em vez do recorte. */
 .sobre-banner__image {
   position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+  max-height: 480px;
+  object-fit: contain;
+}
+
+  /* Máscara em duas camadas, combinadas por interseção:
+     1) linear vertical — mantém a foto opaca até 88% da altura; fade
+        curto só nos últimos 12% (base), pra dissolver no fundo da seção.
+     2) radial — fade nas laterais, transição alongada pra a borda
+        sumir aos poucos, sem parecer recorte colado. */
+  /* -webkit-mask-image:
+    linear-gradient(to bottom, #000 0%, #000 88%, transparent 100%),
+    radial-gradient(ellipse 88% 96% at 50% 50%, #000 55%, transparent 96%);
+  -webkit-mask-composite: source-in, source-in;
+  mask-image:
+    linear-gradient(to bottom, #000 0%, #000 88%, transparent 100%),
+    radial-gradient(ellipse 88% 96% at 50% 50%, #000 55%, transparent 96%);
+  mask-composite: intersect;
+} */
+
+/* Backer: mesma foto em silhueta escura sólida (brightness 0), atrás de
+   tudo. Tapa qualquer vazamento do fundo através de bordas
+   semitransparentes do recorte original. */
+.sobre-banner__image-backer {
+  position: absolute;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+  max-height: 480px;
+  object-fit: contain;
+  filter: brightness(0) blur(2px);
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+/* Halo: cópia da mesma foto, maior e desfocada, atrás da imagem nítida.
+   Cria uma transição de FOCO na borda, além da de opacidade. */
+.sobre-banner__image-halo {
+  position: absolute;
   z-index: 1;
   display: block;
   width: 100%;
-  max-width: 620px;
+  max-width: 460px;
   height: auto;
-  max-height: 640px;
+  max-height: 480px;
   object-fit: contain;
-  filter: url(#feather-cutout-sobre) drop-shadow(0 30px 60px rgba(0, 0, 0, .55));
-  -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 80%, transparent 100%);
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
+  transform: scale(1.04);
+  filter: blur(14px) saturate(0.9) brightness(0.85);
+  opacity: 0.55;
+  pointer-events: none;
+
+  -webkit-mask-image:
+    linear-gradient(to bottom, #000 0%, #000 82%, transparent 100%),
+    radial-gradient(ellipse 90% 98% at 50% 50%, #000 40%, transparent 98%);
+  -webkit-mask-composite: source-in, source-in;
+  mask-image:
+    linear-gradient(to bottom, #000 0%, #000 82%, transparent 100%),
+    radial-gradient(ellipse 90% 98% at 50% 50%, #000 40%, transparent 98%);
+  mask-composite: intersect;
 }
 
 /* ==========================================================================
@@ -302,8 +367,10 @@
     gap: 24px;
   }
 
-  .sobre-banner__image {
-    max-width: 460px;
+  .sobre-banner__image,
+  .sobre-banner__image-backer,
+  .sobre-banner__image-halo {
+    max-width: 360px;
   }
 }
 
@@ -351,8 +418,10 @@
     justify-content: center;
   }
 
-  .sobre-banner__image {
-    max-width: 280px;
+  .sobre-banner__image,
+  .sobre-banner__image-backer,
+  .sobre-banner__image-halo {
+    max-width: 220px;
   }
 
   .sobre-banner__dots {

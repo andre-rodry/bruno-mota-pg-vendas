@@ -8,21 +8,25 @@
  *
  * @package andreWP
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 ?>
 
-<section class="sobre-banner">
+<!-- Filtro SVG (invisível): suaviza a borda do recorte da imagem,
+     borrando apenas o canal alpha e recompondo com a imagem nítida. -->
+<svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true">
+	<filter id="feather-cutout-sobre" x="-20%" y="-20%" width="140%" height="140%">
+		<feComponentTransfer in="SourceAlpha" result="alpha-solid">
+			<feFuncA type="table" tableValues="0 1"/>
+		</feComponentTransfer>
+		<feGaussianBlur in="alpha-solid" stdDeviation="7" result="alpha-blur"/>
+		<feComposite in="SourceGraphic" in2="alpha-blur" operator="in"/>
+	</filter>
+</svg>
 
-	<!-- Filtro SVG (invisível): suaviza a borda do recorte da imagem,
-	     borrando apenas o canal alpha e recompondo com a imagem nítida. -->
-	<svg width="0" height="0" style="position:absolute;overflow:hidden">
-		<filter id="feather-cutout-sobre" x="-20%" y="-20%" width="140%" height="140%">
-			<feComponentTransfer in="SourceAlpha" result="alpha-solid">
-				<feFuncA type="table" tableValues="0 1"/>
-			</feComponentTransfer>
-			<feGaussianBlur in="alpha-solid" stdDeviation="7" result="alpha-blur"/>
-			<feComposite in="SourceGraphic" in2="alpha-blur" operator="in"/>
-		</filter>
-	</svg>
+<section class="sobre-banner" style="background-image: url('<?php echo esc_url( get_template_directory_uri() . '/assets/img/sobre/bruno-mota-economista-sobre.webp' ); ?>');">
 
 	<!-- Decoração de fundo (pontos dourados, igual ao banner de Contato) -->
 	<div class="sobre-banner__decor" aria-hidden="true">
@@ -100,7 +104,7 @@
 		<div class="sobre-banner__media">
 			<div class="sobre-banner__glow" aria-hidden="true"></div>
 			<img
-				src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/sobre/bruno-mota-sobre.webp' ); ?>"
+				src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/sobre/vvvvvv.png' ); ?>"
 				alt="<?php esc_attr_e( 'Bruno Mota - Economista', 'andreWP' ); ?>"
 				class="sobre-banner__image"
 				width="560"
