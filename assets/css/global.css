@@ -1,0 +1,30 @@
+/* ==========================================================================
+   Global — Design Tokens & Fontes
+   Variáveis de cor, tipografia e reset base usados em todo o site.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap');
+
+:root {
+  /* Cores base */
+  --navy-950: #0a0f1c;
+  --navy-900: #0b0f1e;
+  --gold: #c9962c;
+  --gold-accent: #f5a623;
+  --gold-hover: #e0951a;
+
+  /* Texto */
+  --text-light: #ffffff;
+  --text-soft: #f4efe4;
+  --text-muted: #b7bdcc;
+  --text-soft-light: #e0e0e0;
+
+  /* Bordas / efeitos */
+  --border-white: rgba(255, 255, 255, 0.08);
+  --border-gold-glow: rgba(217, 164, 65, 0.25);
+
+  /* Tipografia */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body-alt: "Poppins", "Segoe UI", Arial, sans-serif;
+}

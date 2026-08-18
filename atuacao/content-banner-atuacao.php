@@ -11,14 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-<svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true">
-	<filter id="feather-cutout">
-		<feMorphology operator="erode" radius="0.4" in="SourceAlpha" result="eroded"/>
-		<feGaussianBlur in="eroded" stdDeviation="1.2" result="blurred"/>
-		<feComposite in="SourceGraphic" in2="blurred" operator="in"/>
-	</filter>
-</svg>
-
 <section class="atuacao-banner" style="background-image: url('<?php echo esc_url( get_template_directory_uri() . '/assets/img/atuacao/bruno-mota-economista-areas-de-atuacao.webp' ); ?>');">
 	<div class="atuacao-banner__container">
 
@@ -53,31 +45,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 				Agendar um contato
 			</a>
 
-		</div>
-
-		<div class="atuacao-banner__foto">
-			<!-- Backer: silhueta escura sólida, mesma foto. Fica atrás de
-			     TUDO (inclusive do glow) para tapar qualquer vazamento do
-			     fundo através de bordas semitransparentes do recorte. -->
-			<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/atuacao/bruno-mota-sobre.webp' ); ?>"
-				 class="atuacao-banner__foto-backer"
-				 alt=""
-				 aria-hidden="true" />
-
-			<span class="atuacao-banner__foto-glow" aria-hidden="true"></span>
-
-			<!-- Halo: cópia da mesma foto, desfocada, entra ANTES da nítida
-			     no markup para ficar atrás dela (z-index menor). -->
-			<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/atuacao/bruno-mota-sobre.webp' ); ?>"
-				 class="atuacao-banner__foto-halo"
-				 alt=""
-				 aria-hidden="true" />
-
-			<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/atuacao/bruno-mota-sobre.webp' ); ?>"
-				 class="atuacao-banner__foto-img"
-				 alt="Bruno Mota, economista" />
-
-			<span class="atuacao-banner__foto-fade" aria-hidden="true"></span>
 		</div>
 
 	</div>

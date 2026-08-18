@@ -49,7 +49,11 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(10, 15, 28, .88) 0%, rgba(11, 15, 30, .94) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(10, 15, 28, .70) 0%,
+    rgba(11, 15, 30, .85) 100%
+  );
   z-index: 0;
 }
 
