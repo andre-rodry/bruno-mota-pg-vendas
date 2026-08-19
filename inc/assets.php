@@ -183,81 +183,89 @@ function meu_tema_scripts() {
         );
     }
 
-    // ---- PÁGINA CONQUISTAS ----
-    if ( is_page( 'conquistas' ) ) {
+    // ---- PÁGINA TRAJETÓRIA ----
+if ( is_page( 'trajetoria' ) ) {
 
-        wp_enqueue_style(
-            'andrewp-conquistas-banner',
-            get_template_directory_uri() . '/conquistas/page-banner-conquistas.css',
-            array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/conquistas/page-banner-conquistas.css' )
-        );
+    wp_enqueue_style(
+        'andrewp-trajetoria-banner',
+        get_template_directory_uri() . '/trajetoria/page-banner-trajetoria.css',
+        array( 'meu-tema-style' ),
+        filemtime( get_template_directory() . '/trajetoria/page-banner-trajetoria.css' )
+    );
 
-        wp_enqueue_style(
-            'andrewp-conquistas-marquee',
-            get_template_directory_uri() . '/conquistas/page-marquee-conquistas.css',
-            array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/conquistas/page-marquee-conquistas.css' )
-        );
+    wp_enqueue_style(
+        'andrewp-trajetoria-numeros',
+        get_template_directory_uri() . '/trajetoria/page-numeros-trajetoria.css',
+        array( 'meu-tema-style' ),
+        filemtime( get_template_directory() . '/trajetoria/page-numeros-trajetoria.css' )
+    );
 
-        wp_enqueue_style(
-            'andrewp-conquistas-timeline',
-            get_template_directory_uri() . '/conquistas/page-timeline-conquistas.css',
-            array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/conquistas/page-timeline-conquistas.css' )
-        );
+    wp_enqueue_style(
+        'andrewp-trajetoria-valores',
+        get_template_directory_uri() . '/trajetoria/page-valores-trajetoria.css',
+        array( 'meu-tema-style' ),
+        filemtime( get_template_directory() . '/trajetoria/page-valores-trajetoria.css' )
+    );
 
-        wp_enqueue_style(
-            'andrewp-conquistas-parceiros',
-            get_template_directory_uri() . '/conquistas/page-parceiros-conquistas.css',
-            array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/conquistas/page-parceiros-conquistas.css' )
-        );
+    wp_enqueue_style(
+        'andrewp-trajetoria-timeline',
+        get_template_directory_uri() . '/trajetoria/page-timeline-trajetoria.css',
+        array( 'meu-tema-style' ),
+        filemtime( get_template_directory() . '/trajetoria/page-timeline-trajetoria.css' )
+    );
 
-        wp_enqueue_style(
-            'andrewp-conquistas-midia',
-            get_template_directory_uri() . '/conquistas/page-midia-conquistas.css',
-            array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/conquistas/page-midia-conquistas.css' )
-        );
+    wp_enqueue_style(
+        'andrewp-trajetoria-grid',
+        get_template_directory_uri() . '/trajetoria/content-grid-trajetoria.css',
+        array( 'meu-tema-style' ),
+        filemtime( get_template_directory() . '/trajetoria/content-grid-trajetoria.css' )
+    );
 
-        wp_enqueue_style(
-            'andrewp-conquistas-grid',
-            get_template_directory_uri() . '/conquistas/content-grid-conquistas.css',
-            array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/conquistas/content-grid-conquistas.css' )
-        );
+    wp_enqueue_style(
+        'andrewp-trajetoria-galeria',
+        get_template_directory_uri() . '/trajetoria/page-galeria-trajetoria.css',
+        array( 'meu-tema-style' ),
+        filemtime( get_template_directory() . '/trajetoria/page-galeria-trajetoria.css' )
+    );
 
-        wp_enqueue_style(
-            'andrewp-conquistas-modal',
-            get_template_directory_uri() . '/conquistas/modal-conquista.css',
-            array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/conquistas/modal-conquista.css' )
-        );
+    wp_enqueue_style(
+        'andrewp-trajetoria-modal',
+        get_template_directory_uri() . '/trajetoria/modal-trajetoria.css',
+        array( 'meu-tema-style' ),
+        filemtime( get_template_directory() . '/trajetoria/modal-trajetoria.css' )
+    );
 
-        wp_enqueue_style( 'dashicons' );
+    wp_enqueue_style( 'dashicons' );
 
-        wp_enqueue_script(
-            'andrewp-conquistas-timeline',
-            get_template_directory_uri() . '/conquistas/page-timeline-conquistas.js',
-            array(),
-            filemtime( get_template_directory() . '/conquistas/page-timeline-conquistas.js' ),
-            true
-        );
+    wp_enqueue_script(
+        'andrewp-trajetoria-timeline',
+        get_template_directory_uri() . '/trajetoria/page-timeline-trajetoria.js',
+        array(),
+        filemtime( get_template_directory() . '/trajetoria/page-timeline-trajetoria.js' ),
+        true
+    );
 
-        wp_enqueue_script(
-            'andrewp-conquistas-grid',
-            get_template_directory_uri() . '/conquistas/content-grid-conquistas.js',
-            array(),
-            filemtime( get_template_directory() . '/conquistas/content-grid-conquistas.js' ),
-            true
-        );
+    wp_enqueue_script(
+        'andrewp-trajetoria-grid',
+        get_template_directory_uri() . '/trajetoria/content-grid-trajetoria.js',
+        array(),
+        filemtime( get_template_directory() . '/trajetoria/content-grid-trajetoria.js' ),
+        true
+    );
 
-        wp_localize_script( 'andrewp-conquistas-grid', 'andrewpConquistas', array(
-            'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-            'nonce'   => wp_create_nonce( 'andrewp_conquistas_nonce' ),
-        ) );
-    }
+    wp_enqueue_script(
+        'andrewp-trajetoria-galeria',
+        get_template_directory_uri() . '/trajetoria/content-galeria-trajetoria.js',
+        array(),
+        filemtime( get_template_directory() . '/trajetoria/content-galeria-trajetoria.js' ),
+        true
+    );
+
+    wp_localize_script( 'andrewp-trajetoria-grid', 'andrewpTrajetoria', array(
+        'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+        'nonce'   => wp_create_nonce( 'andrewp_trajetoria_nonce' ),
+    ) );
+}
 
     // ---- PÁGINA PUBLICAÇÕES ----
     if ( is_page( 'publicacoes' ) ) {
