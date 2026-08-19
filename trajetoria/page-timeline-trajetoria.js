@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PAGE — TIMELINE CONQUISTAS (somente a seção pinada de trajetória)
+   PAGE — TIMELINE TRAJETORIA (somente a seção pinada de trajetória)
    Reproduz o efeito de "scroll storytelling" pinado usando position:sticky
    + rAF scroll tracking, sem GSAP, ScrollTrigger ou Lenis.
    ========================================================================== */

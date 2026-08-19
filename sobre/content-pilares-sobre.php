@@ -4,7 +4,7 @@
  * content-pilares-sobre.php
  *
  * Três cards com imagem de destaque, ícone, título e lista de
- * conquistas/atuação (Formação Acadêmica, Atuação Acadêmica e
+ * trajetoria/atuação (Formação Acadêmica, Atuação Acadêmica e
  * Internacional, Impacto e Políticas Públicas).
  *
  * Uso: get_template_part( 'template-parts/content', 'pilares-sobre' );
@@ -14,7 +14,7 @@
  */
 
 // Lista de pilares. Cada item tem imagem de fundo, ícone, título (2 linhas)
-// e uma lista de conquistas/pontos (com trecho em destaque opcional).
+// e uma lista de trajetoria/pontos (com trecho em destaque opcional).
 $andrewp_pilares = array(
 	array(
 		'imagem'   => 'unifacs-universidade-salvador-ba.webp',

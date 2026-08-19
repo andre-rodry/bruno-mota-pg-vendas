@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Banner — Página Conquistas - page-banner-conquistas.css
+   Banner — Página Trajetoria - page-banner-trajetoria.css
    Foto full-bleed de fundo (mesmo padrão do hero da página Atuação)
    ========================================================================== */
 
@@ -31,7 +31,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-.banner-conquistas {
+.banner-trajetoria {
 	position: relative;
 	background: var(--navy-950);
 	color: var(--text-light);
@@ -43,7 +43,7 @@
 
 /* ---------- Foto de fundo (full-bleed) ---------- */
 
-.banner-conquistas__media {
+.banner-trajetoria__media {
 	position: absolute;
 	inset: 0;
 	z-index: 0;
@@ -51,7 +51,7 @@
 	background: #050505;
 }
 
-.banner-conquistas__image {
+.banner-trajetoria__image {
 	position: absolute;
 	inset: 0;
 	z-index: 0;
@@ -63,7 +63,7 @@
 }
 
 /* Gradiente escuro sobre a foto: garante legibilidade do texto à esquerda */
-.banner-conquistas__media::after {
+.banner-trajetoria__media::after {
 	content: "";
 	position: absolute;
 	inset: 0;
@@ -85,7 +85,7 @@
 
 /* ---------- Conteúdo ---------- */
 
-.banner-conquistas__container {
+.banner-trajetoria__container {
 	position: relative;
 	z-index: 2;
 	max-width: 1280px;
@@ -94,11 +94,11 @@
 	width: 100%;
 }
 
-.banner-conquistas__content {
+.banner-trajetoria__content {
 	max-width: 480px;
 }
 
-.banner-conquistas__label {
+.banner-trajetoria__label {
 	display: block;
 	font-family: var(--font-body-alt);
 	color: var(--gold-accent);
@@ -109,7 +109,7 @@
 	margin-bottom: 16px;
 }
 
-.banner-conquistas__title {
+.banner-trajetoria__title {
 	font-family: var(--font-display);
 	font-weight: 500;
 	font-size: 48px;
@@ -118,11 +118,11 @@
 	margin: 0 0 20px;
 }
 
-.banner-conquistas__title--highlight {
+.banner-trajetoria__title--highlight {
 	color: var(--gold-accent);
 }
 
-.banner-conquistas__divider {
+.banner-trajetoria__divider {
 	display: block;
 	width: 56px;
 	height: 3px;
@@ -130,7 +130,7 @@
 	margin-bottom: 24px;
 }
 
-.banner-conquistas__text {
+.banner-trajetoria__text {
 	font-family: var(--font-body);
 	color: var(--text-muted);
 	font-size: 16px;
@@ -140,20 +140,20 @@
 
 /* ---------- Estatísticas (14+ / 120+ / 05) ---------- */
 
-.banner-conquistas__stats {
+.banner-trajetoria__stats {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 32px;
 	margin-bottom: 40px;
 }
 
-.banner-conquistas__stat {
+.banner-trajetoria__stat {
 	display: flex;
 	flex-direction: column;
 	gap: 6px;
 }
 
-.banner-conquistas__stat-number {
+.banner-trajetoria__stat-number {
 	font-family: var(--font-display);
 	font-weight: 500;
 	font-size: 32px;
@@ -161,7 +161,7 @@
 	color: var(--gold-accent);
 }
 
-.banner-conquistas__stat-label {
+.banner-trajetoria__stat-label {
 	font-family: var(--font-body-alt);
 	font-size: 11px;
 	font-weight: 600;
@@ -172,7 +172,7 @@
 
 /* ---------- Botão "Role para explorar" ---------- */
 
-.banner-conquistas__cta {
+.banner-trajetoria__cta {
 	display: inline-flex;
 	align-items: center;
 	gap: 12px;
@@ -189,13 +189,13 @@
 	transition: color 0.25s ease;
 }
 
-.banner-conquistas__cta:hover,
-.banner-conquistas__cta:focus-visible {
+.banner-trajetoria__cta:hover,
+.banner-trajetoria__cta:focus-visible {
 	color: var(--gold-accent);
 }
 
 /* Cápsula estilo "mouse de scroll", com bolinha passando por dentro */
-.banner-conquistas__cta-icon {
+.banner-trajetoria__cta-icon {
 	display: inline-flex;
 	justify-content: center;
 	align-items: flex-start;
@@ -208,15 +208,15 @@
 	flex: 0 0 auto;
 }
 
-.banner-conquistas__cta-dot {
+.banner-trajetoria__cta-dot {
 	width: 4px;
 	height: 4px;
 	border-radius: 50%;
 	background-color: currentColor;
-	animation: banner-conquistas-scroll 1.8s ease-in-out infinite;
+	animation: banner-trajetoria-scroll 1.8s ease-in-out infinite;
 }
 
-@keyframes banner-conquistas-scroll {
+@keyframes banner-trajetoria-scroll {
 	0% { transform: translateY(0); opacity: 1; }
 	70% { opacity: 0; }
 	100% { transform: translateY(14px); opacity: 0; }
@@ -226,57 +226,57 @@
 
 /* Notebook / tablet grande */
 @media (max-width: 1024px) {
-	.banner-conquistas__container {
+	.banner-trajetoria__container {
 		padding: 120px 32px 48px;
 	}
 
-	.banner-conquistas__title {
+	.banner-trajetoria__title {
 		font-size: 40px;
 	}
 
-	.banner-conquistas__stats {
+	.banner-trajetoria__stats {
 		gap: 24px;
 	}
 }
 
 /* Tablet */
 @media (max-width: 860px) {
-	.banner-conquistas {
+	.banner-trajetoria {
 		min-height: 0;
 	}
 
-	.banner-conquistas__container {
+	.banner-trajetoria__container {
 		padding: 64px 24px;
 		text-align: center;
 	}
 
-	.banner-conquistas__content {
+	.banner-trajetoria__content {
 		max-width: 560px;
 		margin: 0 auto;
 	}
 
-	.banner-conquistas__divider {
+	.banner-trajetoria__divider {
 		margin-left: auto;
 		margin-right: auto;
 	}
 
-	.banner-conquistas__stats {
+	.banner-trajetoria__stats {
 		justify-content: center;
 	}
 
-	.banner-conquistas__stat {
+	.banner-trajetoria__stat {
 		align-items: center;
 	}
 
-	.banner-conquistas__cta {
+	.banner-trajetoria__cta {
 		margin: 0 auto;
 	}
 
-	.banner-conquistas__image {
+	.banner-trajetoria__image {
 		object-position: center 12%;
 	}
 
-	.banner-conquistas__media::after {
+	.banner-trajetoria__media::after {
 		background:
 			linear-gradient(180deg,
 				rgba(10,15,28,.55) 0%,
@@ -288,48 +288,48 @@
 
 /* Celular grande */
 @media (max-width: 600px) {
-	.banner-conquistas__container {
+	.banner-trajetoria__container {
 		padding: 56px 20px;
 	}
 
-	.banner-conquistas__label {
+	.banner-trajetoria__label {
 		font-size: 12px;
 		margin-bottom: 12px;
 	}
 
-	.banner-conquistas__title {
+	.banner-trajetoria__title {
 		font-size: 32px;
 		line-height: 1.2;
 		margin-bottom: 16px;
 	}
 
-	.banner-conquistas__divider {
+	.banner-trajetoria__divider {
 		margin-bottom: 20px;
 	}
 
-	.banner-conquistas__text {
+	.banner-trajetoria__text {
 		font-size: 15px;
 		margin-bottom: 28px;
 	}
 
-	.banner-conquistas__stats {
+	.banner-trajetoria__stats {
 		gap: 20px 28px;
 		margin-bottom: 32px;
 	}
 
-	.banner-conquistas__stat-number {
+	.banner-trajetoria__stat-number {
 		font-size: 26px;
 	}
 
-	.banner-conquistas__stat-label {
+	.banner-trajetoria__stat-label {
 		font-size: 10px;
 	}
 
-	.banner-conquistas__image {
+	.banner-trajetoria__image {
 		object-position: 60% 10%;
 	}
 
-	.banner-conquistas__media::after {
+	.banner-trajetoria__media::after {
 		background:
 			linear-gradient(180deg,
 				rgba(10,15,28,.6) 0%,
@@ -341,37 +341,37 @@
 
 /* Celular pequeno */
 @media (max-width: 380px) {
-	.banner-conquistas__container {
+	.banner-trajetoria__container {
 		padding: 48px 16px;
 	}
 
-	.banner-conquistas__title {
+	.banner-trajetoria__title {
 		font-size: 28px;
 	}
 
-	.banner-conquistas__text {
+	.banner-trajetoria__text {
 		font-size: 14px;
 	}
 
-	.banner-conquistas__stats {
+	.banner-trajetoria__stats {
 		gap: 16px 20px;
 	}
 
-	.banner-conquistas__stat-number {
+	.banner-trajetoria__stat-number {
 		font-size: 22px;
 	}
 
-	.banner-conquistas__stat-label {
+	.banner-trajetoria__stat-label {
 		font-size: 9.5px;
 		letter-spacing: 0.06em;
 	}
 
-	.banner-conquistas__cta {
+	.banner-trajetoria__cta {
 		font-size: 11px;
 		gap: 10px;
 	}
 
-	.banner-conquistas__cta-icon {
+	.banner-trajetoria__cta-icon {
 		width: 20px;
 		height: 32px;
 	}

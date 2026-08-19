@@ -5,7 +5,7 @@
  * (publicacoes/content-lista-publicacoes.php), além da busca do
  * modal "Ler artigo" sob demanda.
  *
- * Segue o mesmo padrão de inc/ajax-conquistas.php.
+ *  * Segue o mesmo padrão de inc/ajax-trajetoria.php.
  *
  * @package andreWP
  */

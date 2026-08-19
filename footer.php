@@ -65,7 +65,7 @@ function andrewp_print_social_icons( $icons ) {
 							<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Início</a></li>
 							<li><a href="<?php echo esc_url( home_url( '/sobre' ) ); ?>">Sobre</a></li>
 							<li><a href="<?php echo esc_url( home_url( '/atuacao' ) ); ?>">Atuação</a></li>
-							<li><a href="<?php echo esc_url( home_url( '/conquistas' ) ); ?>">Conquistas</a></li>
+							<li><a href="<?php echo esc_url( home_url( '/trajetoria' ) ); ?>">Trajetória</a></li>
 						</ul>
 						<ul>
 							<li><a href="<?php echo esc_url( home_url( '/publicacoes' ) ); ?>">Publicações</a></li>

@@ -1,5 +1,5 @@
 /**
- * Grid de Conquistas
+ * Grid de Trajetoria
  * - "Carregar mais" (paginação via AJAX)
  * - Modal "Ver mais" (abre/fecha + busca conteúdo via AJAX + troca de abas)
  * Vanilla JS, sem dependências. Usa admin-ajax.php do WordPress.
@@ -11,11 +11,11 @@
 	   Parte 1: Grid + "Carregar mais"
 	   ========================================================= */
 
-	const grid = document.getElementById( 'grid-conquistas-lista' );
+	const grid = document.getElementById( 'grid-trajetoria-lista' );
 
 	if ( grid ) {
 
-		const section = document.getElementById( 'grid-conquistas' ) || grid;
+		const section = document.getElementById( 'grid-trajetoria' ) || grid;
 
 		function easeInOutQuint( t ) {
 			return t < 0.5
@@ -62,7 +62,7 @@
 			animateScrollTo( top, 900 );
 		}
 
-		const loadBtn = document.getElementById( 'carregar-mais-conquistas' );
+		const loadBtn = document.getElementById( 'carregar-mais-trajetoria' );
 
 		const state = {
 			paged: 1,
@@ -77,16 +77,16 @@
 			}
 		}
 
-		function fetchConquistas() {
+		function fetchTrajetoria() {
 			setLoading( true );
 
 			const body = new URLSearchParams( {
-				action: 'andrewp_load_conquistas',
-				nonce: window.andrewpConquistas.nonce,
+				action: 'andrewp_load_trajetoria',
+				nonce: window.andrewpTrajetoria.nonce,
 				paged: state.paged,
 			} );
 
-			fetch( window.andrewpConquistas.ajaxUrl, {
+			fetch( window.andrewpTrajetoria.ajaxUrl, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 				body: body.toString(),
@@ -107,7 +107,7 @@
 					scrollToSection();
 				} )
 				.catch( function () {
-					grid.innerHTML = '<p class="grid-conquistas__empty">Não foi possível carregar as conquistas. Tente novamente.</p>';
+					grid.innerHTML = '<p class="grid-trajetoria__empty">Não foi possível carregar a trajetoria. Tente novamente.</p>';
 				} )
 				.finally( function () {
 					setLoading( false );
@@ -117,7 +117,7 @@
 		if ( loadBtn ) {
 			loadBtn.addEventListener( 'click', function () {
 				state.paged += 1;
-				fetchConquistas();
+				fetchTrajetoria();
 			} );
 		}
 	}
@@ -126,38 +126,38 @@
 	   Parte 2: Modal "Ver mais"
 	   ========================================================= */
 
-	const modalOverlay = document.getElementById( 'conquista-modal-overlay' );
+	const modalOverlay = document.getElementById( 'trajetoria-modal-overlay' );
 
 	if ( modalOverlay ) {
 
-		const modalLoading = document.getElementById( 'conquista-modal-loading' );
-		const modalContent = document.getElementById( 'conquista-modal-content' );
+		const modalLoading = document.getElementById( 'trajetoria-modal-loading' );
+		const modalContent = document.getElementById( 'trajetoria-modal-content' );
 
 		function abrirModal() {
 			modalOverlay.classList.add( 'is-open' );
 			modalOverlay.setAttribute( 'aria-hidden', 'false' );
-			document.body.classList.add( 'conquista-modal-aberto' );
+			document.body.classList.add( 'trajetoria-modal-aberto' );
 		}
 
 		function fecharModal() {
 			modalOverlay.classList.remove( 'is-open' );
 			modalOverlay.setAttribute( 'aria-hidden', 'true' );
-			document.body.classList.remove( 'conquista-modal-aberto' );
+			document.body.classList.remove( 'trajetoria-modal-aberto' );
 			modalContent.innerHTML = '';
 		}
 
-		function carregarConquistaModal( postId ) {
+		function carregarTrajetoriaModal( postId ) {
 			modalContent.innerHTML = '';
 			modalLoading.style.display = 'flex';
 			abrirModal();
 
 			const body = new URLSearchParams( {
-				action: 'andrewp_get_conquista_modal',
-				nonce: window.andrewpConquistas.nonce,
+				action: 'andrewp_get_trajetoria_modal',
+				nonce: window.andrewpTrajetoria.nonce,
 				post_id: postId,
 			} );
 
-			fetch( window.andrewpConquistas.ajaxUrl, {
+			fetch( window.andrewpTrajetoria.ajaxUrl, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 				body: body.toString(),
@@ -169,34 +169,34 @@
 					if ( json.success ) {
 						modalContent.innerHTML = json.data.html;
 					} else {
-						modalContent.innerHTML = '<p class="conquista-modal__erro">Não foi possível carregar os detalhes.</p>';
+						modalContent.innerHTML = '<p class="trajetoria-modal__erro">Não foi possível carregar os detalhes.</p>';
 					}
 				} )
 				.catch( function () {
 					modalLoading.style.display = 'none';
-					modalContent.innerHTML = '<p class="conquista-modal__erro">Erro ao carregar. Tente novamente.</p>';
+					modalContent.innerHTML = '<p class="trajetoria-modal__erro">Erro ao carregar. Tente novamente.</p>';
 				} );
 		}
 
 		function trocarAba( tabBtn ) {
-			const modal = tabBtn.closest( '.conquista-modal' );
+			const modal = tabBtn.closest( '.trajetoria-modal' );
 			const alvo  = tabBtn.dataset.tab;
 
 			if ( ! modal ) {
 				return;
 			}
 
-			modal.querySelectorAll( '.conquista-modal__tab' ).forEach( function ( t ) {
+			modal.querySelectorAll( '.trajetoria-modal__tab' ).forEach( function ( t ) {
 				t.classList.toggle( 'is-active', t === tabBtn );
 			} );
-			modal.querySelectorAll( '.conquista-modal__panel' ).forEach( function ( p ) {
+			modal.querySelectorAll( '.trajetoria-modal__panel' ).forEach( function ( p ) {
 				p.classList.toggle( 'is-active', p.dataset.panel === alvo );
 			} );
 		}
 
 		function irParaSlide( carousel, index ) {
-			const slides = carousel.querySelectorAll( '.conquista-modal__carousel-slide' );
-			const dots   = carousel.querySelectorAll( '.conquista-modal__carousel-dot' );
+			const slides = carousel.querySelectorAll( '.trajetoria-modal__carousel-slide' );
+			const dots   = carousel.querySelectorAll( '.trajetoria-modal__carousel-dot' );
 
 			if ( ! slides.length ) {
 				return;
@@ -217,37 +217,37 @@
 
 		// Delegação: cobre também os cards e abas que chegam depois via AJAX.
 		document.addEventListener( 'click', function ( e ) {
-			const abrirBtn = e.target.closest( '.js-abrir-conquista-modal' );
+			const abrirBtn = e.target.closest( '.js-abrir-trajetoria-modal' );
 			if ( abrirBtn ) {
-				carregarConquistaModal( abrirBtn.dataset.postId );
+				carregarTrajetoriaModal( abrirBtn.dataset.postId );
 				return;
 			}
 
-			const carouselNav = e.target.closest( '.conquista-modal__carousel-nav' );
+			const carouselNav = e.target.closest( '.trajetoria-modal__carousel-nav' );
 			if ( carouselNav ) {
 				e.preventDefault();
-				const carousel = carouselNav.closest( '.conquista-modal__carousel' );
+				const carousel = carouselNav.closest( '.trajetoria-modal__carousel' );
 				const atual = parseInt( carousel.dataset.current || '0', 10 );
-				const delta = carouselNav.classList.contains( 'conquista-modal__carousel-nav--next' ) ? 1 : -1;
+				const delta = carouselNav.classList.contains( 'trajetoria-modal__carousel-nav--next' ) ? 1 : -1;
 				irParaSlide( carousel, atual + delta );
 				return;
 			}
 
-			const carouselDot = e.target.closest( '.conquista-modal__carousel-dot' );
+			const carouselDot = e.target.closest( '.trajetoria-modal__carousel-dot' );
 			if ( carouselDot ) {
-				const carousel = carouselDot.closest( '.conquista-modal__carousel' );
+				const carousel = carouselDot.closest( '.trajetoria-modal__carousel' );
 				irParaSlide( carousel, parseInt( carouselDot.dataset.index, 10 ) );
 				return;
 			}
 
-			const tabBtn = e.target.closest( '.conquista-modal__tab' );
+			const tabBtn = e.target.closest( '.trajetoria-modal__tab' );
 			if ( tabBtn ) {
 				trocarAba( tabBtn );
 				return;
 			}
 
 			// Fecha clicando no botão de fechar (dentro do conteúdo AJAX) ou fora do modal.
-			if ( e.target.closest( '.conquista-modal__fechar' ) || e.target === modalOverlay ) {
+			if ( e.target.closest( '.trajetoria-modal__fechar' ) || e.target === modalOverlay ) {
 				fecharModal();
 			}
 		} );

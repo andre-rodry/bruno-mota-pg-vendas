@@ -10,7 +10,7 @@
  */
 ?>
 
-<section class="sobre-numeros" aria-label="Indicadores e conquistas">
+<section class="sobre-numeros" aria-label="Indicadores e trajetoria">
 	<div class="sobre-numeros__container">
 
 		<div class="sobre-numeros__item">

@@ -1,9 +1,9 @@
 /* =========================================================
-   Modal de Conquista ("Ver mais")
-   Reaproveita os tokens definidos em .grid-conquistas (CSS vars globais).
+   Modal de Trajetoria ("Ver mais")
+   Reaproveita os tokens definidos em .grid-trajetoria (CSS vars globais).
    ========================================================= */
 
-.conquista-modal-overlay {
+.trajetoria-modal-overlay {
 	position: fixed;
 	inset: 0;
 	background: rgba(4, 8, 18, 0.82);
@@ -17,16 +17,16 @@
 	transition: opacity 0.25s ease;
 }
 
-.conquista-modal-overlay.is-open {
+.trajetoria-modal-overlay.is-open {
 	opacity: 1;
 	visibility: visible;
 }
 
-body.conquista-modal-aberto {
+body.trajetoria-modal-aberto {
 	overflow: hidden;
 }
 
-.conquista-modal {
+.trajetoria-modal {
 	position: relative;
 	width: 100%;
 	max-width: 980px;
@@ -41,11 +41,11 @@ body.conquista-modal-aberto {
 	transition: transform 0.25s ease;
 }
 
-.conquista-modal-overlay.is-open .conquista-modal {
+.trajetoria-modal-overlay.is-open .trajetoria-modal {
 	transform: translateY(0) scale(1);
 }
 
-.conquista-modal__loading {
+.trajetoria-modal__loading {
 	display: none;
 	align-items: center;
 	justify-content: center;
@@ -55,20 +55,20 @@ body.conquista-modal-aberto {
 	font-size: 14px;
 }
 
-.conquista-modal__loading .dashicons-update {
-	animation: conquista-modal-spin 0.8s linear infinite;
+.trajetoria-modal__loading .dashicons-update {
+	animation: trajetoria-modal-spin 0.8s linear infinite;
 }
 
-@keyframes conquista-modal-spin {
+@keyframes trajetoria-modal-spin {
 	from { transform: rotate(0deg); }
 	to { transform: rotate(360deg); }
 }
 
-.conquista-modal__inner {
+.trajetoria-modal__inner {
 	padding: 32px 32px 24px;
 }
 
-.conquista-modal__fechar {
+.trajetoria-modal__fechar {
 	position: absolute;
 	top: 20px;
 	right: 20px;
@@ -85,13 +85,13 @@ body.conquista-modal-aberto {
 	transition: background 0.2s ease;
 }
 
-.conquista-modal__fechar:hover {
+.trajetoria-modal__fechar:hover {
 	background: rgba(255, 255, 255, 0.14);
 }
 
 /* ---------- Header ---------- */
 
-.conquista-modal__header {
+.trajetoria-modal__header {
 	display: flex;
 	gap: 18px;
 	align-items: flex-start;
@@ -99,7 +99,7 @@ body.conquista-modal-aberto {
 	padding-right: 40px;
 }
 
-.conquista-modal__icone {
+.trajetoria-modal__icone {
 	flex-shrink: 0;
 	width: 56px;
 	height: 56px;
@@ -111,13 +111,13 @@ body.conquista-modal-aberto {
 	color: var(--gold, #d9a441);
 }
 
-.conquista-modal__icone .dashicons {
+.trajetoria-modal__icone .dashicons {
 	font-size: 26px;
 	width: 26px;
 	height: 26px;
 }
 
-.conquista-modal__badge {
+.trajetoria-modal__badge {
 	display: block;
 	font-size: 12px;
 	font-weight: 700;
@@ -127,7 +127,7 @@ body.conquista-modal-aberto {
 	margin-bottom: 6px;
 }
 
-.conquista-modal__titulo {
+.trajetoria-modal__titulo {
 	font-family: var(--font-display, serif);
 	font-size: clamp(22px, 3vw, 30px);
 	font-weight: 600;
@@ -135,7 +135,7 @@ body.conquista-modal-aberto {
 	line-height: 1.25;
 }
 
-.conquista-modal__local {
+.trajetoria-modal__local {
 	display: flex;
 	align-items: center;
 	gap: 6px;
@@ -144,14 +144,14 @@ body.conquista-modal-aberto {
 	margin: 0 0 4px;
 }
 
-.conquista-modal__local .dashicons {
+.trajetoria-modal__local .dashicons {
 	font-size: 16px;
 	width: 16px;
 	height: 16px;
 	color: var(--gold, #d9a441);
 }
 
-.conquista-modal__subtitulo {
+.trajetoria-modal__subtitulo {
 	font-size: 14px;
 	color: var(--gold, #d9a441);
 	margin: 0;
@@ -159,7 +159,7 @@ body.conquista-modal-aberto {
 
 /* ---------- Tabs ---------- */
 
-.conquista-modal__tabs {
+.trajetoria-modal__tabs {
 	display: flex;
 	gap: 6px;
 	flex-wrap: wrap;
@@ -168,7 +168,7 @@ body.conquista-modal-aberto {
 	padding-bottom: 2px;
 }
 
-.conquista-modal__tab {
+.trajetoria-modal__tab {
 	display: inline-flex;
 	align-items: center;
 	gap: 6px;
@@ -183,45 +183,45 @@ body.conquista-modal-aberto {
 	transition: color 0.2s ease, border-color 0.2s ease;
 }
 
-.conquista-modal__tab .dashicons {
+.trajetoria-modal__tab .dashicons {
 	font-size: 16px;
 	width: 16px;
 	height: 16px;
 }
 
-.conquista-modal__tab:hover {
+.trajetoria-modal__tab:hover {
 	color: var(--text-light, #f4f4f4);
 }
 
-.conquista-modal__tab.is-active {
+.trajetoria-modal__tab.is-active {
 	color: var(--gold, #d9a441);
 	border-bottom-color: var(--gold, #d9a441);
 }
 
 /* ---------- Panels ---------- */
 
-.conquista-modal__panel {
+.trajetoria-modal__panel {
 	display: none;
 }
 
-.conquista-modal__panel.is-active {
+.trajetoria-modal__panel.is-active {
 	display: block;
 }
 
-.conquista-modal__resumo-texto {
+.trajetoria-modal__resumo-texto {
 	font-size: 14.5px;
 	line-height: 1.7;
 	color: var(--text-soft-light, #cfd3db);
 	margin-bottom: 24px;
 }
 
-.conquista-modal__resumo-texto p:last-child {
+.trajetoria-modal__resumo-texto p:last-child {
 	margin-bottom: 0;
 }
 
 /* ---------- Destaques ---------- */
 
-.conquista-modal__destaques {
+.trajetoria-modal__destaques {
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -230,13 +230,13 @@ body.conquista-modal-aberto {
 	gap: 16px;
 }
 
-.conquista-modal__destaque-item {
+.trajetoria-modal__destaque-item {
 	display: flex;
 	gap: 14px;
 	align-items: flex-start;
 }
 
-.conquista-modal__destaque-icone {
+.trajetoria-modal__destaque-icone {
 	flex-shrink: 0;
 	width: 34px;
 	height: 34px;
@@ -248,13 +248,13 @@ body.conquista-modal-aberto {
 	justify-content: center;
 }
 
-.conquista-modal__destaque-item strong {
+.trajetoria-modal__destaque-item strong {
 	display: block;
 	font-size: 14.5px;
 	margin-bottom: 3px;
 }
 
-.conquista-modal__destaque-item p {
+.trajetoria-modal__destaque-item p {
 	margin: 0;
 	font-size: 13px;
 	color: var(--text-muted, #9aa0ad);
@@ -263,13 +263,13 @@ body.conquista-modal-aberto {
 
 /* ---------- Galeria ---------- */
 
-.conquista-modal__galeria-grid {
+.trajetoria-modal__galeria-grid {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	gap: 16px;
 }
 
-.conquista-modal__galeria-item {
+.trajetoria-modal__galeria-item {
 	display: block;
 	border-radius: 8px;
 	overflow: hidden;
@@ -277,7 +277,7 @@ body.conquista-modal-aberto {
 	border: 1px solid var(--border-white, rgba(255,255,255,0.1));
 }
 
-.conquista-modal__galeria-item img {
+.trajetoria-modal__galeria-item img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
@@ -285,19 +285,19 @@ body.conquista-modal-aberto {
 	transition: transform 0.3s ease;
 }
 
-.conquista-modal__galeria-item:hover img {
+.trajetoria-modal__galeria-item:hover img {
 	transform: scale(1.04);
 }
 
 /* ---------- Documentos ---------- */
 
-.conquista-modal__docs-grid {
+.trajetoria-modal__docs-grid {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	gap: 14px;
 }
 
-.conquista-modal__doc-card {
+.trajetoria-modal__doc-card {
 	display: flex;
 	align-items: center;
 	gap: 12px;
@@ -309,12 +309,12 @@ body.conquista-modal-aberto {
 	transition: border-color 0.2s ease, background 0.2s ease;
 }
 
-.conquista-modal__doc-card:hover {
+.trajetoria-modal__doc-card:hover {
 	border-color: var(--gold, #d9a441);
 	background: rgba(217, 164, 65, 0.06);
 }
 
-.conquista-modal__doc-icone {
+.trajetoria-modal__doc-icone {
 	flex-shrink: 0;
 	font-size: 22px;
 	width: 22px;
@@ -322,7 +322,7 @@ body.conquista-modal-aberto {
 	color: #d94141;
 }
 
-.conquista-modal__doc-info {
+.trajetoria-modal__doc-info {
 	flex: 1;
 	display: flex;
 	flex-direction: column;
@@ -330,39 +330,39 @@ body.conquista-modal-aberto {
 	min-width: 0;
 }
 
-.conquista-modal__doc-info strong {
+.trajetoria-modal__doc-info strong {
 	font-size: 13.5px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
 
-.conquista-modal__doc-desc {
+.trajetoria-modal__doc-desc {
 	font-size: 12px;
 	color: var(--text-muted, #9aa0ad);
 }
 
-.conquista-modal__doc-meta {
+.trajetoria-modal__doc-meta {
 	font-size: 11px;
 	color: var(--gold, #d9a441);
 	text-transform: uppercase;
 	letter-spacing: 0.3px;
 }
 
-.conquista-modal__doc-baixar {
+.trajetoria-modal__doc-baixar {
 	flex-shrink: 0;
 	color: var(--gold, #d9a441);
 }
 
 /* ---------- Impacto ---------- */
 
-.conquista-modal__impacto-grid {
+.trajetoria-modal__impacto-grid {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	gap: 14px;
 }
 
-.conquista-modal__impacto-item {
+.trajetoria-modal__impacto-item {
 	display: flex;
 	align-items: flex-start;
 	gap: 10px;
@@ -371,14 +371,14 @@ body.conquista-modal-aberto {
 	line-height: 1.5;
 }
 
-.conquista-modal__impacto-item .dashicons {
+.trajetoria-modal__impacto-item .dashicons {
 	color: var(--gold, #d9a441);
 	flex-shrink: 0;
 }
 
 /* ---------- Footer / CTA ---------- */
 
-.conquista-modal__footer {
+.trajetoria-modal__footer {
 	margin-top: 28px;
 	padding-top: 20px;
 	border-top: 1px solid var(--border-white, rgba(255,255,255,0.1));
@@ -386,7 +386,7 @@ body.conquista-modal-aberto {
 	justify-content: flex-end;
 }
 
-.conquista-modal__cta {
+.trajetoria-modal__cta {
 	display: inline-flex;
 	align-items: center;
 	gap: 8px;
@@ -403,11 +403,11 @@ body.conquista-modal-aberto {
 	transition: background 0.2s ease;
 }
 
-.conquista-modal__cta:hover {
+.trajetoria-modal__cta:hover {
 	background: rgba(217, 164, 65, 0.12);
 }
 
-.conquista-modal__erro {
+.trajetoria-modal__erro {
 	text-align: center;
 	color: var(--text-muted, #9aa0ad);
 	padding: 60px 0;
@@ -416,29 +416,29 @@ body.conquista-modal-aberto {
 /* ---------- Responsivo ---------- */
 
 @media (max-width: 720px) {
-	.conquista-modal__inner {
+	.trajetoria-modal__inner {
 		padding: 24px 20px 20px;
 	}
 
-	.conquista-modal__header {
+	.trajetoria-modal__header {
 		flex-direction: column;
 		align-items: flex-start;
 	}
 
-	.conquista-modal__galeria-grid,
-	.conquista-modal__docs-grid,
-	.conquista-modal__impacto-grid {
+	.trajetoria-modal__galeria-grid,
+	.trajetoria-modal__docs-grid,
+	.trajetoria-modal__impacto-grid {
 		grid-template-columns: 1fr;
 	}
 }
 
 /* ---------- Carrossel (Galeria) ---------- */
 
-.conquista-modal__carousel {
+.trajetoria-modal__carousel {
 	position: relative;
 }
 
-.conquista-modal__carousel-track {
+.trajetoria-modal__carousel-track {
 	position: relative;
 	aspect-ratio: 4 / 3;
 	border-radius: 8px;
@@ -446,24 +446,24 @@ body.conquista-modal-aberto {
 	border: 1px solid var(--border-white, rgba(255,255,255,0.1));
 }
 
-.conquista-modal__carousel-slide {
+.trajetoria-modal__carousel-slide {
 	display: none;
 	width: 100%;
 	height: 100%;
 }
 
-.conquista-modal__carousel-slide.is-active {
+.trajetoria-modal__carousel-slide.is-active {
 	display: block;
 }
 
-.conquista-modal__carousel-slide img {
+.trajetoria-modal__carousel-slide img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 	display: block;
 }
 
-.conquista-modal__carousel-nav {
+.trajetoria-modal__carousel-nav {
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
@@ -481,21 +481,21 @@ body.conquista-modal-aberto {
 	justify-content: center;
 }
 
-.conquista-modal__carousel-nav--prev { left: 12px; }
-.conquista-modal__carousel-nav--next { right: 12px; }
+.trajetoria-modal__carousel-nav--prev { left: 12px; }
+.trajetoria-modal__carousel-nav--next { right: 12px; }
 
-.conquista-modal__carousel-nav:hover {
+.trajetoria-modal__carousel-nav:hover {
 	background: rgba(217, 164, 65, 0.25);
 }
 
-.conquista-modal__carousel-dots {
+.trajetoria-modal__carousel-dots {
 	display: flex;
 	justify-content: center;
 	gap: 8px;
 	margin-top: 14px;
 }
 
-.conquista-modal__carousel-dot {
+.trajetoria-modal__carousel-dot {
 	width: 8px;
 	height: 8px;
 	border-radius: 50%;
@@ -505,13 +505,13 @@ body.conquista-modal-aberto {
 	padding: 0;
 }
 
-.conquista-modal__carousel-dot.is-active {
+.trajetoria-modal__carousel-dot.is-active {
 	background: var(--gold, #d9a441);
 }
 
 /* ---------- Programação ---------- */
 
-.conquista-modal__programacao {
+.trajetoria-modal__programacao {
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -520,7 +520,7 @@ body.conquista-modal-aberto {
 	gap: 12px;
 }
 
-.conquista-modal__programacao-item {
+.trajetoria-modal__programacao-item {
 	display: flex;
 	gap: 14px;
 	align-items: baseline;
@@ -530,7 +530,7 @@ body.conquista-modal-aberto {
 	flex-wrap: wrap;
 }
 
-.conquista-modal__programacao-data {
+.trajetoria-modal__programacao-data {
 	flex-shrink: 0;
 	min-width: 120px;
 	font-size: 12.5px;
@@ -539,14 +539,14 @@ body.conquista-modal-aberto {
 	text-transform: uppercase;
 }
 
-.conquista-modal__programacao-atividade {
+.trajetoria-modal__programacao-atividade {
 	font-size: 13.5px;
 	color: var(--text-soft-light, #cfd3db);
 }
 
 /* ---------- Certificado ---------- */
 
-.conquista-modal__certificado {
+.trajetoria-modal__certificado {
 	display: block;
 	border-radius: 8px;
 	overflow: hidden;
@@ -554,12 +554,12 @@ body.conquista-modal-aberto {
 	cursor: zoom-in;
 }
 
-.conquista-modal__certificado img {
+.trajetoria-modal__certificado img {
 	width: 100%;
 	display: block;
 }
 
-.conquista-modal__certificado-hint {
+.trajetoria-modal__certificado-hint {
 	text-align: center;
 	font-size: 12.5px;
 	color: var(--text-muted, #9aa0ad);
@@ -569,30 +569,30 @@ body.conquista-modal-aberto {
 /* =========================================================
    ADIÇÕES v3 — sem abas, sem botão de CTA, espaçamento
    apertado para caber numa tela sem rolagem.
-   Cole no final de assets/css/modal-conquista.css,
+   Cole no final de assets/css/modal-trajetoria.css,
    substituindo qualquer bloco "ADIÇÕES" anterior.
    ========================================================= */
 
-.conquista-modal {
+.trajetoria-modal {
 	max-height: 92vh;
 }
 
-.conquista-modal__inner {
+.trajetoria-modal__inner {
 	padding: 26px 28px 20px;
 }
 
-.conquista-modal__header {
+.trajetoria-modal__header {
 	margin-bottom: 16px;
 }
 
-.conquista-modal__resumo-texto {
+.trajetoria-modal__resumo-texto {
 	font-size: 14px;
 	line-height: 1.6;
 	color: var(--text-soft-light, #cfd3db);
 	margin-bottom: 16px;
 }
 
-.conquista-modal__resumo-grid {
+.trajetoria-modal__resumo-grid {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 20px;
@@ -601,38 +601,38 @@ body.conquista-modal-aberto {
 }
 
 /* Moldura dourada em volta da lista de destaques */
-.conquista-modal__destaques-box {
+.trajetoria-modal__destaques-box {
 	border: 1px solid rgba(217, 164, 65, 0.5);
 	border-radius: 12px;
 	padding: 16px 18px;
 }
 
-.conquista-modal__destaques-box .conquista-modal__destaques {
+.trajetoria-modal__destaques-box .trajetoria-modal__destaques {
 	gap: 12px;
 }
 
-.conquista-modal__destaque-item strong {
+.trajetoria-modal__destaque-item strong {
 	font-size: 13.5px;
 }
 
-.conquista-modal__destaque-item p {
+.trajetoria-modal__destaque-item p {
 	font-size: 12px;
 	line-height: 1.4;
 }
 
 /* Fotos ao lado, grade 2x2, mais baixas pra economizar altura */
-.conquista-modal__resumo-col-fotos .conquista-modal__galeria-grid {
+.trajetoria-modal__resumo-col-fotos .trajetoria-modal__galeria-grid {
 	grid-template-columns: repeat(2, 1fr);
 	gap: 10px;
 	height: 100%;
 }
 
-.conquista-modal__resumo-col-fotos .conquista-modal__galeria-item {
+.trajetoria-modal__resumo-col-fotos .trajetoria-modal__galeria-item {
 	aspect-ratio: 5 / 4;
 }
 
 /* Barra de impacto — full width, abaixo das fotos */
-.conquista-modal__impacto-bar {
+.trajetoria-modal__impacto-bar {
 	display: flex;
 	align-items: center;
 	gap: 18px;
@@ -642,7 +642,7 @@ body.conquista-modal-aberto {
 	margin: 0 0 18px;
 }
 
-.conquista-modal__impacto-label {
+.trajetoria-modal__impacto-label {
 	display: flex;
 	align-items: center;
 	gap: 8px;
@@ -656,25 +656,25 @@ body.conquista-modal-aberto {
 	line-height: 1.25;
 }
 
-.conquista-modal__impacto-label .dashicons {
+.trajetoria-modal__impacto-label .dashicons {
 	font-size: 18px;
 	width: 18px;
 	height: 18px;
 }
 
-.conquista-modal__impacto-bar .conquista-modal__impacto-grid {
+.trajetoria-modal__impacto-bar .trajetoria-modal__impacto-grid {
 	grid-template-columns: repeat(4, 1fr);
 	gap: 12px;
 	flex: 1;
 }
 
-.conquista-modal__impacto-item {
+.trajetoria-modal__impacto-item {
 	font-size: 12.5px;
 	line-height: 1.35;
 }
 
 /* Documentos — uma linha de 4 colunas */
-.conquista-modal__docs-section-title {
+.trajetoria-modal__docs-section-title {
 	font-size: 10.5px;
 	font-weight: 700;
 	letter-spacing: .6px;
@@ -683,40 +683,40 @@ body.conquista-modal-aberto {
 	margin: 0 0 10px;
 }
 
-.conquista-modal__docs-grid {
+.trajetoria-modal__docs-grid {
 	grid-template-columns: repeat(4, 1fr);
 	gap: 12px;
 }
 
-.conquista-modal__doc-card {
+.trajetoria-modal__doc-card {
 	padding: 12px;
 }
 
-.conquista-modal__doc-info strong {
+.trajetoria-modal__doc-info strong {
 	font-size: 12.5px;
 }
 
-.conquista-modal__doc-desc {
+.trajetoria-modal__doc-desc {
 	font-size: 11px;
 }
 
 /* Responsivo: empilha e cede à rolagem só quando necessário */
 @media (max-width: 900px) {
-	.conquista-modal__resumo-grid {
+	.trajetoria-modal__resumo-grid {
 		grid-template-columns: 1fr;
 	}
-	.conquista-modal__impacto-bar {
+	.trajetoria-modal__impacto-bar {
 		flex-direction: column;
 		align-items: flex-start;
 	}
-	.conquista-modal__impacto-bar .conquista-modal__impacto-grid,
-	.conquista-modal__docs-grid {
+	.trajetoria-modal__impacto-bar .trajetoria-modal__impacto-grid,
+	.trajetoria-modal__docs-grid {
 		grid-template-columns: 1fr;
 	}
 }
 
 @media (max-width: 600px) {
-	.conquista-modal__docs-grid {
+	.trajetoria-modal__docs-grid {
 		grid-template-columns: repeat(2, 1fr);
 	}
 }

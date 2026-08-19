@@ -2,7 +2,7 @@
 /**
  * inc/assets.php
  * Carrega todo CSS/JS do tema, com caminhos apontando para as pastas
- * por página (sobre/, atuacao/, conquistas/, home/, error-404/) e
+ * pastas por página (sobre/, atuacao/, trajetoria/, home/, error-404/) e
  * para assets/ (arquivos globais: header, footer, loader, reveal-scroll).
  */
 
@@ -117,7 +117,7 @@ function meu_tema_scripts() {
     // ---- PÁGINA SOBRE ----
     if ( is_page( 'sobre' ) ) {
 
-        // Um CSS por seção, seguindo o mesmo padrão usado em "conquistas".
+        // // Um CSS por seção, seguindo o mesmo padrão usado em "trajetoria".
         // Se algum arquivo ainda não existir, ele é simplesmente ignorado
         // (evita o erro de filemtime() em arquivo inexistente).
         $secoes_sobre = array(

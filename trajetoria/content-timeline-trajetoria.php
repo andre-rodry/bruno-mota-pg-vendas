@@ -1,10 +1,10 @@
 <?php
 /**
- * Template Part: Timeline de Conquistas (SOMENTE a seção pinada)
- * Uso: get_template_part( 'conquistas/content-timeline-conquistas' );
+ * Template Part: Timeline de Trajetoria (SOMENTE a seção pinada)
+ * Uso: get_template_part( 'trajetoria/content-timeline-trajetoria' );
  *
- * Estilos:  page-timeline-conquistas.css
- * Script:   page-timeline-conquistas.js  (vanilla JS puro, sem GSAP/Lenis)
+ * Estilos:  page-timeline-trajetoria.css
+ * Script:   page-timeline-trajetoria.js  (vanilla JS puro, sem GSAP/Lenis)
  */
 ?>
 <div class="tlc">

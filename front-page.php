@@ -544,7 +544,7 @@ get_header();
       </div>
     </section>
 
-    <!-- Aqui entram as próximas seções: atuação, conquistas, contato -->
+    <!-- Aqui entram as próximas seções: atuação, trajetória, contato -->
 
 </main>
 

@@ -1,8 +1,8 @@
 /* =========================================================
-   Grid de Conquistas
+   Grid de Trajetoria
    ========================================================= */
 
-.grid-conquistas {
+.grid-trajetoria {
 	/* Mapeia os tokens globais do tema para os apelidos usados nesta seção */
 	--gc-bg: var(--navy-950);
 	--gc-card-bg: var(--navy-900);
@@ -30,19 +30,19 @@
 	scroll-margin-top: 52px;
 }
 
-.grid-conquistas__container {
+.grid-trajetoria__container {
 	max-width: 1200px;
 	margin: 0 auto;
 }
 
 /* ---------- Header ---------- */
 
-.grid-conquistas__header {
+.grid-trajetoria__header {
 	text-align: center;
 	margin-bottom: 32px;
 }
 
-.grid-conquistas__title {
+.grid-trajetoria__title {
 	font-family: var(--font-display);
 	font-size: clamp(28px, 3.2vw, 38px);
 	font-weight: 600;
@@ -52,7 +52,7 @@
 	margin: 0 0 12px;
 }
 
-.grid-conquistas__subtitle {
+.grid-trajetoria__subtitle {
 	font-size: 15px;
 	color: var(--gc-text-muted);
 	margin: 0 0 36px;
@@ -60,7 +60,7 @@
 
 /* ---------- Pílulas de categoria ---------- */
 
-.grid-conquistas__pills {
+.grid-trajetoria__pills {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -68,7 +68,7 @@
 	margin-bottom: 40px;
 }
 
-.grid-conquistas__pill {
+.grid-trajetoria__pill {
 	display: inline-flex;
 	align-items: center;
 	gap: 6px;
@@ -85,18 +85,18 @@
 	transition: all 0.2s ease;
 }
 
-.grid-conquistas__pill .dashicons {
+.grid-trajetoria__pill .dashicons {
 	font-size: 15px;
 	width: 15px;
 	height: 15px;
 }
 
-.grid-conquistas__pill:hover {
+.grid-trajetoria__pill:hover {
 	border-color: var(--gc-border-hover);
 	color: var(--gc-white);
 }
 
-.grid-conquistas__pill.is-active {
+.grid-trajetoria__pill.is-active {
 	background: var(--gc-gold);
 	border-color: var(--gc-gold);
 	color: #1a1a1a;
@@ -105,14 +105,14 @@
 
 /* ---------- Grid de cards ---------- */
 
-.grid-conquistas__grid {
+.grid-trajetoria__grid {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	gap: 24px;
 	margin-bottom: 40px;
 }
 
-.grid-conquistas__card {
+.grid-trajetoria__card {
 	background: var(--gc-card-bg);
 	border: 1px solid var(--gc-border);
 	border-radius: var(--gc-radius);
@@ -122,20 +122,20 @@
 	transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
 }
 
-.grid-conquistas__card:hover {
+.grid-trajetoria__card:hover {
 	border-color: var(--gc-border-hover);
 	background: var(--gc-card-bg-hover);
 	transform: translateY(-3px);
 }
 
-.grid-conquistas__card-media {
+.grid-trajetoria__card-media {
 	position: relative;
 	aspect-ratio: 4 / 3;
 	overflow: hidden;
 	background: #1a1a1a;
 }
 
-.grid-conquistas__img {
+.grid-trajetoria__img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
@@ -143,11 +143,11 @@
 	transition: transform 0.4s ease;
 }
 
-.grid-conquistas__card:hover .grid-conquistas__img {
+.grid-trajetoria__card:hover .grid-trajetoria__img {
 	transform: scale(1.05);
 }
 
-.grid-conquistas__badge {
+.grid-trajetoria__badge {
 	position: absolute;
 	top: 12px;
 	left: 12px;
@@ -163,38 +163,38 @@
 	z-index: 2;
 }
 
-.grid-conquistas__card-body {
+.grid-trajetoria__card-body {
 	padding: 20px;
 	display: flex;
 	flex-direction: column;
 	flex: 1;
 }
 
-.grid-conquistas__card-title {
+.grid-trajetoria__card-title {
 	font-size: 17px;
 	font-weight: 600;
 	line-height: 1.35;
 	margin: 0 0 12px;
 }
 
-.grid-conquistas__card-title a {
+.grid-trajetoria__card-title a {
 	color: var(--gc-white);
 	text-decoration: none;
 	transition: color 0.2s ease;
 }
 
-.grid-conquistas__card-title a:hover {
+.grid-trajetoria__card-title a:hover {
 	color: var(--gc-gold);
 }
 
-.grid-conquistas__card-meta {
+.grid-trajetoria__card-meta {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	margin-bottom: 12px;
 }
 
-.grid-conquistas__card-tag {
+.grid-trajetoria__card-tag {
 	font-size: 11px;
 	font-weight: 700;
 	letter-spacing: 0.5px;
@@ -202,12 +202,12 @@
 	text-transform: uppercase;
 }
 
-.grid-conquistas__card-year {
+.grid-trajetoria__card-year {
 	font-size: 12px;
 	color: var(--gc-text-subtle);
 }
 
-.grid-conquistas__card-excerpt {
+.grid-trajetoria__card-excerpt {
 	font-size: 13.5px;
 	line-height: 1.55;
 	color: var(--gc-text-muted);
@@ -215,7 +215,7 @@
 	flex: 1;
 }
 
-.grid-conquistas__card-link {
+.grid-trajetoria__card-link {
 	display: inline-flex;
 	align-items: center;
 	gap: 6px;
@@ -228,15 +228,15 @@
 	width: fit-content;
 }
 
-.grid-conquistas__card-arrow {
+.grid-trajetoria__card-arrow {
 	transition: transform 0.2s ease;
 }
 
-.grid-conquistas__card-link:hover .grid-conquistas__card-arrow {
+.grid-trajetoria__card-link:hover .grid-trajetoria__card-arrow {
 	transform: translateX(4px);
 }
 
-.grid-conquistas__empty {
+.grid-trajetoria__empty {
 	grid-column: 1 / -1;
 	text-align: center;
 	color: var(--gc-text-muted);
@@ -245,12 +245,12 @@
 
 /* ---------- Carregar mais ---------- */
 
-.grid-conquistas__load-more-wrap {
+.grid-trajetoria__load-more-wrap {
 	display: flex;
 	justify-content: center;
 }
 
-.grid-conquistas__load-more {
+.grid-trajetoria__load-more {
 	display: inline-flex;
 	align-items: center;
 	gap: 8px;
@@ -267,11 +267,11 @@
 	transition: background 0.2s ease, color 0.2s ease;
 }
 
-.grid-conquistas__load-more:hover {
+.grid-trajetoria__load-more:hover {
 	background: var(--gc-gold-soft);
 }
 
-.grid-conquistas__load-more.is-loading .dashicons-update {
+.grid-trajetoria__load-more.is-loading .dashicons-update {
 	animation: gc-spin 0.8s linear infinite;
 }
 
@@ -283,17 +283,17 @@
 /* ---------- Responsivo ---------- */
 
 @media (max-width: 1024px) {
-	.grid-conquistas__grid {
+	.grid-trajetoria__grid {
 		grid-template-columns: repeat(2, 1fr);
 	}
 }
 
 @media (max-width: 640px) {
-	.grid-conquistas {
+	.grid-trajetoria {
 		padding: 72px 16px 72px;
 	}
 
-	.grid-conquistas__grid {
+	.grid-trajetoria__grid {
 		grid-template-columns: 1fr;
 	}
 }

@@ -1,16 +1,16 @@
 <?php
 /**
- * Section: Perfil / Sobre + Conquistas em destaque
+ * Section: Perfil / Sobre + Trajetoria em destaque
  * content-perfil-sobre.php
  *
  * Duas colunas: texto institucional (Sobre) à esquerda e lista de
- * conquistas em destaque à direita, com divisor vertical entre elas.
+ * trajetória em destaque à direita, com divisor vertical entre elas.
  *
  * @package andreWP
  */
 
-// Lista de conquistas em destaque. Cada item pode (opcionalmente) ter um link.
-$andrewp_conquistas = array(
+// Lista de itens de trajetória em destaque. Cada item pode (opcionalmente) ter um link.
+$andrewp_trajetoria = array(
 	array(
 		'icone' => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3.5l7 2.5v5.2c0 4.7-3 8.9-7 10.3-4-1.4-7-5.6-7-10.3V6L12 3.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 8.7l1.05 2.13 2.35.34-1.7 1.66.4 2.34L12 14.05l-2.1 1.12.4-2.34-1.7-1.66 2.35-.34L12 8.7Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>',
 		'titulo' => 'Idealizador da Lei 9839/2025',
@@ -41,7 +41,7 @@ $andrewp_conquistas = array(
 );
 ?>
 
-<section class="sobre-perfil" aria-label="Sobre e conquistas em destaque">
+<section class="sobre-perfil" aria-label="Sobre e trajetória em destaque">
 	<div class="sobre-perfil__container">
 
 		<!-- Coluna: Sobre -->
@@ -79,24 +79,24 @@ $andrewp_conquistas = array(
 		<!-- Divisor vertical entre as colunas -->
 		<div class="sobre-perfil__divider" aria-hidden="true"></div>
 
-		<!-- Coluna: Conquistas em destaque -->
-		<div class="sobre-perfil__col sobre-perfil__col--conquistas">
-			<span class="sobre-perfil__label">Conquistas em destaque</span>
+		<!-- Coluna: Trajetoria em destaque -->
+		<div class="sobre-perfil__col sobre-perfil__col--trajetoria">
+			<span class="sobre-perfil__label">Trajetoria em destaque</span>
 
-			<ul class="sobre-perfil__conquistas-list">
-				<?php foreach ( $andrewp_conquistas as $item ) : ?>
-					<li class="sobre-perfil__conquista-item">
-						<span class="sobre-perfil__conquista-icon" aria-hidden="true">
+			<ul class="sobre-perfil__trajetoria-list">
+				<?php foreach ( $andrewp_trajetoria as $item ) : ?>
+					<li class="sobre-perfil__trajetoria-item">
+						<span class="sobre-perfil__trajetoria-icon" aria-hidden="true">
 							<?php echo $item['icone']; // já é SVG estático, controlado pelo tema. ?>
 						</span>
 
-						<div class="sobre-perfil__conquista-content">
-							<h3 class="sobre-perfil__conquista-title"><?php echo esc_html( $item['titulo'] ); ?></h3>
-							<p class="sobre-perfil__conquista-desc"><?php echo wp_kses_post( $item['texto'] ); ?></p>
+						<div class="sobre-perfil__trajetoria-content">
+							<h3 class="sobre-perfil__trajetoria-title"><?php echo esc_html( $item['titulo'] ); ?></h3>
+							<p class="sobre-perfil__trajetoria-desc"><?php echo wp_kses_post( $item['texto'] ); ?></p>
 						</div>
 
 						<?php if ( ! empty( $item['link'] ) ) : ?>
-							<a href="<?php echo esc_url( $item['link']['url'] ); ?>" class="sobre-perfil__conquista-link">
+							<a href="<?php echo esc_url( $item['link']['url'] ); ?>" class="sobre-perfil__trajetoria-link">
 								<?php echo esc_html( $item['link']['texto'] ); ?>
 								<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>

@@ -1,5 +1,5 @@
 /**
- * Section: Perfil / Sobre + Conquistas em destaque
+ * Section: Perfil / Sobre + Trajetoria em destaque
  * Página: sobre
  */
 
@@ -76,15 +76,15 @@
 	margin-bottom: 0;
 }
 
-/* ---- Coluna: Conquistas ---- */
+/* ---- Coluna: Trajetoria ---- */
 
-.sobre-perfil__conquistas-list {
+.sobre-perfil__trajetoria-list {
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
 
-.sobre-perfil__conquista-item {
+.sobre-perfil__trajetoria-item {
 	position: relative;
 	display: grid;
 	grid-template-columns: 48px 1fr;
@@ -93,16 +93,16 @@
 	border-bottom: 1px solid var(--border-white);
 }
 
-.sobre-perfil__conquista-item:first-child {
+.sobre-perfil__trajetoria-item:first-child {
 	padding-top: 0;
 }
 
-.sobre-perfil__conquista-item:last-child {
+.sobre-perfil__trajetoria-item:last-child {
 	border-bottom: none;
 	padding-bottom: 0;
 }
 
-.sobre-perfil__conquista-icon {
+.sobre-perfil__trajetoria-icon {
 	grid-row: 1 / 2;
 	width: 48px;
 	height: 48px;
@@ -114,16 +114,16 @@
 	color: var(--gold-accent);
 }
 
-.sobre-perfil__conquista-icon svg {
+.sobre-perfil__trajetoria-icon svg {
 	width: 22px;
 	height: 22px;
 }
 
-.sobre-perfil__conquista-content {
+.sobre-perfil__trajetoria-content {
 	grid-column: 2 / 3;
 }
 
-.sobre-perfil__conquista-title {
+.sobre-perfil__trajetoria-title {
 	font-family: var(--font-display);
 	font-weight: 500;
 	font-size: 18px;
@@ -132,7 +132,7 @@
 	margin: 0 0 6px;
 }
 
-.sobre-perfil__conquista-desc {
+.sobre-perfil__trajetoria-desc {
 	font-family: var(--font-body);
 	font-size: 14px;
 	line-height: 1.6;
@@ -140,7 +140,7 @@
 	margin: 0;
 }
 
-.sobre-perfil__conquista-link {
+.sobre-perfil__trajetoria-link {
 	grid-column: 2 / 3;
 	display: inline-flex;
 	align-items: center;
@@ -154,12 +154,12 @@
 	transition: gap .2s ease, color .2s ease;
 }
 
-.sobre-perfil__conquista-link svg {
+.sobre-perfil__trajetoria-link svg {
 	width: 14px;
 	height: 14px;
 }
 
-.sobre-perfil__conquista-link:hover {
+.sobre-perfil__trajetoria-link:hover {
 	color: var(--gold-hover);
 	gap: 9px;
 }
@@ -202,23 +202,23 @@
 		font-size: 28px;
 	}
 
-	.sobre-perfil__conquista-item {
+	.sobre-perfil__trajetoria-item {
 		grid-template-columns: 40px 1fr;
 		column-gap: 12px;
 		padding: 18px 0;
 	}
 
-	.sobre-perfil__conquista-icon {
+	.sobre-perfil__trajetoria-icon {
 		width: 40px;
 		height: 40px;
 	}
 
-	.sobre-perfil__conquista-icon svg {
+	.sobre-perfil__trajetoria-icon svg {
 		width: 19px;
 		height: 19px;
 	}
 
-	.sobre-perfil__conquista-title {
+	.sobre-perfil__trajetoria-title {
 		font-size: 16.5px;
 	}
 }

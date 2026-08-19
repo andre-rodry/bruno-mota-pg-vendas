@@ -8,7 +8,7 @@
  * artigo" (publicacoes/modal-publicacao.php para Artigos/Revistas,
  * publicacoes/modal-publicacao-livro.php para Livros/Capítulos).
  *
- * Segue o mesmo padrão de inc/cpt-conquistas.php.
+ * Segue o mesmo padrão de inc/cpt-trajetoria.php.
  *
  * @package andreWP
  */

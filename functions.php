@@ -10,9 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once get_template_directory() . '/inc/setup.php';
 require_once get_template_directory() . '/inc/assets.php';
-require_once get_template_directory() . '/inc/cpt-conquistas.php';
-require_once get_template_directory() . '/inc/modal-conquista.php';
-require_once get_template_directory() . '/inc/ajax-conquistas.php';
+require_once get_template_directory() . '/inc/cpt-trajetoria.php';
+require_once get_template_directory() . '/inc/modal-trajetoria.php';
+require_once get_template_directory() . '/inc/ajax-trajetoria.php';
 require_once get_template_directory() . '/inc/cpt-publicacoes.php';
 require_once get_template_directory() . '/inc/modal-publicacao.php';
 require_once get_template_directory() . '/inc/ajax-publicacoes.php';

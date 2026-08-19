@@ -1,5 +1,5 @@
 /**
- * Admin: campos do metabox "Conteúdo do Modal" na edição de Conquista.
+ * Admin: campos do metabox "Conteúdo do Modal" na edição de Trajetoria.
  * - Repeaters genéricos (destaques, documentos, impacto): clona um
  *   <template> e injeta antes do botão "+ Adicionar", sem precisar
  *   reindexar nomes (todos os inputs usam name="campo[]").
@@ -43,7 +43,7 @@
 
 			/* ---------- Certificado (imagem única) ---------- */
 		const certBtn     = document.getElementById( 'andrewp-certificado-selecionar' );
-		const certHidden  = document.getElementById( 'conquista_certificado_id' );
+		const certHidden  = document.getElementById( 'trajetoria_certificado_id' );
 		const certPreview = document.getElementById( 'andrewp-certificado-preview' );
 
 		if ( certBtn ) {
@@ -93,7 +93,7 @@
 
 		/* ---------- Galeria de imagens (múltipla) ---------- */
 		const galeriaBtn      = document.getElementById( 'andrewp-galeria-selecionar' );
-		const galeriaHidden    = document.getElementById( 'conquista_galeria_ids' );
+		const galeriaHidden    = document.getElementById( 'trajetoria_galeria_ids' );
 		const galeriaPreview   = document.getElementById( 'andrewp-galeria-preview' );
 
 		function getGaleriaIds() {
