@@ -62,7 +62,7 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 64px 24px;
+  padding: 110px 24px 96px;
 }
 
 /* Fade inferior full-bleed para suavizar o corte da imagem */
@@ -92,7 +92,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
   font-family: var(--font-body-alt);
   font-size: 13px;
   font-weight: 600;
@@ -111,29 +111,33 @@
 
 /* Título */
 .banner-publicacoes__title {
-  margin: 0 0 18px;
+  margin: 0 0 14px;
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(36px, 5vw, 56px);
-  line-height: 1.1;
+  font-size: clamp(30px, 3.6vw, 44px);
+  line-height: 1.12;
   color: var(--text-light);
+}
+
+.banner-publicacoes__title-gold {
+  color: var(--gold-accent);
 }
 
 /* Primeiro parágrafo (destaque) */
 .banner-publicacoes__lead {
   margin: 0;
   font-family: var(--font-body);
-  font-size: 17px;
+  font-size: 18px;
   line-height: 1.6;
   color: var(--text-soft-light);
-  max-width: 520px;
+  max-width: 540px;
 }
 
 /* Divisor dourado */
 .banner-publicacoes__divider {
   width: 28px;
   height: 2px;
-  margin: 4px 0 20px;
+  margin: 4px 0 16px;
   background-color: var(--gold-accent);
   border: none;
   border-radius: 1px;
@@ -156,7 +160,7 @@
   }
 
   .banner-publicacoes__container {
-    padding: 48px 20px;
+    padding: 90px 20px 72px;
   }
 
   .banner-publicacoes::before {

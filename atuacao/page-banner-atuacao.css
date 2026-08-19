@@ -25,13 +25,15 @@
   position: relative;
   display: flex;
   align-items: center;
-  min-height: 520px;
+  min-height: 460px; /* igual ao banner-publicacoes */
   width: 100%;
   overflow: hidden;
   background-color: var(--navy-950);
+  background-image: url("../assets/img/atuacao/bruno-mota-economista-areas-de-atuacao.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  border: 2px solid red;
 }
 
 /* Overlay geral — leve, mantém a imagem de fundo visível e viva */
@@ -55,7 +57,7 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 140px 24px 64px;
+  padding: 110px 24px 64px;
 }
 
 .atuacao-banner::after {
@@ -106,8 +108,8 @@
   margin: 0 0 18px;
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(32px, 4.4vw, 50px);
-  line-height: 1.15;
+  font-size: clamp(30px, 3.6vw, 44px);
+  line-height: 1.12;
   color: var(--text-light);
 }
 
@@ -118,10 +120,10 @@
 .atuacao-banner__lead {
   margin: 0;
   font-family: var(--font-body);
-  font-size: 17px;
+  font-size: 18px;
   line-height: 1.6;
   color: var(--text-soft-light);
-  max-width: 520px;
+  max-width: 540px;
 }
 
 .atuacao-banner__divider {
@@ -138,12 +140,12 @@
   align-items: center;
   gap: 10px;
   font-family: var(--font-body-alt);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--gold-accent);
   background: transparent;
   border: 1.5px solid var(--gold-accent);
-  padding: 13px 24px;
+  padding: 16px 30px;
   border-radius: 10px;
   text-decoration: none;
   transition: background .2s ease, color .2s ease, gap .2s ease, transform .2s ease;
@@ -156,8 +158,8 @@
 }
 
 .atuacao-banner__cta-icon svg {
-  width: 17px;
-  height: 17px;
+  width: 19px;
+  height: 19px;
 }
 
 .atuacao-banner__cta:hover {
@@ -315,11 +317,11 @@
 /* Responsivo */
 @media (max-width: 768px) {
   .atuacao-banner {
-    min-height: 420px;
+    min-height: 380px; /* igual ao banner-publicacoes */
   }
 
   .atuacao-banner__container {
-    padding: 100px 20px 48px;
+    padding: 90px 20px 48px;
   }
 
   .atuacao-banner::before {

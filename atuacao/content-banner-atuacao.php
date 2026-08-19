@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-<section class="atuacao-banner" style="background-image: url('<?php echo esc_url( get_template_directory_uri() . '/assets/img/atuacao/bruno-mota-economista-areas-de-atuacao.webp' ); ?>');">
+<section class="atuacao-banner">
 	<div class="atuacao-banner__container">
 
 		<div class="atuacao-banner__content">

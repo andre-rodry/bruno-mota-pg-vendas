@@ -310,6 +310,13 @@ function meu_tema_scripts() {
         );
 
         wp_enqueue_style(
+            'andrewp-midia-stats',
+            get_template_directory_uri() . '/midia/page-midia-stats.css',
+            array( 'meu-tema-style' ),
+            filemtime( get_template_directory() . '/midia/page-midia-stats.css' )
+        );
+
+        wp_enqueue_style(
             'andrewp-midia-destaques',
             get_template_directory_uri() . '/midia/page-destaques-midia.css',
             array( 'meu-tema-style' ),

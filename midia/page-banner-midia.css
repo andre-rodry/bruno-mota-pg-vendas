@@ -32,11 +32,11 @@
   position: relative;
   display: flex;
   align-items: center;
-  min-height: 520px;
+  min-height: 460px; /* padrão do site */
   width: 100%;
   overflow: hidden;
   background-color: var(--navy-950);
-  background-image: url("../assets/img/midia-hero-bg.webp");
+  background-image: url("../assets/img/midia/midia-hero-bg.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -62,7 +62,7 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 140px 24px 64px;
+  padding: 110px 24px 96px; /* bottom aumentado: 64px -> 96px */
 }
 
 /* Fade inferior full-bleed para suavizar o corte da imagem */
@@ -92,7 +92,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
   font-family: var(--font-body-alt);
   font-size: 13px;
   font-weight: 600;
@@ -111,11 +111,11 @@
 
 /* Título */
 .banner-midia__title {
-  margin: 0 0 18px;
+  margin: 0 0 14px;
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(32px, 4.4vw, 50px);
-  line-height: 1.15;
+  font-size: clamp(30px, 3.6vw, 44px); /* padrão do site */
+  line-height: 1.12;
   color: var(--text-light);
 }
 
@@ -127,17 +127,17 @@
 .banner-midia__lead {
   margin: 0;
   font-family: var(--font-body);
-  font-size: 17px;
+  font-size: 18px; /* padrão do site */
   line-height: 1.6;
   color: var(--text-soft-light);
-  max-width: 520px;
+  max-width: 540px; /* padrão do site */
 }
 
 /* Divisor dourado */
 .banner-midia__divider {
   width: 28px;
   height: 2px;
-  margin: 4px 0 20px;
+  margin: 4px 0 16px;
   background-color: var(--gold-accent);
   border: none;
   border-radius: 1px;
@@ -145,7 +145,7 @@
 
 /* Segundo parágrafo (descrição) */
 .banner-midia__description {
-  margin: 0 0 36px;
+  margin: 0;
   font-family: var(--font-body);
   font-size: 15px;
   line-height: 1.7;
@@ -153,69 +153,14 @@
   max-width: 540px;
 }
 
-/* -------------------- Estatísticas -------------------- */
-
-.banner-midia__stats {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.banner-midia__stat-divider {
-  width: 1px;
-  height: 34px;
-  background: var(--border-white);
-  flex-shrink: 0;
-}
-
-.banner-midia__stat {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.banner-midia__stat-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 26px;
-  height: 26px;
-  color: var(--gold-accent);
-  flex-shrink: 0;
-}
-.banner-midia__stat-icon svg {
-  width: 100%;
-  height: 100%;
-}
-
-.banner-midia__stat-info {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.25;
-}
-.banner-midia__stat-info strong {
-  font-family: var(--font-body-alt);
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--text-light);
-}
-.banner-midia__stat-info small {
-  font-family: var(--font-body);
-  font-size: 12px;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-}
-
 /* Responsivo */
 @media (max-width: 768px) {
   .banner-midia {
-    min-height: 420px;
+    min-height: 380px; /* padrão do site */
   }
 
   .banner-midia__container {
-    padding: 100px 20px 48px;
+    padding: 90px 20px 72px; /* bottom aumentado: 48px -> 72px */
   }
 
   .banner-midia::before {
@@ -229,13 +174,5 @@
 
   .banner-midia__content {
     max-width: 100%;
-  }
-
-  .banner-midia__stats {
-    gap: 14px;
-  }
-
-  .banner-midia__stat-divider {
-    display: none;
   }
 }

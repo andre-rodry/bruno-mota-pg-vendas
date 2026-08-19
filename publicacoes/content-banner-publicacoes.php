@@ -24,16 +24,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 				Publicações
 			</span>
 
-			<h1 class="banner-publicacoes__title">Publicações</h1>
+			<h1 class="banner-publicacoes__title">
+				Produção Acadêmica<br>
+				<span class="banner-publicacoes__title-gold">e Intelectual</span>
+			</h1>
 
 			<p class="banner-publicacoes__lead">
-				Conheça toda a produção acadêmica e intelectual de Bruno Mota.
+				Livros, artigos científicos e publicações que contribuem para o debate sobre economia, desenvolvimento e políticas públicas.
 			</p>
 
 			<hr class="banner-publicacoes__divider">
 
 			<p class="banner-publicacoes__description">
-				Livros, capítulos de livros, artigos científicos e publicações em revistas que contribuem para o debate sobre economia, desenvolvimento, políticas públicas e finanças.
+				Um acervo construído ao longo de anos de pesquisa e atuação no mercado financeiro.
 			</p>
 
 		</div>
