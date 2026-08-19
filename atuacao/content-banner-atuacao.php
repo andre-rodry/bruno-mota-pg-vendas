@@ -24,8 +24,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</span>
 
 			<h1 class="atuacao-banner__title">
-				Economia <span class="atuacao-banner__title-highlight">prática</span>.<br>
-				Resultados <span class="atuacao-banner__title-highlight">reais</span>.
+				Economia <span class="atuacao-banner__title-highlight">prática</span><br>
+				Resultados <span class="atuacao-banner__title-highlight">reais</span>
 			</h1>
 
 			<p class="atuacao-banner__lead">
