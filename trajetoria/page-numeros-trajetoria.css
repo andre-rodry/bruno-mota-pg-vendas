@@ -1,0 +1,160 @@
+:root {
+  /* Navy usados */
+  --navy-950: #0a0f1c;
+  --navy-900: #0b0f1e;
+
+  /* Dourados usados */
+  --gold: #c9962c;
+  --gold-accent: #f5a623;
+  --gold-hover: #e0951a;
+
+  /* Textos usados */
+  --text-light: #ffffff;
+  --text-soft: #f4efe4;
+  --text-muted: #b7bdcc;
+  --text-soft-light: #e0e0e0;
+
+  /* Bordas usadas */
+  --border-white: rgba(255, 255, 255, 0.08);
+  --border-gold-glow: rgba(217, 164, 65, 0.25);
+
+  /* Fontes usadas */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body-alt: "Poppins", "Segoe UI", Arial, sans-serif;
+}
+
+/* ==========================================================================
+   Seção de Números (cards) — página de Trajetória
+   Mesmo padrão visual, altura, largura, espaçamento e hover dos cards
+   de Mídia e Publicações, para manter a consistência entre as páginas.
+   ========================================================================== */
+
+.numeros-trajetoria {
+  position: relative;
+  z-index: 3; /* fica acima do fade ::after do banner */
+  width: 100%;
+  background-color: var(--navy-900);
+  padding-top: 1px; /* trava o colapso de margem, igual em Mídia/Publicações */
+}
+
+.numeros-trajetoria__container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.numeros-trajetoria__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: -64px; /* sobrepõe o rodapé do banner, igual em Mídia/Publicações */
+}
+
+/* Card individual */
+.numeros-trajetoria__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 28px 16px;
+  background-color: rgba(11, 15, 30, 0.92);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid var(--border-white);
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+  font-family: inherit;
+}
+
+.numeros-trajetoria__card:hover {
+  border-color: var(--border-gold-glow);
+  transform: translateY(-2px);
+}
+
+/* Ícone */
+.numeros-trajetoria__card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--gold-accent);
+}
+
+.numeros-trajetoria__card-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Número em destaque */
+.numeros-trajetoria__card-number {
+  font-family: var(--font-body-alt);
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--gold-accent);
+  line-height: 1;
+}
+
+/* Label */
+.numeros-trajetoria__card-label {
+  font-family: var(--font-body-alt);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--text-light);
+}
+
+/* Descrição */
+.numeros-trajetoria__card-description {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+/* Responsivo — mesmo comportamento de Mídia/Publicações */
+@media (max-width: 900px) {
+  .numeros-trajetoria__grid {
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: -48px;
+    gap: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .numeros-trajetoria__grid {
+    grid-template-columns: 1fr;
+    margin-top: -32px;
+  }
+
+  .numeros-trajetoria__card {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    text-align: left;
+    padding: 16px 18px;
+  }
+
+  .numeros-trajetoria__card-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+
+  .numeros-trajetoria__card-number,
+  .numeros-trajetoria__card-label {
+    display: block;
+  }
+
+  .numeros-trajetoria__card-description {
+    flex-basis: 100%;
+    margin-left: 44px; /* alinha com o texto, deixando espaço do ícone */
+  }
+}
