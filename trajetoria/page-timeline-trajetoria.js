@@ -2,6 +2,10 @@
    PAGE — TIMELINE TRAJETORIA (somente a seção pinada de trajetória)
    Reproduz o efeito de "scroll storytelling" pinado usando position:sticky
    + rAF scroll tracking, sem GSAP, ScrollTrigger ou Lenis.
+
+   Em telas baixas ou estreitas (onde o CSS desativa o sticky), o modo pinado
+   é desligado e os 5 marcos passam a ser exibidos empilhados, em fluxo normal
+   — sem scroll-jacking e sem altura extra reservada.
    ========================================================================== */
 (function(){
   'use strict';
@@ -13,9 +17,6 @@
     if(!root) return;
 
     /* ================= HEADER HEIGHT SYNC ================= */
-    /* Detecta o header fixo do site e mantém --header-h sempre atualizado,
-       para o .story-stage grudar exatamente abaixo dele (e da admin bar
-       do WordPress, se estiver logado). */
     function findHeader(){
       const candidates = [
         'header.site-header', 'header#header', '.site-header',
@@ -37,18 +38,9 @@
     const headerEl = findHeader();
 
     function syncHeaderHeight(){
-      // Usa .bottom (distância do topo da viewport até o fim do header) em vez
-      // de .height, porque isso já embute automaticamente qualquer offset de
-      // barras fixas acima dele (ex.: admin bar do WordPress), sem precisar
-      // somar valores manualmente.
       const headerBottom = headerEl ? headerEl.getBoundingClientRect().bottom : 0;
-
-      // Admin bar do WordPress (#wpadminbar) fica logo acima do header e
-      // também é fixed — garantimos que ela entra na conta mesmo se o
-      // header não a tiver "engolido" no cálculo acima.
       const adminBar = document.getElementById('wpadminbar');
       const adminBarBottom = adminBar ? adminBar.getBoundingClientRect().bottom : 0;
-
       const h = Math.max(headerBottom, adminBarBottom, 0);
       if(h > 0){
         document.documentElement.style.setProperty('--header-h', h + 'px');
@@ -97,37 +89,33 @@
     const icoArr   = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 
     /* ================= STORY BUILD ================= */
-    const stageVisual = root.querySelector('#tlcStageVisual');
-    const stageText   = root.querySelector('#tlcStageText');
+    const stageBody   = root.querySelector('#tlcStageBody');
     const tlPoints    = root.querySelector('#tlcPoints');
     const storySection= root.querySelector('#tlcStory');
     const progressBar = root.querySelector('#tlcProgress');
 
-    if(!stageVisual || !stageText || !tlPoints || !storySection || !progressBar){
+    if(!stageBody || !tlPoints || !storySection || !progressBar){
       console.warn('[tlc] Elemento(s) essencial(is) não encontrado(s) no DOM — verifique se o PHP corresponde a este JS.');
       return;
     }
 
-    const slideEls = [], textEls = [], dotEls = [];
+    const itemEls = [], dotEls = [];
 
     STORY.forEach(function(s, i){
-      const im = document.createElement('div');
-      im.className = 'slide-img' + (i===0 ? ' active' : '');
-      im.innerHTML = '<img src="'+s.img+'" alt="'+s.title+'">';
-      stageVisual.insertBefore(im, stageVisual.firstChild);
-      slideEls.push(im);
-
-      const t = document.createElement('div');
-      t.className = 'text-slide' + (i===0 ? ' active' : '');
-      t.innerHTML =
-        '<span class="eyebrow">'+s.eyebrow+'</span>'+
-        '<h2>'+s.title+'</h2>'+
-        '<div class="sub">'+s.sub+'</div>'+
-        '<p class="desc">'+s.desc+'</p>'+
-        '<div class="mini-cards">'+ s.cards.map(function(c){ return '<div class="mini-card"><div class="k">'+icoCheck+' '+c[0]+'</div><div class="v">'+c[1]+'</div></div>'; }).join('') +'</div>'+
-        '<button class="btn-premium"><span>Ver detalhes do projeto</span> '+icoArr+'</button>';
-      stageText.appendChild(t);
-      textEls.push(t);
+      const item = document.createElement('div');
+      item.className = 'story-item' + (i===0 ? ' active' : '');
+      item.innerHTML =
+        '<div class="stage-visual"><img src="'+s.img+'" alt="'+s.title+'"></div>'+
+        '<div class="stage-text">'+
+          '<span class="eyebrow">'+s.eyebrow+'</span>'+
+          '<h2>'+s.title+'</h2>'+
+          '<div class="sub">'+s.sub+'</div>'+
+          '<p class="desc">'+s.desc+'</p>'+
+          '<div class="mini-cards">'+ s.cards.map(function(c){ return '<div class="mini-card"><div class="k">'+icoCheck+' '+c[0]+'</div><div class="v">'+c[1]+'</div></div>'; }).join('') +'</div>'+
+          '<button class="btn-premium"><span>Ver detalhes do projeto</span> '+icoArr+'</button>'+
+        '</div>';
+      stageBody.appendChild(item);
+      itemEls.push(item);
 
       const pt = document.createElement('div');
       pt.className = 'tl-point' + (i===0 ? ' active' : '');
@@ -138,21 +126,48 @@
 
     let currentIdx = 0;
     function goToSlide(idx){
-      if(idx === currentIdx && slideEls[idx].classList.contains('active')) return;
+      if(idx === currentIdx && itemEls[idx].classList.contains('active')) return;
       currentIdx = idx;
-      slideEls.forEach(function(el,i){ el.classList.toggle('active', i===idx); });
-      textEls.forEach(function(el,i){ el.classList.toggle('active', i===idx); });
+      itemEls.forEach(function(el,i){ el.classList.toggle('active', i===idx); });
       dotEls.forEach(function(pt,i){ pt.classList.toggle('active', i===idx); pt.classList.toggle('done', i<idx); });
     }
 
-    /* Altura da faixa de scroll que dirige o palco pinado */
-    function setStoryHeight(){
-      storySection.style.height = (STORY.length * 100) + 'vh';
+    /* ================= MODO PINADO x MODO EMPILHADO =================
+       Mesmo breakpoint usado no CSS (max-height:620px) para desligar o
+       sticky. Quando ele bate, desligamos também o scroll-jacking no JS
+       e paramos de reservar altura extra na seção — senão sobra um vão
+       vazio enorme (era exatamente o bug relatado). */
+    const disablePinMQ = window.matchMedia('(max-height: 620px)');
+
+    function isPinDisabled(){
+      return disablePinMQ.matches;
     }
-    setStoryHeight();
+
+    function applyPinMode(){
+      const disabled = isPinDisabled();
+      stageBody.classList.toggle('pin-disabled', disabled);
+      storySection.classList.toggle('pin-disabled', disabled);
+
+      if(disabled){
+        // Fluxo normal: sem altura extra reservada para scroll-jacking.
+        storySection.style.height = 'auto';
+        progressBar.style.width = '0%';
+      } else {
+        storySection.style.height = (STORY.length * 100) + 'vh';
+      }
+    }
+
+    applyPinMode();
+    if(disablePinMQ.addEventListener){
+      disablePinMQ.addEventListener('change', applyPinMode);
+    } else if(disablePinMQ.addListener){
+      // Fallback para navegadores antigos.
+      disablePinMQ.addListener(applyPinMode);
+    }
 
     let ticking = false;
     function handleScroll(){
+      if(isPinDisabled()) return; // modo empilhado: todos os marcos já ficam visíveis via CSS
       if(!ticking){
         ticking = true;
         requestAnimationFrame(function(){
@@ -168,7 +183,7 @@
       }
     }
     window.addEventListener('scroll', handleScroll, {passive:true});
-    window.addEventListener('resize', setStoryHeight);
+    window.addEventListener('resize', applyPinMode);
     handleScroll();
   }
 })();

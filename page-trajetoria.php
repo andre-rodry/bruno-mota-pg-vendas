@@ -14,6 +14,7 @@ get_header();
 <?php get_template_part( 'trajetoria/content-timeline', 'trajetoria' ); ?>
 <?php get_template_part( 'trajetoria/content-grid', 'trajetoria' ); ?>
 <?php get_template_part( 'trajetoria/content-galeria', 'trajetoria' ); ?>
+<?php get_template_part( 'trajetoria/content-cta', 'trajetoria' ); ?>
 
 <?php
 get_footer();

@@ -23,14 +23,7 @@
           <div class="tl-points" id="tlcPoints"></div>
         </div>
       </div>
-      <div class="stage-body">
-        <div class="stage-visual" id="tlcStageVisual">
-          <div class="visual-foot">
-            <div class="roll">Role para continuar <span class="arrow">↓</span></div>
-          </div>
-        </div>
-        <div class="stage-text" id="tlcStageText"></div>
-      </div>
+      <div class="stage-body" id="tlcStageBody"></div>
     </div>
   </section>
 
