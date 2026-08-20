@@ -27,6 +27,14 @@ function meu_tema_scripts() {
         wp_get_theme()->get( 'Version' )
     );
 
+    // ---- GLOBAL (regras base do site inteiro) ----
+    wp_enqueue_style(
+        'meu-tema-global',
+        get_template_directory_uri() . '/assets/css/global.css',
+        array( 'meu-tema-style' ),
+        filemtime( get_template_directory() . '/assets/css/global.css' )
+    );
+
     // ---- HEADER (global) ----
     wp_enqueue_style(
         'meu-tema-header',
