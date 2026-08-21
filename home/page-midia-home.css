@@ -30,27 +30,75 @@
 }
 
 .midia-home__container {
-  max-width: 1320px;
+  max-width: 1200px;
   margin: 0 auto;
   position: relative;
 }
 
+/* ---------- Cabeçalho (título elegante, no estilo de "Publicações e Artigos") ---------- */
+
 .midia-home__cabecalho {
+  position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 28px;
+  text-align: center;
+  gap: 14px;
+  margin: 0 auto 40px;
+}
+
+.midia-home__cabecalho-texto {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+}
+
+.midia-home__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--midia-dourado);
 }
 
 .midia-home h2.midia-home__titulo {
-  font-family: "Poppins", "Segoe UI", Arial, sans-serif;
-  font-size: 22px;
-  font-weight: 700;
+  font-family: var(--font-display, "Fraunces", Georgia, serif);
+  font-weight: 600;
+  font-size: clamp(20px, 2.5vw, 28px);
   letter-spacing: 1px;
-  color: var(--midia-dourado);
+  color: var(--midia-texto);
   margin: 0;
   text-transform: uppercase;
   line-height: 1.3;
+}
+
+.midia-home h2.midia-home__titulo .text-gold {
+  color: var(--gold-accent, #f5a623);
+}
+
+.midia-home__divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.midia-home__divider span {
+  width: 64px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--midia-dourado), transparent);
+  display: block;
+}
+
+.midia-home__divider .diamond {
+  width: 6px;
+  height: 6px;
+  background: var(--midia-dourado);
+  transform: rotate(45deg);
+  display: block;
 }
 
 .midia-home a.midia-home__btn-todas {
@@ -58,15 +106,18 @@
   font-family: "Poppins", "Segoe UI", Arial, sans-serif;
   border: 1px solid var(--midia-dourado);
   color: var(--midia-dourado);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: 1.2px;
+  letter-spacing: 1px;
   text-decoration: none;
-  text-transform: none;
-  padding: 10px 22px;
+  text-transform: lowercase;
+  padding: 7px 16px;
   border-radius: 4px;
   white-space: nowrap;
   transition: background 0.25s ease, color 0.25s ease;
+  position: absolute;
+  top: 88px;
+  right: 0;
 }
 
 .midia-home a.midia-home__btn-todas:hover {
@@ -263,7 +314,11 @@
     gap: 14px;
   }
   .midia-home .midia-home__titulo {
-    font-size: 17px;
+    font-size: 22px;
+  }
+  .midia-home a.midia-home__btn-todas {
+    position: static;
+    margin-top: 4px;
   }
   .midia-home__seta.midia-home__seta--prev {
     left: -6px;
@@ -276,9 +331,5 @@
 @media (max-width: 420px) {
   .midia-home .midia-home__card {
     flex: 0 0 100%;
-  }
-  .midia-home .midia-home__cabecalho {
-    flex-wrap: wrap;
-    gap: 14px;
   }
 }

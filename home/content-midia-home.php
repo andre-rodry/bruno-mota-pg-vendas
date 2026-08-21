@@ -78,8 +78,20 @@ $itens_midia_home = array(
   <div class="midia-home__container">
 
     <div class="midia-home__cabecalho">
-      <h2 class="midia-home__titulo">Participações na Mídia</h2>
       <a href="#" class="midia-home__btn-todas">Ver todas</a>
+
+      <div class="midia-home__cabecalho-texto">
+        <span class="midia-home__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2.5" y="5.5" width="19" height="13" rx="2" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M9.5 9.2v5.6l5-2.8-5-2.8Z" fill="currentColor"/>
+          </svg>
+        </span>
+
+        <h2 class="midia-home__titulo">PARTICIPAÇÕES <span class="text-gold">NA MÍDIA</span></h2>
+
+        <div class="midia-home__divider"><span></span><i class="diamond"></i><span></span></div>
+      </div>
     </div>
 
     <div class="midia-home__carousel-wrapper">

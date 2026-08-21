@@ -99,7 +99,7 @@ function meu_tema_scripts() {
         true
     );
 
-           // ---- HOME ----
+     // ---- HOME ----
     if ( is_front_page() ) {
 
         $secoes_home = array(
@@ -138,8 +138,20 @@ function meu_tema_scripts() {
                 true
             );
         }
-    }
 
+        // ---- JS do carrossel "Publicações e Artigos" ----
+        $publicacoes_js_path = get_template_directory() . '/home/page-publicacoes-home.js';
+
+        if ( file_exists( $publicacoes_js_path ) ) {
+            wp_enqueue_script(
+                'andrewp-home-publicacoes',
+                get_template_directory_uri() . '/home/page-publicacoes-home.js',
+                array(),
+                filemtime( $publicacoes_js_path ),
+                true
+            );
+        }
+    }
     // ---- PÁGINA SOBRE ----
     if ( is_page( 'sobre' ) ) {
 
