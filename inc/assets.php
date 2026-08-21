@@ -99,27 +99,45 @@ function meu_tema_scripts() {
         true
     );
 
-    // ---- HOME ----
+           // ---- HOME ----
     if ( is_front_page() ) {
 
-        wp_enqueue_style(
-            'meu-tema-home',
-            get_template_directory_uri() . '/home/home.css',
-            array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/home/home.css' )
+        $secoes_home = array(
+            'banner'       => 'home/page-banner-home.css',
+            'numeros'      => 'home/page-numeros-home.css',
+            'perfil'       => 'home/page-perfil-home.css',
+            'midia'        => 'home/page-midia-home.css',
+            'parceiros'    => 'home/page-parceiros-home.css',
+            'publicacoes'  => 'home/page-publicacoes-home.css',
+            'entrevistas'  => 'home/page-entrevistas-home.css',
+            'cta'          => 'home/page-cta-home.css',
         );
 
-        wp_enqueue_script(
-            'meu-tema-home',
-            get_template_directory_uri() . '/home/home.js',
-            array(),
-            filemtime( get_template_directory() . '/home/home.js' ),
-            true
-        );
+        foreach ( $secoes_home as $handle_sufixo => $caminho_relativo ) {
+            $caminho_absoluto = get_template_directory() . '/' . $caminho_relativo;
 
-        wp_localize_script( 'meu-tema-home', 'publicationsData', array(
-            'restUrl' => esc_url_raw( rest_url( 'wp/v2/' ) ),
-        ) );
+            if ( file_exists( $caminho_absoluto ) ) {
+                wp_enqueue_style(
+                    'andrewp-home-' . $handle_sufixo,
+                    get_template_directory_uri() . '/' . $caminho_relativo,
+                    array( 'meu-tema-style' ),
+                    filemtime( $caminho_absoluto )
+                );
+            }
+        }
+
+        // ---- JS do carrossel "Participações na Mídia" ----
+        $midia_js_path = get_template_directory() . '/home/page-midia-home.js';
+
+        if ( file_exists( $midia_js_path ) ) {
+            wp_enqueue_script(
+                'andrewp-home-midia',
+                get_template_directory_uri() . '/home/page-midia-home.js',
+                array(),
+                filemtime( $midia_js_path ),
+                true
+            );
+        }
     }
 
     // ---- PÁGINA SOBRE ----

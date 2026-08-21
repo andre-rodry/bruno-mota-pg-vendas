@@ -1,0 +1,95 @@
+/* ===================================================================
+   PAGE-PARCEIROS-HOME.CSS
+   Bloco "Instituições / Parceiros" da página inicial.
+=================================================================== */
+
+.parceiros-home {
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.parceiros-home,
+.parceiros-home * {
+  box-sizing: border-box;
+}
+
+.parceiros-home {
+  --parceiros-bg: #efeeea;
+  --parceiros-texto: #1c1c1c;
+
+  background: var(--parceiros-bg);
+  padding: 44px 24px;
+  font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+}
+
+.parceiros-home__container {
+  max-width: 1320px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.parceiros-home p.parceiros-home__titulo {
+  font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--parceiros-texto);
+  margin: 0 0 32px;
+}
+
+.parceiros-home__logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 48px;
+}
+
+.parceiros-home img.parceiros-home__logo {
+  height: 56px;
+  width: auto;
+  max-width: 180px;
+  object-fit: contain;
+  display: block;
+  opacity: 0.9;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.parceiros-home img.parceiros-home__logo:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 860px) {
+  .parceiros-home__logos {
+    gap: 32px;
+  }
+
+  .parceiros-home img.parceiros-home__logo {
+    height: 46px;
+    max-width: 150px;
+  }
+}
+
+@media (max-width: 620px) {
+  .parceiros-home {
+    padding: 36px 20px;
+  }
+
+  .parceiros-home p.parceiros-home__titulo {
+    font-size: 11.5px;
+    letter-spacing: 1.2px;
+    margin-bottom: 24px;
+  }
+
+  .parceiros-home__logos {
+    gap: 24px 28px;
+  }
+
+  .parceiros-home img.parceiros-home__logo {
+    height: 36px;
+    max-width: 120px;
+  }
+}

@@ -1,0 +1,124 @@
+/* ===================================================================
+   PAGE-NUMEROS-HOME.CSS
+   Bloco de estatísticas ("Números") da página inicial.
+=================================================================== */
+
+:root {
+  --navy-950: #0a0f1c;
+  --navy-900: #0b0f1e;
+  --gold: #c9962c;
+  --gold-accent: #f5a623;
+  --gold-hover: #e0951a;
+  --text-light: #ffffff;
+  --text-soft: #f4efe4;
+  --text-muted: #b7bdcc;
+  --text-soft-light: #e0e0e0;
+  --border-white: rgba(255, 255, 255, 0.08);
+  --border-gold-glow: rgba(217, 164, 65, 0.25);
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body-alt: "Poppins", "Segoe UI", Arial, sans-serif;
+}
+
+.numeros-home {
+  background-color: var(--navy-900);
+  border-top: 1px solid var(--border-white);
+  border-bottom: 1px solid var(--border-white);
+}
+
+.numeros-home__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 22px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.numeros-home__item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+}
+
+.numeros-home__icon {
+  font-size: 26px;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.numeros-home__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.35;
+}
+
+.numeros-home__headline {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.numeros-home__value {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--text-light);
+}
+
+.numeros-home__label {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text-light);
+}
+
+.numeros-home__item--headline-only .numeros-home__label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--text-light);
+}
+
+.numeros-home__sub {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 11.5px;
+  color: var(--text-muted);
+}
+
+.numeros-home__divider {
+  width: 1px;
+  height: 44px;
+  background-color: var(--border-gold-glow);
+  flex-shrink: 0;
+}
+
+@media (max-width: 1024px) {
+  .numeros-home__inner {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    row-gap: 24px;
+  }
+
+  .numeros-home__item {
+    flex: 1 1 40%;
+  }
+
+  .numeros-home__divider {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .numeros-home__item {
+    flex: 1 1 100%;
+  }
+}
