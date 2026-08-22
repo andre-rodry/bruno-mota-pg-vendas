@@ -101,6 +101,16 @@
   display: block;
 }
 
+.midia-home p.midia-home__subtitulo {
+  font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--midia-texto-suave);
+  margin: 0;
+  max-width: 560px;
+}
+
 .midia-home a.midia-home__btn-todas {
   display: inline-block;
   font-family: "Poppins", "Segoe UI", Arial, sans-serif;
@@ -193,11 +203,16 @@
   border-radius: 8px;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.02);
-  transition: border-color 0.25s ease;
+  box-shadow: 0 0 0 rgba(212, 162, 76, 0);
+  transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .midia-home article.midia-home__card:hover {
   border-color: var(--midia-dourado);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(212, 162, 76, 0.18);
 }
 
 .midia-home a.midia-home__thumb {
@@ -221,12 +236,12 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.55) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.22) 0%, rgba(0, 0, 0, 0.08) 35%, rgba(0, 0, 0, 0.3) 65%, rgba(0, 0, 0, 0.8) 100%);
   transition: background 0.35s ease;
 }
 
 .midia-home article.midia-home__card:hover .midia-home__thumb::after {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.05) 40%, rgba(0, 0, 0, 0.7) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0.12) 35%, rgba(0, 0, 0, 0.4) 65%, rgba(0, 0, 0, 0.88) 100%);
 }
 
 .midia-home__play {

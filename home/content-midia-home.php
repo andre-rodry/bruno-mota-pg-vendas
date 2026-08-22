@@ -88,9 +88,11 @@ $itens_midia_home = array(
           </svg>
         </span>
 
-        <h2 class="midia-home__titulo">PARTICIPAÇÕES <span class="text-gold">NA MÍDIA</span></h2>
+        <h2 class="midia-home__titulo">PARTICIPAÇÕES <span class="text-gold">NA TV</span></h2>
 
         <div class="midia-home__divider"><span></span><i class="diamond"></i><span></span></div>
+
+        <p class="midia-home__subtitulo">Entrevistas e matérias exibidas em diferentes emissoras de TV.</p>
       </div>
     </div>
 
