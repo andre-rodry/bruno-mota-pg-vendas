@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<path d="M8 5H5a1 1 0 0 0-1 1c0 2.5 1.8 4.3 4 4.7M16 5h3a1 1 0 0 1 1 1c0 2.5-1.8 4.3-4 4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
 					<path d="M12 12v4M9 20h6M10 16h4v2a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-2z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
 				</svg>
-				Conquistas
+				Trajetória
 			</span>
 
 			<h1 class="banner-trajetoria__title">
@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</h1>
 
 			<p class="banner-trajetoria__lead">
-				Economista e servidor público há 14 anos. Atua em finanças públicas, controle e gestão, com o propósito de transformar dados em decisões e de desenvolver pessoas.
+				Mais de 20 anos construídos entre a prática do crédito, a sala de aula e a construção de presença digital e internacional — sempre com o propósito de transformar dados em decisões e desenvolver pessoas.
 			</p>
 
 		</div>

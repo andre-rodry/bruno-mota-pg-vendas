@@ -13,27 +13,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $numeros_trajetoria = array(
 	array(
-		'numero'      => '14+',
-		'label'       => 'Anos de Atuação',
-		'descricao'   => 'Transformando conhecimento em soluções para o setor público.',
+		'numero'      => '10 MIL+',
+		'label'       => 'Operações de Crédito',
+		'descricao'   => 'Experiência prática com empreendedores, micro e pequenos empresários no CEAPE (1995-2002).',
 		'icon'        => 'calendario',
 	),
 	array(
-		'numero'      => '120+',
-		'label'       => 'Palestras',
-		'descricao'   => 'Compartilhando ideias e impulsionando pessoas.',
+		'numero'      => '2009-2015',
+		'label'       => 'Docência na UNIFACS',
+		'descricao'   => 'Atuou como professor visitante e tutor da disciplina Conjuntura Econômica.',
 		'icon'        => 'palestra',
 	),
 	array(
-		'numero'      => '05',
-		'label'       => 'Artigos Científicos',
-		'descricao'   => 'Com olhar analítico sobre finanças públicas.',
+		'numero'      => '4 PAÍSES',
+		'label'       => 'Atuação Internacional',
+		'descricao'   => 'Artigos apresentados em congressos na Argentina, Portugal, Espanha e Cuba.',
 		'icon'        => 'artigo',
 	),
 	array(
-		'numero'      => '45 MIL+',
-		'label'       => 'Alunos Impactados',
-		'descricao'   => 'Gerando impacto real por onde passa.',
+		'numero'      => '4.000+',
+		'label'       => 'Horas de Conteúdo Digital',
+		'descricao'   => 'Entrevistas e conteúdos sobre educação financeira no canal Finanças para Jovens Oficial.',
 		'icon'        => 'alunos',
 	),
 );

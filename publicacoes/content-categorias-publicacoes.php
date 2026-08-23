@@ -15,25 +15,25 @@ $categorias_publicacoes = array(
 	array(
 		'slug'  => 'livros',
 		'label' => 'Livros',
-		'total' => 8,
+		'total' => 3,
 		'icon'  => 'livro',
 	),
 	array(
 		'slug'  => 'artigos',
 		'label' => 'Artigos',
-		'total' => 63,
+		'total' => 15,
 		'icon'  => 'artigo',
 	),
 	array(
 		'slug'  => 'revistas',
 		'label' => 'Publicações em Revistas',
-		'total' => 12,
+		'total' => 9,
 		'icon'  => 'revista',
 	),
 	array(
 		'slug'  => 'capitulos',
 		'label' => 'Capítulos de Livros',
-		'total' => 15,
+		'total' => 1,
 		'icon'  => 'capitulo',
 	),
 );
@@ -47,7 +47,10 @@ $categoria_ativa = '';
 		<div class="categorias-publicacoes__grid" role="tablist" aria-label="Filtrar publicações por categoria">
 
 			<?php foreach ( $categorias_publicacoes as $categoria ) : ?>
-				<?php $is_ativa = ( $categoria['slug'] === $categoria_ativa ); ?>
+				<?php
+				$is_ativa = ( $categoria['slug'] === $categoria_ativa );
+				$sufixo   = ( 1 === (int) $categoria['total'] ) ? 'publicação' : 'publicações';
+				?>
 
 				<button
 					type="button"
@@ -96,7 +99,7 @@ $categoria_ativa = '';
 					</span>
 
 					<span class="categoria-publicacao-card__label"><?php echo esc_html( $categoria['label'] ); ?></span>
-					<span class="categoria-publicacao-card__total"><?php echo esc_html( $categoria['total'] ); ?> publicações</span>
+					<span class="categoria-publicacao-card__total"><?php echo esc_html( $categoria['total'] ); ?> <?php echo esc_html( $sufixo ); ?></span>
 				</button>
 
 			<?php endforeach; ?>
