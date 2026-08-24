@@ -9,34 +9,34 @@
 
 $numeros_home = array(
     array(
-        'icon'  => 'fa-book-open',
-        'value' => '+20',
-        'label' => 'Publicações',
-        'sub'   => 'acadêmicas',
+        'icon'  => 'fa-trophy',
+        'value' => '',
+        'label' => 'Prêmios',
+        'sub'   => 'Corecon-BA & BNB',
     ),
     array(
-        'icon'  => 'fa-user-group',
-        'value' => '+100 mil',
-        'label' => 'Pessoas alcançadas',
-        'sub'   => 'na mídia nacional',
-    ),
-    array(
-        'icon'  => 'fa-globe',
-        'value' => '+10',
-        'label' => 'Eventos',
-        'sub'   => 'nacionais e internacionais',
+        'icon'  => 'fa-book',
+        'value' => '',
+        'label' => 'Educador',
+        'sub'   => 'Finanças para Jovens Oficial',
     ),
     array(
         'icon'  => 'fa-landmark',
         'value' => '',
-        'label' => 'Líder mundial',
-        'sub'   => 'na indústria de ferro e aço (ex-diretor)',
+        'label' => 'Conselheiro',
+        'sub'   => 'Corecon-BA · 2026',
     ),
     array(
-        'icon'  => 'fa-microphone',
-        'value' => '+100 mil',
-        'label' => 'Alcance na mídia',
-        'sub'   => 'entrevistas e reportagens',
+        'icon'  => 'fa-scale-balanced',
+        'value' => '',
+        'label' => 'Autor de Lei',
+        'sub'   => 'Lei 9838/2025',
+    ),
+    array(
+        'icon'  => 'fa-earth-americas',
+        'value' => '',
+        'label' => 'Presença Global',
+        'sub'   => 'Congressos e debates sobre economia',
     ),
 );
 ?>
