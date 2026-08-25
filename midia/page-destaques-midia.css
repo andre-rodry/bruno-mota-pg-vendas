@@ -24,289 +24,292 @@
   --font-body-alt: "Poppins", "Segoe UI", Arial, sans-serif;
 }
 
-/* ==========================================================================
-   Destaques na Mídia
-   ========================================================================== */
-
 .destaques-midia {
-  position: relative;
   background: var(--navy-950);
-  padding: 88px 0;
+  padding: 48px 24px;
 }
 
 .destaques-midia__container {
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 24px;
 }
 
-.destaques-midia__kicker {
-  display: block;
+.destaques-midia__eyebrow {
   font-family: var(--font-body-alt);
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--gold-accent);
-  margin-bottom: 32px;
-}
-
-/* -------------------- Header (kicker + título + CTA) -------------------- */
-
-.destaques-midia__header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 32px;
-  margin-bottom: 48px;
-}
-
-.destaques-midia__heading {
-  max-width: 640px;
-}
-
-.destaques-midia__header .destaques-midia__kicker {
-  margin-bottom: 16px;
-}
-
-.destaques-midia__heading-title {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 34px;
-  line-height: 1.25;
-  color: var(--text-light);
-  margin: 0 0 14px;
-}
-
-.destaques-midia__heading-desc {
-  font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.7;
-  color: var(--text-muted);
-  margin: 0;
-}
-
-.destaques-midia__cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-  font-family: var(--font-body-alt);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: var(--gold-accent);
-  text-decoration: none;
-  padding: 12px 22px;
-  border: 1px solid var(--border-gold-glow);
-  border-radius: 999px;
-  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-  white-space: nowrap;
-}
-.destaques-midia__cta svg {
-  width: 16px;
-  height: 16px;
-  transition: transform 0.3s ease;
-}
-.destaques-midia__cta:hover {
-  background: var(--gold-accent);
-  color: var(--navy-950);
-  border-color: var(--gold-accent);
-}
-.destaques-midia__cta:hover svg {
-  transform: translateX(3px);
+  margin: 0 0 16px;
 }
 
 .destaques-midia__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
 }
 
-/* -------------------- Card -------------------- */
-
-.destaques-midia__card {
+.destaque-card {
   position: relative;
+  display: block;
+  text-decoration: none;
+  background-color: var(--navy-900);
+  border: 1px solid var(--border-white);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.destaque-card__botao {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body-alt);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--navy-950);
+  background: var(--gold-accent);
+  padding: 10px 18px;
+  border-radius: 999px;
+}
+
+.destaque-card__botao-icone {
+  flex-shrink: 0;
+}
+
+.destaque-card--principal {
+  position: relative;
+  aspect-ratio: var(--img-ratio, 1681 / 936);
+  background-color: var(--navy-900);
   display: flex;
   flex-direction: column;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0) 100%);
-  border: 1px solid var(--border-gold-glow);
-  border-radius: var(--radius-md, 16px);
-  overflow: hidden;
-  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  justify-content: flex-end;
+  padding: 28px;
+  isolation: isolate;
 }
 
-.destaques-midia__card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
-}
-
-.destaques-midia__card:hover .destaques-midia__play {
-  background: var(--gold-accent);
-  color: var(--navy-950);
-}
-
-/* -------------------- Mídia (imagem full-bleed) -------------------- */
-
-.destaques-midia__media {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  border-radius: var(--radius-md, 16px) var(--radius-md, 16px) 0 0;
-}
-
-.destaques-midia__img {
+.destaque-card__bg-img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 30%;
-  display: block;
-  filter: saturate(0.82) brightness(0.94);
-  transition: transform 0.6s ease, filter 0.3s ease;
+  object-position: center top;
+  z-index: 0;
 }
 
-.destaques-midia__card:hover .destaques-midia__img {
-  transform: scale(1.02);
-  filter: saturate(0.86) brightness(0.96);
-}
-
-/* Sobreposição navy cobrindo TODA a imagem, tirando a nitidez/saturação
-   crua da foto e fundindo ela com o fundo do card */
-.destaques-midia__media-overlay {
+.destaque-card__overlay {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(10, 15, 28, 0.28) 0%, rgba(10, 15, 28, 0.12) 35%, rgba(10, 15, 28, 0.5) 100%),
-    linear-gradient(90deg, rgba(10, 15, 28, 0.38) 0%, rgba(10, 15, 28, 0.05) 35%, rgba(10, 15, 28, 0.05) 65%, rgba(10, 15, 28, 0.38) 100%);
+    linear-gradient(90deg, rgba(10, 15, 28, 0.95) 0%, rgba(10, 15, 28, 0.75) 38%, rgba(10, 15, 28, 0.2) 65%, rgba(10, 15, 28, 0) 85%),
+    linear-gradient(180deg, rgba(10, 15, 28, 0) 25%, rgba(10, 15, 28, 0.55) 55%, rgba(10, 15, 28, 0.96) 100%);
   z-index: 1;
-}
-
-/* Fade extra nas bordas pra imagem "entrar" no card em vez de flutuar
-   sobre ele, espalhado pelos quatro lados, não só numa faixa lateral */
-.destaques-midia__media-fade {
-  position: absolute;
-  inset: -1px;
-  background: radial-gradient(120% 100% at 50% 50%, rgba(10, 15, 28, 0) 45%, var(--navy-950) 100%);
-  z-index: 2;
-  opacity: 0.6;
   pointer-events: none;
 }
 
-.destaques-midia__play {
+.destaque-card__logo-canto {
   position: absolute;
-  top: 16px;
-  right: 16px;
-  z-index: 3;
-  width: 36px;
-  height: 36px;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  background: rgba(10, 15, 28, 0.55);
-  border: 1px solid var(--border-gold-glow);
-  color: var(--gold-accent);
-  backdrop-filter: blur(4px);
-  transition: background 0.3s ease, color 0.3s ease;
-}
-.destaques-midia__play svg {
-  width: 16px;
-  height: 16px;
-  margin-left: 2px;
+  width: fit-content;
+  height: 56px;
+  max-width: 160px;
+  padding: 0;
+  line-height: 0;
+  border-radius: 6px;
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.45));
 }
 
-/* -------------------- Corpo (texto) -------------------- */
+.destaque-card__logo-canto img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
 
-.destaques-midia__body {
+.destaque-card__conteudo {
   position: relative;
   z-index: 2;
-  margin-top: -1px;
-  padding: 24px 24px 28px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
+  max-width: 460px;
 }
 
-.destaques-midia__title {
+.destaque-card__tag {
+  display: inline-block;
   font-family: var(--font-body-alt);
-  font-weight: 600;
-  font-size: 17px;
-  line-height: 1.4;
-  color: var(--text-light);
-  margin: 0 0 10px;
-}
-
-.destaques-midia__text {
-  font-family: var(--font-body);
-  font-size: 14px;
-  line-height: 1.65;
-  color: var(--text-muted);
-  margin: 0 0 22px;
-  flex: 1;
-}
-
-.destaques-midia__link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  align-self: flex-start;
-  font-family: var(--font-body-alt);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--gold-accent);
-  text-decoration: none;
-  padding: 10px 18px;
   border: 1px solid var(--border-gold-glow);
+  background: rgba(217, 164, 65, 0.1);
+  padding: 6px 12px;
   border-radius: 999px;
-  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-}
-.destaques-midia__link svg {
-  width: 15px;
-  height: 15px;
-  transition: transform 0.3s ease;
-}
-.destaques-midia__link:hover {
-  background: var(--gold-accent);
-  color: var(--navy-950);
-  border-color: var(--gold-accent);
-}
-.destaques-midia__link:hover svg {
-  transform: translateX(3px);
+  margin-bottom: 14px;
 }
 
-/* -------------------- Responsivo -------------------- */
+.destaque-card__titulo {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--text-light);
+  margin: 0 0 12px;
+}
 
-@media (max-width: 992px) {
+.destaque-card__descricao {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-soft-light);
+  margin: 0 0 20px;
+}
+
+.destaques-midia__coluna-secundaria {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.destaque-card--secundario {
+  position: relative;
+  aspect-ratio: var(--img-ratio, 16 / 9);
+  background-color: var(--navy-900);
+  display: flex;
+  align-items: flex-end;
+  padding: 18px 20px;
+  isolation: isolate;
+}
+
+.destaque-card--secundario .destaque-card__bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+
+.destaque-card--secundario .destaque-card__overlay {
+  background:
+    linear-gradient(180deg, rgba(10, 15, 28, 0.55) 0%, rgba(10, 15, 28, 0) 30%),
+    linear-gradient(180deg, rgba(11, 15, 30, 0) 35%, rgba(10, 15, 28, 0.75) 65%, var(--navy-950) 100%);
+  z-index: 1;
+}
+
+.destaque-card__conteudo-secundario {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 78%;
+}
+
+/* --- LOGO SECUNDÁRIO: alinhado exatamente com o início do texto ---
+   Muitos arquivos de logo (.webp/.png) têm uma margem transparente
+   embutida na própria imagem. Isso faz o desenho "flutuar" para a
+   direita mesmo com object-position: left e margin-left: 0.
+
+   A variável --logo-trim compensa essa margem interna, puxando a
+   imagem para a esquerda até o traço visível encostar exatamente
+   onde o título/texto começa (mesma linha vertical).
+
+   Ajuste o valor de --logo-trim (em px) individualmente para cada
+   logo no PHP (via 'logo_offset'), até bater com o texto. */
+.destaque-card__logo-secundario {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  /* --logo-height permite reduzir/aumentar a logo individualmente
+     (definido por item no PHP via 'logo_height') */
+  height: var(--logo-height, 46px);
+  max-width: 170px;
+  margin-bottom: 8px;
+  margin-left: 0;
+  /* SEM overflow: hidden aqui — isso cortava as letras da logo
+     quando combinado com o translateX do --logo-trim abaixo */
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
+}
+
+.destaque-card__logo-secundario img {
+  display: block;
+  max-height: 100%;
+  max-width: none;
+  width: auto;
+  height: 100%;
+  object-fit: contain;
+  object-position: left center;
+  margin-left: 0;
+  /* Puxa a logo para a esquerda para compensar o padding
+     transparente interno do arquivo de imagem */
+  transform: translateX(calc(-1 * var(--logo-trim, 0px)));
+}
+
+.destaque-card__titulo-secundario {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text-light);
+  margin: 0 0 4px;
+}
+
+.destaque-card__descricao-secundaria {
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--text-soft-light);
+  margin: 0;
+}
+
+.destaque-card__play-secundario {
+  position: absolute;
+  z-index: 2;
+  right: 18px;
+  bottom: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold-accent);
+  color: var(--gold-accent);
+  background: rgba(10, 15, 28, 0.35);
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
   .destaques-midia__grid {
     grid-template-columns: 1fr;
-    gap: 24px;
   }
-}
 
-@media (max-width: 768px) {
-  .destaques-midia__header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
+  .destaques-midia__coluna-secundaria {
+    flex-direction: row;
   }
-  .destaques-midia__heading-title {
-    font-size: 26px;
+
+  .destaque-card--secundario {
+    flex: 1;
   }
 }
 
 @media (max-width: 560px) {
-  .destaques-midia {
-    padding: 64px 0;
+  .destaques-midia__coluna-secundaria {
+    flex-direction: column;
   }
-  .destaques-midia__media {
-    aspect-ratio: 4 / 3;
-  }
-  .destaques-midia__body {
-    padding: 20px 20px 24px;
+
+  .destaque-card__titulo {
+    font-size: 26px;
   }
 }
