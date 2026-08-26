@@ -47,6 +47,10 @@
 .destaques-midia__grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
+  /* Garante que as duas colunas do grid tenham a mesma altura,
+     assim o card principal pode esticar (align-self: stretch)
+     até bater exatamente com a altura da coluna secundária. */
+  align-items: stretch;
   gap: 20px;
 }
 
@@ -81,13 +85,17 @@
 
 .destaque-card--principal {
   position: relative;
-  aspect-ratio: var(--img-ratio, 1681 / 936);
   background-color: var(--navy-900);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   padding: 28px;
   isolation: isolate;
+  /* Em vez de altura fixa por aspect-ratio, o card principal
+     acompanha a altura total da coluna secundária (2 cards + gap).
+     A imagem de fundo usa object-fit: cover, então ela preenche
+     qualquer altura sem distorcer. */
+  align-self: stretch;
 }
 
 .destaque-card__bg-img {
@@ -301,6 +309,14 @@
 
   .destaque-card--secundario {
     flex: 1;
+  }
+
+  /* No mobile o grid vira 1 coluna, então o card principal
+     não tem mais uma coluna secundária pra "esticar" junto -
+     volta a usar o aspect-ratio real da imagem. */
+  .destaque-card--principal {
+    align-self: auto;
+    aspect-ratio: var(--img-ratio, 1681 / 936);
   }
 }
 
