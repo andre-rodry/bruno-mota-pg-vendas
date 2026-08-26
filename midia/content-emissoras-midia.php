@@ -26,7 +26,7 @@ $midia_uri = get_template_directory_uri() . '/assets/img/midia/';
 <section class="emissoras-midia">
     <div class="emissoras-midia__container">
 
-        <h2 class="emissoras-midia__title">Emissoras e Veículos</h2>
+        <h2 class="emissoras-midia__title">Onde Bruno Mota já participou</h2>
 
         <div class="emissoras-midia__carousel">
             <div class="emissoras-midia__track">

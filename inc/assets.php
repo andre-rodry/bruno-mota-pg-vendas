@@ -352,7 +352,7 @@ if ( is_page( 'trajetoria' ) ) {
         ) );
     }
 
-    // ---- PÁGINA MÍDIA ----
+        // ---- PÁGINA MÍDIA ----
     if ( is_page( 'midia' ) ) {
 
         wp_enqueue_style(
@@ -363,10 +363,10 @@ if ( is_page( 'trajetoria' ) ) {
         );
 
         wp_enqueue_style(
-            'andrewp-midia-stats',
-            get_template_directory_uri() . '/midia/page-midia-stats.css',
+            'andrewp-midia-emissoras',
+            get_template_directory_uri() . '/midia/page-emissoras-midia.css',
             array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/midia/page-midia-stats.css' )
+            filemtime( get_template_directory() . '/midia/page-emissoras-midia.css' )
         );
 
         wp_enqueue_style(
@@ -377,24 +377,25 @@ if ( is_page( 'trajetoria' ) ) {
         );
 
         wp_enqueue_style(
-            'andrewp-midia-emissoras',
-            get_template_directory_uri() . '/midia/page-emissoras-midia.css',
+            'andrewp-midia-lista',
+            get_template_directory_uri() . '/midia/page-lista-midia.css',
             array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/midia/page-emissoras-midia.css' )
+            filemtime( get_template_directory() . '/midia/page-lista-midia.css' )
+        );
+
+        wp_enqueue_script(
+            'andrewp-midia-lista',
+            get_template_directory_uri() . '/midia/page-lista-midia.js',
+            array( 'jquery' ),
+            filemtime( get_template_directory() . '/midia/page-lista-midia.js' ),
+            true
         );
 
         wp_enqueue_style(
-            'andrewp-midia-tv',
-            get_template_directory_uri() . '/midia/page-tv-midia.css',
+            'andrewp-midia-cta',
+            get_template_directory_uri() . '/midia/page-cta-midia.css',
             array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/midia/page-tv-midia.css' )
-        );
-
-        wp_enqueue_style(
-            'andrewp-midia-canais',
-            get_template_directory_uri() . '/midia/page-canais-midia.css',
-            array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/midia/page-canais-midia.css' )
+            filemtime( get_template_directory() . '/midia/page-cta-midia.css' )
         );
 
     }

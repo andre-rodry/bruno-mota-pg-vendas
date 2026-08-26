@@ -12,10 +12,9 @@
 get_header();
 
 get_template_part( 'midia/content-banner-midia' );
-get_template_part( 'midia/content-midia-stats' );
-get_template_part( 'midia/content-destaques-midia' );
 get_template_part( 'midia/content-emissoras-midia' );
-get_template_part( 'midia/content-tv-midia' );
-get_template_part( 'midia/content-canais-midia' );
+get_template_part( 'midia/content-destaques-midia' );
+get_template_part( 'midia/content-lista-midia' );
+get_template_part( 'midia/content-cta-midia' );
 
 get_footer();
