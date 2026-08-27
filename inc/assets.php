@@ -352,53 +352,59 @@ if ( is_page( 'trajetoria' ) ) {
         ) );
     }
 
-        // ---- PÁGINA MÍDIA ----
-    if ( is_page( 'midia' ) ) {
+     // ---- PÁGINA MÍDIA ----
+if ( is_page( 'midia' ) ) {
 
-        wp_enqueue_style(
-            'andrewp-midia-banner',
-            get_template_directory_uri() . '/midia/page-banner-midia.css',
-            array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/midia/page-banner-midia.css' )
-        );
+    wp_enqueue_style(
+        'andrewp-midia-banner',
+        get_template_directory_uri() . '/midia/page-banner-midia.css',
+        array( 'meu-tema-style' ),
+        filemtime( get_template_directory() . '/midia/page-banner-midia.css' )
+    );
 
-        wp_enqueue_style(
-            'andrewp-midia-emissoras',
-            get_template_directory_uri() . '/midia/page-emissoras-midia.css',
-            array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/midia/page-emissoras-midia.css' )
-        );
+    wp_enqueue_style(
+        'andrewp-midia-emissoras',
+        get_template_directory_uri() . '/midia/page-emissoras-midia.css',
+        array( 'meu-tema-style' ),
+        filemtime( get_template_directory() . '/midia/page-emissoras-midia.css' )
+    );
 
-        wp_enqueue_style(
-            'andrewp-midia-destaques',
-            get_template_directory_uri() . '/midia/page-destaques-midia.css',
-            array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/midia/page-destaques-midia.css' )
-        );
+    wp_enqueue_style(
+        'andrewp-midia-destaques',
+        get_template_directory_uri() . '/midia/page-destaques-midia.css',
+        array( 'meu-tema-style' ),
+        filemtime( get_template_directory() . '/midia/page-destaques-midia.css' )
+    );
 
-        wp_enqueue_style(
-            'andrewp-midia-lista',
-            get_template_directory_uri() . '/midia/page-lista-midia.css',
-            array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/midia/page-lista-midia.css' )
-        );
+    wp_enqueue_style(
+        'andrewp-midia-lista',
+        get_template_directory_uri() . '/midia/page-lista-midia.css',
+        array( 'meu-tema-style' ),
+        filemtime( get_template_directory() . '/midia/page-lista-midia.css' )
+    );
 
-        wp_enqueue_script(
-            'andrewp-midia-lista',
-            get_template_directory_uri() . '/midia/page-lista-midia.js',
-            array( 'jquery' ),
-            filemtime( get_template_directory() . '/midia/page-lista-midia.js' ),
-            true
-        );
+    // JS dos filtros da lista de mídia (tipo/ano/canal/ordenação via AJAX).
+    wp_enqueue_script(
+        'andrewp-midia-lista',
+        get_template_directory_uri() . '/midia/page-listas-midia.js',
+        array(),
+        filemtime( get_template_directory() . '/midia/page-listas-midia.js' ),
+        true
+    );
 
-        wp_enqueue_style(
-            'andrewp-midia-cta',
-            get_template_directory_uri() . '/midia/page-cta-midia.css',
-            array( 'meu-tema-style' ),
-            filemtime( get_template_directory() . '/midia/page-cta-midia.css' )
-        );
+    wp_localize_script( 'andrewp-midia-lista', 'andrewpEntrevistas', array(
+        'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+        'nonce'   => wp_create_nonce( 'andrewp_entrevistas_nonce' ),
+    ) );
 
-    }
+    wp_enqueue_style(
+        'andrewp-midia-cta',
+        get_template_directory_uri() . '/midia/page-cta-midia.css',
+        array( 'meu-tema-style' ),
+        filemtime( get_template_directory() . '/midia/page-cta-midia.css' )
+    );
+
+}
 
     // ---- PÁGINA CONTATO ----
     if ( is_page( 'contato' ) ) {
