@@ -10,17 +10,14 @@ $cta_midia_descricao   = $cta_midia_descricao   ?? 'Bruno Mota participa de entr
 $cta_midia_botao_texto = $cta_midia_botao_texto ?? 'Convide para uma participação';
 $cta_midia_botao_link  = $cta_midia_botao_link  ?? '#contato';
 
-// Imagem fictícia temporária (troque pela foto real do Bruno Mota assim
-// que estiver disponível, subindo o arquivo em /assets/images/ e
-// atualizando o caminho abaixo).
-$cta_midia_imagem      = $cta_midia_imagem      ?? 'https://images.unsplash.com/photo-1478737270239-2f02b77fc618?q=80&w=1600&auto=format&fit=crop';
+$cta_midia_imagem      = $cta_midia_imagem      ?? get_template_directory_uri() . '/assets/img/midia/bruno-mota-economista-podcast-entrevista-microfone.webp';
 ?>
 
 <section class="cta-midia-section">
 
 	<img
 		src="<?php echo esc_url( $cta_midia_imagem ); ?>"
-		alt="Bruno Mota em estúdio de rádio"
+		alt="Bruno Mota em entrevista de podcast com microfone"
 		class="cta-midia__bg-img"
 		loading="lazy"
 	>

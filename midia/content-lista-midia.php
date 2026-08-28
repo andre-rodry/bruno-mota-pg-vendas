@@ -168,7 +168,7 @@ $post_destaque = $destaque_query->have_posts() ? $destaque_query->posts[0] : nul
     <div class="lm-hero">
         <div class="lm-hero__bg" aria-hidden="true">
             <img
-                src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/midia/midia-hero-bg.webp'); ?>"
+                src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/midia/midia-entrevistas-participacoes-economia-politica-desenvolvimento-regional.webp'); ?>"
                 alt=""
                 class="lm-hero__img"
             >
@@ -260,7 +260,7 @@ $post_destaque = $destaque_query->have_posts() ? $destaque_query->posts[0] : nul
                 $destaque_canal_tm = get_the_terms($post_destaque->ID, 'canal_entrevista');
                 $destaque_canal    = ($destaque_canal_tm && !is_wp_error($destaque_canal_tm)) ? $destaque_canal_tm[0]->name : get_the_title($post_destaque);
                 $destaque_link     = get_post_meta($post_destaque->ID, '_link_assistir', true) ?: get_permalink($post_destaque);
-                $destaque_thumb    = get_the_post_thumbnail_url($post_destaque, 'medium') ?: (get_template_directory_uri() . '/assets/img/midia/midia-hero-bg.webp');
+                $destaque_thumb    = get_the_post_thumbnail_url($post_destaque, 'medium') ?: (get_template_directory_uri() . '/assets/img/midia/midia-entrevistas-participacoes-economia-politica-desenvolvimento-regional.webp');
                 ?>
                 <div class="lm-sidebar__box lm-destaque">
                     <h4 class="lm-sidebar__title">
