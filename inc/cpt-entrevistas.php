@@ -62,7 +62,7 @@ function andrewp_tax_tipo_entrevista() {
 add_action('init', 'andrewp_tax_tipo_entrevista');
 
 /* =========================================================
-   3) TAXONOMIA: Canal (sidebar -> CNN Brasil, Band News TV...)
+   3) TAXONOMIA: Canal (sidebar -> Globo, SBT, TV Aratu...)
       O slug do termo = a classe CSS (.lm-card__logo--{slug})
    ========================================================= */
 function andrewp_tax_canal_entrevista() {
@@ -84,7 +84,10 @@ add_action('init', 'andrewp_tax_canal_entrevista');
    4) Cria os termos padrão automaticamente (roda 1x só)
    ========================================================= */
 function andrewp_criar_termos_padrao_entrevistas() {
-    if (get_option('andrewp_termos_entrevistas_criados')) return;
+    // v5: só bumpei a versão pra forçar essa sincronização a rodar de novo,
+    // porque "Band" mudou pra "TV Band" DEPOIS que a v4 já tinha rodado
+    // (e a v4 não roda 2x sozinha).
+    if (get_option('andrewp_termos_entrevistas_criados_v5')) return;
 
     $tipos = ['tv' => 'TV', 'radio' => 'Rádio', 'podcasts' => 'Podcasts', 'imprensa' => 'Imprensa'];
     foreach ($tipos as $slug => $nome) {
@@ -93,24 +96,47 @@ function andrewp_criar_termos_padrao_entrevistas() {
         }
     }
 
-    // slug do canal precisa bater com o CSS (.lm-card__logo--cnn etc.)
-    // se criar um canal novo no admin sem essas classes prontas, adicione
-    // a regra .lm-card__logo--{slug} no CSS.
+    // Esta é a lista final e única de canais. Slug precisa bater com o CSS
+    // (.lm-card__logo--globo etc.). Qualquer canal fora desta lista será apagado.
     $canais = [
-        'cnn'      => 'CNN Brasil',
-        'band'     => 'Band News TV',
-        'poder360' => 'Poder360',
-        'record'   => 'Record News',
-        'sbt'      => 'SBT News',
-        'outros'   => 'Outros',
+        'globo'                        => 'TV Globo',
+        'sbt'                          => 'SBT',
+        'tv-aratu'                     => 'TV Aratu',
+        'band'                         => 'TV Band',
+        'tv-resistencia-contemporanea' => 'TV Resistência Contemporânea',
+        'batv'                         => 'BATV',
+        'tve-bahia'                    => 'TVE Bahia',
+        'radio-sociedade-news'         => 'Rádio Sociedade News',
     ];
+
+    // 1) e 2): cria ou renomeia
     foreach ($canais as $slug => $nome) {
-        if (!term_exists($slug, 'canal_entrevista')) {
+        $termo = term_exists($slug, 'canal_entrevista');
+        if (!$termo) {
             wp_insert_term($nome, 'canal_entrevista', ['slug' => $slug]);
+        } else {
+            $termo_atual = get_term($termo['term_id'], 'canal_entrevista');
+            if ($termo_atual && $termo_atual->name !== $nome) {
+                wp_update_term($termo['term_id'], 'canal_entrevista', ['name' => $nome]);
+            }
         }
     }
 
-    update_option('andrewp_termos_entrevistas_criados', 1);
+    // 3): apaga qualquer canal que não esteja na lista acima
+    $slugs_permitidos = array_keys($canais);
+    $termos_existentes = get_terms([
+        'taxonomy'   => 'canal_entrevista',
+        'hide_empty' => false,
+    ]);
+    if (!is_wp_error($termos_existentes)) {
+        foreach ($termos_existentes as $termo_existente) {
+            if (!in_array($termo_existente->slug, $slugs_permitidos, true)) {
+                wp_delete_term($termo_existente->term_id, 'canal_entrevista');
+            }
+        }
+    }
+
+    update_option('andrewp_termos_entrevistas_criados_v5', 1);
 }
 add_action('init', 'andrewp_criar_termos_padrao_entrevistas', 20);
 
@@ -211,7 +237,9 @@ function andrewp_render_card_entrevista($post) {
 
     $canal_terms = get_the_terms($post_id, 'canal_entrevista');
     $canal_nome  = ($canal_terms && !is_wp_error($canal_terms)) ? $canal_terms[0]->name : '';
-    $canal_slug  = ($canal_terms && !is_wp_error($canal_terms)) ? $canal_terms[0]->slug : 'outros';
+    // Fallback só entra em ação se uma entrevista for publicada sem canal
+    // selecionado (não corresponde a nenhum termo real da taxonomia).
+    $canal_slug  = ($canal_terms && !is_wp_error($canal_terms)) ? $canal_terms[0]->slug : 'sem-canal';
 
     $destaque       = get_post_meta($post_id, '_destaque', true);
     $duracao        = get_post_meta($post_id, '_duracao', true);
