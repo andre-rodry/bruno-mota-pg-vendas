@@ -8,13 +8,12 @@
    passam a ser exibidos empilhados, em fluxo normal — sem scroll-jacking,
    sem altura extra reservada e com melhor performance/responsividade.
 
-   CORREÇÃO: o breakpoint que desliga o pin agora combina LARGURA e ALTURA
-   (max-width: 1024px OU max-height: 700px), e é o MESMO usado no CSS.
-   Antes só a largura era considerada, então uma janela desktop baixa
-   (ex.: notebook com pouco espaço vertical, split-screen) continuava no
-   modo pinado, reservando altura extra de scroll e deixando o ponto
-   "ativo" da timeline sem relação com o que estava visível na tela.
-   Efeito pinado agora é exclusivo de desktop com altura suficiente.
+   Imagens: vêm 100% do PHP via data-img-desktop / data-img-mobile
+   (definidos em content-timeline-trajetoria.php usando
+   get_template_directory_uri()). O JS não define mais nenhum caminho de
+   arquivo — apenas monta um <picture> com <source media> para o browser
+   escolher a imagem certa (mesmo breakpoint de 1024px usado no
+   modo pinado x empilhado, para tudo ficar sincronizado).
    ========================================================================== */
 (function(){
   'use strict';
@@ -64,33 +63,40 @@
     setTimeout(syncHeaderHeight, 1000);
 
     /* ================= DATA ================= */
-    const IMG = {
-      podium:   'https://images.unsplash.com/photo-1762968274962-20c12e6e8ecd?auto=format&fit=crop&w=1400&q=80',
-      meeting:  'https://images.pexels.com/photos/3183183/pexels-photo-3183183.jpeg?auto=compress&cs=tinysrgb&w=1400',
-      table:    'https://images.pexels.com/photos/7993894/pexels-photo-7993894.jpeg?auto=compress&cs=tinysrgb&w=1400'
-    };
+    // Imagens 100% via PHP (data-img-desktop / data-img-mobile no <div class="tlc">).
+    const imgDesktop = root.dataset.imgDesktop || '';
+    const imgMobile  = root.dataset.imgMobile  || '';
 
+    /* -----------------------------------------------------------------------
+       STORY — conteúdo de cada marco da timeline.
+       Revisado com base no Currículo Lattes (atualizado em 20/06/2026) e no
+       e-mail do Bruno de 22/07/2026. Itens sinalizados como "a confirmar"
+       têm o fato confirmado por alguma fonte, mas a data exata ainda não.
+       "Palestra na UNEB" foi removida por falta de qualquer fonte (nem
+       Lattes, nem e-mail) e substituída por "Mídia Nacional" (Jornal da
+       Band), que está confirmada no e-mail.
+       ----------------------------------------------------------------------- */
     const STORY = [
-      { year:'2025', tag:'Lei Municipal', img:IMG.podium, eyebrow:'Destaque · Legislação',
-        title:'Lei Municipal 9838/2025', sub:'Educação financeira nas escolas municipais de Salvador.',
-        desc:'Projeto de lei que instituiu a educação financeira na rede municipal de ensino, fortalecendo a base do conhecimento econômico desde cedo.',
-        cards:[['Impacto','+45 mil alunos'],['Categoria','Legislação'],['Ano','2025'],['Local','Salvador, BA']] },
-      { year:'2025', tag:'Mesa Internacional', img:IMG.meeting, eyebrow:'Destaque · Palestra',
-        title:'Mesa Internacional na Argentina', sub:'Debate sobre gestão econômica e impacto social.',
-        desc:'Convite para integrar o painel internacional em Buenos Aires, discutindo modelos de desenvolvimento e competitividade regional.',
-        cards:[['Impacto','3 países'],['Categoria','Palestra'],['Ano','2025'],['Local','Buenos Aires']] },
-      { year:'2025', tag:'Palestra na UNEB', img:IMG.table, eyebrow:'Destaque · Academia',
-        title:'Palestra Magna na UNEB', sub:'Os desafios da economia brasileira ao futuro.',
-        desc:'Aula magna sobre desenvolvimento regional e humano, marcando abertura do ano acadêmico na Universidade.',
-        cards:[['Impacto','800 presentes'],['Categoria','Palestra'],['Ano','2025'],['Local','Salvador, BA']] },
-      { year:'2025', tag:'Artigo Científico', img:IMG.podium, eyebrow:'Destaque · Publicação',
-        title:'Artigo aprovado no XII SIER', sub:'Novos índices fiscais e planejamento estratégico.',
-        desc:'Publicação científica sobre indicadores fiscais e sua correlação com o desenvolvimento social em municípios de médio porte.',
-        cards:[['Impacto','Citado 30x'],['Categoria','Artigo'],['Ano','2025'],['Local','UNICSAL']] },
-      { year:'2024', tag:'Reconhecimento', img:IMG.table, eyebrow:'Destaque · Premiação',
-        title:'Reconhecimento CORECON-BA', sub:'Homenagem pela contribuição à economia.',
-        desc:'Honraria concedida pelo Conselho Regional de Economia da Bahia em reconhecimento à contribuição contínua ao setor.',
-        cards:[['Impacto','Honraria estadual'],['Categoria','Premiação'],['Ano','2024'],['Local','Salvador, BA']] }
+      { year:'2025', tag:'Lei Municipal', eyebrow:'Destaque · Legislação',
+        title:'Lei Municipal nº 9.838/2025', sub:'Educação financeira nas escolas municipais de Salvador.',
+        desc:'Projeto que deu origem à lei que institui a educação financeira na rede municipal de ensino de Salvador.',
+        cards:[['Impacto','Rede municipal de Salvador'],['Categoria','Legislação'],['Ano','2025'],['Local','Salvador, BA']] },
+      { year:'2025', tag:'Mesa Internacional', eyebrow:'Destaque · Palestra',
+        title:'Mesa Internacional na Argentina', sub:'Desenvolvimento Econômico na América Latina.',
+        desc:'Convite para integrar mesa internacional na Argentina, discutindo desenvolvimento econômico e cooperação regional latino-americana.',
+        cards:[['Impacto','Reconhecimento internacional'],['Categoria','Palestra'],['Ano','2025*'],['Local','Argentina']] },
+      { year:'2025', tag:'Artigo Científico', eyebrow:'Destaque · Publicação',
+        title:'Artigo aprovado no XII SIDR', sub:'Crise econômica e cidades médias baianas.',
+        desc:'Publicação nos Anais do XII Seminário Internacional de Desenvolvimento Regional (UNISC), analisando o impacto da crise econômica sobre cidades médias baianas, com dados de PIB e migração via REGIC.',
+        cards:[['Impacto','Anais UNISC 2025'],['Categoria','Artigo'],['Ano','2025'],['Local','Santa Cruz do Sul, RS']] },
+      { year:'2025', tag:'Mídia Nacional', eyebrow:'Destaque · Mídia',
+        title:'Participação no Jornal da Band', sub:'Alcance nacional de mais de 100 mil pessoas.',
+        desc:'Entrevista exibida no Jornal da Band, levando análises sobre economia e desenvolvimento regional a um público nacional.',
+        cards:[['Impacto','+100 mil espectadores'],['Categoria','Mídia'],['Ano','2025*'],['Local','Nacional']] },
+      { year:'2026', tag:'Reconhecimento', eyebrow:'Destaque · Atuação Institucional',
+        title:'Conselheiro do Corecon-BA', sub:'Mandato no Conselho Regional de Economia da Bahia.',
+        desc:'Eleito conselheiro do Conselho Regional de Economia da Bahia (Corecon-BA) para o mandato de 2026.',
+        cards:[['Impacto','Mandato institucional'],['Categoria','Conselho Profissional'],['Ano','2026'],['Local','Salvador, BA']] }
     ];
 
     /* ================= ICONS ================= */
@@ -114,7 +120,12 @@
       const item = document.createElement('div');
       item.className = 'story-item' + (i===0 ? ' active' : '');
       item.innerHTML =
-        '<div class="stage-visual"><img src="'+s.img+'" alt="'+s.title+'"></div>'+
+        '<div class="stage-visual">'+
+          '<picture>'+
+            '<source media="(max-width: 1024px)" srcset="'+imgMobile+'">'+
+            '<img src="'+imgDesktop+'" alt="'+s.title+'" loading="lazy">'+
+          '</picture>'+
+        '</div>'+
         '<div class="stage-text">'+
           '<span class="eyebrow">'+s.eyebrow+'</span>'+
           '<h2>'+s.title+'</h2>'+
@@ -142,13 +153,10 @@
     }
 
     /* ================= MODO PINADO x MODO EMPILHADO =================
-       CORRIGIDO: o pin agora é desligado por LARGURA (tablet/celular) E
-       por ALTURA (qualquer janela curta, inclusive desktop). Isso evita
-       reservar altura extra de scroll em telas sem espaço vertical
-       suficiente para o efeito, e melhora performance/responsividade
-       em tablet e celular, onde o efeito é sempre desligado. A mesma
-       condição é usada no CSS (ver page-timeline-trajetoria.css) para
-       que não haja dessincronia entre o estado visual e o JS. */
+       O pin é desligado por LARGURA (tablet/celular) E por ALTURA
+       (qualquer janela curta, inclusive desktop). A mesma condição é
+       usada no CSS (page-timeline-trajetoria.css) para não haver
+       dessincronia entre o estado visual e o JS. */
     const disablePinMQ = window.matchMedia('(max-width: 1024px), (max-height: 700px)');
 
     function isPinDisabled(){

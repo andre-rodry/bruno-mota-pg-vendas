@@ -62,11 +62,18 @@
 .tlc .story {
   position: relative;
 }
+
+/* ==========================================================================
+   CORREÇÃO 1 — trava a altura máxima do stage.
+   Antes, min-height: calc(100dvh - header) crescia sem limite em monitores
+   altos, o que fazia .stage-body (flex:1) e .story-item (inset:0) herdarem
+   uma altura enorme, deixando a coluna de imagem (44%) esticada verticalmente.
+   ========================================================================== */
 .tlc .story-stage {
   position: sticky;
   top: var(--header-h);
   min-height: calc(100dvh - var(--header-h));
-  max-height: 860px;
+  max-height: 860px; /* ajuste este valor conforme o layout desejado */
   max-width: var(--content-w);
   margin: 0 auto;
   padding: clamp(14px, 2.6vh, 32px) 24px clamp(18px, 3vh, 32px);
@@ -202,28 +209,36 @@
 .tlc .stage-body {
   position: relative;
   flex: 1 1 auto;
+  padding: clamp(14px, 1.8vh, 28px);
   border: 1px solid var(--border-gold-glow);
   border-radius: 20px;
-  overflow: hidden; /* corta a imagem full-bleed nas bordas arredondadas */
-  background: var(--navy-900);
+  background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.015),
+      rgba(255, 255, 255, 0)
+    ),
+    var(--navy-900);
 }
 
 /* ==========================================================================
-   NOVO LAYOUT — FULL-BLEED
-   A imagem passa a ocupar 100% do card (fundo), com um degradê elegante
-   subindo de baixo (navy-950 → transparente) e o texto sobreposto na
-   parte inferior. Elimina o grid de duas colunas, então não há mais risco
-   de a imagem esticar/deformar em telas altas — ela sempre cobre a área
-   inteira via object-fit: cover, independente da proporção do card.
+   CORREÇÃO 2 — align-items trocado de "stretch" para "center".
+   Antes, "stretch" fazia o .stage-visual esticar até preencher 100% da
+   altura do .story-item (que por sua vez herda a altura do stage-stage,
+   agora travada acima). Com "center", a coluna da imagem passa a assumir
+   a altura definida pelo aspect-ratio no .stage-visual, e fica centralizada
+   verticalmente caso sobre espaço.
    ========================================================================== */
 .tlc .story-item {
   position: absolute;
   inset: 0;
-  display: flex;
-  align-items: flex-end;
+  display: grid;
+  grid-template-columns: 44% 1fr;
+  gap: clamp(16px, 2.4vw, 44px);
+  padding: clamp(14px, 1.8vh, 28px);
+  align-items: center;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.6s ease;
+  transition: opacity 0.5s ease;
   z-index: 1;
 }
 .tlc .story-item.active {
@@ -231,52 +246,79 @@
   pointer-events: auto;
   z-index: 2;
 }
+
+/* ==========================================================================
+   CORREÇÃO 2 (continuação) — .stage-visual não usa mais height:100%.
+   Agora tem um aspect-ratio fixo (proporção real da foto) e max-height:100%
+   como trava de segurança, para nunca ultrapassar o espaço disponível do
+   .story-item. Isso elimina o esticamento vertical em telas muito altas.
+   Ajuste o aspect-ratio (ex.: 16/10, 3/4, 1/1) conforme a proporção real
+   das imagens usadas.
+   ========================================================================== */
 .tlc .stage-visual {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  max-height: 100%;
+  min-width: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border-gold-glow);
+  background: var(--navy-850);
+}
+/* Imagem agora fica dentro de <picture> (desktop/mobile definidos no PHP).
+   O <picture> precisa ocupar 100% do .stage-visual para o object-fit
+   do <img> continuar funcionando normalmente. */
+.tlc .stage-visual picture {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 .tlc .stage-visual img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  /* "top" em vez de "center": a foto original é mais larga que o quadro
+     4:5, então o cover corta de cima e de baixo igualmente. Com a cabeça
+     perto do topo da foto, isso cortava o rosto. "top" mantém a parte de
+     cima intacta e corta o excesso na parte de baixo. Se alguma foto
+     futura tiver o rosto mais centralizado, ajuste esse valor (ou troque
+     por object-position: center X% Y% específico) para aquele card. */
+  object-position: center top;
   transform: scale(1.06);
-  transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .tlc .story-item.active .stage-visual img {
   transform: scale(1);
 }
 
-/* Fade full-bleed: sobe suavemente das cores navy do tema por baixo do
-   texto, garantindo contraste e legibilidade sobre qualquer foto. */
+/* ==========================================================================
+   FADE FULL-BLEED — DESKTOP.
+   Overlay sutil, simétrico (topo e base), só para a foto não terminar de
+   forma seca/crua contra o fundo do card. Cobre a imagem inteira (inset:0)
+   dentro do .stage-visual, que já é position:relative + overflow:hidden.
+   ========================================================================== */
 .tlc .stage-visual::after {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    to top,
-    var(--navy-950) 0%,
-    rgba(10, 15, 28, 0.94) 22%,
-    rgba(10, 15, 28, 0.72) 42%,
-    rgba(10, 15, 28, 0.32) 62%,
-    rgba(10, 15, 28, 0.05) 80%,
-    rgba(10, 15, 28, 0) 100%
+    180deg,
+    rgba(10, 15, 28, 0.5) 0%,
+    rgba(10, 15, 28, 0.1) 20%,
+    rgba(10, 15, 28, 0.1) 70%,
+    rgba(10, 15, 28, 0.68) 100%
   );
   pointer-events: none;
+  z-index: 1;
 }
 
 .tlc .stage-text {
   position: relative;
-  z-index: 1;
-  width: 100%;
-  max-width: 760px;
-  margin: 0 auto;
-  padding: clamp(28px, 8vh, 72px) clamp(20px, 4vw, 40px) clamp(24px, 4vh, 40px);
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  justify-content: center;
 }
 .tlc .stage-text > * {
   flex: 0 0 auto;
@@ -313,34 +355,31 @@
 }
 .tlc .stage-text .eyebrow {
   display: block;
-  margin-bottom: clamp(6px, 1.2vh, 12px);
-  font-size: 11px;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  margin-bottom: clamp(4px, 0.8vh, 10px);
+  font-size: 10.5px;
 }
 .tlc .stage-text h2 {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(1.7rem, 2.4vh + 1.1rem, 3rem);
-  line-height: 1.06;
+  font-size: clamp(1.3rem, 1.6vh + 1rem, 2.4rem);
+  line-height: 1.08;
   letter-spacing: -0.01em;
   max-width: 100%;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 .tlc .stage-text .sub {
   color: var(--gold-soft);
-  font-size: clamp(0.9rem, 0.9vw + 0.55rem, 1.05rem);
-  margin-top: clamp(6px, 1vh, 10px);
+  font-size: clamp(0.8rem, 0.85vw + 0.5rem, 0.95rem);
+  margin-top: clamp(4px, 0.8vh, 8px);
   font-style: italic;
   font-family: var(--font-display);
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
 }
 .tlc .stage-text .desc {
   color: var(--text-muted);
-  font-size: clamp(0.85rem, 0.8vw + 0.5rem, 0.95rem);
+  font-size: clamp(0.8rem, 0.8vw + 0.5rem, 0.92rem);
   font-weight: 300;
-  line-height: 1.6;
-  margin-top: clamp(10px, 1.8vh, 18px);
-  max-width: 560px;
+  line-height: 1.55;
+  margin-top: clamp(8px, 1.6vh, 16px);
+  max-width: 100%;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
@@ -348,20 +387,16 @@
 }
 .tlc .mini-cards {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(8px, 1.2vw, 14px);
-  margin-top: clamp(16px, 3vh, 28px);
-  width: 100%;
-  max-width: 900px;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(8px, 1.2vh, 12px);
+  margin-top: clamp(10px, 2vh, 22px);
+  max-width: 100%;
 }
 .tlc .mini-card {
   border: 1px solid var(--border-gold-glow);
-  border-radius: 12px;
-  padding: clamp(10px, 1.6vh, 14px) 16px;
-  background: rgba(10, 15, 28, 0.55);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  text-align: left;
+  border-radius: 9px;
+  padding: clamp(8px, 1.4vh, 12px) 15px;
+  background: rgba(255, 255, 255, 0.02);
 }
 .tlc .mini-card .k {
   font-family: var(--font-body-alt);
@@ -386,8 +421,8 @@
   font-weight: 600;
 }
 .tlc .btn-premium {
-  margin-top: clamp(14px, 2.6vh, 26px);
-  margin-bottom: 2px;
+  margin-top: clamp(10px, 2vh, 24px);
+  margin-bottom: 4px;
   display: inline-flex;
   align-items: center;
   gap: 12px;
@@ -404,7 +439,6 @@
   overflow: hidden;
   transition: color 0.4s;
   width: fit-content;
-  background: rgba(10, 15, 28, 0.4);
 }
 .tlc .btn-premium span {
   position: relative;
@@ -438,39 +472,31 @@
 .tlc .btn-premium:hover svg {
   transform: translateX(5px);
 }
-
-/* ==========================================================================
-   MODO EMPILHADO (pin desligado) — tablet/celular ou pouca altura.
-   Como o layout já é full-bleed, o modo empilhado só precisa dar uma
-   altura fixa (aspect-ratio) a cada card e deixar todos visíveis em
-   fluxo normal, sem position:absolute nem opacity animada.
-   ========================================================================== */
 .tlc .stage-body.pin-disabled {
   height: auto;
-  border: none;
-  border-radius: 0;
-  overflow: visible;
-  background: transparent;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
 }
 .tlc .stage-body.pin-disabled .story-item {
-  position: relative;
+  position: static;
   inset: auto;
   opacity: 1;
   pointer-events: auto;
-  aspect-ratio: 4 / 5;
-  border: 1px solid var(--border-gold-glow);
-  border-radius: 18px;
-  overflow: hidden;
+  grid-template-columns: 1fr;
+  margin-bottom: 28px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border-white);
+}
+.tlc .stage-body.pin-disabled .story-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+.tlc .stage-body.pin-disabled .story-item .stage-visual {
+  aspect-ratio: 16/10;
+  height: auto;
+  max-height: none;
 }
 .tlc .stage-body.pin-disabled .story-item .stage-visual img {
   transform: none;
-}
-.tlc .stage-body.pin-disabled .stage-text {
-  padding: clamp(20px, 6vw, 32px) clamp(16px, 5vw, 28px) clamp(18px, 5vw, 28px);
-  max-width: 100%;
 }
 .tlc .stage-body.pin-disabled .stage-text > * {
   opacity: 1;
@@ -480,9 +506,6 @@
 }
 .tlc .stage-body.pin-disabled .stage-text .desc {
   -webkit-line-clamp: unset;
-}
-.tlc .stage-body.pin-disabled .mini-cards {
-  grid-template-columns: 1fr 1fr;
 }
 .tlc .story.pin-disabled {
   height: auto !important;
@@ -495,10 +518,15 @@
 }
 
 /* ==========================================================================
-   FALLBACK CSS-ONLY — mesma condição do matchMedia no JS
-   (max-width: 1024px OU max-height: 700px), para a página já nascer no
-   layout correto antes do JS terminar de rodar (evita "flash" do modo
-   pinado) e não haver dessincronia entre CSS e JS.
+   FALLBACK CSS-ONLY — remove o efeito pinado em tablet, celular E também
+   em qualquer janela desktop com pouca altura (ex.: notebook com espaço
+   vertical curto, split-screen). Usa a MESMA condição do matchMedia no
+   JS (max-width: 1024px OU max-height: 700px), para que a página já
+   nasça no layout correto antes do JS terminar de rodar (evita "flash"
+   do modo pinado) e para não haver dessincronia entre CSS e JS.
+   O efeito de scroll storytelling pinado fica reservado apenas para
+   desktop com largura e altura suficientes — melhor performance e
+   responsividade em tablet/celular.
    ========================================================================== */
 @media (max-width: 1024px), (max-height: 700px) {
   .tlc .story-stage {
@@ -512,30 +540,29 @@
   }
   .tlc .stage-body {
     height: auto !important;
-    border: none;
-    border-radius: 0;
-    overflow: visible;
-    background: transparent;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
   }
   .tlc .story-item {
-    position: relative !important;
+    position: static !important;
     inset: auto !important;
     opacity: 1 !important;
     pointer-events: auto !important;
-    aspect-ratio: 4 / 5;
-    border: 1px solid var(--border-gold-glow);
-    border-radius: 18px;
-    overflow: hidden;
+    grid-template-columns: 1fr;
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border-white);
+  }
+  .tlc .story-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  .tlc .stage-visual {
+    aspect-ratio: 16/10;
+    height: auto;
+    max-height: none;
   }
   .tlc .stage-visual img {
     transform: none;
-  }
-  .tlc .stage-text {
-    padding: clamp(20px, 6vw, 32px) clamp(16px, 5vw, 28px) clamp(18px, 5vw, 28px);
-    max-width: 100%;
   }
   .tlc .stage-text > * {
     opacity: 1 !important;
@@ -546,9 +573,6 @@
   .tlc .stage-text .desc {
     -webkit-line-clamp: unset;
   }
-  .tlc .mini-cards {
-    grid-template-columns: 1fr 1fr;
-  }
 }
 
 @media (max-width: 1024px) {
@@ -557,6 +581,9 @@
   }
   .tlc .story-stage {
     padding: clamp(12px, 2vh, 24px) 20px clamp(16px, 2.4vh, 24px);
+  }
+  .tlc .stage-body {
+    border-radius: 18px;
   }
   .tlc .tl-track {
     max-width: 100%;
@@ -578,8 +605,15 @@
   .tlc .tl-name {
     font-size: 13px;
   }
+  .tlc .story-item {
+    grid-template-columns: 1fr;
+    gap: clamp(14px, 2.4vw, 32px);
+  }
   .tlc .stage-text h2 {
-    font-size: clamp(1.5rem, 2.6vw + 0.6rem, 2.1rem);
+    font-size: clamp(1.4rem, 2.6vw + 0.6rem, 2rem);
+  }
+  .tlc .mini-cards {
+    gap: 8px;
   }
 }
 @media (max-width: 860px) {
@@ -625,25 +659,103 @@
   }
   .tlc .story-stage {
     padding: 14px 14px 8px;
+    position: relative !important;
+    top: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+  }
+  .tlc .story {
+    height: auto !important;
+  }
+  .tlc .stage-body {
+    padding: 12px;
+    border-radius: 16px;
+    height: auto !important;
   }
   .tlc .story-item {
-    aspect-ratio: 4 / 5;
+    display: block;
+    padding: 0;
+    position: static !important;
+    inset: auto !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-white);
+  }
+  .tlc .story-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  .tlc .stage-visual {
+    width: calc(100% + 24px);
+    margin-left: -12px;
+    aspect-ratio: 4/5;
+    height: auto;
+    max-height: none;
+    border: none;
+    border-radius: 0;
+  }
+  .tlc .stage-visual img {
+    transform: none;
+  }
+  /* FADE FULL-BLEED — MOBILE.
+     Aqui o gradiente não é só estético: ele dá legibilidade ao texto, que
+     fica sobreposto por cima da imagem (.stage-text tem margin-top negativo).
+     Por isso segue "to top", escuro na base e transparente no topo — só com
+     os degraus mais graduais/suaves do que a versão anterior. */
+  .tlc .stage-visual::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      var(--navy-900) 0%,
+      rgba(11, 15, 30, 0.85) 14%,
+      rgba(11, 15, 30, 0.45) 32%,
+      rgba(11, 15, 30, 0.12) 50%,
+      rgba(11, 15, 30, 0) 65%
+    );
+    pointer-events: none;
   }
   .tlc .stage-text {
-    padding: 20px 16px 20px;
+    position: relative;
+    z-index: 3;
+    margin-top: -132px;
+    padding: 0 4px;
+    justify-content: flex-start;
+    overflow: visible;
+  }
+  .tlc .stage-text > * {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+  .tlc .stage-text .eyebrow {
+    font-size: 9.5px;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
   }
   .tlc .stage-text h2 {
-    font-size: clamp(1.25rem, 5.2vw, 1.6rem);
+    font-size: clamp(1.15rem, 5.2vw, 1.5rem);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.55);
   }
   .tlc .stage-text .sub {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
   }
   .tlc .stage-text .desc {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
+    -webkit-line-clamp: unset;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
   }
   .tlc .mini-cards {
     grid-template-columns: 1fr 1fr;
     gap: 8px;
+    margin-top: 16px;
+    position: relative;
+    z-index: 3;
   }
   .tlc .mini-card {
     padding: 8px 10px;
@@ -661,11 +773,13 @@
     justify-content: center;
     font-size: 10px;
     padding: 11px 18px;
+    position: relative;
+    z-index: 3;
   }
 }
 @media (max-width: 380px) {
-  .tlc .story-item {
-    aspect-ratio: 3 / 4;
+  .tlc .stage-visual {
+    aspect-ratio: 3/4;
   }
   .tlc .tl-year {
     font-size: 8.5px;
