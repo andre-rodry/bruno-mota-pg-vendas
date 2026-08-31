@@ -3,9 +3,18 @@
    Reproduz o efeito de "scroll storytelling" pinado usando position:sticky
    + rAF scroll tracking, sem GSAP, ScrollTrigger ou Lenis.
 
-   Em telas baixas ou estreitas (onde o CSS desativa o sticky), o modo pinado
-   é desligado e os 5 marcos passam a ser exibidos empilhados, em fluxo normal
-   — sem scroll-jacking e sem altura extra reservada.
+   Em telas estreitas (tablet/celular) OU em qualquer janela com pouca
+   altura (mesmo em desktop), o modo pinado é desligado e os 5 marcos
+   passam a ser exibidos empilhados, em fluxo normal — sem scroll-jacking,
+   sem altura extra reservada e com melhor performance/responsividade.
+
+   CORREÇÃO: o breakpoint que desliga o pin agora combina LARGURA e ALTURA
+   (max-width: 1024px OU max-height: 700px), e é o MESMO usado no CSS.
+   Antes só a largura era considerada, então uma janela desktop baixa
+   (ex.: notebook com pouco espaço vertical, split-screen) continuava no
+   modo pinado, reservando altura extra de scroll e deixando o ponto
+   "ativo" da timeline sem relação com o que estava visível na tela.
+   Efeito pinado agora é exclusivo de desktop com altura suficiente.
    ========================================================================== */
 (function(){
   'use strict';
@@ -133,11 +142,14 @@
     }
 
     /* ================= MODO PINADO x MODO EMPILHADO =================
-       Mesmo breakpoint usado no CSS (max-height:620px) para desligar o
-       sticky. Quando ele bate, desligamos também o scroll-jacking no JS
-       e paramos de reservar altura extra na seção — senão sobra um vão
-       vazio enorme (era exatamente o bug relatado). */
-    const disablePinMQ = window.matchMedia('(max-height: 620px)');
+       CORRIGIDO: o pin agora é desligado por LARGURA (tablet/celular) E
+       por ALTURA (qualquer janela curta, inclusive desktop). Isso evita
+       reservar altura extra de scroll em telas sem espaço vertical
+       suficiente para o efeito, e melhora performance/responsividade
+       em tablet e celular, onde o efeito é sempre desligado. A mesma
+       condição é usada no CSS (ver page-timeline-trajetoria.css) para
+       que não haja dessincronia entre o estado visual e o JS. */
+    const disablePinMQ = window.matchMedia('(max-width: 1024px), (max-height: 700px)');
 
     function isPinDisabled(){
       return disablePinMQ.matches;
