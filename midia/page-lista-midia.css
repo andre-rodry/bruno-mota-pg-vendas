@@ -369,21 +369,25 @@
 .lm-card__logo--record   { background: #f4f4f4; color: var(--navy-950); }
 
 /* Retângulo de logo mostrando a imagem destacada do post (em vez do texto).
-   O !important é necessário porque get_the_post_thumbnail() imprime
-   width/height inline no <img>, que teriam prioridade sobre a classe. */
+   Trava em proporção 16:9 (padrão de thumbnail de vídeo) para a foto
+   preencher o espaço inteiro, sem sobrar faixa em cima/embaixo. */
 .lm-card__logo--img {
     background: var(--navy-950);
     padding: 0;
     border-radius: 10px;
     border: 1px solid var(--lm-card-border);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+    aspect-ratio: 16 / 9;
+    height: auto;
+    min-height: 0;
+    align-self: center;
 }
 
 .lm-card__logo-img {
     width: 100% !important;
     height: 100% !important;
     max-width: none !important;
-    object-fit: contain; /* mostra a foto inteira, sem cortar laterais (fotos em formato paisagem) */
+    object-fit: cover; /* a caixa já está em 16:9, então o corte fica mínimo */
     object-position: center;
     display: block;
 }
