@@ -7,68 +7,37 @@
  * CSS correspondente: page-midia-home.css
  */
 
+$midia_home_base_url = get_template_directory_uri() . '/assets/img/home/';
+
 $itens_midia_home = array(
     array(
-        'thumb'   => 'https://i.ibb.co/LLCVm7T/bgh6777.png',
-        'duracao' => '05:00',
-        'fonte'   => 'BATV GLOBO',
-        'desc'    => 'Outubro chega com aumentos nos preços do gás e combustíveis',
+        'thumb'   => $midia_home_base_url . 'entrevista-band.webp',
+        'fonte'   => 'TV BAND',
+        'desc'    => 'Inflação tem menor alta do ano com queda no preço dos alimentos',
         'link'    => '#',
     ),
     array(
-        'thumb'   => 'https://i.ibb.co/cSNyw5KT/nmyuy8879.png',
-        'duracao' => '05:00',
-        'fonte'   => 'BATV GLOBO',
-        'desc'    => 'Calor impulsiona vendas de ar condicionado',
-        'link'    => '#',
-    ),
-    array(
-        'thumb'   => 'https://i.ibb.co/0jcdPrb9/3434gh67.png',
-        'duracao' => '05:00',
-        'fonte'   => 'BATV GLOBO',
-        'desc'    => 'Inflação desacelera em Salvador e região metropolitana',
-        'link'    => '#',
-    ),
-    array(
-        'thumb'   => 'https://i.ibb.co/bjDbrYSV/bahiatv.png',
-        'duracao' => '05:00',
-        'fonte'   => 'BATV GLOBO',
-        'desc'    => 'Clientes podem levar dívidas de um banco para outro',
-        'link'    => '#',
-    ),
-    array(
-        'thumb'   => 'https://i.ibb.co/wZMRF3My/obo567766.png',
-        'duracao' => '05:00',
-        'fonte'   => 'BATV GLOBO',
-        'desc'    => 'Vantagens e desvantagens do empréstimo consignado',
-        'link'    => '#',
-    ),
-    array(
-        'thumb'   => 'https://i.ibb.co/hJz11hSx/ad409e27-0312-48f2-ab8f-75d8401ab2b2.png',
-        'duracao' => '05:00',
-        'fonte'   => 'BAND CIDADE',
-        'desc'    => 'Entrevista sobre economia',
-        'link'    => '#',
-    ),
-    array(
-        'thumb'   => 'https://i.ibb.co/WWZPHtdW/tv-5.png',
-        'duracao' => '06:12',
-        'fonte'   => 'BATV GLOBO',
-        'desc'    => 'Crédito rotativo do cartão pode acabar',
-        'link'    => '#',
-    ),
-    array(
-        'thumb'   => 'https://i.ibb.co/9mKQwF5b/tv-767.png',
-        'duracao' => '05:08',
-        'fonte'   => 'AGRO BAND BAHIA',
+        'thumb'   => $midia_home_base_url . 'entrevista-agro-band.webp',
+        'fonte'   => 'TV BAND',
         'desc'    => 'Revogação das Tarifária pelo EUA: Impactos no Agronegócio',
         'link'    => '#',
     ),
     array(
-        'thumb'   => 'https://i.ibb.co/k2m7cytz/a69c3137-a6b7-4653-a343-a6703031169f.png',
-        'duracao' => '05:40',
-        'fonte'   => 'TVARATU SBT',
-        'desc'    => 'Aumentos nos preços dos combustíveis',
+        'thumb'   => $midia_home_base_url . 'entrevista-batv.webp',
+        'fonte'   => 'TV GLOBO',
+        'desc'    => 'Crédito rotativo do cartão pode acabar',
+        'link'    => '#',
+    ),
+    array(
+        'thumb'   => $midia_home_base_url . 'entrevista-band-cidade.webp',
+        'fonte'   => 'TV BAND',
+        'desc'    => 'Inflação desacelera: alimentos e bebidas têm queda de preço',
+        'link'    => '#',
+    ),
+    array(
+        'thumb'   => $midia_home_base_url . 'entrevista-tv-globo.webp',
+        'fonte'   => 'TV GLOBO',
+        'desc'    => 'Bom Dia Brasil: queda no preço do café',
         'link'    => '#',
     ),
 );
@@ -112,7 +81,6 @@ $itens_midia_home = array(
               <span class="midia-home__play">
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M5 3L15 9L5 15V3Z" fill="currentColor"/></svg>
               </span>
-              <span class="midia-home__duracao"><?php echo esc_html( $item['duracao'] ); ?></span>
             </a>
             <div class="midia-home__info">
               <span class="midia-home__fonte"><?php echo esc_html( $item['fonte'] ); ?></span>
