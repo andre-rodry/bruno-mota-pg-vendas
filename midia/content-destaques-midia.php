@@ -93,9 +93,20 @@ $destaque_principal = array(
 // margem interna varia de arquivo para arquivo.
 // ---------------------------------------------------------------------
 $destaque_sec_1_arquivo = 'agro-negocio-tarifas-impactos-agro-band.webp';
-$destaque_sec_2_arquivo = 'economia-credito-rotativo-cartao-batv.webp';
+$destaque_sec_2_arquivo = 'entrevista-tv-globo.webp';
 
 $destaques_secundarios = array(
+	array(
+		'imagem_bg'    => $midia_base . $destaque_sec_2_arquivo,
+		'imagem_ratio' => andrewp_get_image_ratio( $destaque_sec_2_arquivo, $midia_dir ),
+		'logo'         => $midia_base . 'globo-logo.webp',
+		'logo_alt'     => 'TV Globo',
+		'logo_offset'  => 6, // ajuste este valor até a logo alinhar com o texto
+		'logo_height'  => 42, // aumentada mais um pouco
+		'titulo'       => 'Bom Dia Brasil: queda no preço do café',
+		'descricao'    => 'Dólar, oferta internacional e os preços do café.',
+		'link'         => '#', // substitua pelo link real do vídeo/matéria
+	),
 	array(
 		'imagem_bg'    => $midia_base . $destaque_sec_1_arquivo,
 		'imagem_ratio' => andrewp_get_image_ratio( $destaque_sec_1_arquivo, $midia_dir ),
@@ -105,17 +116,6 @@ $destaques_secundarios = array(
 		'logo_height'  => 46, // altura da logo em px
 		'titulo'       => 'Perspectivas do agronegócio para 2024',
 		'descricao'    => 'Análise sobre o cenário do agro e os desafios do setor.',
-		'link'         => '#', // substitua pelo link real do vídeo/matéria
-	),
-	array(
-		'imagem_bg'    => $midia_base . $destaque_sec_2_arquivo,
-		'imagem_ratio' => andrewp_get_image_ratio( $destaque_sec_2_arquivo, $midia_dir ),
-		'logo'         => $midia_base . 'bahia-tv.webp-logo.webp',
-		'logo_alt'     => 'BATV',
-		'logo_offset'  => 6, // ajuste este valor até a logo alinhar com o texto
-		'logo_height'  => 28, // reduzida — estava grande demais em relação à AgroBand
-		'titulo'       => 'Economia e impacto no dia a dia do baiano',
-		'descricao'    => 'Entrevista sobre os indicadores econômicos e seus reflexos.',
 		'link'         => '#', // substitua pelo link real do vídeo/matéria
 	),
 );
