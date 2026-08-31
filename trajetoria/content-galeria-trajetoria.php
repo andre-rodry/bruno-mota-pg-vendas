@@ -5,47 +5,45 @@
  * Carrossel horizontal de fotos com lightbox.
  * Largura do conteúdo: 1200px (ver page-galeria-trajetoria.css)
  *
- * As imagens abaixo usam links de internet (placeholders) apenas
- * para demonstração. Troque o array $galeria_momentos pelas suas
- * fotos reais (pode vir de ACF, post meta, etc).
+ * Imagens locais em: assets/img/trajetoria/bruno-mota-1.png até bruno-mota-6.png
  */
 
 $galeria_momentos = array(
 	array(
-		'src'       => 'https://picsum.photos/id/1005/1200/800',
-		'alt'       => 'Palestra no palco para plateia',
-		'titulo'    => 'Palestra sobre educação financeira',
-		'descricao' => 'Encontro aberto ao público com foco em planejamento financeiro pessoal.',
+		'src'       => get_template_directory_uri() . '/assets/img/trajetoria/bruno-mota-1.png',
+		'alt'       => 'Bruno Mota em evento institucional',
+		'titulo'    => 'Momento institucional',
+		'descricao' => 'Registro de participação em evento institucional.',
 	),
 	array(
-		'src'       => 'https://picsum.photos/id/1011/1200/800',
-		'alt'       => 'Equipe em foto de grupo no escritório',
-		'titulo'    => 'Encontro com a equipe institucional',
-		'descricao' => 'Alinhamento estratégico entre lideranças do projeto.',
+		'src'       => get_template_directory_uri() . '/assets/img/trajetoria/bruno-mota-2.png',
+		'alt'       => 'Bruno Mota em atendimento em mesa de trabalho',
+		'titulo'    => 'Atendimento e reunião de trabalho',
+		'descricao' => 'Momento de reunião e alinhamento de trabalho.',
 	),
 	array(
-		'src'       => 'https://picsum.photos/id/1015/1200/800',
-		'alt'       => 'Reunião de diretoria em mesa de conferência',
-		'titulo'    => 'Reunião de diretoria',
-		'descricao' => 'Discussão de metas e resultados do trimestre.',
+		'src'       => get_template_directory_uri() . '/assets/img/trajetoria/bruno-mota-3.png',
+		'alt'       => 'Bruno Mota ao lado de colega em biblioteca',
+		'titulo'    => 'Encontro institucional',
+		'descricao' => 'Registro de encontro com parceiros e colaboradores.',
 	),
 	array(
-		'src'       => 'https://picsum.photos/id/1025/1200/800',
-		'alt'       => 'Apresentação em sala de treinamento',
-		'titulo'    => 'Treinamento em sala',
-		'descricao' => 'Capacitação de equipe com foco em atendimento e processos.',
+		'src'       => get_template_directory_uri() . '/assets/img/trajetoria/bruno-mota-4.png',
+		'alt'       => 'Entrega de certificado ou reconhecimento',
+		'titulo'    => 'Entrega de certificado',
+		'descricao' => 'Reconhecimento pelo trabalho em prol da educação financeira.',
 	),
 	array(
-		'src'       => 'https://picsum.photos/id/1035/1200/800',
-		'alt'       => 'Entrega de certificado em evento institucional',
-		'titulo'    => 'Entrega de certificado em evento institucional',
-		'descricao' => 'Reconhecimento pelo trabalho em prol da educação financeira e impacto social na Bahia.',
+		'src'       => get_template_directory_uri() . '/assets/img/trajetoria/bruno-mota-5.png',
+		'alt'       => 'Bruno Mota em estande institucional',
+		'titulo'    => 'Participação em evento institucional',
+		'descricao' => 'Presença em estande de evento institucional.',
 	),
 	array(
-		'src'       => 'https://picsum.photos/id/1043/1200/800',
-		'alt'       => 'Palestrante falando ao microfone',
-		'titulo'    => 'Palestra em evento institucional',
-		'descricao' => 'Apresentação sobre impacto social e trajetória do projeto.',
+		'src'       => get_template_directory_uri() . '/assets/img/trajetoria/bruno-mota-6.png',
+		'alt'       => 'Foto em grupo em evento institucional',
+		'titulo'    => 'Foto em grupo',
+		'descricao' => 'Encontro com equipe e parceiros institucionais.',
 	),
 );
 

@@ -137,15 +137,17 @@
   letter-spacing: 0.03em;
   text-transform: uppercase;
   text-decoration: none;
-  color: var(--navy-950);
-  background: var(--gold-accent);
+  color: var(--gold-accent);
+  background: transparent;
+  border: 1.5px solid var(--gold-accent);
   padding: 15px 26px;
   border-radius: 999px;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
 .cta-midia__botao:hover {
-  background: var(--gold-hover);
+  background: var(--gold-accent);
+  color: var(--navy-950);
   transform: translateY(-1px);
 }
 

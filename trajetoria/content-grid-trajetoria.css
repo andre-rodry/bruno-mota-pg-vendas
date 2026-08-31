@@ -21,7 +21,7 @@
 	background: var(--gc-bg);
 	/* Padding-top um pouco maior que o padding lateral/inferior: dá respiro em
 	   relação ao header fixo, sem afastar demais o título do conteúdo acima. */
-	padding: 52px 24px 100px;
+	padding: 52px 24px 55px;
 	color: var(--gc-white);
 	font-family: var(--font-body);
 
