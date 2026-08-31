@@ -329,30 +329,38 @@
 
 .lm-card {
     display: grid;
-    grid-template-columns: 64px 1fr auto auto;
-    align-items: center;
-    gap: 18px;
+    grid-template-columns: 220px 1fr;
+    grid-template-areas:
+        "logo info"
+        "logo meta"
+        "logo acao";
+    align-items: start;
+    column-gap: 22px;
+    row-gap: 10px;
     background: var(--lm-card-bg);
     border: 1px solid var(--lm-card-border);
     border-radius: var(--lm-radius);
-    padding: 16px 18px;
+    padding: 18px;
 }
 
 .lm-card__logo {
-    width: 64px;
-    height: 64px;
+    grid-area: logo;
+    width: 100%;
+    height: 100%;
+    min-height: 130px;
     border-radius: var(--lm-radius-sm);
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 800;
     letter-spacing: 0.02em;
     color: #fff;
     line-height: 1.2;
     padding: 4px;
     background: #1b263b;
+    overflow: hidden; /* garante que nada (inclusive imagem) vaze do retângulo */
 }
 
 .lm-card__logo--cnn      { background: #cc0000; }
@@ -360,7 +368,28 @@
 .lm-card__logo--poder360 { background: #17324d; }
 .lm-card__logo--record   { background: #f4f4f4; color: var(--navy-950); }
 
+/* Retângulo de logo mostrando a imagem destacada do post (em vez do texto).
+   O !important é necessário porque get_the_post_thumbnail() imprime
+   width/height inline no <img>, que teriam prioridade sobre a classe. */
+.lm-card__logo--img {
+    background: var(--navy-950);
+    padding: 0;
+    border-radius: 10px;
+    border: 1px solid var(--lm-card-border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.lm-card__logo-img {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    object-fit: contain; /* mostra a foto inteira, sem cortar laterais (fotos em formato paisagem) */
+    object-position: center;
+    display: block;
+}
+
 .lm-card__info {
+    grid-area: info;
     min-width: 0;
 }
 
@@ -386,9 +415,11 @@
 }
 
 .lm-card__meta {
+    grid-area: meta;
     display: flex;
-    flex-direction: column;
-    gap: 6px;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
     font-size: 12px;
     color: var(--lm-text-dim);
     white-space: nowrap;
@@ -400,17 +431,22 @@
     gap: 6px;
 }
 
+.lm-card__acao {
+    grid-area: acao;
+    justify-self: start;
+}
+
 .lm-btn-play {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     border: 1.5px solid var(--lm-yellow);
     color: var(--lm-yellow);
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 800;
     letter-spacing: 0.03em;
-    padding: 10px 18px;
-    border-radius: 999px;
+    padding: 6px 12px;
+    border-radius: var(--lm-radius-sm);
     white-space: nowrap;
     transition: background 0.15s ease, color 0.15s ease;
 }
@@ -724,19 +760,21 @@
     }
 
     .lm-card {
-        grid-template-columns: 52px 1fr;
+        grid-template-columns: 1fr;
         grid-template-areas:
-            "logo info"
-            "meta acao";
+            "logo"
+            "info"
+            "meta"
+            "acao";
         row-gap: 12px;
     }
 
-    .lm-card__logo { grid-area: logo; width: 52px; height: 52px; }
+    .lm-card__logo { grid-area: logo; width: 100%; height: 170px; }
     .lm-card__info { grid-area: info; }
     .lm-card__meta {
         grid-area: meta;
         flex-direction: row;
         gap: 14px;
     }
-    .lm-card__acao { grid-area: acao; justify-self: end; }
+    .lm-card__acao { grid-area: acao; justify-self: start; }
 }

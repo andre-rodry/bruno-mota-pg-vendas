@@ -189,7 +189,8 @@ function andrewp_metabox_entrevista_html($post) {
     <p style="color:#666;">
         Use o <em>resumo</em> (excerpt, na coluna direita do editor) como a descrição do card.
         Canal e Tipo (TV/Rádio/Podcasts/Imprensa) ficam nas caixas de taxonomia à direita.
-        A imagem destacada (featured image) é usada na thumb do bloco "EM DESTAQUE".
+        A imagem destacada (featured image) é usada na thumb do bloco "EM DESTAQUE"
+        <strong>e também no quadrado de logo do card</strong>, quando definida.
     </p>
     <?php
 }
@@ -246,12 +247,17 @@ function andrewp_render_card_entrevista($post) {
     $link_assistir  = get_post_meta($post_id, '_link_assistir', true);
     $descricao      = get_the_excerpt($post);
     $data_formatada = andrewp_formatar_data_ptbr($post_id);
+    $tem_thumbnail  = has_post_thumbnail($post_id);
 
     ob_start();
     ?>
     <li class="lm-card">
-        <div class="lm-card__logo lm-card__logo--<?php echo esc_attr($canal_slug); ?>">
-            <?php echo esc_html($canal_nome); ?>
+        <div class="lm-card__logo lm-card__logo--<?php echo esc_attr($canal_slug); ?><?php echo $tem_thumbnail ? ' lm-card__logo--img' : ''; ?>">
+            <?php if ($tem_thumbnail) : ?>
+                <?php echo get_the_post_thumbnail($post_id, 'medium', ['class' => 'lm-card__logo-img', 'alt' => esc_attr($canal_nome)]); ?>
+            <?php else : ?>
+                <?php echo esc_html($canal_nome); ?>
+            <?php endif; ?>
         </div>
 
         <div class="lm-card__info">
