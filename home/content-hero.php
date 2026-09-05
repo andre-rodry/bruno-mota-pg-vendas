@@ -1,6 +1,7 @@
 <?php
 /**
  * Template part: Hero de lançamento - Home
+ * Layout: 2 Blocos separados (Esquerda | Direita)
  *
  * Uso no front-page.php:
  * get_template_part( 'home/content-hero' );
@@ -8,7 +9,9 @@
 ?>
 <section class="hero-launch">
   <div class="container">
-    <div class="hero-launch__copy">
+    
+    <!-- BLOCO 1: CONTEÚDO (ESQUERDA) -->
+    <div class="hero-launch__block hero-launch__block--content">
 
       <div class="hero-launch__rule-row">
         <span class="hero-launch__rule"></span>
@@ -71,5 +74,49 @@
       </div>
 
     </div>
+
+    <!-- BLOCO 2: IMAGENS (DIREITA) -->
+    <div class="hero-launch__block hero-launch__block--media">
+
+      <!-- Livro -->
+      <div class="hero-launch__book">
+        <img 
+          src="<?php echo get_template_directory_uri(); ?>/assets/img/livro-inteligencia-artificial-para-economistas-contadores.webp" 
+          alt="Livro Inteligência Artificial para Economistas e Contadores"
+          class="hero-launch__book-img"
+        />
+      </div>
+
+      <!-- Autores em Linha -->
+      <div class="hero-launch__authors">
+        
+        <div class="hero-launch__author">
+          <img 
+            src="<?php echo get_template_directory_uri(); ?>/assets/img/bruno-mota-lopes.webp" 
+            alt="Bruno Mota Lopes"
+            class="hero-launch__author-img"
+          />
+          <div class="hero-launch__author-info">
+            <p class="hero-launch__author-name">Bruno Mota Lopes</p>
+            <p class="hero-launch__author-role">Economista, Educador<br>Financeiro e Pesquisador</p>
+          </div>
+        </div>
+
+        <div class="hero-launch__author">
+          <img 
+            src="<?php echo get_template_directory_uri(); ?>/assets/img/welinton-dos-santos.webp" 
+            alt="Welinton dos Santos"
+            class="hero-launch__author-img"
+          />
+          <div class="hero-launch__author-info">
+            <p class="hero-launch__author-name">Welinton dos Santos</p>
+            <p class="hero-launch__author-role">Economista e Especialista<br>em Gestão e Finanças</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
   </div>
 </section>
