@@ -15,9 +15,3 @@
         <div class="bm-loader-bar"></div>
     </div>
 </div>
-
-<header class="container" style="padding: var(--space-md) 0;">
-    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="font-family: var(--font-display); font-size: 1.5rem; color: var(--text-light);">
-        <?php bloginfo( 'name' ); ?>
-    </a>
-</header>

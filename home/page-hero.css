@@ -1,0 +1,183 @@
+/* ===== Hero de Lançamento (Home) ===== */
+.hero-launch {
+  background: #0b0e1a;
+  padding: 48px 0;
+}
+
+.hero-launch .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.hero-launch__copy {
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* --- linha "Lançamento" / "para" (simétrica, centralizada) --- */
+.hero-launch__rule-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.hero-launch__rule {
+  flex: 1;
+  height: 1px;
+  max-width: 160px;
+}
+
+.hero-launch__rule-row .hero-launch__rule:first-child {
+  background: linear-gradient(to right, rgba(201, 168, 118, 0) 0%, rgba(201, 168, 118, 0.6) 100%);
+}
+
+.hero-launch__rule-row .hero-launch__rule:last-child {
+  background: linear-gradient(to left, rgba(201, 168, 118, 0) 0%, rgba(201, 168, 118, 0.6) 100%);
+}
+
+.hero-launch__eyebrow {
+  font-family: var(--font-body-alt);
+  color: #c9a876;
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* --- título (fonte condensada pesada) --- */
+.hero-launch__title {
+  font-family: var(--font-display-alt);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  color: #ffffff;
+  margin: 0;
+  text-align: center;
+}
+
+.hero-launch__rule-row--sub {
+  gap: 12px;
+  margin: 10px 0;
+}
+
+.hero-launch__title-sub {
+  font-family: var(--font-body-alt);
+  text-transform: none;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #c9a876;
+  white-space: nowrap;
+}
+
+/* --- tag "A mágica dos prompts" --- */
+.hero-launch__tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-body-alt);
+  color: #d9a856;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  border: 1px solid rgba(217, 168, 86, 0.5);
+  border-radius: 4px;
+  margin: 16px auto 20px;
+}
+
+.hero-launch__tag-arrow {
+  color: #d9a856;
+  flex-shrink: 0;
+}
+
+/* --- descrição (forçando cor pra vencer o tema) --- */
+section.hero-launch p.hero-launch__desc {
+  font-family: var(--font-body-alt);
+  color: #9aa3b5;
+  font-size: 1rem;
+  line-height: 1.5;
+  max-width: 34ch;
+  margin: 0 auto 24px;
+  font-weight: 400;
+  text-align: center;
+}
+
+/* --- ações (centralizadas) --- */
+.hero-launch__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.hero-launch__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body-alt);
+  background: #c9a876;
+  color: #0b0e1a;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: 0.85rem;
+  padding: 12px 20px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.hero-launch__cta:hover {
+  background: #b8935f;
+  color: #0b0e1a;
+}
+
+.hero-launch__cta svg {
+  flex-shrink: 0;
+}
+
+.hero-launch__divider-v {
+  width: 1px;
+  height: 34px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.hero-launch__amazon {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-body-alt);
+  font-size: 0.85rem;
+  line-height: 1.35;
+  text-align: left;
+}
+
+.hero-launch__amazon span {
+  color: #9aa3b5;
+  font-weight: 400;
+}
+
+.hero-launch__amazon strong {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+}
+
+.hero-launch__amazon strong svg {
+  margin-top: 1px;
+}
