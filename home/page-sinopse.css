@@ -1,0 +1,256 @@
+/* ==========================================================================
+   Section: Sinopse + Sobre os Autores
+   ========================================================================== */
+
+.sinopse-section {
+	background-color: var(--navy-950);
+	padding: var(--space-xl) var(--space-md);
+	color: var(--text-soft);
+}
+
+.sinopse-container {
+	width: 100%;
+	max-width: var(--container-max);
+	margin: 0 auto;
+}
+
+/* ---------- Bloco superior: imagem + texto ---------- */
+
+.sinopse-top {
+	display: grid;
+	grid-template-columns: 380px 1fr;
+	gap: var(--space-lg);
+	align-items: stretch;
+}
+
+.sinopse-imagem {
+	position: relative;
+	display: flex;
+	width: 100%;
+	max-width: 380px;
+	height: 100%;
+	overflow: hidden;
+	border-radius: var(--radius-md);
+}
+
+.sinopse-imagem img {
+	position: relative;
+	z-index: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.sinopse-imagem::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	pointer-events: none;
+	background-color: var(--navy-950);
+	opacity: 0.12;
+	mix-blend-mode: multiply;
+}
+
+.sinopse-imagem::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+	pointer-events: none;
+	background:
+		linear-gradient(to right, var(--navy-950) 0%, transparent 12%, transparent 88%, var(--navy-950) 100%),
+		linear-gradient(to bottom, var(--navy-950) 0%, transparent 12%, transparent 88%, var(--navy-950) 100%),
+		radial-gradient(ellipse at center, transparent 45%, var(--navy-950) 100%);
+}
+
+.sinopse-conteudo {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-sm);
+}
+
+.sinopse-titulo {
+	display: flex;
+	align-items: center;
+	gap: var(--space-xs);
+	font-family: var(--font-display);
+	font-size: clamp(1.5rem, 3vw, 2rem);
+	font-weight: 600;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	color: var(--text-light);
+	margin: 0 0 var(--space-xs);
+}
+
+.sinopse-icone {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 30px;
+	height: 30px;
+	color: var(--gold);
+	flex-shrink: 0;
+}
+
+.sinopse-icone svg {
+	width: 26px;
+	height: 26px;
+}
+
+.sinopse-conteudo p {
+	font-family: var(--font-body);
+	font-size: 1.0625rem;
+	line-height: 1.75;
+	color: var(--text-soft-light);
+	margin: 0;
+}
+
+.sinopse-conteudo .destaque {
+	color: var(--gold-accent);
+	font-weight: 600;
+}
+
+/* ---------- Divisor: "Sobre os Autores" ---------- */
+
+.sinopse-divisor {
+	display: flex;
+	align-items: center;
+	gap: var(--space-md);
+	margin: var(--space-xl) 0 var(--space-lg);
+}
+
+.sinopse-divisor span {
+	flex: 1;
+	height: 1px;
+	background: linear-gradient(90deg, transparent, var(--gold), transparent);
+	opacity: 0.6;
+}
+
+.sinopse-divisor h3 {
+	font-family: var(--font-display-alt);
+	font-size: 1.625rem;
+	font-weight: 600;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	color: var(--text-light);
+	white-space: nowrap;
+	margin: 0;
+}
+
+/* ---------- Autores ---------- */
+
+.sinopse-autores {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: var(--space-lg);
+	position: relative;
+}
+
+.sinopse-autores::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 50%;
+	width: 1px;
+	background-color: var(--border-white);
+	transform: translateX(-50%);
+}
+
+.autor-card {
+	display: grid;
+	grid-template-columns: 150px 1fr;
+	gap: var(--space-md);
+	align-items: start;
+}
+
+.autor-foto {
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	border: 3px solid var(--gold);
+	background-color: var(--navy-950);
+	overflow: hidden;
+	flex-shrink: 0;
+}
+
+.autor-foto img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.autor-info h4 {
+	font-family: var(--font-body-alt);
+	font-size: 1.25rem;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;
+	color: var(--gold);
+	margin: var(--space-xs) 0 var(--space-sm);
+}
+
+.autor-info p {
+	font-family: var(--font-body);
+	font-size: 0.9375rem;
+	line-height: 1.7;
+	color: var(--text-soft-light);
+	margin: 0;
+}
+
+/* ==========================================================================
+   Responsivo
+   ========================================================================== */
+
+@media (max-width: 900px) {
+
+	.sinopse-top {
+		grid-template-columns: 1fr;
+		gap: var(--space-md);
+	}
+
+	.sinopse-imagem {
+		max-width: 260px;
+		height: auto;
+		aspect-ratio: 1 / 1;
+		margin: 0 auto;
+	}
+
+	.sinopse-autores {
+		grid-template-columns: 1fr;
+		gap: var(--space-lg);
+	}
+
+	.sinopse-autores::before {
+		display: none;
+	}
+
+	.autor-card {
+		grid-template-columns: 120px 1fr;
+	}
+
+	.autor-foto {
+		width: 120px;
+		height: 120px;
+	}
+}
+
+@media (max-width: 600px) {
+
+	.sinopse-section {
+		padding: var(--space-lg) var(--space-sm);
+	}
+
+	.autor-card {
+		grid-template-columns: 1fr;
+		text-align: center;
+		justify-items: center;
+	}
+
+	.sinopse-divisor h3 {
+		font-size: 1.375rem;
+	}
+}

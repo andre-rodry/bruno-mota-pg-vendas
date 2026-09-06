@@ -6,4 +6,6 @@
 
 <?php get_template_part( 'home/content-beneficios' ); ?>
 
+<?php get_template_part( 'home/content-sinopse' ); ?>
+
 <?php get_footer(); ?>
