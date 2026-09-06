@@ -131,18 +131,8 @@
 }
 
 /* =========================================================
-   LINHAS
+   LINHAS (genérico — usado pelo rule-row do eyebrow e pelo --sub)
 ========================================================= */
-
-.hero-launch__rule-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-
-  width: 100%;
-  margin: 0 0 14px 0;
-}
 
 .hero-launch__rule {
   flex: 1 1 auto;
@@ -152,9 +142,21 @@
   min-width: 0;
 }
 
-/* linha esquerda */
+/* =========================================================
+   RULE-ROW DO EYEBROW (linhas ao redor de "Lançamento")
+========================================================= */
+
+.hero-launch__rule-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  width: 100%;
+  margin: 0 0 20px 0;
+}
+
 .hero-launch__rule-row .hero-launch__rule:first-child {
-  display: block;
   background: linear-gradient(
     to left,
     rgba(201, 168, 118, 0.6),
@@ -162,7 +164,6 @@
   );
 }
 
-/* linha direita */
 .hero-launch__rule-row .hero-launch__rule:last-child {
   background: linear-gradient(
     to right,
@@ -172,21 +173,58 @@
 }
 
 /* =========================================================
-   EYEBROW
+   EYEBROW — texto com brilho dourado (sem borda/botão)
 ========================================================= */
 
 .hero-launch__eyebrow {
-  font-family: var(--font-body-alt);
-  color: #c9a876;
+  display: inline-block;
 
-  font-size: 17px;
+  font-family: var(--font-body-alt);
+  font-size: 15px;
   line-height: 1.2;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 700;
   white-space: nowrap;
 
   margin: 0;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+
+  background-image: linear-gradient(
+    100deg,
+    #8f651f 0%,
+    #c9a876 20%,
+    #fbe7b8 40%,
+    #c9a876 60%,
+    #8f651f 100%
+  );
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+
+  animation: eyebrow-shine 3.5s linear infinite;
+}
+
+@keyframes eyebrow-shine {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -50% center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-launch__eyebrow {
+    animation: none;
+    background-image: none;
+    -webkit-text-fill-color: initial;
+    color: #c9a876;
+  }
 }
 
 /* =========================================================
@@ -210,7 +248,7 @@
 }
 
 /* =========================================================
-   SUBTÍTULO
+   SUBTÍTULO (linhas ao redor de "para")
 ========================================================= */
 
 .hero-launch__rule-row--sub {

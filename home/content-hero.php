@@ -4,6 +4,13 @@
  * Layout: Banner de fundo (aspect-ratio) + texto sobreposto
  * Sistema de escala única: fundo + texto escalam juntos
  * (como se fossem uma imagem estática), via transform: scale().
+ * Exceção: entre 1123px e 1625px, o texto trava no tamanho de 1625px.
+ * Entre 400px e 1123px, transição suave e não-linear de volta ao normal
+ * (fica maior por mais tempo, cai mais rápido só perto do fim).
+ * Reforço extra: abaixo de 783px, aplicamos um boost adicional de escala
+ * (as letras estavam ficando pequenas demais nessa faixa), com transição
+ * suave que não quebra nem em 783px nem em 400px.
+ * Abaixo de 400px, tudo escala junto normalmente.
  */
 ?>
 <section class="hero-launch">
@@ -82,22 +89,58 @@
 
 <script>
 (function () {
-  var DESIGN_WIDTH = 1697; // largura nativa do banner (mesmo valor do CSS)
-  var MIN_WIDTH = 1219;    // largura de referência onde o texto trava o tamanho
-  var MIN_SCALE = MIN_WIDTH / DESIGN_WIDTH;
+  var DESIGN_WIDTH = 1697;    // largura nativa do banner (mesmo valor do CSS)
+  var FREEZE_MAX = 1625;      // acima disso: escala normal, sem travar
+  var FREEZE_MIN = 1123;      // entre FREEZE_MIN e FREEZE_MAX: texto travado no tamanho de 1625px
+  var TRANSITION_MIN = 400;   // entre TRANSITION_MIN e FREEZE_MIN: transição suave; abaixo: normal de novo
+  var EASE_POWER = 0.2;       // <1 = fica grande por mais tempo e cai mais rápido só perto do fim
+
+  var BOOST_BREAK = 783;      // abaixo deste ponto, aplicamos um reforço extra (letras ficavam pequenas)
+  var BOOST_MAX = 0.18;       // força do reforço extra no pico (18%). Ajuste este valor se precisar de mais ou menos.
+
+  var FREEZE_SCALE = FREEZE_MAX / DESIGN_WIDTH;
+  // valor de contentScale exatamente no limite inferior da faixa travada (em FREEZE_MIN)
+  var FROZEN_AT_BOUNDARY = FREEZE_SCALE / (FREEZE_MIN / DESIGN_WIDTH);
 
   var hero = document.querySelector('.hero-launch');
   if (!hero) return;
 
   function updateScale() {
-    var ratio = hero.offsetWidth / DESIGN_WIDTH;
+    var width = hero.offsetWidth;
+    var ratio = width / DESIGN_WIDTH;
 
-    // fundo, imagem, espaçador etc: continuam exatamente como já funcionavam
+    // fundo, imagem, espaçador etc: sempre escalam normalmente
     hero.style.setProperty('--hero-scale', ratio);
 
-    // texto: se a escala geral cair abaixo da de 1219px, compensa
-    // pra ele ficar sempre do tamanho que tinha em 1219px
-    var contentScale = ratio < MIN_SCALE ? (MIN_SCALE / ratio) : 1;
+    var contentScale;
+
+    if (width >= FREEZE_MAX) {
+      // acima de 1625px: tudo normal
+      contentScale = 1;
+    } else if (width >= FREEZE_MIN) {
+      // entre 1123px e 1625px: texto travado no tamanho de 1625px
+      contentScale = FREEZE_SCALE / ratio;
+    } else if (width >= TRANSITION_MIN) {
+      // entre 400px e 1123px: transição suave e não-linear —
+      // fica maior por mais tempo, cai mais rápido só perto do fim
+      var t = (width - TRANSITION_MIN) / (FREEZE_MIN - TRANSITION_MIN); // 0 a 1
+      var tEased = Math.pow(t, EASE_POWER);
+      contentScale = 1 + tEased * (FROZEN_AT_BOUNDARY - 1);
+
+      // reforço extra abaixo de 783px: uma "corcova" suave que começa em 0
+      // exatamente em BOOST_BREAK (sem quebrar a curva ali) e volta a 0
+      // exatamente em TRANSITION_MIN (sem quebrar o "normal" abaixo de 400px),
+      // com o pico do reforço no meio do caminho entre os dois.
+      if (width < BOOST_BREAK) {
+        var localT = (BOOST_BREAK - width) / (BOOST_BREAK - TRANSITION_MIN); // 0 em BOOST_BREAK, 1 em TRANSITION_MIN
+        var boost = BOOST_MAX * Math.sin(Math.PI * localT); // 0 nas duas pontas, pico no meio
+        contentScale = contentScale * (1 + boost);
+      }
+    } else {
+      // abaixo de 400px: volta a escalar tudo junto normalmente
+      contentScale = 1;
+    }
+
     hero.style.setProperty('--content-scale', contentScale);
   }
 
