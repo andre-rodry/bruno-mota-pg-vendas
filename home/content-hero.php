@@ -11,6 +11,18 @@
  * (as letras estavam ficando pequenas demais nessa faixa), com transição
  * suave que não quebra nem em 783px nem em 400px.
  * Abaixo de 400px, tudo escala junto normalmente.
+ *
+ * Responsivo mobile (via CSS, sem alterar a lógica JS acima):
+ * - Acima de 871px: nada muda, continua o sistema de escala com o banner de fundo.
+ * - Em 870px e abaixo: o fundo some, o transform: scale() do texto é travado
+ *   em none (!important, para não conflitar com o JS de escala do desktop).
+ *   O texto (centralizado internamente) fica lado a lado com a capa do
+ *   livro, e os autores aparecem em linha própria logo abaixo dos dois.
+ *   Se não houver espaço suficiente, o texto e a capa quebram linha
+ *   automaticamente (flex-wrap) antes de virar coluna abaixo de 480px.
+ * - Em 480px e abaixo: tudo centralizado, capa do livro desce para depois
+ *   do botão/Amazon.
+ * - Em 477px e abaixo: autores viram lista (avatar circular + texto ao lado).
  */
 ?>
 <section class="hero-launch">
@@ -81,7 +93,48 @@
 
       </div>
 
+      <!-- Capa do livro: visível apenas em telas de 870px e abaixo -->
+      <div class="hero-launch__book">
+        <img
+          src="<?php echo get_template_directory_uri(); ?>/assets/img/livro-inteligencia-artificial-para-economistas-contadores.webp"
+          alt="Capa do livro Inteligência Artificial para Economistas e Contadores"
+        >
+      </div>
+
       <div class="hero-launch__spacer" aria-hidden="true"></div>
+
+      <!-- Autores: visível apenas em telas de 870px e abaixo -->
+      <div class="hero-launch__authors">
+
+        <div class="hero-launch__author">
+        <div class="hero-launch__author-photo-wrap">
+          <img
+            class="hero-launch__author-photo"
+            src="<?php echo get_template_directory_uri(); ?>/assets/img/bruno-mota-lopes.webp"
+            alt="Bruno Mota Lopes"
+          >
+        </div>
+          <div class="hero-launch__author-info">
+            <span class="hero-launch__author-name">Bruno Mota Lopes</span>
+            <span class="hero-launch__author-role">Economista, Educador Financeiro e Pesquisador</span>
+          </div>
+        </div>
+
+        <div class="hero-launch__author">
+        <div class="hero-launch__author-photo-wrap">
+          <img
+            class="hero-launch__author-photo"
+            src="<?php echo get_template_directory_uri(); ?>/assets/img/welinton-dos-santos.webp"
+            alt="Welinton dos Santos"
+          >
+        </div>
+          <div class="hero-launch__author-info">
+            <span class="hero-launch__author-name">Welinton dos Santos</span>
+            <span class="hero-launch__author-role">Economista e Especialista em Gestão e Finanças</span>
+          </div>
+        </div>
+
+      </div>
 
     </div>
   </div>

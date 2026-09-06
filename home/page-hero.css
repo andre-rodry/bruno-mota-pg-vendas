@@ -1,7 +1,8 @@
 /* =========================================================
    HERO DE LANÇAMENTO
    Sistema de escala única: fundo + texto escalam juntos,
-   como se fossem uma imagem estática.
+   como se fossem uma imagem estática (desktop).
+   Abaixo de 870px: layout muda para flex-wrap sem fundo/scale.
 ========================================================= */
 
 :root {
@@ -534,9 +535,426 @@
 }
 
 /* =========================================================
-   MOBILE (opcional)
-   Em telas muito estreitas, você pode preferir empilhar
-   o conteúdo em vez de só escalar. Isso é feito trocando
-   a lógica no JS (ver explicação abaixo), não aqui no CSS,
-   já que o bloco de escala é rígido por natureza.
+   ELEMENTOS MOBILE (capa do livro + autores)
+   Ocultos no desktop; ativados a partir de 870px
 ========================================================= */
+
+.hero-launch__book {
+  display: none;
+}
+
+.hero-launch__book img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hero-launch__authors {
+  display: none;
+}
+
+.hero-launch__author {
+  display: flex;
+  align-items: center;
+}
+
+.hero-launch__author-photo-wrap {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+.hero-launch__author-photo-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 15, 28, 0.24);
+  pointer-events: none;
+}
+
+.hero-launch__author-photo-wrap::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 68%;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 15, 28, 0) 0%,
+    rgba(10, 15, 28, 0.5) 40%,
+    rgba(10, 15, 28, 0.85) 70%,
+    #0b0f1e 100%
+  );
+  pointer-events: none;
+}
+
+.hero-launch__author-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+}
+
+.hero-launch__author-name {
+  display: block;
+  font-family: var(--font-body-alt);
+  color: #c9a876;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.hero-launch__author-role {
+  display: block;
+  font-family: var(--font-body-alt);
+  color: #cfd4e0;
+  font-weight: 400;
+}
+
+/* =========================================================
+   BREAKPOINT: 870px E ABAIXO
+   Fundo some, scale desativado. Texto (centralizado
+   internamente) fica lado a lado com a capa do livro;
+   autores em linha própria abaixo dos dois.
+========================================================= */
+
+@media (max-width: 870px) {
+
+  .hero-launch {
+    aspect-ratio: unset;
+    height: auto;
+    overflow: visible;
+    background: #0b0e1a;
+  }
+
+  .hero-launch__scale {
+    position: static;
+    width: 100%;
+    height: auto;
+    transform: none !important;
+    background-image: none !important;
+    padding: 48px 24px;
+  }
+
+  .hero-launch__scale::before {
+    display: none;
+  }
+
+  .hero-launch__scale .container {
+    max-width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    row-gap: 36px;
+    column-gap: 40px;
+    padding: 0;
+  }
+
+  .hero-launch__spacer {
+    display: none;
+  }
+
+  /* ---- texto (centralizado internamente, lado a lado com a capa) ---- */
+
+  .hero-launch__block--content {
+    width: auto;
+    max-width: 400px;
+    flex: 1 1 280px;
+    text-align: center;
+    align-items: center;
+    transform: none;
+  }
+
+  .hero-launch__eyebrow {
+    font-size: 13px;
+  }
+
+  .hero-launch__title {
+    text-align: center;
+    font-size: 32px;
+  }
+
+  .hero-launch__rule-row--sub {
+    justify-content: center;
+  }
+
+  .hero-launch__title-sub {
+    text-align: center;
+    font-size: 16px;
+  }
+
+  .hero-launch__tag {
+    margin: 16px auto;
+    font-size: 12px;
+    padding: 8px 14px;
+  }
+
+  .hero-launch__desc {
+    text-align: center;
+    margin: 0 auto 22px auto;
+    font-size: 15px;
+  }
+
+  .hero-launch__actions {
+    justify-content: center;
+  }
+
+  .hero-launch__cta {
+    font-size: 13px;
+    padding: 11px 18px;
+  }
+
+  .hero-launch__amazon {
+    align-items: center;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .hero-launch__amazon strong {
+    align-items: center;
+    font-size: 17px;
+  }
+
+  .hero-launch__divider-v {
+    display: none;
+  }
+
+  /* ---- capa do livro (lado a lado com o texto, maior) ---- */
+
+  .hero-launch__book {
+    display: block;
+    flex: 0 1 340px;
+    max-width: 340px;
+  }
+
+  /* ---- autores (linha própria, abaixo de texto + capa) ---- */
+
+  .hero-launch__authors {
+    display: flex;
+    flex: 1 1 100%;
+    width: 100%;
+    max-width: 700px;
+    gap: 24px;
+  }
+
+  .hero-launch__author {
+    flex: 1 1 0;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .hero-launch__author-photo-wrap {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    border-radius: 4px;
+  }
+
+  .hero-launch__author-info {
+    width: 100%;
+    text-align: center;
+    margin-top: -64px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-launch__author-name {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .hero-launch__author-role {
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: center;
+  }
+}
+
+/* =========================================================
+   BREAKPOINT: 480px E ABAIXO
+   Tudo centralizado, capa desce após botão/Amazon
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .hero-launch__scale .container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+  }
+
+  .hero-launch__block--content {
+    align-items: center;
+    text-align: center;
+    flex-basis: auto;
+  }
+
+  .hero-launch__rule-row,
+  .hero-launch__rule-row--sub,
+  .hero-launch__actions {
+    justify-content: center;
+  }
+
+  .hero-launch__eyebrow {
+    letter-spacing: 0.2em;
+  }
+
+  .hero-launch__title {
+    text-align: center;
+    font-size: 32px;
+  }
+
+  .hero-launch__title-sub {
+    text-align: center;
+  }
+
+  .hero-launch__desc {
+    text-align: center;
+    margin: 0 auto 24px auto;
+    font-size: 16px;
+  }
+
+  .hero-launch__tag {
+    margin: 16px auto;
+    font-size: 13px;
+  }
+
+  .hero-launch__actions {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .hero-launch__cta {
+    font-size: 12px;
+    padding: 9px 14px;
+  }
+
+  .hero-launch__amazon {
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-launch__amazon strong {
+    align-items: center;
+  }
+
+  .hero-launch__book {
+    order: 1;
+    max-width: 220px;
+    margin: 8px 0 0 0;
+  }
+
+  .hero-launch__authors {
+    order: 2;
+    margin-top: 8px;
+  }
+
+  .hero-launch__author {
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-launch__author-info {
+    text-align: center;
+    margin-top: -34px;
+  }
+
+  .hero-launch__author-photo-wrap {
+    width: 100%;
+    max-width: 140px;
+  }
+
+  .hero-launch__author-name {
+    font-size: 15px;
+  }
+
+  .hero-launch__author-role {
+    font-size: 12.5px;
+  }
+}
+
+/* =========================================================
+   BREAKPOINT: 477px E ABAIXO
+   Autores viram lista horizontal (avatar circular + texto)
+========================================================= */
+
+@media (max-width: 477px) {
+
+  .hero-launch__title {
+    font-size: 26px;
+  }
+
+  .hero-launch__desc {
+    font-size: 14px;
+  }
+
+  .hero-launch__tag {
+    font-size: 12px;
+  }
+
+  .hero-launch__authors {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .hero-launch__author {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    gap: 14px;
+    width: 100%;
+  }
+
+  /* ---- foto: maior e com zoom para mostrar só o rosto ---- */
+
+  .hero-launch__author-photo-wrap {
+    width: clamp(56px, 18vw, 96px);
+    height: clamp(56px, 18vw, 96px);
+    max-width: 96px;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    border: 2px solid #c9a876;
+    padding: 3px;
+    box-sizing: border-box;
+    background: #0b0f1e;
+    flex-shrink: 0;
+  }
+
+  .hero-launch__author-photo-wrap img {
+    border-radius: 50%;
+    /* zoom leve, rosto centralizado no círculo */
+    transform: scale(1.15);
+    transform-origin: center 32%;
+  }
+
+  .hero-launch__author-photo-wrap::before,
+  .hero-launch__author-photo-wrap::after {
+    display: none;
+  }
+
+  /* ---- texto: alinhado à esquerda e maior ---- */
+
+  .hero-launch__author-info {
+    width: auto;
+    flex: 1 1 auto;
+    text-align: left;
+    margin-top: 0;
+  }
+
+  .hero-launch__author-name {
+    font-size: clamp(13px, 4vw, 16px);
+    text-align: left;
+  }
+
+  .hero-launch__author-role {
+    font-size: clamp(11px, 3.2vw, 14px);
+    text-align: left;
+  }
+}
