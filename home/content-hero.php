@@ -26,7 +26,7 @@
  */
 ?>
 <section class="hero-launch">
-  <div class="hero-launch__scale" style="--hero-bg: url('<?php echo get_template_directory_uri(); ?>/assets/img/banner.png');">
+  <div class="hero-launch__scale" style="--hero-bg: url('<?php echo get_template_directory_uri(); ?>/assets/img/banner-bruno-mota-welinton-santos.webp');">
     <div class="container">
 
       <div class="hero-launch__block hero-launch__block--content">

@@ -83,14 +83,6 @@
 				</div>
 			</div>
 
-			<span class="autores-divider"></span>
-
-			<div class="autores-item autores-quote">
-				<span class="quote-mark quote-open">&ldquo;</span>
-				<p>A IA não vai substituir você. Mas quem usa IA vai.</p>
-				<span class="quote-mark quote-close">&rdquo;</span>
-			</div>
-
 		</div>
 
 		<span class="autores-glow"></span>
