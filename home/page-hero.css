@@ -381,7 +381,7 @@
   font-family: var(--font-body-alt);
   background: #c9a876;
   color: #0b0e1a;
-  font-weight: 700;
+  font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.02em;
 
@@ -390,18 +390,86 @@
 
   padding: 14px 24px;
 
-  border-radius: 5px;
+  border-radius: 0;
   text-decoration: none;
   cursor: pointer;
   border: none;
   white-space: nowrap;
 
   margin: 0;
+
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+
+  box-shadow: 0 0 0 rgba(201, 168, 118, 0);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+
+  animation: cta-glow 3s ease-in-out infinite;
+}
+
+/* brilho suave "respirando" ao redor do botão, contínuo e discreto */
+@keyframes cta-glow {
+  0%, 100% {
+    box-shadow: 0 4px 14px rgba(201, 168, 118, 0.18);
+  }
+  50% {
+    box-shadow: 0 6px 22px rgba(201, 168, 118, 0.38);
+  }
+}
+
+/* faixa de luz que atravessa o botão de forma sutil e contínua */
+.hero-launch__cta::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+
+  background: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+
+  transform: skewX(-20deg);
+  animation: cta-shine 4.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes cta-shine {
+  0% {
+    left: -60%;
+  }
+  35%,
+  100% {
+    left: 130%;
+  }
 }
 
 .hero-launch__cta:hover {
   background: #b8935f;
   color: #0b0e1a;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(201, 168, 118, 0.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-launch__cta {
+    animation: none;
+  }
+  .hero-launch__cta::after {
+    display: none;
+  }
+}
+
+.hero-launch__cta span,
+.hero-launch__cta svg {
+  position: relative;
+  z-index: 2;
 }
 
 .hero-launch__cta svg {
