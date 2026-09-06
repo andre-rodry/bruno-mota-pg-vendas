@@ -85,7 +85,7 @@
 
 		</div>
 
-		<span class="autores-glow"></span>
+		<div class="autores-bottom-line"></div>
 
 	</div>
 </section>
