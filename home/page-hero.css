@@ -23,26 +23,6 @@
   background: #0b0e1a; /* fallback enquanto a imagem carrega */
 }
 
-/* Fade full bleed na borda inferior para dissolver a imagem na cor de background */
-.hero-launch::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 250px;
-  background: linear-gradient(
-    to bottom,
-    rgba(10, 15, 28, 0) 0%,
-    rgba(10, 15, 28, 0.25) 25%,
-    rgba(10, 15, 28, 0.5) 50%,
-    rgba(10, 15, 28, 0.75) 75%,
-    var(--navy-950, #0a0f1c) 100%
-  );
-  pointer-events: none;
-  z-index: 8;
-}
-
 .hero-launch,
 .hero-launch *,
 .hero-launch *::before,
@@ -90,6 +70,33 @@
     rgba(11, 14, 26, 0) 100%
   );
 
+  z-index: 1;
+}
+
+/* =========================================================
+   FADE INFERIOR — dissolve a imagem na cor de background.
+   Agora é filho de .hero-launch__scale (não de .hero-launch),
+   ou seja, escala JUNTO com o design em vez de ter altura fixa
+   em px reais. Isso evita que ele "cresça" proporcionalmente
+   conforme a tela estreita e acabe cobrindo o botão/CTA.
+========================================================= */
+
+.hero-launch__scale::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 250px; /* coordenada nativa do design 1697x927 — escala junto */
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 15, 28, 0) 0%,
+    rgba(10, 15, 28, 0.25) 25%,
+    rgba(10, 15, 28, 0.5) 50%,
+    rgba(10, 15, 28, 0.75) 75%,
+    var(--navy-950, #0a0f1c) 100%
+  );
+  pointer-events: none;
   z-index: 1;
 }
 
@@ -650,10 +657,6 @@
     background: #0b0e1a;
   }
 
-  .hero-launch::after {
-    display: none;
-  }
-
   .hero-launch__scale {
     position: static;
     width: 100%;
@@ -664,6 +667,10 @@
   }
 
   .hero-launch__scale::before {
+    display: none;
+  }
+
+  .hero-launch__scale::after {
     display: none;
   }
 
