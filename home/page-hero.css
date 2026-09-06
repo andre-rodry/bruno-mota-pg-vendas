@@ -6,6 +6,7 @@
 
 :root {
   --hero-scale: 1;
+  --content-scale: 1;
 }
 
 /* =========================================================
@@ -124,6 +125,9 @@
 
   margin: 0;
   padding: 0;
+
+  transform: scale(var(--content-scale, 1));
+  transform-origin: center center;
 }
 
 /* =========================================================

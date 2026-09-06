@@ -83,12 +83,22 @@
 <script>
 (function () {
   var DESIGN_WIDTH = 1697; // largura nativa do banner (mesmo valor do CSS)
+  var MIN_WIDTH = 1219;    // largura de referência onde o texto trava o tamanho
+  var MIN_SCALE = MIN_WIDTH / DESIGN_WIDTH;
+
   var hero = document.querySelector('.hero-launch');
   if (!hero) return;
 
   function updateScale() {
     var ratio = hero.offsetWidth / DESIGN_WIDTH;
+
+    // fundo, imagem, espaçador etc: continuam exatamente como já funcionavam
     hero.style.setProperty('--hero-scale', ratio);
+
+    // texto: se a escala geral cair abaixo da de 1219px, compensa
+    // pra ele ficar sempre do tamanho que tinha em 1219px
+    var contentScale = ratio < MIN_SCALE ? (MIN_SCALE / ratio) : 1;
+    hero.style.setProperty('--content-scale', contentScale);
   }
 
   if (window.ResizeObserver) {
