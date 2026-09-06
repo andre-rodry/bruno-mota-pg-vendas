@@ -8,6 +8,7 @@
 :root {
   --hero-scale: 1;
   --content-scale: 1;
+  --navy-950: #0a0f1c;
 }
 
 /* =========================================================
@@ -20,6 +21,26 @@
   aspect-ratio: 1697 / 927; /* mesma proporção do banner original */
   overflow: hidden;
   background: #0b0e1a; /* fallback enquanto a imagem carrega */
+}
+
+/* Fade full bleed na borda inferior para dissolver a imagem na cor de background */
+.hero-launch::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 250px;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 15, 28, 0) 0%,
+    rgba(10, 15, 28, 0.25) 25%,
+    rgba(10, 15, 28, 0.5) 50%,
+    rgba(10, 15, 28, 0.75) 75%,
+    var(--navy-950, #0a0f1c) 100%
+  );
+  pointer-events: none;
+  z-index: 8;
 }
 
 .hero-launch,
@@ -627,6 +648,10 @@
     height: auto;
     overflow: visible;
     background: #0b0e1a;
+  }
+
+  .hero-launch::after {
+    display: none;
   }
 
   .hero-launch__scale {
