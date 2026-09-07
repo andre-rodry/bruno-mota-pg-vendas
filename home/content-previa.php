@@ -126,7 +126,7 @@ $first        = $previa_sections[ $first_key ];
         </div>
 
         <div class="car-img-box" id="pb-image-container">
-            <img id="pb-main-view-img" src="<?php echo esc_url( $first['blocks'][0]['img'] ); ?>" alt="Prévia da seção <?php echo esc_attr( $first['label'] ); ?>">
+            <img id="pb-main-view-img" src="<?php echo esc_url( $first['blocks'][0]['img'] ); ?>" alt="Prévia da seção <?php echo esc_attr( $first['label'] ); ?>" onclick="pbOpenModal()">
         </div>
 
         <div class="nav-arrows">
@@ -156,6 +156,25 @@ $first        = $previa_sections[ $first_key ];
         <div class="feature-item">
             <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V10M12 20V4M20 20v-7"></path></svg></span>
             <span class="feature-text">Análises sobre economia<br>e desenvolvimento</span>
+        </div>
+    </div>
+
+    <div class="pb-modal" id="pb-modal" onclick="pbModalBackdropClick(event)">
+        <button class="pb-modal-close" onclick="pbCloseModal()" aria-label="Fechar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+        </button>
+
+        <div class="pb-modal-arrow pb-modal-arrow-left" onclick="pbModalMove(-1, event)" aria-label="Anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"></path></svg>
+        </div>
+
+        <div class="pb-modal-content" onclick="event.stopPropagation()">
+            <img id="pb-modal-img" src="" alt="">
+            <p class="pb-modal-caption" id="pb-modal-caption"></p>
+        </div>
+
+        <div class="pb-modal-arrow pb-modal-arrow-right" onclick="pbModalMove(1, event)" aria-label="Próximo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg>
         </div>
     </div>
 </div>

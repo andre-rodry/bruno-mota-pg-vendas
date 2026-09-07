@@ -1,4 +1,5 @@
 let pbTransitionTimeout1, pbTransitionTimeout2;
+let pbModalTransitionTimeout1, pbModalTransitionTimeout2;
 let pbCurrentSection = null;
 let pbCurrentBlockIndex = 0;
 
@@ -110,6 +111,64 @@ function pbMoveBlock(direction) {
 document.addEventListener('keydown', function (e) {
     var section = document.querySelector('.previa-bruno-section');
     if (!section) return;
+
+    var modal = document.getElementById('pb-modal');
+    var modalOpen = modal && modal.classList.contains('active');
+
+    if (modalOpen) {
+        if (e.key === 'Escape') pbCloseModal();
+        if (e.key === 'ArrowLeft') pbModalMove(-1);
+        if (e.key === 'ArrowRight') pbModalMove(1);
+        return;
+    }
+
     if (e.key === 'ArrowLeft') pbMoveBlock(-1);
     if (e.key === 'ArrowRight') pbMoveBlock(1);
 });
+
+/* ---------- Modal (lightbox) ---------- */
+
+function pbOpenModal() {
+    if (!pbCurrentSection) return;
+    var modal = document.getElementById('pb-modal');
+    var modalImg = document.getElementById('pb-modal-img');
+    var block = window.pbPreviaData[pbCurrentSection].blocks[pbCurrentBlockIndex];
+    if (!block) return;
+
+    modalImg.src = block.img;
+    modalImg.alt = block.name;
+    document.getElementById('pb-modal-caption').textContent = block.name;
+
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function pbCloseModal() {
+    var modal = document.getElementById('pb-modal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function pbModalBackdropClick(e) {
+    if (e.target.id === 'pb-modal') pbCloseModal();
+}
+
+function pbModalMove(direction, e) {
+    if (e) e.stopPropagation();
+    pbMoveBlock(direction);
+
+    var block = window.pbPreviaData[pbCurrentSection].blocks[pbCurrentBlockIndex];
+    var modalImg = document.getElementById('pb-modal-img');
+
+    clearTimeout(pbModalTransitionTimeout1);
+    clearTimeout(pbModalTransitionTimeout2);
+
+    modalImg.classList.add('pb-transitioning');
+    pbModalTransitionTimeout1 = setTimeout(function () {
+        modalImg.src = block.img;
+        document.getElementById('pb-modal-caption').textContent = block.name;
+        pbModalTransitionTimeout2 = setTimeout(function () {
+            modalImg.classList.remove('pb-transitioning');
+        }, 50);
+    }, 200);
+}
