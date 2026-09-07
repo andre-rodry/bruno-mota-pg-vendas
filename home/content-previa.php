@@ -169,12 +169,27 @@ $first        = $previa_sections[ $first_key ];
         </div>
 
         <div class="pb-modal-content" onclick="event.stopPropagation()">
-            <img id="pb-modal-img" src="" alt="">
+            <div class="pb-modal-viewport" id="pb-modal-viewport">
+                <img id="pb-modal-img" src="" alt="" draggable="false">
+            </div>
             <p class="pb-modal-caption" id="pb-modal-caption"></p>
         </div>
 
         <div class="pb-modal-arrow pb-modal-arrow-right" onclick="pbModalMove(1, event)" aria-label="Próximo">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg>
+        </div>
+
+        <div class="pb-zoom-controls" onclick="event.stopPropagation()">
+            <button class="pb-zoom-btn" onclick="pbZoomOut()" aria-label="Diminuir zoom">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3M8 11h6"></path></svg>
+            </button>
+            <span class="pb-zoom-level" id="pb-zoom-level">100%</span>
+            <button class="pb-zoom-btn" onclick="pbZoomIn()" aria-label="Aumentar zoom">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"></path></svg>
+            </button>
+            <button class="pb-zoom-btn pb-zoom-reset" onclick="pbResetZoom()" aria-label="Restaurar zoom">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v5h5"></path></svg>
+            </button>
         </div>
     </div>
 </div>

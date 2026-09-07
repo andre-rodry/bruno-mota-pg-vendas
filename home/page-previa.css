@@ -373,6 +373,7 @@
     font-weight: 500;
 }
 
+
 /* ---------- Modal (lightbox) ---------- */
 
 .pb-modal {
@@ -406,19 +407,45 @@
     gap: 14px;
 }
 
-.pb-modal-content img {
+.pb-modal-viewport {
     max-width: 90vw;
-    max-height: 80vh;
-    object-fit: contain;
+    max-height: 78vh;
+    overflow: hidden;
     border-radius: var(--radius-md);
     border: 1px solid var(--border-white);
     box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
-    transition: opacity 0.2s ease, transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+    background: var(--navy-900);
+    cursor: zoom-in;
 }
 
-.pb-modal-content img.pb-transitioning {
+.pb-modal-viewport.pb-zoomed {
+    cursor: grab;
+}
+
+.pb-modal-viewport.pb-dragging {
+    cursor: grabbing;
+}
+
+.pb-modal-viewport img {
+    display: block;
+    max-width: 90vw;
+    max-height: 78vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    transform-origin: 0 0;
+    transition: opacity 0.2s ease, transform 0.08s linear;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.pb-modal-viewport img.pb-no-transition {
+    transition: opacity 0.2s ease;
+}
+
+.pb-modal-viewport img.pb-transitioning {
     opacity: 0;
-    transform: scale(0.96);
 }
 
 .pb-modal-caption {
@@ -470,6 +497,7 @@
     transition: all 0.3s ease;
     flex: 0 0 auto;
     margin: 0 20px;
+    z-index: 2;
 }
 
 .pb-modal-arrow:hover {
@@ -485,6 +513,91 @@
     pointer-events: none;
 }
 
+/* ---------- Controles de zoom ---------- */
+
+.pb-zoom-controls {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-white);
+    border-radius: 100px;
+    padding: 6px;
+    z-index: 3;
+}
+
+.pb-zoom-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: var(--text-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.pb-zoom-btn:hover {
+    background: var(--gold);
+    color: var(--navy-950);
+}
+
+.pb-zoom-btn svg {
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+}
+
+.pb-zoom-reset svg {
+    width: 16px;
+    height: 16px;
+}
+
+.pb-zoom-level {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    font-weight: 600;
+    min-width: 44px;
+    text-align: center;
+    user-select: none;
+}
+
+@media (max-width: 768px) {
+    .pb-modal {
+        padding: 16px;
+    }
+    .pb-modal-arrow {
+        width: 40px;
+        height: 40px;
+        margin: 0 8px;
+    }
+    .pb-modal-close {
+        top: 12px;
+        right: 12px;
+        width: 38px;
+        height: 38px;
+    }
+    .pb-modal-viewport,
+    .pb-modal-viewport img {
+        max-width: 92vw;
+        max-height: 68vh;
+    }
+    .pb-zoom-controls {
+        bottom: 12px;
+        padding: 4px;
+    }
+    .pb-zoom-btn {
+        width: 34px;
+        height: 34px;
+    }
+}
 /* ---------- Responsivo ---------- */
 
 @media (max-width: 1024px) {

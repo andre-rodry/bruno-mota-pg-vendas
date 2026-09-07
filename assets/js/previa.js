@@ -3,6 +3,22 @@ let pbModalTransitionTimeout1, pbModalTransitionTimeout2;
 let pbCurrentSection = null;
 let pbCurrentBlockIndex = 0;
 
+/* ---------- Estado do zoom no modal ---------- */
+const PB_ZOOM_MIN = 1;
+const PB_ZOOM_MAX = 4;
+const PB_ZOOM_STEP = 0.5;
+
+let pbZoom = 1;
+let pbPanX = 0;
+let pbPanY = 0;
+let pbIsDragging = false;
+let pbDragStartX = 0;
+let pbDragStartY = 0;
+let pbPanStartX = 0;
+let pbPanStartY = 0;
+let pbPinchStartDist = 0;
+let pbPinchStartZoom = 1;
+
 document.addEventListener('DOMContentLoaded', function () {
     if (!window.pbPreviaOrder || !window.pbPreviaOrder.length) return;
     pbCurrentSection = window.pbPreviaOrder[0];
@@ -14,6 +30,8 @@ document.addEventListener('DOMContentLoaded', function () {
             preload.src = block.img;
         });
     });
+
+    pbSetupZoomEvents();
 });
 
 function pbSetSection(key, tabEl) {
@@ -117,8 +135,11 @@ document.addEventListener('keydown', function (e) {
 
     if (modalOpen) {
         if (e.key === 'Escape') pbCloseModal();
-        if (e.key === 'ArrowLeft') pbModalMove(-1);
-        if (e.key === 'ArrowRight') pbModalMove(1);
+        if (e.key === 'ArrowLeft' && pbZoom === 1) pbModalMove(-1);
+        if (e.key === 'ArrowRight' && pbZoom === 1) pbModalMove(1);
+        if (e.key === '+' || e.key === '=') pbZoomIn();
+        if (e.key === '-') pbZoomOut();
+        if (e.key === '0') pbResetZoom();
         return;
     }
 
@@ -126,7 +147,9 @@ document.addEventListener('keydown', function (e) {
     if (e.key === 'ArrowRight') pbMoveBlock(1);
 });
 
-/* ---------- Modal (lightbox) ---------- */
+/* ==========================================================================
+   Modal (lightbox) + Zoom
+   ========================================================================== */
 
 function pbOpenModal() {
     if (!pbCurrentSection) return;
@@ -139,6 +162,8 @@ function pbOpenModal() {
     modalImg.alt = block.name;
     document.getElementById('pb-modal-caption').textContent = block.name;
 
+    pbResetZoom();
+
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
@@ -147,6 +172,7 @@ function pbCloseModal() {
     var modal = document.getElementById('pb-modal');
     modal.classList.remove('active');
     document.body.style.overflow = '';
+    pbResetZoom();
 }
 
 function pbModalBackdropClick(e) {
@@ -155,6 +181,7 @@ function pbModalBackdropClick(e) {
 
 function pbModalMove(direction, e) {
     if (e) e.stopPropagation();
+    if (pbZoom !== 1) return; // não navega enquanto estiver com zoom
     pbMoveBlock(direction);
 
     var block = window.pbPreviaData[pbCurrentSection].blocks[pbCurrentBlockIndex];
@@ -171,4 +198,207 @@ function pbModalMove(direction, e) {
             modalImg.classList.remove('pb-transitioning');
         }, 50);
     }, 200);
+}
+
+/* ---------- Zoom / Pan ---------- */
+
+function pbApplyTransform() {
+    var img = document.getElementById('pb-modal-img');
+    img.style.transform = 'translate(' + pbPanX + 'px, ' + pbPanY + 'px) scale(' + pbZoom + ')';
+
+    var viewport = document.getElementById('pb-modal-viewport');
+    viewport.classList.toggle('pb-zoomed', pbZoom > 1);
+
+    var levelEl = document.getElementById('pb-zoom-level');
+    if (levelEl) levelEl.textContent = Math.round(pbZoom * 100) + '%';
+}
+
+function pbClampPan() {
+    var viewport = document.getElementById('pb-modal-viewport');
+    var img = document.getElementById('pb-modal-img');
+    if (!viewport || !img) return;
+
+    var vw = viewport.clientWidth;
+    var vh = viewport.clientHeight;
+    var iw = img.clientWidth * pbZoom;
+    var ih = img.clientHeight * pbZoom;
+
+    var maxX = Math.max(0, (iw - vw) / 2);
+    var maxY = Math.max(0, (ih - vh) / 2);
+
+    // como transform-origin é 0 0, ajusta o centro manualmente
+    var overflowX = Math.max(0, iw - vw);
+    var overflowY = Math.max(0, ih - vh);
+
+    var minPanX = -overflowX + (vw - img.clientWidth) / 2 * (pbZoom - 1) * 0;
+    // Simplificado: limita para a imagem não "sumir" da viewport
+    pbPanX = Math.min(Math.max(pbPanX, -(overflowX)), 0) + (vw - iw > 0 ? (vw - iw) / 2 : 0);
+    pbPanY = Math.min(Math.max(pbPanY, -(overflowY)), 0) + (vh - ih > 0 ? (vh - ih) / 2 : 0);
+}
+
+function pbSetZoom(newZoom, centerX, centerY) {
+    var viewport = document.getElementById('pb-modal-viewport');
+    var img = document.getElementById('pb-modal-img');
+    if (!viewport || !img) return;
+
+    newZoom = Math.min(PB_ZOOM_MAX, Math.max(PB_ZOOM_MIN, newZoom));
+    if (newZoom === pbZoom) return;
+
+    var rect = viewport.getBoundingClientRect();
+    var originX = centerX !== undefined ? centerX - rect.left : rect.width / 2;
+    var originY = centerY !== undefined ? centerY - rect.top : rect.height / 2;
+
+    // Ponto na imagem (antes do zoom) correspondente ao ponto do cursor
+    var imgX = (originX - pbPanX) / pbZoom;
+    var imgY = (originY - pbPanY) / pbZoom;
+
+    pbZoom = newZoom;
+
+    // Recalcula pan para manter o mesmo ponto da imagem sob o cursor
+    pbPanX = originX - imgX * pbZoom;
+    pbPanY = originY - imgY * pbZoom;
+
+    if (pbZoom === 1) {
+        pbPanX = 0;
+        pbPanY = 0;
+    } else {
+        pbClampPanSimple();
+    }
+
+    pbApplyTransform();
+}
+
+function pbClampPanSimple() {
+    var viewport = document.getElementById('pb-modal-viewport');
+    var img = document.getElementById('pb-modal-img');
+    if (!viewport || !img) return;
+
+    var vw = viewport.clientWidth;
+    var vh = viewport.clientHeight;
+    var iw = img.clientWidth * pbZoom;
+    var ih = img.clientHeight * pbZoom;
+
+    if (iw <= vw) {
+        pbPanX = (vw - iw) / 2;
+    } else {
+        var minX = vw - iw;
+        pbPanX = Math.min(0, Math.max(minX, pbPanX));
+    }
+
+    if (ih <= vh) {
+        pbPanY = (vh - ih) / 2;
+    } else {
+        var minY = vh - ih;
+        pbPanY = Math.min(0, Math.max(minY, pbPanY));
+    }
+}
+
+function pbZoomIn() {
+    pbSetZoom(pbZoom + PB_ZOOM_STEP);
+}
+
+function pbZoomOut() {
+    pbSetZoom(pbZoom - PB_ZOOM_STEP);
+}
+
+function pbResetZoom() {
+    pbZoom = 1;
+    pbPanX = 0;
+    pbPanY = 0;
+    pbApplyTransform();
+}
+
+function pbSetupZoomEvents() {
+    var viewport = document.getElementById('pb-modal-viewport');
+    var img = document.getElementById('pb-modal-img');
+    if (!viewport || !img) return;
+
+    // Clique simples: se já tem zoom, não faz nada (evita navegar sem querer);
+    // sem zoom, clique simples não faz nada — usamos duplo clique para zoom.
+    viewport.addEventListener('dblclick', function (e) {
+        e.stopPropagation();
+        if (pbZoom > 1) {
+            pbResetZoom();
+        } else {
+            pbSetZoom(2.5, e.clientX, e.clientY);
+        }
+    });
+
+    // Scroll do mouse = zoom
+    viewport.addEventListener('wheel', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var delta = e.deltaY < 0 ? PB_ZOOM_STEP : -PB_ZOOM_STEP;
+        pbSetZoom(pbZoom + delta, e.clientX, e.clientY);
+    }, { passive: false });
+
+    // Arrastar quando ampliado (mouse)
+    viewport.addEventListener('mousedown', function (e) {
+        if (pbZoom <= 1) return;
+        e.preventDefault();
+        pbIsDragging = true;
+        pbDragStartX = e.clientX;
+        pbDragStartY = e.clientY;
+        pbPanStartX = pbPanX;
+        pbPanStartY = pbPanY;
+        viewport.classList.add('pb-dragging');
+    });
+
+    window.addEventListener('mousemove', function (e) {
+        if (!pbIsDragging) return;
+        pbPanX = pbPanStartX + (e.clientX - pbDragStartX);
+        pbPanY = pbPanStartY + (e.clientY - pbDragStartY);
+        pbClampPanSimple();
+        pbApplyTransform();
+    });
+
+    window.addEventListener('mouseup', function () {
+        if (!pbIsDragging) return;
+        pbIsDragging = false;
+        viewport.classList.remove('pb-dragging');
+    });
+
+    // Touch: arrastar com 1 dedo, pinça com 2 dedos
+    viewport.addEventListener('touchstart', function (e) {
+        if (e.touches.length === 1 && pbZoom > 1) {
+            pbIsDragging = true;
+            pbDragStartX = e.touches[0].clientX;
+            pbDragStartY = e.touches[0].clientY;
+            pbPanStartX = pbPanX;
+            pbPanStartY = pbPanY;
+        } else if (e.touches.length === 2) {
+            pbIsDragging = false;
+            pbPinchStartDist = pbGetTouchDist(e.touches);
+            pbPinchStartZoom = pbZoom;
+        }
+    }, { passive: true });
+
+    viewport.addEventListener('touchmove', function (e) {
+        if (e.touches.length === 1 && pbIsDragging) {
+            e.preventDefault();
+            pbPanX = pbPanStartX + (e.touches[0].clientX - pbDragStartX);
+            pbPanY = pbPanStartY + (e.touches[0].clientY - pbDragStartY);
+            pbClampPanSimple();
+            pbApplyTransform();
+        } else if (e.touches.length === 2) {
+            e.preventDefault();
+            var dist = pbGetTouchDist(e.touches);
+            var ratio = dist / pbPinchStartDist;
+            var midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+            var midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+            pbSetZoom(pbPinchStartZoom * ratio, midX, midY);
+        }
+    }, { passive: false });
+
+    viewport.addEventListener('touchend', function (e) {
+        if (e.touches.length === 0) {
+            pbIsDragging = false;
+        }
+    });
+}
+
+function pbGetTouchDist(touches) {
+    var dx = touches[0].clientX - touches[1].clientX;
+    var dy = touches[0].clientY - touches[1].clientY;
+    return Math.sqrt(dx * dx + dy * dy);
 }
