@@ -10,11 +10,17 @@
 		<div class="sinopse-top">
 
 			<div class="sinopse-imagem">
-				<img
-					src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/publicacoes-economia-conhecimento-financas.webp' ); ?>"
-					alt="Inteligência artificial aplicada à economia e finanças"
-					loading="lazy"
-				>
+				<picture>
+					<source
+						media="(max-width: 900px)"
+						srcset="<?php echo esc_url( get_template_directory_uri() . '/assets/img/publicacoes-economia-conhecimento-financas-mobile-tablet.webp' ); ?>"
+					>
+					<img
+						src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/publicacoes-economia-conhecimento-financas-desktop.webp' ); ?>"
+						alt="Inteligência artificial aplicada à economia e finanças"
+						loading="lazy"
+					>
+				</picture>
 			</div>
 
 			<div class="sinopse-conteudo">

@@ -18,7 +18,7 @@
 
 .sinopse-top {
 	display: grid;
-	grid-template-columns: 380px 1fr;
+	grid-template-columns: minmax(240px, 32%) 1fr;
 	gap: var(--space-lg);
 	align-items: stretch;
 }
@@ -27,48 +27,36 @@
 	position: relative;
 	display: flex;
 	width: 100%;
-	max-width: 380px;
+	max-width: none;
 	height: 100%;
 	overflow: hidden;
 	border-radius: var(--radius-md);
 }
 
 .sinopse-imagem img {
-	position: relative;
-	z-index: 0;
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+	object-position: center;
 	display: block;
 }
 
-.sinopse-imagem::before {
-	content: "";
-	position: absolute;
-	inset: 0;
-	z-index: 1;
-	pointer-events: none;
-	background-color: var(--navy-950);
-	opacity: 0.12;
-	mix-blend-mode: multiply;
-}
-
+/* Fade full-bleed: dissolve as bordas da imagem no fundo da section */
 .sinopse-imagem::after {
 	content: "";
 	position: absolute;
 	inset: 0;
-	z-index: 2;
 	pointer-events: none;
 	background:
-		linear-gradient(to right, var(--navy-950) 0%, transparent 12%, transparent 88%, var(--navy-950) 100%),
-		linear-gradient(to bottom, var(--navy-950) 0%, transparent 12%, transparent 88%, var(--navy-950) 100%),
-		radial-gradient(ellipse at center, transparent 45%, var(--navy-950) 100%);
+		linear-gradient(to bottom, var(--navy-950), transparent 18%, transparent 82%, var(--navy-950)),
+		linear-gradient(to right, var(--navy-950), transparent 18%, transparent 82%, var(--navy-950));
 }
 
 .sinopse-conteudo {
 	display: flex;
 	flex-direction: column;
 	gap: var(--space-sm);
+	min-width: 0;
 }
 
 .sinopse-titulo {
@@ -76,7 +64,7 @@
 	align-items: center;
 	gap: var(--space-xs);
 	font-family: var(--font-display);
-	font-size: clamp(1.5rem, 3vw, 2rem);
+	font-size: clamp(1.375rem, 3vw, 2rem);
 	font-weight: 600;
 	letter-spacing: 1px;
 	text-transform: uppercase;
@@ -101,7 +89,7 @@
 
 .sinopse-conteudo p {
 	font-family: var(--font-body);
-	font-size: 1.0625rem;
+	font-size: clamp(0.9375rem, 1.4vw, 1.0625rem);
 	line-height: 1.75;
 	color: var(--text-soft-light);
 	margin: 0;
@@ -130,12 +118,13 @@
 
 .sinopse-divisor h3 {
 	font-family: var(--font-display-alt);
-	font-size: 1.625rem;
+	font-size: clamp(1.25rem, 2.5vw, 1.625rem);
 	font-weight: 600;
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	color: var(--text-light);
 	white-space: nowrap;
+	text-align: center;
 	margin: 0;
 }
 
@@ -155,20 +144,21 @@
 	bottom: 0;
 	left: 50%;
 	width: 1px;
-	background-color: var(--border-white);
+	background-color: var(--gold);
 	transform: translateX(-50%);
+	opacity: 0.5;
 }
 
 .autor-card {
 	display: grid;
-	grid-template-columns: 150px 1fr;
+	grid-template-columns: clamp(100px, 15vw, 150px) 1fr;
 	gap: var(--space-md);
 	align-items: start;
 }
 
 .autor-foto {
-	width: 150px;
-	height: 150px;
+	width: clamp(100px, 15vw, 150px);
+	height: clamp(100px, 15vw, 150px);
 	border-radius: 50%;
 	border: 3px solid var(--gold);
 	background-color: var(--navy-950);
@@ -185,7 +175,7 @@
 
 .autor-info h4 {
 	font-family: var(--font-body-alt);
-	font-size: 1.25rem;
+	font-size: clamp(1.0625rem, 1.8vw, 1.25rem);
 	font-weight: 600;
 	letter-spacing: 0.5px;
 	text-transform: uppercase;
@@ -195,7 +185,7 @@
 
 .autor-info p {
 	font-family: var(--font-body);
-	font-size: 0.9375rem;
+	font-size: clamp(0.875rem, 1.2vw, 0.9375rem);
 	line-height: 1.7;
 	color: var(--text-soft-light);
 	margin: 0;
@@ -205,6 +195,16 @@
    Responsivo
    ========================================================================== */
 
+/* Tablets: reduz espaçamentos antes de quebrar a coluna */
+@media (max-width: 1024px) {
+
+	.sinopse-top {
+		gap: var(--space-md);
+	}
+}
+
+/* Empilha imagem + texto; imagem ocupa 100% da largura */
+/* Empilha autores também, a partir do mesmo breakpoint */
 @media (max-width: 900px) {
 
 	.sinopse-top {
@@ -213,10 +213,11 @@
 	}
 
 	.sinopse-imagem {
-		max-width: 260px;
-		height: auto;
+		width: 100%;
+		max-width: 100%;
 		aspect-ratio: 1 / 1;
-		margin: 0 auto;
+		height: auto;
+		margin: 0;
 	}
 
 	.sinopse-autores {
@@ -249,8 +250,28 @@
 		text-align: center;
 		justify-items: center;
 	}
+}
+
+/* Celulares pequenos: imagem continua 100%, só ajusta autores e divisor */
+@media (max-width: 420px) {
+
+	.sinopse-imagem {
+		width: 100%;
+		max-width: 100%;
+		aspect-ratio: 1 / 1;
+	}
+
+	.autor-foto {
+		width: 100px;
+		height: 100px;
+	}
+
+	.sinopse-divisor {
+		gap: var(--space-sm);
+	}
 
 	.sinopse-divisor h3 {
-		font-size: 1.375rem;
+		white-space: normal;
+		font-size: 1.125rem;
 	}
 }
