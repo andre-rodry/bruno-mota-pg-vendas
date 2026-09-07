@@ -18,6 +18,7 @@ function andrewp_enqueue_assets() {
         wp_enqueue_style( 'andrewp-page-autores-css', get_template_directory_uri() . '/home/page-autores.css', array( 'andrewp-global' ), '1.0' );
         wp_enqueue_style( 'andrewp-page-beneficios-css', get_template_directory_uri() . '/home/page-beneficios.css', array( 'andrewp-global' ), '1.0' );
         wp_enqueue_style( 'andrewp-page-sinopse-css', get_template_directory_uri() . '/home/page-sinopse.css', array( 'andrewp-global' ), '1.0' );
+        wp_enqueue_style( 'andrewp-page-previa-css', get_template_directory_uri() . '/home/page-previa.css', array( 'andrewp-global' ), '1.0' );
     }
 
     wp_enqueue_script( 'andrewp-loader-js', get_template_directory_uri() . '/assets/js/loader.js', array(), '1.0', true );

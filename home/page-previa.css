@@ -1,0 +1,432 @@
+/* ==========================================================================
+   Prévia Exclusiva — Novo site de Bruno Mota Lopes
+   Usa as variáveis do global.css do tema (--navy-950, --gold, --font-display...)
+   Não redefine :root — depende do global.css já carregado no site.
+   ========================================================================== */
+
+.previa-bruno-section * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.previa-bruno-section {
+    background: var(--navy-950);
+    padding: var(--space-xl) 0;
+}
+
+.previa-bruno {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+    color: var(--text-soft);
+    font-family: var(--font-body);
+    position: relative;
+}
+
+/* ---------- Cabeçalho ---------- */
+
+.previa-bruno .section-main-heading {
+    max-width: 720px;
+    margin: 0 auto 28px auto;
+    text-align: center;
+}
+
+.previa-bruno .brand-accent {
+    display: inline-block;
+    font-family: var(--font-body-alt);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-weight: 600;
+    padding: 6px 18px;
+    border: 1px solid var(--border-gold-glow);
+    border-radius: 100px;
+    margin-bottom: 14px;
+    background-color: rgba(217, 164, 65, 0.06);
+}
+
+.previa-bruno .brand-accent-text {
+    background-image: linear-gradient(
+        100deg,
+        #8f651f 0%,
+        #c9a876 20%,
+        #fbe7b8 40%,
+        #c9a876 60%,
+        #8f651f 100%
+    );
+    background-size: 250% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+
+    animation: previa-brand-shine 3.5s linear infinite;
+}
+
+@keyframes previa-brand-shine {
+    0% {
+        background-position: 200% center;
+    }
+    100% {
+        background-position: -50% center;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .previa-bruno .brand-accent-text {
+        animation: none;
+        background-image: none;
+        -webkit-text-fill-color: initial;
+        color: var(--gold);
+    }
+}
+
+.previa-bruno .headline-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+.previa-bruno .divider-line {
+    flex: 1 1 auto;
+    max-width: 180px;
+    height: 1px;
+}
+
+.previa-bruno .divider-line-left {
+    background: linear-gradient(to right, transparent, var(--gold));
+}
+
+.previa-bruno .divider-line-right {
+    background: linear-gradient(to left, transparent, var(--gold));
+}
+
+.previa-bruno .main-headline {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    color: var(--text-light);
+    line-height: 1.15;
+}
+
+.previa-bruno .main-headline span {
+    color: var(--gold-accent);
+}
+
+.previa-bruno .main-sub {
+    max-width: 560px;
+    margin: 14px auto 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.previa-bruno .main-sub strong {
+    color: var(--text-soft);
+    font-weight: 600;
+}
+
+/* ---------- Abas do menu (nível 1) ---------- */
+
+.previa-bruno .tabs-container {
+    background: var(--navy-900);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    border: 1px solid var(--border-white);
+    border-bottom: none;
+    overflow: hidden;
+}
+
+.previa-bruno .service-tabs {
+    display: flex;
+    position: relative;
+    background: rgba(0, 0, 0, 0.15);
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.previa-bruno .service-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.previa-bruno .service-tab {
+    flex: 1;
+    min-width: 100px;
+    background: transparent;
+    color: var(--text-muted);
+    border: none;
+    padding: 20px 14px;
+    font-family: var(--font-body-alt);
+    font-weight: 600;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: color 0.3s ease, background 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    text-align: center;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.previa-bruno .service-tab:hover {
+    color: var(--text-soft);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.previa-bruno .service-tab.active {
+    color: var(--text-light);
+}
+
+.previa-bruno .tab-slider {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: var(--gold);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    border-radius: 2px;
+    box-shadow: 0 0 16px var(--border-gold-glow);
+}
+
+/* ---------- Cartão de conteúdo ---------- */
+
+.previa-bruno .fleet-card {
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.03) 0%, rgba(0, 0, 0, 0.15) 100%);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    padding: 50px 60px;
+    border: 1px solid var(--border-white);
+    border-top: none;
+    position: relative;
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    gap: 48px;
+}
+
+.previa-bruno .content-area {
+    flex: 1;
+    min-width: 0;
+}
+
+.previa-bruno .display-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+    color: var(--text-light);
+    margin-bottom: 14px;
+}
+
+.previa-bruno .display-desc {
+    color: var(--text-muted);
+    font-size: 0.98rem;
+    line-height: 1.7;
+    max-width: 460px;
+    margin-bottom: 28px;
+}
+
+/* ---------- Miniaturas de blocos (nível 2) ---------- */
+
+.previa-bruno .block-thumb-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.previa-bruno .block-thumb {
+    cursor: pointer;
+    user-select: none;
+    width: 112px;
+}
+
+.previa-bruno .block-thumb img {
+    width: 100%;
+    height: 60px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-white);
+    background: var(--navy-900);
+    transition: all 0.3s ease;
+    display: block;
+}
+
+.previa-bruno .block-thumb:hover img {
+    border-color: var(--border-gold-glow);
+}
+
+.previa-bruno .block-thumb.active img {
+    border-color: var(--gold);
+    box-shadow: 0 0 18px var(--border-gold-glow);
+}
+
+/* ---------- Imagem principal ---------- */
+
+.previa-bruno .car-img-box {
+    flex: 0 0 44%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    min-height: 260px;
+}
+
+.previa-bruno .car-img-box img {
+    width: 100%;
+    max-height: 320px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-white);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.previa-bruno .car-img-box img.pb-transitioning {
+    opacity: 0;
+    transform: scale(0.94) translateY(8px);
+}
+
+/* ---------- Setas de navegação ---------- */
+
+.previa-bruno .nav-arrows {
+    position: absolute;
+    bottom: 26px;
+    right: 60px;
+    display: flex;
+    gap: 12px;
+    z-index: 5;
+}
+
+.previa-bruno .nav-arrow {
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--border-white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.03);
+    user-select: none;
+}
+
+.previa-bruno .nav-arrow:hover {
+    background: var(--gold);
+    color: var(--navy-950);
+    border-color: var(--gold);
+}
+
+.previa-bruno .nav-arrow svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2.5;
+    pointer-events: none;
+}
+
+/* ---------- Barra de recursos (rodapé) ---------- */
+
+.previa-bruno .feature-bar {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 32px;
+    background: var(--navy-900);
+    border: 1px solid var(--border-white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.previa-bruno .feature-item {
+    flex: 1 1 260px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 26px 24px;
+    border-right: 1px solid var(--border-white);
+}
+
+.previa-bruno .feature-item:last-child {
+    border-right: none;
+}
+
+.previa-bruno .feature-icon {
+    flex: 0 0 auto;
+    width: 30px;
+    height: 30px;
+    color: var(--gold);
+}
+
+.previa-bruno .feature-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.previa-bruno .feature-text {
+    color: var(--text-soft);
+    font-size: 0.9rem;
+    line-height: 1.45;
+    font-weight: 500;
+}
+
+/* ---------- Responsivo ---------- */
+
+@media (max-width: 1024px) {
+    .previa-bruno .fleet-card {
+        flex-direction: column;
+        padding: 40px 30px;
+    }
+    .previa-bruno .car-img-box {
+        flex: none;
+        width: 100%;
+        min-height: 200px;
+        order: -1;
+    }
+    .previa-bruno .car-img-box img {
+        max-height: 240px;
+    }
+    .previa-bruno .nav-arrows {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        justify-content: center;
+        margin-top: 18px;
+    }
+    .previa-bruno .display-desc {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .previa-bruno .divider-line {
+        display: none;
+    }
+    .previa-bruno-section {
+        padding: var(--space-lg) 0;
+    }
+    .previa-bruno .fleet-card {
+        padding: 30px 20px;
+        border-radius: 0 0 16px 16px;
+    }
+    .previa-bruno .tabs-container {
+        border-radius: 16px 16px 0 0;
+    }
+    .previa-bruno .service-tab {
+        font-size: 0.65rem;
+        padding: 16px 10px;
+    }
+    .previa-bruno .block-thumb {
+        width: calc(33.33% - 10px);
+    }
+    .previa-bruno .feature-item {
+        flex: 1 1 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border-white);
+    }
+    .previa-bruno .feature-item:last-child {
+        border-bottom: none;
+    }
+}
