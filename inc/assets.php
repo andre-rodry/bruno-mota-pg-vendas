@@ -8,6 +8,7 @@ function andrewp_enqueue_assets() {
     wp_enqueue_style( 'andrewp-global', get_template_directory_uri() . '/assets/css/global.css', array(), '1.0' );
     wp_enqueue_style( 'andrewp-loader-css', get_template_directory_uri() . '/assets/css/loader.css', array(), '1.0' );
     wp_enqueue_style( 'andrewp-reveal-scroll-css', get_template_directory_uri() . '/assets/css/reveal-scroll.css', array(), '1.0' );
+    wp_enqueue_style( 'andrewp-footer-css', get_template_directory_uri() . '/assets/css/footer.css', array( 'andrewp-global' ), '1.0' );
 
     if ( is_404() ) {
         wp_enqueue_style( 'andrewp-error-404-css', get_template_directory_uri() . '/error-404/error-404.css', array(), '1.0' );
@@ -18,6 +19,7 @@ function andrewp_enqueue_assets() {
         wp_enqueue_style( 'andrewp-page-autores-css', get_template_directory_uri() . '/home/page-autores.css', array( 'andrewp-global' ), '1.0' );
         wp_enqueue_style( 'andrewp-page-beneficios-css', get_template_directory_uri() . '/home/page-beneficios.css', array( 'andrewp-global' ), '1.0' );
         wp_enqueue_style( 'andrewp-page-sinopse-css', get_template_directory_uri() . '/home/page-sinopse.css', array( 'andrewp-global' ), '1.0' );
+        wp_enqueue_style( 'andrewp-page-apoio-onde-comprar-css', get_template_directory_uri() . '/home/page-apoio-onde-comprar.css', array( 'andrewp-global' ), '1.0' );
         wp_enqueue_style( 'andrewp-page-previa-css', get_template_directory_uri() . '/home/page-previa.css', array( 'andrewp-global' ), '1.0' );
     }
 

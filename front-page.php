@@ -8,6 +8,8 @@
 
 <?php get_template_part( 'home/content-sinopse' ); ?>
 
+<?php get_template_part( 'home/content-apoio-onde-comprar' ); ?>
+
 <?php get_template_part( 'home/content-previa' ); ?>
 
 <?php get_footer(); ?>

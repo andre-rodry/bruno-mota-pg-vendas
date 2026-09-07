@@ -1,0 +1,204 @@
+.section-apoio-onde-comprar {
+  background-color: var(--text-soft);
+  padding: var(--space-xl) 0;
+}
+
+/* Wrapper que empilha as duas caixas com espaço entre elas */
+.apoio-onde-comprar-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.apoio-onde-comprar-box {
+  position: relative;
+  border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg) var(--space-md);
+  padding-top: calc(var(--space-lg) + 14px);
+  background-color: transparent;
+  margin-top: 14px;
+}
+
+/* Título flutuando sobre a borda superior da caixa, estilo "legend" */
+.aoc-title {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  margin-bottom: 0;
+  padding: 0 var(--space-sm);
+  background-color: var(--text-soft);
+  white-space: nowrap;
+}
+
+.aoc-title h2 {
+  font-family: var(--font-display-alt);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  color: var(--navy-900);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.aoc-line {
+  flex: 1;
+  height: 1px;
+  max-width: 120px;
+  background: linear-gradient(90deg, transparent, var(--gold-accent));
+}
+
+.aoc-title .aoc-line:last-of-type {
+  background: linear-gradient(90deg, var(--gold-accent), transparent);
+}
+
+.aoc-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--gold-accent);
+  flex-shrink: 0;
+}
+
+/* ===== Grid de instituições (Apoio) ===== */
+.apoio-grid {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+}
+
+.apoio-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-xs);
+  flex: 1 1 200px;
+  padding: 0 var(--space-sm);
+  border-right: 1px solid color-mix(in srgb, var(--navy-900) 12%, transparent);
+}
+
+.apoio-item:last-child {
+  border-right: none;
+}
+
+.apoio-logo {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.apoio-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.apoio-text strong {
+  font-family: var(--font-body-alt);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--navy-900);
+  margin-bottom: 2px;
+}
+
+.apoio-text span {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: color-mix(in srgb, var(--navy-900) 65%, transparent);
+  line-height: 1.3;
+}
+
+/* ===== Grid de canais de compra (Onde Comprar) — adaptado ao fundo claro ===== */
+.onde-comprar-grid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.onde-comprar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-xs);
+  flex: 1 1 180px;
+  padding: 0 var(--space-sm);
+  border-right: 1px solid color-mix(in srgb, var(--navy-900) 12%, transparent);
+}
+
+.onde-comprar-item:last-child {
+  border-right: none;
+}
+
+.onde-comprar-logo {
+  max-width: 140px;
+  max-height: 44px;
+  object-fit: contain;
+}
+
+.onde-comprar-logo-sm {
+  max-width: 110px;
+  max-height: 32px;
+}
+
+.onde-comprar-text {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: color-mix(in srgb, var(--navy-900) 65%, transparent);
+  line-height: 1.3;
+}
+
+.onde-comprar-item-link .onde-comprar-text {
+  font-family: var(--font-body-alt);
+  font-weight: 600;
+  color: var(--navy-900);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+}
+
+.onde-comprar-btn {
+  font-size: 0.85rem;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  margin-top: 4px;
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 768px) {
+  .apoio-item,
+  .onde-comprar-item {
+    flex: 1 1 100%;
+    border-right: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--navy-900) 12%, transparent);
+    padding: var(--space-sm) 0;
+  }
+
+  .apoio-item:last-child,
+  .onde-comprar-item:last-child {
+    border-bottom: none;
+  }
+
+  .aoc-title .aoc-line {
+    max-width: 40px;
+  }
+
+  .apoio-logo {
+    width: 110px;
+    height: 110px;
+  }
+
+  .onde-comprar-logo {
+    max-width: 120px;
+  }
+}
