@@ -68,7 +68,6 @@ $previa_sections = array(
             array( 'tag' => 'Print 2', 'name' => 'Print 2', 'img' => $img_root . 'midia/midia-2.png' ),
             array( 'tag' => 'Print 3', 'name' => 'Print 3', 'img' => $img_root . 'midia/midia-3.png' ),
             array( 'tag' => 'Print 4', 'name' => 'Print 4', 'img' => $img_root . 'midia/midia-4.png' ),
-            array( 'tag' => 'Print 5', 'name' => 'Print 5', 'img' => $img_root . 'midia/midia-5.png' ),
         ),
     ),
     'contato' => array(
