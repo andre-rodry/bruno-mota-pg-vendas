@@ -597,6 +597,81 @@
         width: 34px;
         height: 34px;
     }
+
+    .previa-bruno .service-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    overflow-x: visible;
+    background: transparent;
+}
+
+.previa-bruno .service-tab {
+    flex: none;
+    min-width: 0;
+    padding: 12px 8px;
+    font-size: 0.62rem;
+    letter-spacing: 0.8px;
+    border: 1px solid var(--border-gold-glow);
+    margin: -1px 0 0 -1px;
+}
+
+.previa-bruno .tabs-container {
+    border-top: 1px solid var(--border-gold-glow);
+}
+
+..previa-bruno .service-tab {
+    position: relative;
+    border: none; /* remove a borda sólida */
+}
+
+/* linha vertical (direita) com fade nas pontas */
+.previa-bruno .service-tab::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, var(--gold-accent), transparent);
+}
+
+/* linha horizontal (embaixo) com fade nas pontas */
+.previa-bruno .service-tab::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-accent), transparent);
+}
+
+/* remove a linha vertical na última coluna de cada linha (itens 3, 6...) */
+.previa-bruno .service-tab:nth-child(3n)::before {
+    display: none;
+}
+
+/* remove a linha horizontal na última linha (Contato) */
+.previa-bruno .service-tab:nth-last-child(-n+3)::after {
+    display: none;
+}
+
+.previa-bruno .tabs-container {
+    border-top: none;
+    position: relative;
+}
+
+.previa-bruno .service-tab::before {
+    background: linear-gradient(180deg, transparent, rgba(217, 164, 65, 0.18), transparent);
+}
+
+.previa-bruno .service-tab::after {
+    background: linear-gradient(90deg, transparent, rgba(217, 164, 65, 0.18), transparent);
+}
+
+.previa-bruno .tabs-container::before {
+    background: linear-gradient(90deg, transparent, rgba(217, 164, 65, 0.18), transparent);
+}
 }
 /* ---------- Responsivo ---------- */
 
@@ -605,15 +680,19 @@
         flex-direction: column;
         padding: 40px 30px;
     }
-    .previa-bruno .car-img-box {
-        flex: none;
-        width: 100%;
-        min-height: 200px;
-        order: -1;
-    }
-    .previa-bruno .car-img-box img {
-        max-height: 240px;
-    }
+
+   .previa-bruno .car-img-box {
+    flex: none;
+    width: 100%;
+    min-height: 0;
+    order: -1;
+  }
+   .previa-bruno .car-img-box img {
+    width: 100%;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+}
     .previa-bruno .nav-arrows {
         position: relative;
         bottom: auto;
