@@ -51,7 +51,7 @@ function beneficios_icon_svg( $key ) {
 <section class="beneficios">
 	<div class="beneficios__container">
 
-		<div class="beneficios__header">
+		<div class="beneficios__header reveal">
 			<span class="beneficios__line beneficios__line--left"></span>
 			<h2 class="beneficios__title">
 				O que este livro vai fazer<br>
@@ -61,8 +61,10 @@ function beneficios_icon_svg( $key ) {
 		</div>
 
 		<div class="beneficios__grid">
-			<?php foreach ( $beneficios as $item ) : ?>
-				<div class="beneficios__item">
+			<?php foreach ( $beneficios as $index => $item ) :
+				$delay_class = 'reveal-delay-' . ( ( $index % 3 ) + 1 );
+			?>
+				<div class="beneficios__item reveal <?php echo esc_attr( $delay_class ); ?>">
 					<span class="beneficios__icon">
 						<?php beneficios_icon_svg( $item['icon'] ); ?>
 					</span>

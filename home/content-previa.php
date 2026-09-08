@@ -89,7 +89,7 @@ $first        = $previa_sections[ $first_key ];
 
 <section class="previa-section previa-bruno-section">
 <div class="previa-bruno">
-    <div class="section-main-heading">
+    <div class="section-main-heading reveal">
         <span class="brand-accent"><span class="brand-accent-text">✦ Prévia Exclusiva</span></span>
         <div class="headline-divider">
             <span class="divider-line divider-line-left"></span>
@@ -99,7 +99,7 @@ $first        = $previa_sections[ $first_key ];
         <p class="main-sub">Em breve, um novo espaço para reunir <strong>publicações, participações na mídia, projetos e conteúdos exclusivos</strong> sobre economia e desenvolvimento.</p>
     </div>
 
-    <div class="tabs-container">
+    <div class="tabs-container reveal reveal-delay-1">
         <div class="service-tabs" id="pb-service-tabs">
             <?php foreach ( $section_keys as $i => $key ) : ?>
             <div class="service-tab<?php echo 0 === $i ? ' active' : ''; ?>" onclick="pbSetSection('<?php echo esc_js( $key ); ?>', this)">
@@ -110,7 +110,7 @@ $first        = $previa_sections[ $first_key ];
         </div>
     </div>
 
-    <div class="fleet-card">
+    <div class="fleet-card reveal reveal-delay-2">
         <div class="content-area">
             <h1 class="display-title" id="pb-main-title"><?php echo esc_html( strtoupper( $first['label'] ) ); ?></h1>
             <p class="display-desc" id="pb-main-desc"><?php echo esc_html( $first['desc'] ); ?></p>
@@ -139,7 +139,7 @@ $first        = $previa_sections[ $first_key ];
 
     </div>
 
-    <div class="feature-bar">
+    <div class="feature-bar reveal reveal-delay-3">
         <div class="feature-item">
             <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3v5h5"></path><path d="M6 3h8l5 5v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path><path d="M9 13h6M9 17h6"></path></svg></span>
             <span class="feature-text">Publicações e artigos<br>exclusivos</span>

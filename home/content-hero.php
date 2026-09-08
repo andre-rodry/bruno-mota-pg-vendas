@@ -2,7 +2,7 @@
   <div class="hero-launch__scale" style="--hero-bg: url('<?php echo get_template_directory_uri(); ?>/assets/img/banner-bruno-mota-welinton-santos.webp');">
     <div class="container">
 
-      <div class="hero-launch__block hero-launch__block--content">
+      <div class="hero-launch__block hero-launch__block--content reveal">
 
         <div class="hero-launch__rule-row">
           <span class="hero-launch__rule"></span>
@@ -66,7 +66,7 @@
 
       </div>
 
-      <div class="hero-launch__book">
+      <div class="hero-launch__book reveal reveal-delay-1">
         <img
           src="<?php echo get_template_directory_uri(); ?>/assets/img/livro-inteligencia-artificial-para-economistas-contadores.webp"
           alt="Capa do livro Inteligência Artificial para Economistas e Contadores"
@@ -77,7 +77,7 @@
 
       <div class="hero-launch__authors">
 
-        <div class="hero-launch__author">
+        <div class="hero-launch__author reveal reveal-delay-2">
           <div class="hero-launch__author-photo-wrap">
             <img
               class="hero-launch__author-photo"
@@ -91,7 +91,7 @@
           </div>
         </div>
 
-        <div class="hero-launch__author">
+        <div class="hero-launch__author reveal reveal-delay-3">
           <div class="hero-launch__author-photo-wrap">
             <img
               class="hero-launch__author-photo"

@@ -9,7 +9,7 @@
 	<div class="sinopse-hero">
 		<div class="sinopse-hero-inner">
 
-			<div class="sinopse-imagem">
+			<div class="sinopse-imagem reveal">
 				<img
 					src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/publicacoes-economia-conhecimento-financas-desktop.webp' ); ?>"
 					alt="Publicações sobre economia, conhecimento e finanças"
@@ -17,7 +17,7 @@
 				>
 			</div>
 
-			<div class="sinopse-conteudo">
+			<div class="sinopse-conteudo reveal reveal-delay-1">
 
 				<div class="sinopse-header">
 					<span class="sinopse-icone" aria-hidden="true">
@@ -53,7 +53,7 @@
 	<div class="sinopse-autores">
 		<div class="sinopse-autores-inner">
 
-			<div class="sinopse-autores-divisor">
+			<div class="sinopse-autores-divisor reveal">
 				<span class="sinopse-autores-linha"></span>
 				<h2 class="sinopse-autores-titulo">Sobre os Autores</h2>
 				<span class="sinopse-autores-linha"></span>
@@ -61,7 +61,7 @@
 
 			<div class="sinopse-autores-grid">
 
-				<div class="sinopse-autor">
+				<div class="sinopse-autor reveal reveal-delay-1">
 					<div class="sinopse-autor-foto">
 						<img
 							src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/bruno-mota-economista.webp' ); ?>"
@@ -77,7 +77,7 @@
 					</div>
 				</div>
 
-				<div class="sinopse-autor">
+				<div class="sinopse-autor reveal reveal-delay-2">
 					<div class="sinopse-autor-foto">
 						<img
 							src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/welinton-santos-economista.webp' ); ?>"

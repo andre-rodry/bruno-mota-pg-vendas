@@ -8,7 +8,7 @@
 <section class="autores-section">
 	<div class="autores-container">
 
-		<div class="autores-header">
+		<div class="autores-header reveal">
 			<span class="autores-line"></span>
 			<h2 class="autores-title">AUTORES</h2>
 			<span class="autores-line"></span>
@@ -16,7 +16,7 @@
 
 		<div class="autores-grid">
 
-			<div class="autores-item">
+			<div class="autores-item reveal reveal-delay-1">
 				<div class="autores-icon">
 					<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M20 8c-4 0-6 3-6 6-3 0-5 2-5 5 0 2 1 3 2 4-1 1-2 2-2 4 0 3 2 5 5 5 0 3 3 5 6 5V8z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
@@ -37,7 +37,7 @@
 
 			<span class="autores-divider"></span>
 
-			<div class="autores-item">
+			<div class="autores-item reveal reveal-delay-2">
 				<div class="autores-icon">
 					<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M8 30l9-9 6 6 15-15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -53,7 +53,7 @@
 
 			<span class="autores-divider"></span>
 
-			<div class="autores-item">
+			<div class="autores-item reveal reveal-delay-3">
 				<div class="autores-icon">
 					<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<circle cx="24" cy="24" r="15" stroke="currentColor" stroke-width="1.4"/>
@@ -70,7 +70,7 @@
 
 			<span class="autores-divider"></span>
 
-			<div class="autores-item">
+			<div class="autores-item reveal reveal-delay-3">
 				<div class="autores-icon">
 					<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M24 14c-3-3-9-4-14-3v22c5-1 11 0 14 3 3-3 9-4 14-3V11c-5-1-11 0-14 3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>

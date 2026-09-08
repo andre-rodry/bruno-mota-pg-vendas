@@ -11,7 +11,7 @@
 <div id="bm-loader">
     <div class="bm-loader-inner">
         <div class="bm-loader-logo">BM</div>
-        <div class="bm-loader-sub">Carregando</div>
+        <div class="bm-loader-sub">Bruno Mota - Economista</div>
         <div class="bm-loader-bar"></div>
     </div>
 </div>

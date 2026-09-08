@@ -6,7 +6,7 @@
 <footer class="site-footer">
 
     <div class="footer-cta">
-        <div class="container footer-cta__inner">
+        <div class="container footer-cta__inner reveal">
             <div class="footer-cta__icon-line">
                 <span class="line"></span>
                 <span class="footer-cta__icon">
@@ -33,7 +33,7 @@
     <div class="footer-main">
         <div class="container footer-main__inner">
 
-            <div class="footer-main__about">
+            <div class="footer-main__about reveal">
                 <h3 class="footer-main__name">Bruno Mota Lopes</h3>
                 <div class="footer-main__tags-wrap">
                     <p class="footer-main__tags">Economia • Desenvolvimento • Educação Financeira</p>
@@ -43,7 +43,7 @@
 
             <div class="footer-main__divider" aria-hidden="true"></div>
 
-            <div class="footer-main__social">
+            <div class="footer-main__social reveal reveal-delay-1">
                 <a href="https://www.instagram.com/financasparajovensoficial?stkn=YW9odTM5NnU0dGR0&utm_source=qr" class="social-icon" aria-label="Instagram" target="_blank" rel="noopener">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                         <rect x="2" y="2" width="20" height="20" rx="5"/>

@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div class="apoio-onde-comprar-wrapper">
 
             <!-- Bloco: Apoio -->
-            <div class="apoio-onde-comprar-box apoio-block">
+            <div class="apoio-onde-comprar-box apoio-block reveal">
 
                 <div class="aoc-title">
                     <span class="aoc-line"></span>
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
                 <div class="apoio-grid">
 
-                    <div class="apoio-item">
+                    <div class="apoio-item reveal reveal-delay-1">
                         <img
                             src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/logos-apoio/logo-sindecon-sp-sindicato-economistas.webp' ); ?>"
                             alt="SINDECON-SP"
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                         </div>
                     </div>
 
-                    <div class="apoio-item">
+                    <div class="apoio-item reveal reveal-delay-2">
                         <img
                             src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/logos-apoio/logo-corecon-sp-conselho-regional-economia.webp' ); ?>"
                             alt="CORECON-SP"
@@ -47,7 +47,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                         </div>
                     </div>
 
-                    <div class="apoio-item">
+                    <div class="apoio-item reveal reveal-delay-3">
                         <img
                             src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/logos-apoio/logo-apejesp-associacao-peritos-judiciais-sp.webp' ); ?>"
                             alt="APEJESP"
@@ -60,7 +60,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                         </div>
                     </div>
 
-                    <div class="apoio-item">
+                    <div class="apoio-item reveal reveal-delay-3">
                         <img
                             src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/logos-apoio/logo-acirp-associacao-comercial-sao-jose-do-rio-preto.webp' ); ?>"
                             alt="ACIRP (SJRP)"
@@ -78,7 +78,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             </div>
 
             <!-- Bloco: Onde Comprar -->
-            <div class="apoio-onde-comprar-box onde-comprar-block">
+            <div class="apoio-onde-comprar-box onde-comprar-block reveal">
 
                 <div class="aoc-title">
                     <span class="aoc-line"></span>
@@ -90,7 +90,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
                 <div class="onde-comprar-grid">
 
-                    <div class="onde-comprar-item onde-comprar-item-link">
+                    <div class="onde-comprar-item onde-comprar-item-link reveal reveal-delay-1">
                         <img
                             src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/logos-onde-comprar/logo-clube-de-autores.webp' ); ?>"
                             alt="Clube de Autores"
@@ -103,7 +103,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                         </a>
                     </div>
 
-                    <div class="onde-comprar-item">
+                    <div class="onde-comprar-item reveal reveal-delay-2">
                         <img
                             src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/logos-onde-comprar/logo-amazon.webp' ); ?>"
                             alt="Amazon"
@@ -113,7 +113,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <span class="onde-comprar-text">Disponível na Amazon</span>
                     </div>
 
-                    <div class="onde-comprar-item">
+                    <div class="onde-comprar-item reveal reveal-delay-3">
                         <img
                             src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/logos-onde-comprar/logo-google-play-badge.webp' ); ?>"
                             alt="Google Play"
@@ -122,7 +122,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                         >
                     </div>
 
-                    <div class="onde-comprar-item">
+                    <div class="onde-comprar-item reveal reveal-delay-3">
                         <img
                             src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/logos-onde-comprar/logo-rakuten-kobo.webp' ); ?>"
                             alt="Rakuten Kobo"
