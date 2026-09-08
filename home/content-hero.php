@@ -52,16 +52,15 @@
 
           <span class="hero-launch__divider-v" aria-hidden="true"></span>
 
-          <div class="hero-launch__amazon">
-            <span>Disponível na</span>
-            <strong>
-              amazon
-              <svg width="52" height="14" viewBox="0 0 52 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2 3C14 11 38 11 49 3" stroke="#FF9900" stroke-width="2" stroke-linecap="round" fill="none"/>
-                <path d="M43 2.5L50 2L48.5 8.5" stroke="#FF9900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-              </svg>
-            </strong>
-          </div>
+          <a href="https://www.youtube.com/@financasparajovensoficial?si=qicAxYSzarFqdGWh" target="_blank" rel="noopener" class="hero-launch__youtube">
+            <span class="hero-launch__youtube-lottie">
+              <iframe src="https://lottie.host/embed/a11352a2-73f0-4129-aa12-9a9155424647/ODLg3R3hXR.lottie" title="YouTube" frameborder="0"></iframe>
+            </span>
+            <span class="hero-launch__youtube-text">
+              <span>Acesse e</span>
+              <strong>se inscreva</strong>
+            </span>
+          </a>
         </div>
 
       </div>

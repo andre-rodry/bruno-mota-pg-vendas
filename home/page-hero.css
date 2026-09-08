@@ -3,13 +3,12 @@
    Sistema de escala única: fundo + texto escalam juntos,
    como se fossem uma imagem estática (desktop).
    Abaixo de 870px: layout muda para flex-wrap sem fundo/scale.
-========================================================= */
 
-:root {
-  --hero-scale: 1;
-  --content-scale: 1;
-  --navy-950: #0a0f1c;
-}
+   Depende das variáveis do global.css:
+   --navy-950, --navy-900, --gold, --gold-accent, --gold-hover,
+   --text-light, --text-soft, --text-muted, --text-soft-light,
+   --font-body-alt, --font-display-alt
+========================================================= */
 
 /* =========================================================
    WRAPPER EXTERNO (define a proporção visível)
@@ -18,9 +17,9 @@
 .hero-launch {
   position: relative;
   width: 100%;
-  aspect-ratio: 1697 / 777;; /* mesma proporção do banner original */
+  aspect-ratio: 1697 / 777; /* mesma proporção do banner original */
   overflow: hidden;
-  background: #0b0e1a; /* fallback enquanto a imagem carrega */
+  background: var(--navy-950); /* fallback enquanto a imagem carrega */
 }
 
 .hero-launch,
@@ -32,8 +31,10 @@
 
 /* =========================================================
    BLOCO DE ESCALA
-   Tem o tamanho NATIVO do design (1697x927).
+   Tem o tamanho NATIVO do design (1697x777).
    Tudo aqui dentro escala junto via transform: scale().
+   --hero-scale e --content-scale são exclusivos deste
+   componente e setados via JS (ver script no final do PHP).
 ========================================================= */
 
 .hero-launch__scale {
@@ -54,10 +55,9 @@
   align-items: center;
 }
 
-
 /* =========================================================
    FADE INFERIOR — dissolve a imagem na cor de background.
-   Agora é filho de .hero-launch__scale (não de .hero-launch),
+   É filho de .hero-launch__scale (não de .hero-launch),
    ou seja, escala JUNTO com o design em vez de ter altura fixa
    em px reais. Isso evita que ele "cresça" proporcionalmente
    conforme a tela estreita e acabe cobrindo o botão/CTA.
@@ -76,7 +76,7 @@
     rgba(10, 15, 28, 0.10) 35%,
     rgba(10, 15, 28, 0.25) 65%,
     rgba(10, 15, 28, 0.55) 85%,
-    var(--navy-950, #0a0f1c) 100%
+    var(--navy-950) 100%
   );
 
   pointer-events: none;
@@ -235,7 +235,7 @@
     animation: none;
     background-image: none;
     -webkit-text-fill-color: initial;
-    color: #c9a876;
+    color: var(--gold);
   }
 }
 
@@ -251,7 +251,7 @@
   font-size: 40px;
   line-height: 1.1;
   letter-spacing: 0.01em;
-  color: #ffffff;
+  color: var(--text-light);
 
   margin: 0;
   padding: 0;
@@ -392,7 +392,7 @@
 
   font-family: var(--font-body-alt);
   background: #c9a876;
-  color: #0b0e1a;
+  color: var(--navy-950);
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.02em;
@@ -463,8 +463,9 @@
 }
 
 .hero-launch__cta:hover {
+  animation-play-state: paused;
   background: #b8935f;
-  color: #0b0e1a;
+  color: var(--navy-950);
   transform: translateY(-2px);
   box-shadow: 0 10px 26px rgba(201, 168, 118, 0.45);
 }
@@ -503,46 +504,101 @@
 }
 
 /* =========================================================
-   AMAZON
+   YOUTUBE
 ========================================================= */
 
-.hero-launch__amazon {
+.hero-launch__youtube {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  text-align: center;
+  gap: 10px;
 
-  font-family: var(--font-body-alt);
-  font-size: 17px;
-  line-height: 1.3;
+  text-decoration: none;
+  cursor: pointer;
 
-  margin: 0;
-  padding: 0;
+  padding: 6px 10px;
+  border-radius: 6px;
 }
 
-.hero-launch__amazon span {
+.hero-launch__youtube-lottie {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  overflow: hidden;
+  display: block;
+  border-radius: 50%;
+}
+
+.hero-launch__youtube-lottie iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  pointer-events: none; /* evita interação acidental com o embed */
+}
+
+.hero-launch__youtube-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+
+  font-family: var(--font-body-alt);
+  line-height: 1.3;
+}
+
+.hero-launch__youtube-text span {
   color: #9aa3b5;
+  font-size: 17px;
   font-weight: 400;
 }
 
-.hero-launch__amazon strong {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #ffffff;
-
+.hero-launch__youtube-text strong {
+  color: var(--text-light);
   font-size: 21px;
-  line-height: 1.2;
   font-weight: 700;
   letter-spacing: 0.02em;
-  text-transform: lowercase;
 
-  margin-top: 2px;
+  position: relative;
+  transition: color 0.35s ease;
 }
 
-.hero-launch__amazon strong svg {
-  margin-top: 2px;
+/* sublinhado sutil que "desenrola" no strong */
+.hero-launch__youtube-text strong::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: var(--gold-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+
+/* ---- estado hover/focus ----
+   Simplificado: hover só reage no NOME (strong) + sublinhado.
+   Fundo do link, ícone/lottie e texto secundário (span) não
+   mudam mais no hover — evita o tremor causado por transform
+   em cima de elementos já escalados pelos ancestrais. */
+
+.hero-launch__youtube:hover .hero-launch__youtube-text strong {
+  color: var(--gold-accent);
+}
+
+.hero-launch__youtube:hover .hero-launch__youtube-text strong::after {
+  transform: scaleX(1);
+}
+
+.hero-launch__youtube:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-launch__youtube-text strong,
+  .hero-launch__youtube-text strong::after {
+    transition: none;
+  }
 }
 
 /* =========================================================
@@ -595,7 +651,7 @@
     rgba(10, 15, 28, 0) 0%,
     rgba(10, 15, 28, 0.5) 40%,
     rgba(10, 15, 28, 0.85) 70%,
-    #0b0f1e 100%
+    var(--navy-900) 100%
   );
   pointer-events: none;
 }
@@ -637,7 +693,7 @@
     aspect-ratio: unset;
     height: auto;
     overflow: visible;
-    background: #0b0e1a;
+    background: var(--navy-950);
   }
 
   .hero-launch__scale {
@@ -723,14 +779,20 @@
     padding: 11px 18px;
   }
 
-  .hero-launch__amazon {
+  .hero-launch__youtube {
+    justify-content: center;
+  }
+
+  .hero-launch__youtube-text {
     align-items: center;
     text-align: center;
+  }
+
+  .hero-launch__youtube-text span {
     font-size: 14px;
   }
 
-  .hero-launch__amazon strong {
-    align-items: center;
+  .hero-launch__youtube-text strong {
     font-size: 17px;
   }
 
@@ -791,7 +853,7 @@
 
 /* =========================================================
    BREAKPOINT: 480px E ABAIXO
-   Tudo centralizado, capa desce após botão/Amazon
+   Tudo centralizado, capa desce após botão/YouTube
 ========================================================= */
 
 @media (max-width: 480px) {
@@ -851,13 +913,13 @@
     padding: 9px 14px;
   }
 
-  .hero-launch__amazon {
-    align-items: center;
-    text-align: center;
+  .hero-launch__youtube {
+    justify-content: center;
   }
 
-  .hero-launch__amazon strong {
+  .hero-launch__youtube-text {
     align-items: center;
+    text-align: center;
   }
 
   .hero-launch__book {
@@ -938,7 +1000,7 @@
     border: 2px solid #c9a876;
     padding: 3px;
     box-sizing: border-box;
-    background: #0b0f1e;
+    background: var(--navy-900);
     flex-shrink: 0;
   }
 
