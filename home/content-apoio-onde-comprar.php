@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <section class="section-apoio-onde-comprar" id="apoio-onde-comprar">
-    <div class="container">
+    <div class="container apoio-onde-comprar-container">
         <div class="apoio-onde-comprar-wrapper">
 
             <!-- Bloco: Apoio -->
@@ -98,8 +98,8 @@ if ( ! defined( 'ABSPATH' ) ) {
                             loading="lazy"
                         >
                         <span class="onde-comprar-text">Compre pelo link<br>Clube de Autores</span>
-                        <a href="https://lnkd.in/dkEpsnxN" target="_blank" rel="noopener" class="btn btn-solid onde-comprar-btn">
-                            lnkd.in/dkEpsnxN
+                        <a href="https://clubedeautores.com.br/livro/inteligencia-artificial-para-economistas-e-contadores" target="_blank" rel="noopener" class="btn btn-solid onde-comprar-btn">
+                            <span>Comprar agora →</span>
                         </a>
                     </div>
 

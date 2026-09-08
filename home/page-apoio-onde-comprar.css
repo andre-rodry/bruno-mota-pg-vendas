@@ -7,6 +7,13 @@
   padding: var(--space-xl) 0;
 }
 
+/* Container máximo com centralização */
+.apoio-onde-comprar-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
 /* Wrapper que empilha as duas caixas com espaço entre elas */
 .apoio-onde-comprar-wrapper {
   display: flex;
@@ -83,7 +90,6 @@
   flex-shrink: 0;
 }
 
-
 /* =========================================================
    GRID DE INSTITUIÇÕES — APOIO
    ========================================================= */
@@ -103,7 +109,6 @@
   text-align: center;
 
   flex: 1 1 200px;
-
 }
 
 .apoio-logo {
@@ -140,7 +145,6 @@
   line-height: 1.3;
 }
 
-
 /* =========================================================
    GRID — ONDE COMPRAR
    ========================================================= */
@@ -167,7 +171,6 @@
   padding: 0 var(--space-sm);
 }
 
-
 /* =========================================================
    LOGOS — TAMANHO AUMENTADO
    ========================================================= */
@@ -191,7 +194,6 @@
 
   display: block;
 }
-
 
 /* =========================================================
    TEXTO DOS CANAIS
@@ -222,7 +224,6 @@
   letter-spacing: 0.02em;
 }
 
-
 /* =========================================================
    BOTÃO
    ========================================================= */
@@ -237,14 +238,88 @@
   margin-top: 4px;
 }
 
-/*==================================================responsivo==============================================================*/
+/* =========================================================
+   BOTÃO — mesmo efeito do CTA da Hero (glow + shine)
+   ========================================================= */
 
+.onde-comprar-btn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
 
-/* ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
-   INÍCIO DA RESPONSIVIDADE — TABLET (≤768px)
-   Ícones mantêm o tamanho fixo do desktop; só o layout
-   quebra em 2 colunas / 2 linhas
-   ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ */
+  border: none;
+  cursor: pointer;
+
+  box-shadow: 0 0 0 rgba(201, 168, 118, 0);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+
+  animation: onde-comprar-btn-glow 3s ease-in-out infinite;
+}
+
+/* brilho suave "respirando" ao redor do botão */
+@keyframes onde-comprar-btn-glow {
+  0%, 100% {
+    box-shadow: 0 4px 14px rgba(201, 168, 118, 0.18);
+  }
+  50% {
+    box-shadow: 0 6px 22px rgba(201, 168, 118, 0.38);
+  }
+}
+
+/* faixa de luz que atravessa o botão */
+.onde-comprar-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+
+  background: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+
+  transform: skewX(-20deg);
+  animation: onde-comprar-btn-shine 4.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes onde-comprar-btn-shine {
+  0% {
+    left: -60%;
+  }
+  35%,
+  100% {
+    left: 130%;
+  }
+}
+
+.onde-comprar-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(201, 168, 118, 0.45);
+}
+
+.onde-comprar-btn span {
+  position: relative;
+  z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .onde-comprar-btn {
+    animation: none;
+  }
+  .onde-comprar-btn::after {
+    display: none;
+  }
+}
+
+/* ==================================================
+   RESPONSIVIDADE — TABLET (≤768px)
+   ================================================== */
 
 @media (max-width: 768px) {
 
@@ -262,14 +337,10 @@
     max-width: 40px;
   }
 }
-/* ▲▲▲ FIM DO BREAKPOINT TABLET (≤768px) ▲▲▲ */
 
-
-/* ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
-   INÍCIO DA RESPONSIVIDADE — CELULAR PEQUENO (≤480px)
-   ÚLTIMO BREAKPOINT — empilha tudo, ícones ainda no
-   mesmo tamanho fixo
-   ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ */
+/* ==================================================
+   RESPONSIVIDADE — MOBILE (≤480px)
+   ================================================== */
 
 @media (max-width: 480px) {
 
@@ -326,4 +397,3 @@
     text-align: center;
   }
 }
-/* ▲▲▲ FIM DO BREAKPOINT MOBILE (≤480px) ▲▲▲ */

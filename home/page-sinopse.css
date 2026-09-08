@@ -17,7 +17,7 @@
 
 .sinopse-hero-inner {
 	width: 100%;
-	max-width: 1440px;
+	max-width: var(--container-max);
 	margin: 0 auto;
 	padding: 0 var(--space-xl);
 	display: grid;
@@ -149,7 +149,7 @@
 
 .sinopse-autores-inner {
 	width: 100%;
-	max-width: 1440px;
+	max-width: var(--container-max);
 	margin: 0 auto;
 	padding: 0 var(--space-xl);
 }

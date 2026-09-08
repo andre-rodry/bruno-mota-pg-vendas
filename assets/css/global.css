@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&family=Oswald:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&family=Oswald:wght@500;600;700&display=swap');
 
 :root {
   --navy-950: #0a0f1c;
@@ -25,7 +25,7 @@
   --space-md: 24px;
   --space-lg: 48px;
   --space-xl: 80px;
-  --container-max: 1140px;
+  --container-max: 1460px;
 }
 
 /* Reset básico */
@@ -42,9 +42,13 @@ body {
   background-color: var(--navy-950);
   color: var(--text-soft);
   font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: 18px;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1;
+  font-optical-sizing: auto;
 }
 
 img {
@@ -65,17 +69,25 @@ a:hover {
 h1, h2, h3, h4, h5 {
   font-family: var(--font-display);
   color: var(--text-light);
-  line-height: 1.2;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
   margin: 0 0 var(--space-sm);
+  text-wrap: balance;
 }
 
-h1 { font-size: clamp(2rem, 4vw, 3rem); }
-h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); }
-h3 { font-size: 1.5rem; }
+h1 { font-size: clamp(2.25rem, 4.5vw, 3.5rem); }
+h2 { font-size: clamp(1.75rem, 3.5vw, 2.6rem); }
+h3 {
+  font-size: 1.75rem;
+  letter-spacing: 0;
+}
 
 p {
   margin: 0 0 var(--space-sm);
   color: var(--text-muted);
+  line-height: 1.7;
+  text-wrap: pretty;
 }
 
 /* Layout */
@@ -95,6 +107,7 @@ p {
   display: inline-block;
   font-family: var(--font-body-alt);
   font-weight: 600;
+  letter-spacing: 0.02em;
   padding: 12px 28px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-gold-glow);

@@ -13,6 +13,7 @@
 
 .footer-cta__inner {
   max-width: 640px;
+  margin: 0 auto;
 }
 
 .footer-cta__icon-line {
@@ -87,6 +88,8 @@
 }
 
 .footer-main__inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
   display: flex;
   align-items: center;
   gap: var(--space-lg);
@@ -159,6 +162,8 @@
 }
 
 .footer-bottom__inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
