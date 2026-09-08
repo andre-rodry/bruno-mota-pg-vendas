@@ -6,16 +6,16 @@
 
 <section class="sinopse-section">
 
-	<div
-		class="sinopse-hero"
-		style="
-			--bg-desktop: url('<?php echo esc_url( get_template_directory_uri() . '/assets/img/publicacoes-economia-conhecimento-financas.webp' ); ?>');
-			--bg-mobile: url('<?php echo esc_url( get_template_directory_uri() . '/assets/img/publicacoes-economia-conhecimento-financas-mobile-tablet.webp' ); ?>');
-		"
-	>
+	<div class="sinopse-hero">
 		<div class="sinopse-hero-inner">
 
-			<div class="sinopse-imagem"></div>
+			<div class="sinopse-imagem">
+				<img
+					src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/publicacoes-economia-conhecimento-financas.webp' ); ?>"
+					alt="Publicações sobre economia, conhecimento e finanças"
+					loading="lazy"
+				>
+			</div>
 
 			<div class="sinopse-conteudo">
 
@@ -44,6 +44,54 @@
 					<strong class="destaque">mas não substitui julgamento profissional, responsabilidade técnica, ética e a construção deliberada de audiência, processo e oferta.</strong>
 					Esse princípio orienta cada capítulo, cada exemplo e cada recomendação prática que você vai encontrar aqui.
 				</p>
+
+			</div>
+
+		</div>
+	</div>
+
+	<div class="sinopse-autores">
+		<div class="sinopse-autores-inner">
+
+			<div class="sinopse-autores-divisor">
+				<span class="sinopse-autores-linha"></span>
+				<h2 class="sinopse-autores-titulo">Sobre os Autores</h2>
+				<span class="sinopse-autores-linha"></span>
+			</div>
+
+			<div class="sinopse-autores-grid">
+
+				<div class="sinopse-autor">
+					<div class="sinopse-autor-foto">
+						<img
+							src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/bruno-mota-economista.webp' ); ?>"
+							alt="Bruno Mota Lopes"
+							loading="lazy"
+						>
+					</div>
+					<div class="sinopse-autor-texto">
+						<h3 class="sinopse-autor-nome">Bruno Mota Lopes</h3>
+						<p>
+							Economista, mestre e doutorando em Desenvolvimento Regional e Urbano, com mais de 20 anos de experiência no setor financeiro. Educador financeiro, pesquisador e escritor nas áreas de Economia, Desenvolvimento Regional e Educação Financeira.
+						</p>
+					</div>
+				</div>
+
+				<div class="sinopse-autor">
+					<div class="sinopse-autor-foto">
+						<img
+							src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/welinton-santos-economista.webp' ); ?>"
+							alt="Welinton dos Santos"
+							loading="lazy"
+						>
+					</div>
+					<div class="sinopse-autor-texto">
+						<h3 class="sinopse-autor-nome">Welinton dos Santos</h3>
+						<p>
+							Economista, contador, professor e escritor, com mais de 30 anos de experiência. Especialista em Economia, Contabilidade, Tecnologia e Inovação, atua na formação de profissionais e na produção de conteúdo sobre o mercado e a nova economia.
+						</p>
+					</div>
+				</div>
 
 			</div>
 

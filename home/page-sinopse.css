@@ -12,54 +12,39 @@
 	width: 100vw;
 	margin-left: calc(50% - 50vw);
 	margin-right: calc(50% - 50vw);
-	display: flex;
-	align-items: stretch;
-	padding: var(--space-sm) 0;
-	overflow: visible;
-}
-
-.sinopse-hero::after {
-	content: "";
-	position: absolute;
-	inset: 0;
-	pointer-events: none;
-	background: rgba(6, 12, 26, 0.82);
-	z-index: 0;
+	padding: var(--space-md) 0;
 }
 
 .sinopse-hero-inner {
-	position: relative;
-	z-index: 1;
 	width: 100%;
-	max-width: 100%;
+	max-width: 1440px;
 	margin: 0 auto;
 	padding: 0 var(--space-xl);
 	display: grid;
-	grid-template-columns: 0.95fr 1.2fr;
-	gap: var(--space-xl);
-	align-items: start;
-	justify-items: start;
+	grid-template-columns: 1fr 1fr;
+	gap: var(--space-lg);
+	align-items: center;
 }
 
 .sinopse-imagem {
 	position: relative;
 	width: 100%;
-	height: 100%;
-	min-height: 420px;
-	background-image: var(--bg-desktop);
-	background-size: contain;
-	background-position: center;
-	background-repeat: no-repeat;
+	overflow: hidden;
+}
+
+.sinopse-imagem img {
+	display: block;
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+	object-position: center;
 }
 
 .sinopse-conteudo {
 	display: flex;
 	flex-direction: column;
-	gap: var(--space-md);
+	gap: var(--space-sm);
 	text-align: left;
-	padding-right: var(--space-xl);
-	padding-top: var(--space-md);
-	padding-bottom: var(--space-md);
 }
 
 .sinopse-header {
@@ -98,8 +83,8 @@
 
 .sinopse-conteudo p {
 	font-family: var(--font-body);
-	font-size: 1.0625rem;
-	line-height: 1.75;
+	font-size: 1rem;
+	line-height: 1.65;
 	color: var(--text-soft-light);
 	margin: 0;
 	text-align: left;
@@ -117,30 +102,154 @@
 }
 
 /* ==========================================================================
+   Section: Sobre os Autores
+   ========================================================================== */
+
+.sinopse-autores {
+	position: relative;
+	width: 100vw;
+	margin-left: calc(50% - 50vw);
+	margin-right: calc(50% - 50vw);
+	padding: var(--space-lg) 0 var(--space-xl);
+}
+
+.sinopse-autores-inner {
+	width: 100%;
+	max-width: 1440px;
+	margin: 0 auto;
+	padding: 0 var(--space-xl);
+}
+
+.sinopse-autores-divisor {
+	display: flex;
+	align-items: center;
+	gap: var(--space-md);
+	margin-bottom: var(--space-xl);
+}
+
+.sinopse-autores-linha {
+	flex: 1;
+	height: 1px;
+	background: linear-gradient(
+		to right,
+		transparent,
+		var(--gold) 50%,
+		transparent
+	);
+	opacity: 0.5;
+}
+
+.sinopse-autores-divisor .sinopse-autores-linha:first-child {
+	background: linear-gradient(
+		to right,
+		transparent,
+		var(--gold)
+	);
+}
+
+.sinopse-autores-divisor .sinopse-autores-linha:last-child {
+	background: linear-gradient(
+		to left,
+		transparent,
+		var(--gold)
+	);
+}
+
+.sinopse-autores-titulo {
+	font-family: var(--font-display);
+	font-size: clamp(1.25rem, 2vw, 1.75rem);
+	font-weight: 600;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	color: var(--text-light);
+	margin: 0;
+	white-space: nowrap;
+}
+
+.sinopse-autores-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: var(--space-xl);
+	position: relative;
+}
+
+.sinopse-autores-grid::before {
+	content: "";
+	position: absolute;
+	top: 8px;
+	bottom: 8px;
+	left: 50%;
+	width: 1px;
+	background: rgba(255, 255, 255, 0.15);
+	transform: translateX(-50%);
+}
+
+.sinopse-autor {
+	display: flex;
+	align-items: center;
+	gap: var(--space-md);
+}
+
+.sinopse-autor-foto {
+	flex-shrink: 0;
+	width: 130px;
+	height: 130px;
+	border-radius: 50%;
+	overflow: hidden;
+	border: 3px solid var(--gold);
+	box-shadow: 0 0 0 4px rgba(6, 12, 26, 0.6);
+}
+
+.sinopse-autor-foto img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center top;
+}
+
+.sinopse-autor-texto {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-xs);
+}
+
+.sinopse-autor-nome {
+	font-family: var(--font-display);
+	font-size: 1.125rem;
+	font-weight: 700;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	color: var(--gold-accent);
+	margin: 0;
+}
+
+.sinopse-autor-texto p {
+	font-family: var(--font-body);
+	font-size: 0.9375rem;
+	line-height: 1.65;
+	color: var(--text-soft-light);
+	margin: 0;
+}
+
+/* ==========================================================================
    Responsivo
    ========================================================================== */
 
 @media (max-width: 1280px) {
 
 	.sinopse-hero-inner {
-		grid-template-columns: 1fr 1.1fr;
-		gap: var(--space-lg);
+		gap: var(--space-md);
 		padding: 0 var(--space-lg);
 	}
 
-	.sinopse-imagem {
-		min-height: 400px;
-	}
-
-	.sinopse-conteudo {
-		padding-right: var(--space-lg);
-		padding-top: var(--space-sm);
-		padding-bottom: var(--space-sm);
-	}
-
 	.sinopse-conteudo p {
-		font-size: 1rem;
-		line-height: 1.7;
+		font-size: 0.9375rem;
+		line-height: 1.6;
+	}
+
+	.sinopse-autores-inner {
+		padding: 0 var(--space-lg);
 	}
 }
 
@@ -152,76 +261,179 @@
 		padding: 0 var(--space-md);
 	}
 
+	.sinopse-conteudo p {
+		font-size: 0.9375rem;
+		line-height: 1.6;
+	}
+
+	.sinopse-autores-inner {
+		padding: 0 var(--space-md);
+	}
+
+	.sinopse-autor-foto {
+		width: 110px;
+		height: 110px;
+	}
+}
+
+/* --------------------------------------------------------------------------
+   Efeito overlay: a imagem passa a ocupar todo o fundo do bloco (full-bleed),
+   com um gradiente escuro por cima e o texto sobreposto.
+   Ativo apenas entre 769px e 955px.
+
+   Correções aplicadas:
+   - object-fit: contain -> evita cortar topo/base da imagem, já que o
+     container fica mais alto que a proporção original da arte.
+   - Gradiente mais escuro e mais uniforme (0.75 -> 0.95) para garantir
+     contraste e legibilidade do texto sobreposto.
+   - text-shadow no conteúdo para reforçar legibilidade sobre fundo irregular.
+   -------------------------------------------------------------------------- */
+@media (max-width: 955px) and (min-width: 769px) {
+
+	.sinopse-hero-inner {
+		display: block;
+		position: relative;
+	}
+
 	.sinopse-imagem {
-		min-height: 360px;
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+	}
+
+	.sinopse-imagem img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+	}
+
+	/* Fade nas 4 bordas dissolvendo pra cor da section (navy-950),
+	   por cima do tom geral leve que unifica a imagem com o fundo */
+	.sinopse-imagem::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background:
+			linear-gradient(
+				to bottom,
+				var(--navy-950) 0%,
+				transparent 12%,
+				transparent 88%,
+				var(--navy-950) 100%
+			),
+			linear-gradient(
+				to right,
+				var(--navy-950) 0%,
+				transparent 12%,
+				transparent 88%,
+				var(--navy-950) 100%
+			),
+			linear-gradient(
+				to bottom,
+				rgba(6, 12, 26, 0.35) 0%,
+				rgba(6, 12, 26, 0.5) 100%
+			);
 	}
 
 	.sinopse-conteudo {
-		gap: var(--space-sm);
-		padding-right: var(--space-md);
-		padding-top: var(--space-sm);
-		padding-bottom: var(--space-sm);
+		position: relative;
+		z-index: 2;
+		margin: 0;
+		padding: var(--space-xl) var(--space-lg);
+		background: rgba(6, 12, 26, 0.82);
+		border-radius: 12px;
+	}
+}
+
+@media (max-width: 928px) and (min-width: 769px) {
+
+	.sinopse-autores-grid {
+		grid-template-columns: 1fr;
+		gap: var(--space-lg);
 	}
 
-	.sinopse-conteudo p {
-		font-size: 0.9375rem;
-		line-height: 1.65;
+	.sinopse-autores-grid::before {
+		display: none;
+	}
+
+	.sinopse-autor {
+		flex-direction: row;
+		align-items: center;
+		text-align: left;
+		gap: var(--space-md);
+	}
+
+	.sinopse-autor-texto {
+		align-items: flex-start;
 	}
 }
 
 @media (max-width: 768px) {
 
 	.sinopse-hero {
-		padding: var(--space-xs) 0;
-	}
-
-	.sinopse-hero::after {
-		background: rgba(6, 12, 26, 0.93);
+		padding: var(--space-sm) 0;
 	}
 
 	.sinopse-hero-inner {
 		grid-template-columns: 1fr;
 		gap: var(--space-md);
 		padding: 0 var(--space-md);
-		align-items: center;
-	}
-
-	.sinopse-imagem {
-		height: 320px;
-		min-height: 320px;
-		background-size: contain;
 	}
 
 	.sinopse-titulo {
 		font-size: clamp(1.25rem, 4vw, 1.75rem);
 	}
 
-	.sinopse-conteudo {
-		padding-right: 0;
-		padding-top: var(--space-md);
-		padding-bottom: var(--space-md);
-	}
-
 	.sinopse-conteudo p {
 		font-size: 0.9375rem;
-		line-height: 1.65;
+		line-height: 1.6;
+	}
+
+	/* Em coluna única, o texto fica abaixo da imagem — reseta a sobreposição
+	   lateral e usa um gradiente de cima para baixo em vez de esquerda-direita */
+	.sinopse-conteudo {
+		margin-left: 0;
+		padding-left: 0;
+		padding-top: var(--space-lg);
+		margin-top: calc(var(--space-lg) * -1);
+		background: linear-gradient(
+			to bottom,
+			transparent 0%,
+			var(--navy-950) 15%,
+			var(--navy-950) 100%
+		);
+	}
+
+	.sinopse-autores-grid {
+		grid-template-columns: 1fr;
+		gap: var(--space-lg);
+	}
+
+	.sinopse-autores-grid::before {
+		display: none;
+	}
+
+	.sinopse-autor {
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: var(--space-sm);
+	}
+
+	.sinopse-autor-texto {
+		padding-top: 0;
+		align-items: center;
 	}
 }
 
 @media (max-width: 600px) {
 
-	.sinopse-hero {
-		padding: var(--space-xs) 0;
-	}
-
 	.sinopse-hero-inner {
 		padding: 0 var(--space-md);
 		gap: var(--space-sm);
-	}
-
-	.sinopse-imagem {
-		height: 250px;
-		min-height: 250px;
 	}
 
 	.sinopse-icone {
@@ -234,14 +446,31 @@
 		height: 28px;
 	}
 
-	.sinopse-conteudo {
-		padding-top: var(--space-sm);
-		padding-bottom: var(--space-sm);
-	}
-
 	.sinopse-conteudo p {
 		font-size: 0.875rem;
-		line-height: 1.6;
+		line-height: 1.55;
+	}
+
+	.sinopse-autores-inner {
+		padding: 0 var(--space-md);
+	}
+
+	.sinopse-autores-titulo {
+		font-size: 1.125rem;
+		letter-spacing: 1px;
+	}
+
+	.sinopse-autor-foto {
+		width: 100px;
+		height: 100px;
+	}
+
+	.sinopse-autor-nome {
+		font-size: 1rem;
+	}
+
+	.sinopse-autor-texto p {
+		font-size: 0.875rem;
 	}
 }
 
@@ -251,13 +480,12 @@
 		padding: 0 var(--space-sm);
 	}
 
-	.sinopse-imagem {
-		height: 200px;
-		min-height: 200px;
-	}
-
 	.sinopse-conteudo p {
 		font-size: 0.8125rem;
-		line-height: 1.55;
+		line-height: 1.5;
+	}
+
+	.sinopse-autores-inner {
+		padding: 0 var(--space-sm);
 	}
 }
