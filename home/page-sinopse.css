@@ -1,277 +1,263 @@
 /* ==========================================================================
-   Section: Sinopse + Sobre os Autores
+   Section: Sinopse (hero full-bleed)
    ========================================================================== */
 
 .sinopse-section {
 	background-color: var(--navy-950);
-	padding: var(--space-xl) var(--space-md);
 	color: var(--text-soft);
 }
 
-.sinopse-container {
-	width: 100%;
-	max-width: var(--container-max);
-	margin: 0 auto;
-}
-
-/* ---------- Bloco superior: imagem + texto ---------- */
-
-.sinopse-top {
-	display: grid;
-	grid-template-columns: minmax(240px, 32%) 1fr;
-	gap: var(--space-lg);
-	align-items: stretch;
-}
-
-.sinopse-imagem {
+.sinopse-hero {
 	position: relative;
+	width: 100vw;
+	margin-left: calc(50% - 50vw);
+	margin-right: calc(50% - 50vw);
 	display: flex;
-	width: 100%;
-	max-width: none;
-	height: 100%;
-	overflow: hidden;
-	border-radius: var(--radius-md);
+	align-items: stretch;
+	padding: var(--space-sm) 0;
+	overflow: visible;
 }
 
-.sinopse-imagem img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	object-position: center;
-	display: block;
-}
-
-/* Fade full-bleed: dissolve as bordas da imagem no fundo da section */
-.sinopse-imagem::after {
+.sinopse-hero::after {
 	content: "";
 	position: absolute;
 	inset: 0;
 	pointer-events: none;
-	background:
-		linear-gradient(to bottom, var(--navy-950), transparent 18%, transparent 82%, var(--navy-950)),
-		linear-gradient(to right, var(--navy-950), transparent 18%, transparent 82%, var(--navy-950));
+	background: rgba(6, 12, 26, 0.82);
+	z-index: 0;
+}
+
+.sinopse-hero-inner {
+	position: relative;
+	z-index: 1;
+	width: 100%;
+	max-width: 100%;
+	margin: 0 auto;
+	padding: 0 var(--space-xl);
+	display: grid;
+	grid-template-columns: 0.95fr 1.2fr;
+	gap: var(--space-xl);
+	align-items: start;
+	justify-items: start;
+}
+
+.sinopse-imagem {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	min-height: 420px;
+	background-image: var(--bg-desktop);
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
 }
 
 .sinopse-conteudo {
 	display: flex;
 	flex-direction: column;
+	gap: var(--space-md);
+	text-align: left;
+	padding-right: var(--space-xl);
+	padding-top: var(--space-md);
+	padding-bottom: var(--space-md);
+}
+
+.sinopse-header {
+	display: flex;
+	align-items: center;
 	gap: var(--space-sm);
-	min-width: 0;
+	margin-bottom: var(--space-xs);
 }
 
 .sinopse-titulo {
-	display: flex;
-	align-items: center;
-	gap: var(--space-xs);
 	font-family: var(--font-display);
-	font-size: clamp(1.375rem, 3vw, 2rem);
+	font-size: clamp(1.5rem, 2.5vw, 2rem);
 	font-weight: 600;
-	letter-spacing: 1px;
+	letter-spacing: 2px;
 	text-transform: uppercase;
 	color: var(--text-light);
-	margin: 0 0 var(--space-xs);
+	margin: 0;
+	line-height: 1.1;
 }
 
 .sinopse-icone {
-	display: inline-flex;
+	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 30px;
-	height: 30px;
+	width: 40px;
+	height: 40px;
 	color: var(--gold);
 	flex-shrink: 0;
+	animation: float 3s ease-in-out infinite;
 }
 
 .sinopse-icone svg {
-	width: 26px;
-	height: 26px;
+	width: 36px;
+	height: 36px;
 }
 
 .sinopse-conteudo p {
 	font-family: var(--font-body);
-	font-size: clamp(0.9375rem, 1.4vw, 1.0625rem);
+	font-size: 1.0625rem;
 	line-height: 1.75;
 	color: var(--text-soft-light);
 	margin: 0;
+	text-align: left;
+	letter-spacing: 0.2px;
 }
 
 .sinopse-conteudo .destaque {
 	color: var(--gold-accent);
-	font-weight: 600;
+	font-weight: 700;
 }
 
-/* ---------- Divisor: "Sobre os Autores" ---------- */
-
-.sinopse-divisor {
-	display: flex;
-	align-items: center;
-	gap: var(--space-md);
-	margin: var(--space-xl) 0 var(--space-lg);
-}
-
-.sinopse-divisor span {
-	flex: 1;
-	height: 1px;
-	background: linear-gradient(90deg, transparent, var(--gold), transparent);
-	opacity: 0.6;
-}
-
-.sinopse-divisor h3 {
-	font-family: var(--font-display-alt);
-	font-size: clamp(1.25rem, 2.5vw, 1.625rem);
-	font-weight: 600;
-	letter-spacing: 1px;
-	text-transform: uppercase;
-	color: var(--text-light);
-	white-space: nowrap;
-	text-align: center;
-	margin: 0;
-}
-
-/* ---------- Autores ---------- */
-
-.sinopse-autores {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: var(--space-lg);
-	position: relative;
-}
-
-.sinopse-autores::before {
-	content: "";
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 50%;
-	width: 1px;
-	background-color: var(--gold);
-	transform: translateX(-50%);
-	opacity: 0.5;
-}
-
-.autor-card {
-	display: grid;
-	grid-template-columns: clamp(100px, 15vw, 150px) 1fr;
-	gap: var(--space-md);
-	align-items: start;
-}
-
-.autor-foto {
-	width: clamp(100px, 15vw, 150px);
-	height: clamp(100px, 15vw, 150px);
-	border-radius: 50%;
-	border: 3px solid var(--gold);
-	background-color: var(--navy-950);
-	overflow: hidden;
-	flex-shrink: 0;
-}
-
-.autor-foto img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	display: block;
-}
-
-.autor-info h4 {
-	font-family: var(--font-body-alt);
-	font-size: clamp(1.0625rem, 1.8vw, 1.25rem);
-	font-weight: 600;
-	letter-spacing: 0.5px;
-	text-transform: uppercase;
-	color: var(--gold);
-	margin: var(--space-xs) 0 var(--space-sm);
-}
-
-.autor-info p {
-	font-family: var(--font-body);
-	font-size: clamp(0.875rem, 1.2vw, 0.9375rem);
-	line-height: 1.7;
-	color: var(--text-soft-light);
-	margin: 0;
+@keyframes float {
+	0%, 100% { transform: translateY(0px); }
+	50% { transform: translateY(-6px); }
 }
 
 /* ==========================================================================
    Responsivo
    ========================================================================== */
 
-/* Tablets: reduz espaçamentos antes de quebrar a coluna */
-@media (max-width: 1024px) {
+@media (max-width: 1280px) {
 
-	.sinopse-top {
-		gap: var(--space-md);
-	}
-}
-
-/* Empilha imagem + texto; imagem ocupa 100% da largura */
-/* Empilha autores também, a partir do mesmo breakpoint */
-@media (max-width: 900px) {
-
-	.sinopse-top {
-		grid-template-columns: 1fr;
-		gap: var(--space-md);
+	.sinopse-hero-inner {
+		grid-template-columns: 1fr 1.1fr;
+		gap: var(--space-lg);
+		padding: 0 var(--space-lg);
 	}
 
 	.sinopse-imagem {
-		width: 100%;
-		max-width: 100%;
-		aspect-ratio: 1 / 1;
-		height: auto;
-		margin: 0;
+		min-height: 400px;
 	}
 
-	.sinopse-autores {
+	.sinopse-conteudo {
+		padding-right: var(--space-lg);
+		padding-top: var(--space-sm);
+		padding-bottom: var(--space-sm);
+	}
+
+	.sinopse-conteudo p {
+		font-size: 1rem;
+		line-height: 1.7;
+	}
+}
+
+@media (max-width: 1024px) {
+
+	.sinopse-hero-inner {
+		grid-template-columns: 1fr 1fr;
+		gap: var(--space-md);
+		padding: 0 var(--space-md);
+	}
+
+	.sinopse-imagem {
+		min-height: 360px;
+	}
+
+	.sinopse-conteudo {
+		gap: var(--space-sm);
+		padding-right: var(--space-md);
+		padding-top: var(--space-sm);
+		padding-bottom: var(--space-sm);
+	}
+
+	.sinopse-conteudo p {
+		font-size: 0.9375rem;
+		line-height: 1.65;
+	}
+}
+
+@media (max-width: 768px) {
+
+	.sinopse-hero {
+		padding: var(--space-xs) 0;
+	}
+
+	.sinopse-hero::after {
+		background: rgba(6, 12, 26, 0.93);
+	}
+
+	.sinopse-hero-inner {
 		grid-template-columns: 1fr;
-		gap: var(--space-lg);
+		gap: var(--space-md);
+		padding: 0 var(--space-md);
+		align-items: center;
 	}
 
-	.sinopse-autores::before {
-		display: none;
+	.sinopse-imagem {
+		height: 320px;
+		min-height: 320px;
+		background-size: contain;
 	}
 
-	.autor-card {
-		grid-template-columns: 120px 1fr;
+	.sinopse-titulo {
+		font-size: clamp(1.25rem, 4vw, 1.75rem);
 	}
 
-	.autor-foto {
-		width: 120px;
-		height: 120px;
+	.sinopse-conteudo {
+		padding-right: 0;
+		padding-top: var(--space-md);
+		padding-bottom: var(--space-md);
+	}
+
+	.sinopse-conteudo p {
+		font-size: 0.9375rem;
+		line-height: 1.65;
 	}
 }
 
 @media (max-width: 600px) {
 
-	.sinopse-section {
-		padding: var(--space-lg) var(--space-sm);
+	.sinopse-hero {
+		padding: var(--space-xs) 0;
 	}
 
-	.autor-card {
-		grid-template-columns: 1fr;
-		text-align: center;
-		justify-items: center;
-	}
-}
-
-/* Celulares pequenos: imagem continua 100%, só ajusta autores e divisor */
-@media (max-width: 420px) {
-
-	.sinopse-imagem {
-		width: 100%;
-		max-width: 100%;
-		aspect-ratio: 1 / 1;
-	}
-
-	.autor-foto {
-		width: 100px;
-		height: 100px;
-	}
-
-	.sinopse-divisor {
+	.sinopse-hero-inner {
+		padding: 0 var(--space-md);
 		gap: var(--space-sm);
 	}
 
-	.sinopse-divisor h3 {
-		white-space: normal;
-		font-size: 1.125rem;
+	.sinopse-imagem {
+		height: 250px;
+		min-height: 250px;
+	}
+
+	.sinopse-icone {
+		width: 32px;
+		height: 32px;
+	}
+
+	.sinopse-icone svg {
+		width: 28px;
+		height: 28px;
+	}
+
+	.sinopse-conteudo {
+		padding-top: var(--space-sm);
+		padding-bottom: var(--space-sm);
+	}
+
+	.sinopse-conteudo p {
+		font-size: 0.875rem;
+		line-height: 1.6;
+	}
+}
+
+@media (max-width: 400px) {
+
+	.sinopse-hero-inner {
+		padding: 0 var(--space-sm);
+	}
+
+	.sinopse-imagem {
+		height: 200px;
+		min-height: 200px;
+	}
+
+	.sinopse-conteudo p {
+		font-size: 0.8125rem;
+		line-height: 1.55;
 	}
 }

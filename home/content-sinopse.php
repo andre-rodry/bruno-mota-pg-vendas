@@ -5,35 +5,29 @@
 ?>
 
 <section class="sinopse-section">
-	<div class="sinopse-container">
 
-		<div class="sinopse-top">
+	<div
+		class="sinopse-hero"
+		style="
+			--bg-desktop: url('<?php echo esc_url( get_template_directory_uri() . '/assets/img/publicacoes-economia-conhecimento-financas.webp' ); ?>');
+			--bg-mobile: url('<?php echo esc_url( get_template_directory_uri() . '/assets/img/publicacoes-economia-conhecimento-financas-mobile-tablet.webp' ); ?>');
+		"
+	>
+		<div class="sinopse-hero-inner">
 
-			<div class="sinopse-imagem">
-				<picture>
-					<source
-						media="(max-width: 900px)"
-						srcset="<?php echo esc_url( get_template_directory_uri() . '/assets/img/publicacoes-economia-conhecimento-financas-mobile-tablet.webp' ); ?>"
-					>
-					<img
-						src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/publicacoes-economia-conhecimento-financas-desktop.webp' ); ?>"
-						alt="Inteligência artificial aplicada à economia e finanças"
-						loading="lazy"
-					>
-				</picture>
-			</div>
+			<div class="sinopse-imagem"></div>
 
 			<div class="sinopse-conteudo">
 
-				<h2 class="sinopse-titulo">
+				<div class="sinopse-header">
 					<span class="sinopse-icone" aria-hidden="true">
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 							<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
 							<path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
 						</svg>
 					</span>
-					Sinopse
-				</h2>
+					<h2 class="sinopse-titulo">Sinopse</h2>
+				</div>
 
 				<p>
 					Este livro nasceu de uma constatação simples: a inteligência artificial deixou de ser um tema de tecnologia para se tornar um tema de
@@ -54,48 +48,6 @@
 			</div>
 
 		</div>
-
-		<div class="sinopse-divisor">
-			<span></span>
-			<h3>Sobre os Autores</h3>
-			<span></span>
-		</div>
-
-		<div class="sinopse-autores">
-
-			<div class="autor-card">
-				<div class="autor-foto">
-					<img
-						src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/bruno-mota-economista.webp' ); ?>"
-						alt="Bruno Mota Lopes"
-						loading="lazy"
-					>
-				</div>
-				<div class="autor-info">
-					<h4>Bruno Mota Lopes</h4>
-					<p>
-						Economista, mestre e doutorando em Desenvolvimento Regional e Urbano, com mais de 20 anos de experiência no setor financeiro. Educador financeiro, pesquisador e escritor nas áreas de Economia, Desenvolvimento Regional e Educação Financeira.
-					</p>
-				</div>
-			</div>
-
-			<div class="autor-card">
-				<div class="autor-foto">
-					<img
-						src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/welinton-santos-economista.webp' ); ?>"
-						alt="Welinton dos Santos"
-						loading="lazy"
-					>
-				</div>
-				<div class="autor-info">
-					<h4>Welinton dos Santos</h4>
-					<p>
-						Economista, contador, professor e escritor, com mais de 30 anos de experiência. Especialista em Economia, Contabilidade, Tecnologia e Inovação, atua na formação de profissionais e na produção de conteúdo sobre o mercado e a nova economia.
-					</p>
-				</div>
-			</div>
-
-		</div>
-
 	</div>
+
 </section>
