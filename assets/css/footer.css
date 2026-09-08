@@ -81,18 +81,6 @@
   transform: translateX(3px);
 }
 
-/* linha divisória com brilho dourado */
-.footer-cta::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold-accent) 50%, transparent);
-  box-shadow: 0 0 12px 1px var(--border-gold-glow);
-}
-
 /* ---- Bloco principal ---- */
 .footer-main {
   padding: var(--space-lg) 0;
@@ -123,13 +111,6 @@
   align-items: baseline;
   gap: var(--space-xs);
   margin-bottom: var(--space-xs);
-}
-
-.footer-main__tags-wrap .footer-main__tag-line {
-  width: 24px;
-  height: 1px;
-  background-color: var(--gold);
-  flex-shrink: 0;
 }
 
 .footer-main__tags {

@@ -36,7 +36,6 @@
             <div class="footer-main__about">
                 <h3 class="footer-main__name">Bruno Mota Lopes</h3>
                 <div class="footer-main__tags-wrap">
-                    <span class="footer-main__tag-line"></span>
                     <p class="footer-main__tags">Economia • Desenvolvimento • Educação Financeira</p>
                 </div>
                 <p class="footer-main__desc">Economia que transforma pessoas, instituições e o futuro.</p>
