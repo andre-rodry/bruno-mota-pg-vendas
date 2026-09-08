@@ -10,6 +10,18 @@
     padding: 0;
 }
 
+.previa-bruno .service-tab,
+.previa-bruno .block-thumb,
+.previa-bruno .nav-arrow,
+.pb-modal-close,
+.pb-modal-arrow,
+.pb-zoom-btn {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
 .previa-bruno-section {
     background: var(--navy-950);
     padding: var(--space-xl) 0;
@@ -399,6 +411,7 @@
 }
 
 .pb-modal-content {
+    position: relative; /* âncora para o X e o zoom, que ficam fixos no card */
     max-width: 90vw;
     max-height: 90vh;
     display: flex;
@@ -455,88 +468,116 @@
     text-transform: uppercase;
 }
 
+/* ---------- Botão de fechar (fixo dentro do modal-content) ---------- */
+
 .pb-modal-close {
     position: absolute;
-    top: 24px;
-    right: 24px;
-    width: 44px;
-    height: 44px;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    border: 1px solid var(--border-white);
-    background: rgba(255, 255, 255, 0.04);
-    color: var(--text-soft);
+    border: 1px solid var(--gold);
+    background: var(--gold);
+    color: var(--navy-950);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
+    z-index: 4;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    opacity: 0.7;
 }
 
 .pb-modal-close:hover {
-    background: var(--gold);
-    color: var(--navy-950);
+    background: var(--navy-950);
+    color: var(--gold);
     border-color: var(--gold);
+    opacity: 1;
 }
 
 .pb-modal-close svg {
-    width: 20px;
-    height: 20px;
+    width: 14px;
+    height: 14px;
 }
 
 .pb-modal-arrow {
-    width: 52px;
-    height: 52px;
+    position: absolute;
+    bottom: 28px;
+    top: auto;
+    transform: none;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
-    border: 1px solid var(--border-white);
-    background: rgba(255, 255, 255, 0.04);
-    color: var(--text-soft);
+    border: 1px solid var(--gold);
+    background: var(--gold);
+    color: var(--navy-950);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    flex: 0 0 auto;
-    margin: 0 20px;
-    z-index: 2;
+    z-index: 4;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    opacity: 0.7;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.pb-modal-arrow-left {
+    left: calc(50% - 90px);
+    right: auto;
+}
+
+.pb-modal-arrow-right {
+    left: calc(50% + 52px);
+    right: auto;
 }
 
 .pb-modal-arrow:hover {
-    background: var(--gold);
-    color: var(--navy-950);
+    background: var(--navy-950);
+    color: var(--gold);
     border-color: var(--gold);
+    opacity: 1;
 }
 
 .pb-modal-arrow svg {
-    width: 22px;
-    height: 22px;
+    width: 16px;
+    height: 16px;
     stroke-width: 2.5;
     pointer-events: none;
 }
 
-/* ---------- Controles de zoom ---------- */
+/* ---------- Controles de zoom (fixos dentro do modal-content, abaixo do X) ---------- */
 
 .pb-zoom-controls {
     position: absolute;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 26px;
+    right: 12px;
+    left: auto;
+    top: auto;
+    transform: none;
     display: flex;
     align-items: center;
-    gap: 4px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid var(--border-white);
+    gap: 2px;
+    background: rgba(217, 164, 65, 0.45);
+    border: 1px solid var(--gold);
     border-radius: 100px;
-    padding: 6px;
+    padding: 4px;
     z-index: 3;
+    backdrop-filter: blur(4px);
 }
 
 .pb-zoom-btn {
-    width: 38px;
-    height: 38px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     border: none;
     background: transparent;
-    color: var(--text-soft);
+    color: var(--navy-950);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -545,26 +586,26 @@
 }
 
 .pb-zoom-btn:hover {
-    background: var(--gold);
-    color: var(--navy-950);
+    background: var(--navy-950);
+    color: var(--gold);
 }
 
 .pb-zoom-btn svg {
-    width: 18px;
-    height: 18px;
+    width: 15px;
+    height: 15px;
     pointer-events: none;
 }
 
 .pb-zoom-reset svg {
-    width: 16px;
-    height: 16px;
+    width: 13px;
+    height: 13px;
 }
 
 .pb-zoom-level {
-    color: var(--text-muted);
-    font-size: 0.78rem;
-    font-weight: 600;
-    min-width: 44px;
+    color: var(--navy-950);
+    font-size: 0.72rem;
+    font-weight: 700;
+    min-width: 38px;
     text-align: center;
     user-select: none;
 }
@@ -574,15 +615,21 @@
         padding: 16px;
     }
     .pb-modal-arrow {
-        width: 40px;
-        height: 40px;
-        margin: 0 8px;
+        width: 34px;
+        height: 34px;
+        bottom: 18px;
+    }
+    .pb-modal-arrow-left {
+        left: calc(50% - 68px);
+    }
+    .pb-modal-arrow-right {
+        left: calc(50% + 34px);
     }
     .pb-modal-close {
-        top: 12px;
-        right: 12px;
-        width: 38px;
-        height: 38px;
+        top: 8px;
+        right: 8px;
+        width: 28px;
+        height: 28px;
     }
     .pb-modal-viewport,
     .pb-modal-viewport img {
@@ -590,12 +637,14 @@
         max-height: 68vh;
     }
     .pb-zoom-controls {
-        bottom: 12px;
+        top: auto;
+        bottom: 20px;
+        right: 8px;
         padding: 4px;
     }
     .pb-zoom-btn {
-        width: 34px;
-        height: 34px;
+        width: 26px;
+        height: 26px;
     }
 
     .previa-bruno .service-tabs {
@@ -669,6 +718,7 @@
     .previa-bruno .fleet-card {
         flex-direction: column;
         padding: 40px 30px;
+        gap: 16px;
     }
 
     .previa-bruno .car-img-box {
@@ -688,7 +738,9 @@
         bottom: auto;
         right: auto;
         justify-content: center;
-        margin-top: 18px;
+        order: -1;
+        margin-top: 0;
+        margin-bottom: 0;
     }
     .previa-bruno .display-desc {
         max-width: 100%;
@@ -728,14 +780,14 @@
         padding: 16px;
     }
     .pb-modal-arrow {
-        width: 40px;
-        height: 40px;
-        margin: 0 8px;
+        width: 34px;
+        height: 34px;
+        bottom: 18px;
     }
-    .pb-modal-close {
-        top: 12px;
-        right: 12px;
-        width: 38px;
-        height: 38px;
+    .pb-modal-arrow-left {
+        left: calc(50% - 68px);
+    }
+    .pb-modal-arrow-right {
+        left: calc(50% + 34px);
     }
 }
