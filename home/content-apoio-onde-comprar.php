@@ -98,7 +98,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                             loading="lazy"
                         >
                         <span class="onde-comprar-text">Compre pelo link<br>Clube de Autores</span>
-                        <a href="https://clubedeautores.com.br/livro/inteligencia-artificial-para-economistas-e-contadores" target="_blank" rel="noopener" class="btn btn-solid onde-comprar-btn">
+                        <a href="https://clubedeautores.com.br/livro/inteligencia-artificial-para-economistas-e-contadores" target="_blank" rel="noopener" class="btn btn-solid onde-comprar-btn" data-track="secao-comprar-clube-autores">
                             <span>Comprar agora →</span>
                         </a>
                     </div>

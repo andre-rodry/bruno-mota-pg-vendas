@@ -11,7 +11,7 @@
 
 			<div class="sinopse-imagem reveal">
 				<img
-					src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/publicacoes-economia-conhecimento-financas-desktop.webp' ); ?>"
+					src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/publicacoes-economia-conhecimento-financas-desktop.png' ); ?>"
 					alt="Publicações sobre economia, conhecimento e finanças"
 					loading="lazy"
 				>

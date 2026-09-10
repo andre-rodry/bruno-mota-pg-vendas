@@ -9,9 +9,6 @@
 
 .sinopse-hero {
 	position: relative;
-	width: 100vw;
-	margin-left: calc(50% - 50vw);
-	margin-right: calc(50% - 50vw);
 	padding: var(--space-md) 0;
 }
 
@@ -34,44 +31,26 @@
 	overflow: hidden;
 }
 
-.sinopse-imagem::after {
-	content: "";
-	position: absolute;
-	inset: 0;
-	pointer-events: none;
-	background: radial-gradient(
-		ellipse farthest-corner at center,
-		transparent 30%,
-		rgba(6, 12, 26, 0.5) 60%,
-		var(--navy-950) 95%
-	);
-}
-
 .sinopse-imagem img {
 	display: block;
 	width: 100%;
 	height: auto;
 	object-fit: contain;
 	object-position: center;
-	mix-blend-mode: screen;
-	-webkit-mask-image: radial-gradient(
-		ellipse farthest-corner at center,
-		black 35%,
-		rgba(0, 0, 0, 0.6) 60%,
-		transparent 92%
+	-webkit-mask-image: linear-gradient(
+		to top,
+		transparent 0%,
+		black 15%
 	);
-	mask-image: radial-gradient(
-		ellipse farthest-corner at center,
-		black 35%,
-		rgba(0, 0, 0, 0.6) 60%,
-		transparent 92%
+	mask-image: linear-gradient(
+		to top,
+		transparent 0%,
+		black 15%
 	);
-	-webkit-mask-size: 100% 100%;
-	mask-size: 100% 100%;
 	-webkit-mask-repeat: no-repeat;
 	mask-repeat: no-repeat;
-	-webkit-mask-position: center;
-	mask-position: center;
+	-webkit-mask-size: 100% 100%;
+	mask-size: 100% 100%;
 }
 
 .sinopse-conteudo {
@@ -141,9 +120,6 @@
 
 .sinopse-autores {
 	position: relative;
-	width: 100vw;
-	margin-left: calc(50% - 50vw);
-	margin-right: calc(50% - 50vw);
 	padding: var(--space-lg) 0 var(--space-xl);
 }
 
@@ -280,18 +256,24 @@
 		max-width: none !important;
 		margin: 0 !important;
 		width: 100% !important;
-		background-image: url('../assets/img/publicacoes-economia-conhecimento-financas-tablet.webp');
+		background-image: url('../assets/img/publicacoes-economia-conhecimento-financas-tablet-mobile.png');
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
-		-webkit-mask-image: radial-gradient(ellipse farthest-corner at center, black 55%, transparent 100%);
-		mask-image: radial-gradient(ellipse farthest-corner at center, black 55%, transparent 100%);
-		-webkit-mask-size: 100% 100%;
-		mask-size: 100% 100%;
+		-webkit-mask-image: linear-gradient(
+			to top,
+			transparent 0%,
+			black 15%
+		);
+		mask-image: linear-gradient(
+			to top,
+			transparent 0%,
+			black 15%
+		);
 		-webkit-mask-repeat: no-repeat;
 		mask-repeat: no-repeat;
-		-webkit-mask-position: center;
-		mask-position: center;
+		-webkit-mask-size: 100% 100%;
+		mask-size: 100% 100%;
 	}
 }
 
@@ -370,34 +352,6 @@
 		height: 100%;
 		object-fit: cover;
 		object-position: center;
-	}
-
-	/* Fade nas 4 bordas dissolvendo pra cor da section (navy-950),
-	   por cima do tom geral leve que unifica a imagem com o fundo */
-	.sinopse-imagem::after {
-		content: "";
-		position: absolute;
-		inset: 0;
-		background:
-			linear-gradient(
-				to bottom,
-				var(--navy-950) 0%,
-				transparent 12%,
-				transparent 88%,
-				var(--navy-950) 100%
-			),
-			linear-gradient(
-				to right,
-				var(--navy-950) 0%,
-				transparent 12%,
-				transparent 88%,
-				var(--navy-950) 100%
-			),
-			linear-gradient(
-				to bottom,
-				rgba(6, 12, 26, 0.15) 0%,
-				rgba(6, 12, 26, 0.2) 100%
-			);
 	}
 
 	.sinopse-conteudo {

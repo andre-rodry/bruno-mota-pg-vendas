@@ -1,5 +1,5 @@
 <section class="hero-launch">
-  <div class="hero-launch__scale" style="--hero-bg: url('<?php echo get_template_directory_uri(); ?>/assets/img/banner-bruno-mota-welinton-santos.webp');">
+  <div class="hero-launch__scale" style="--hero-bg: url('<?php echo get_template_directory_uri(); ?>/assets/img/banner-bruno-mota-welinton-santos.png');">
     <div class="container">
 
       <div class="hero-launch__block hero-launch__block--content reveal">
@@ -40,7 +40,7 @@
         </p>
 
         <div class="hero-launch__actions">
-          <a href="https://clubedeautores.com.br/livro/inteligencia-artificial-para-economistas-e-contadores" target="_blank" rel="noopener" class="hero-launch__cta">
+          <a href="https://clubedeautores.com.br/livro/inteligencia-artificial-para-economistas-e-contadores" target="_blank" rel="noopener" class="hero-launch__cta" data-track="hero-comprar-livro">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M2 3H4L4.8 6M4.8 6H20.5L18.5 14H7.2M4.8 6L7.2 14M7.2 14L6.3 16.5C6.1 17.2 6.6 18 7.4 18H18"
                     stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -52,7 +52,7 @@
 
           <span class="hero-launch__divider-v" aria-hidden="true"></span>
 
-          <a href="https://www.youtube.com/@financasparajovensoficial?si=qicAxYSzarFqdGWh" target="_blank" rel="noopener" class="hero-launch__youtube">
+          <a href="https://www.youtube.com/@financasparajovensoficial?si=qicAxYSzarFqdGWh" target="_blank" rel="noopener" class="hero-launch__youtube" data-track="hero-youtube-inscreva">
             <span class="hero-launch__youtube-lottie">
               <iframe src="https://lottie.host/embed/a11352a2-73f0-4129-aa12-9a9155424647/ODLg3R3hXR.lottie" title="YouTube" frameborder="0"></iframe>
             </span>
