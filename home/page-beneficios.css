@@ -1,8 +1,17 @@
 /* ===== Seção Benefícios (home) ===== */
 
+.beneficios,
+.beneficios *,
+.beneficios *::before,
+.beneficios *::after {
+  box-sizing: border-box;
+}
+
 .beneficios {
   background-color: var(--text-soft);
   padding: var(--space-xl) 0;
+  overflow-x: hidden; /* cinto de segurança: nunca deixa essa seção gerar scroll */
+  width: 100%;
 }
 
 .beneficios__container {
@@ -20,11 +29,13 @@
   gap: var(--space-md);
   text-align: center;
   margin-bottom: var(--space-xl);
+  flex-wrap: wrap; /* permite as linhas douradas quebrarem antes de vazar */
 }
 
 .beneficios__line {
   flex: 1 1 auto;
   max-width: 140px;
+  min-width: 24px;
   height: 1px;
   background: linear-gradient(to right, transparent, var(--gold));
 }
@@ -38,11 +49,19 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-size: clamp(1.3rem, 2.4vw, 1.9rem);
+  font-size: clamp(1.15rem, 2.4vw, 1.9rem);
   line-height: 1.35;
   color: var(--navy-950);
   margin: 0;
-  white-space: nowrap;
+  max-width: 100%;
+  /* nowrap só onde realmente cabe (telas bem largas); abaixo disso, quebra normalmente */
+  white-space: normal;
+}
+
+@media (min-width: 1200px) {
+  .beneficios__title {
+    white-space: nowrap;
+  }
 }
 
 .beneficios__highlight {
@@ -52,14 +71,18 @@
 /* Grid */
 .beneficios__grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 0;
+  width: 100%;
 }
 
 .beneficios__item {
   position: relative;
   text-align: center;
   padding: 0 var(--space-md);
+  min-width: 0; /* impede que o conteúdo force a coluna a crescer além do espaço disponível */
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .beneficios__item:not(:last-child)::after {
@@ -77,8 +100,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 64px;
-  height: 64px;
+  width: clamp(52px, 6vw, 64px);
+  height: clamp(52px, 6vw, 64px);
   border-radius: 50%;
   background-color: var(--navy-950);
   color: var(--gold-accent);
@@ -88,6 +111,8 @@
 .beneficios__icon svg {
   width: 28px;
   height: 28px;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .beneficios__item-title {
@@ -97,7 +122,6 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   color: var(--navy-950);
-  letter-spacing: 1px;
   margin-bottom: var(--space-xs);
 }
 
@@ -113,22 +137,18 @@
 /* Responsivo */
 @media (max-width: 992px) {
   .beneficios__grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     row-gap: var(--space-lg);
   }
 
   .beneficios__item:nth-child(3n)::after {
     display: none;
   }
-
-  .beneficios__title {
-    white-space: normal;
-  }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .beneficios__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     row-gap: var(--space-lg);
   }
 
