@@ -248,14 +248,19 @@
 
 @media (max-width: 955px) {
 
+	.sinopse-hero {
+		overflow-x: hidden; /* segurança: 100vw pode contar a scrollbar em alguns navegadores */
+	}
+
 	.sinopse-imagem img {
 		display: none;
 	}
 
 	.sinopse-imagem {
 		max-width: none !important;
-		margin: 0 !important;
-		width: 100% !important;
+		width: 100vw !important;
+		margin-left: calc(50% - 50vw) !important;
+		margin-right: calc(50% - 50vw) !important;
 		background-image: url('../assets/img/publicacoes-economia-conhecimento-financas-tablet-mobile.png');
 		background-size: cover;
 		background-position: center;
@@ -317,59 +322,6 @@
 	}
 }
 
-/* --------------------------------------------------------------------------
-   Efeito overlay: a imagem passa a ocupar todo o fundo do bloco (full-bleed),
-   com um gradiente escuro por cima e o texto sobreposto.
-   Ativo apenas entre 769px e 955px.
-
-   Correções aplicadas:
-   - object-fit: contain -> evita cortar topo/base da imagem, já que o
-     container fica mais alto que a proporção original da arte.
-   - Gradiente mais escuro e mais uniforme (0.75 -> 0.95) para garantir
-     contraste e legibilidade do texto sobreposto.
-   - text-shadow no conteúdo para reforçar legibilidade sobre fundo irregular.
-   -------------------------------------------------------------------------- */
-@media (max-width: 955px) and (min-width: 769px) {
-
-	.sinopse-hero-inner {
-		display: block;
-		position: relative;
-		min-height: 340px;
-	}
-
-	.sinopse-imagem {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		height: 100%;
-		z-index: 1;
-		background-size: contain;
-		background-position: center;
-	}
-
-	.sinopse-imagem img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		object-position: center;
-	}
-
-	.sinopse-conteudo {
-		position: relative;
-		z-index: 2;
-		margin: 0;
-		padding: var(--space-xl) var(--space-lg) var(--space-md);
-		background: linear-gradient(
-			to bottom,
-			rgba(6, 12, 26, 0.88) 0%,
-			rgba(6, 12, 26, 0.88) 60%,
-			rgba(6, 12, 26, 0.4) 85%,
-			transparent 100%
-		);
-		border-radius: 12px 12px 0 0;
-	}
-}
-
 @media (max-width: 928px) and (min-width: 769px) {
 
 	.sinopse-autores-grid {
@@ -393,20 +345,23 @@
 	}
 }
 
-@media (max-width: 768px) {
+@media (max-width: 955px) {
 
 	.sinopse-hero {
-		padding: var(--space-sm) 0;
+		padding: 0;
 	}
 
 	.sinopse-imagem {
 		aspect-ratio: 4 / 3;
 	}
 
+	/* Mais respiro lateral: em coluna única o texto fica encostado nas
+	   bordas com --space-md; aqui sobe pra --space-lg (e ainda soma
+	   --space-xs de segurança à direita no parágrafo) */
 	.sinopse-hero-inner {
 		grid-template-columns: 1fr;
 		gap: var(--space-md);
-		padding: 0 var(--space-md);
+		padding: 0 var(--space-lg);
 	}
 
 	.sinopse-titulo {
@@ -419,10 +374,11 @@
 	}
 
 	/* Em coluna única, o texto fica abaixo da imagem — reseta a sobreposição
-	   lateral e usa um gradiente de cima para baixo em vez de esquerda-direita */
+	   lateral e usa um gradiente de cima para baixo em vez de esquerda-direita.
+	   padding-right extra evita o texto ficar colado na borda direita. */
 	.sinopse-conteudo {
 		margin-left: 0;
-		padding-left: 0;
+		padding-right: var(--space-xs);
 		padding-top: var(--space-lg);
 		margin-top: calc(var(--space-lg) * -1);
 		background: linear-gradient(
@@ -431,6 +387,10 @@
 			var(--navy-950) 15%,
 			var(--navy-950) 100%
 		);
+	}
+
+	.sinopse-autores-inner {
+		padding: 0 var(--space-lg);
 	}
 
 	.sinopse-autores-grid {
