@@ -355,13 +355,15 @@
 		aspect-ratio: 4 / 3;
 	}
 
-	/* Mais respiro lateral: em coluna única o texto fica encostado nas
-	   bordas com --space-md; aqui sobe pra --space-lg (e ainda soma
-	   --space-xs de segurança à direita no parágrafo) */
+	/* Padding lateral FIXO a partir daqui: var(--space-md) é o valor
+	   único usado em toda a faixa mobile (955px até 0px). Os breakpoints
+	   abaixo (600px, 400px) não redefinem mais esse padding — só ajustam
+	   fonte, gap e outros detalhes — evitando o "pulo" de margem lateral
+	   ao redimensionar. */
 	.sinopse-hero-inner {
 		grid-template-columns: 1fr;
 		gap: var(--space-md);
-		padding: 0 var(--space-lg);
+		padding: 0 var(--space-md);
 	}
 
 	.sinopse-titulo {
@@ -389,8 +391,10 @@
 		);
 	}
 
+	/* Mesma lógica aplicada aqui: padding lateral fixo em var(--space-md)
+	   para "Sobre os Autores", consistente com o hero-inner acima. */
 	.sinopse-autores-inner {
-		padding: 0 var(--space-lg);
+		padding: 0 var(--space-md);
 	}
 
 	.sinopse-autores-grid {
@@ -415,10 +419,62 @@
 	}
 }
 
+/* --------------------------------------------------------------------------
+   Faixa 585px–955px: imagem vira plano de fundo INTEIRO atrás do texto.
+   A imagem fica com position:absolute preenchendo o card (.sinopse-hero),
+   sai do fluxo normal, e a altura do card passa a ser ditada pelo texto
+   (.sinopse-conteudo). Um overlay uniforme (::after) cobre toda a
+   .sinopse-hero, garantindo contraste sem cortes ou faixas retas na imagem.
+   Abaixo de 681px essas regras não se aplicam e o layout volta ao
+   comportamento padrão definido acima (pequena sobreposição vertical via
+   margin-top negativo).
+   -------------------------------------------------------------------------- */
+@media (max-width: 955px) and (min-width: 681px) {
+
+	.sinopse-hero {
+		position: relative;
+	}
+
+	.sinopse-imagem {
+		position: absolute !important;
+		top: 0 !important;
+		left: 0 !important;
+		right: 0 !important;
+		bottom: 0 !important;
+		width: 100% !important;
+		max-width: none !important;
+		margin: 0 !important;
+		aspect-ratio: unset;
+		z-index: 0;
+	}
+
+	/* Overlay uniforme sobre toda a imagem (substitui o gradiente lateral) */
+	.sinopse-hero::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: var(--navy-950);
+		opacity: 0.85;
+		z-index: 0;
+		pointer-events: none;
+	}
+
+	.sinopse-conteudo {
+		position: relative;
+		z-index: 1;
+		margin-top: 0;
+		padding: var(--space-xl) 0 var(--space-lg);
+		background: none;
+	}
+}
+
 @media (max-width: 600px) {
 
+	/* padding de .sinopse-hero-inner e .sinopse-autores-inner NÃO é
+	   redefinido aqui de propósito — mantém o valor fixo var(--space-md)
+	   herdado do bloco @media (max-width: 955px) acima. */
+
 	.sinopse-hero-inner {
-		padding: 0 var(--space-md);
 		gap: var(--space-sm);
 	}
 
@@ -435,10 +491,6 @@
 	.sinopse-conteudo p {
 		font-size: 0.875rem;
 		line-height: 1.55;
-	}
-
-	.sinopse-autores-inner {
-		padding: 0 var(--space-md);
 	}
 
 	.sinopse-autores-titulo {
@@ -462,16 +514,10 @@
 
 @media (max-width: 400px) {
 
-	.sinopse-hero-inner {
-		padding: 0 var(--space-sm);
-	}
+	/* padding lateral também não é redefinido aqui, pelo mesmo motivo */
 
 	.sinopse-conteudo p {
 		font-size: 0.8125rem;
 		line-height: 1.5;
-	}
-
-	.sinopse-autores-inner {
-		padding: 0 var(--space-sm);
 	}
 }
