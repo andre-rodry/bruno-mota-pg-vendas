@@ -125,15 +125,17 @@ $first        = $previa_sections[ $first_key ];
         </div>
 
         <div class="car-img-box" id="pb-image-container">
-            <img id="pb-main-view-img" src="<?php echo esc_url( $first['blocks'][0]['img'] ); ?>" alt="Prévia da seção <?php echo esc_attr( $first['label'] ); ?>" onclick="pbOpenModal()">
-        </div>
-
-        <div class="nav-arrows">
-            <div class="nav-arrow" onclick="pbMoveBlock(-1)" aria-label="Bloco anterior">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"></path></svg>
+            <div class="car-img-inner">
+                <img id="pb-main-view-img" src="<?php echo esc_url( $first['blocks'][0]['img'] ); ?>" alt="Prévia da seção <?php echo esc_attr( $first['label'] ); ?>" onclick="pbOpenModal()">
             </div>
-            <div class="nav-arrow" onclick="pbMoveBlock(1)" aria-label="Próximo bloco">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg>
+
+            <div class="nav-arrows">
+                <div class="nav-arrow" onclick="pbMoveBlock(-1)" aria-label="Bloco anterior">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"></path></svg>
+                </div>
+                <div class="nav-arrow" onclick="pbMoveBlock(1)" aria-label="Próximo bloco">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg>
+                </div>
             </div>
         </div>
 
@@ -158,6 +160,12 @@ $first        = $previa_sections[ $first_key ];
         </div>
     </div>
 
+    <!--
+        MODAL (lightbox)
+        Nova estrutura: o X fica fora, acima do canto superior direito da
+        imagem; as setas, a legenda e o zoom ficam numa barra fora da
+        imagem, logo abaixo dela.
+    -->
     <div class="pb-modal" id="pb-modal" onclick="pbModalBackdropClick(event)">
 
         <div class="pb-modal-content" onclick="event.stopPropagation()">
@@ -166,31 +174,38 @@ $first        = $previa_sections[ $first_key ];
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"></path></svg>
             </button>
 
-            <div class="pb-zoom-controls" onclick="event.stopPropagation()">
-                <button class="pb-zoom-btn" onclick="pbZoomOut()" aria-label="Diminuir zoom">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3M8 11h6"></path></svg>
-                </button>
-                <span class="pb-zoom-level" id="pb-zoom-level">100%</span>
-                <button class="pb-zoom-btn" onclick="pbZoomIn()" aria-label="Aumentar zoom">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"></path></svg>
-                </button>
-                <button class="pb-zoom-btn pb-zoom-reset" onclick="pbResetZoom()" aria-label="Restaurar zoom">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v5h5"></path></svg>
-                </button>
-            </div>
-
-            <div class="pb-modal-arrow pb-modal-arrow-left" onclick="pbModalMove(-1, event)" aria-label="Anterior">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"></path></svg>
-            </div>
-
-            <div class="pb-modal-arrow pb-modal-arrow-right" onclick="pbModalMove(1, event)" aria-label="Próximo">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg>
-            </div>
-
             <div class="pb-modal-viewport" id="pb-modal-viewport">
                 <img id="pb-modal-img" src="" alt="" draggable="false">
             </div>
-            <p class="pb-modal-caption" id="pb-modal-caption"></p>
+
+            <div class="pb-modal-controls">
+
+                <div class="pb-modal-nav">
+                    <div class="pb-modal-arrow" onclick="pbModalMove(-1, event)" aria-label="Anterior">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"></path></svg>
+                    </div>
+                    <div class="pb-modal-arrow" onclick="pbModalMove(1, event)" aria-label="Próximo">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg>
+                    </div>
+                </div>
+
+                <p class="pb-modal-caption" id="pb-modal-caption"></p>
+
+                <div class="pb-zoom-controls" onclick="event.stopPropagation()">
+                    <button class="pb-zoom-btn" onclick="pbZoomOut()" aria-label="Diminuir zoom">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3M8 11h6"></path></svg>
+                    </button>
+                    <span class="pb-zoom-level" id="pb-zoom-level">100%</span>
+                    <button class="pb-zoom-btn" onclick="pbZoomIn()" aria-label="Aumentar zoom">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"></path></svg>
+                    </button>
+                    <button class="pb-zoom-btn pb-zoom-reset" onclick="pbResetZoom()" aria-label="Restaurar zoom">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v5h5"></path></svg>
+                    </button>
+                </div>
+
+            </div>
+
         </div>
 
     </div>
