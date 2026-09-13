@@ -8,6 +8,15 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+// Configurações: por quantos dias manter o histórico, e a janela de
+// tempo (em minutos) usada para não contar a mesma visita repetida
+if ( ! defined( 'MEU_TRACKER_RETENCAO_DIAS' ) ) {
+    define( 'MEU_TRACKER_RETENCAO_DIAS', 90 );
+}
+if ( ! defined( 'MEU_TRACKER_JANELA_DEDUP_MINUTOS' ) ) {
+    define( 'MEU_TRACKER_JANELA_DEDUP_MINUTOS', 5 );
+}
+
 // 1. Cria a tabela no banco de dados (roda só uma vez)
 function meu_tracker_criar_tabela() {
     global $wpdb;
@@ -21,13 +30,33 @@ function meu_tracker_criar_tabela() {
             pagina VARCHAR(255) NOT NULL,
             elemento VARCHAR(255) DEFAULT NULL,
             ip VARCHAR(45) DEFAULT NULL,
-            data_hora DATETIME NOT NULL
+            data_hora DATETIME NOT NULL,
+            KEY tipo_pagina_data (tipo, pagina, data_hora)
         ) $charset;";
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         dbDelta( $sql );
     }
 }
 add_action( 'init', 'meu_tracker_criar_tabela' );
+
+// 1b. Agenda a limpeza automática diária (evita que a tabela cresça pra sempre)
+function meu_tracker_agendar_limpeza() {
+    if ( ! wp_next_scheduled( 'meu_tracker_evento_limpeza' ) ) {
+        wp_schedule_event( time(), 'daily', 'meu_tracker_evento_limpeza' );
+    }
+}
+add_action( 'init', 'meu_tracker_agendar_limpeza' );
+
+// 1c. Executa a limpeza: apaga registros mais antigos que MEU_TRACKER_RETENCAO_DIAS
+function meu_tracker_limpar_antigos() {
+    global $wpdb;
+    $tabela = $wpdb->prefix . 'meu_tracker';
+    $wpdb->query( $wpdb->prepare(
+        "DELETE FROM $tabela WHERE data_hora < DATE_SUB(NOW(), INTERVAL %d DAY)",
+        MEU_TRACKER_RETENCAO_DIAS
+    ) );
+}
+add_action( 'meu_tracker_evento_limpeza', 'meu_tracker_limpar_antigos' );
 
 // 2. Carrega o JS de rastreamento no rodapé de todas as páginas
 function meu_tracker_carregar_script() {
@@ -43,6 +72,11 @@ function meu_tracker_carregar_script() {
                       '&elemento=' + encodeURIComponent(elemento || '')
             });
         }
+
+        // A deduplicação de visitas repetidas acontece no servidor
+        // (por IP + janela de tempo), não aqui no navegador. Isso evita
+        // que trocas de IP (VPN, rede móvel, etc.) fiquem bloqueadas
+        // incorretamente por causa do sessionStorage.
         enviar('pageview');
 
         document.addEventListener('click', function(e) {
@@ -62,11 +96,36 @@ function meu_tracker_registrar() {
     global $wpdb;
     $tabela = $wpdb->prefix . 'meu_tracker';
 
+    $tipo     = sanitize_text_field( $_POST['tipo'] ?? '' );
+    $pagina   = sanitize_text_field( $_POST['pagina'] ?? '' );
+    $elemento = sanitize_text_field( $_POST['elemento'] ?? '' );
+    $ip       = sanitize_text_field( $_SERVER['REMOTE_ADDR'] ?? '' );
+
+    // Deduplicação: se já existe uma visita do mesmo IP na mesma página
+    // dentro da janela de tempo definida, não grava de novo. Isso evita
+    // contar vários F5 seguidos como visitas separadas, mas ainda assim
+    // conta normalmente quando o IP muda (ex: troca de rede/VPN).
+    if ( $tipo === 'pageview' && $ip ) {
+        $ja_existe = $wpdb->get_var( $wpdb->prepare(
+            "SELECT id FROM $tabela
+             WHERE tipo = 'pageview' AND pagina = %s AND ip = %s
+             AND data_hora > DATE_SUB(NOW(), INTERVAL %d MINUTE)
+             LIMIT 1",
+            $pagina,
+            $ip,
+            MEU_TRACKER_JANELA_DEDUP_MINUTOS
+        ) );
+
+        if ( $ja_existe ) {
+            wp_die();
+        }
+    }
+
     $wpdb->insert( $tabela, array(
-        'tipo'      => sanitize_text_field( $_POST['tipo'] ?? '' ),
-        'pagina'    => sanitize_text_field( $_POST['pagina'] ?? '' ),
-        'elemento'  => sanitize_text_field( $_POST['elemento'] ?? '' ),
-        'ip'        => sanitize_text_field( $_SERVER['REMOTE_ADDR'] ?? '' ),
+        'tipo'      => $tipo,
+        'pagina'    => $pagina,
+        'elemento'  => $elemento,
+        'ip'        => $ip,
         'data_hora' => current_time( 'mysql' ),
     ) );
 
@@ -99,7 +158,41 @@ function meu_tracker_nome_amigavel( $slug ) {
     return isset( $nomes[ $slug ] ) ? $nomes[ $slug ] : esc_html( $slug );
 }
 
-// 6. Desenha o painel de estatísticas (versão visual, fácil de ler)
+// 5b. Monta a URL completa a partir do caminho salvo, sem duplicar
+// a subpasta quando o WordPress está instalado dentro de um diretório
+// (ex: localhost/bm-wp/). Usa só o esquema+domínio de home_url()
+// e concatena o caminho salvo, que já vem completo do navegador.
+function meu_tracker_montar_url( $caminho ) {
+    $partes  = wp_parse_url( home_url() );
+    $esquema = isset( $partes['scheme'] ) ? $partes['scheme'] : 'http';
+    $host    = isset( $partes['host'] ) ? $partes['host'] : '';
+    $porta   = isset( $partes['port'] ) ? ':' . $partes['port'] : '';
+
+    return $esquema . '://' . $host . $porta . $caminho;
+}
+
+// 6. Processa o clique no botão "Limpar dados" (roda antes de desenhar a página)
+function meu_tracker_processar_reset() {
+    if ( ! isset( $_POST['meu_tracker_reset'] ) ) {
+        return;
+    }
+
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_die( 'Você não tem permissão para fazer isso.' );
+    }
+
+    check_admin_referer( 'meu_tracker_reset_acao', 'meu_tracker_reset_nonce' );
+
+    global $wpdb;
+    $tabela = $wpdb->prefix . 'meu_tracker';
+    $wpdb->query( "TRUNCATE TABLE $tabela" );
+
+    wp_safe_redirect( add_query_arg( 'meu_tracker_reset', '1', menu_page_url( 'meu-tracker', false ) ) );
+    exit;
+}
+add_action( 'admin_init', 'meu_tracker_processar_reset' );
+
+// 7. Desenha o painel de estatísticas (versão visual, fácil de ler)
 function meu_tracker_pagina() {
     global $wpdb;
     $tabela = $wpdb->prefix . 'meu_tracker';
@@ -114,9 +207,28 @@ function meu_tracker_pagina() {
 
     <style>
         .mt-wrap { max-width: 1100px; margin-top: 20px; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
-        .mt-header { margin-bottom: 24px; }
+        .mt-header { margin-bottom: 8px; }
         .mt-header h1 { font-size: 26px; margin-bottom: 4px; }
-        .mt-header p { color: #666; font-size: 14px; margin: 0; }
+        .mt-header p { color: #666; font-size: 14px; margin: 0 0 24px 0; }
+        .mt-site-link { color: #2271b1; text-decoration: none; }
+        .mt-site-link:hover { text-decoration: underline; }
+
+        .mt-reset-form { margin: 32px 0 0 0; text-align: right; }
+        .mt-reset-btn {
+            background: #fff; color: #d63384; border: 1px solid #d63384;
+            padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600;
+            cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+        }
+        .mt-reset-btn:hover { background: #fdf0f5; }
+
+        .mt-aviso {
+            background: #f0f9f0; color: #2a6b2a; border: 1px solid #cfe8cf;
+            padding: 10px 16px; border-radius: 8px; font-size: 14px; margin-bottom: 20px;
+            opacity: 1; transition: opacity 0.6s ease, margin 0.6s ease, padding 0.6s ease;
+        }
+        .mt-aviso.mt-aviso-escondido {
+            opacity: 0; margin-bottom: 0; padding-top: 0; padding-bottom: 0; max-height: 0; overflow: hidden;
+        }
 
         .mt-cards { display: flex; gap: 16px; margin-bottom: 32px; flex-wrap: wrap; }
         .mt-card {
@@ -141,6 +253,8 @@ function meu_tracker_pagina() {
         .mt-table td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; font-size: 14px; }
         .mt-table tr:last-child td { border-bottom: none; }
         .mt-table tr:hover td { background: #fafafa; }
+        .mt-table td a { color: #2271b1; text-decoration: none; word-break: break-all; }
+        .mt-table td a:hover { text-decoration: underline; }
 
         .mt-badge { background: #f0f6fc; color: #2271b1; padding: 2px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
         .mt-badge-click { background: #fdf0f5; color: #d63384; }
@@ -153,8 +267,22 @@ function meu_tracker_pagina() {
 
     <div class="wrap mt-wrap">
 
+        <?php if ( isset( $_GET['meu_tracker_reset'] ) && $_GET['meu_tracker_reset'] === '1' ) : ?>
+            <div class="mt-aviso" id="mt-aviso-sucesso">✅ Dados de estatísticas limpos com sucesso.</div>
+            <script>
+            (function() {
+                var aviso = document.getElementById('mt-aviso-sucesso');
+                if ( aviso ) {
+                    setTimeout( function() {
+                        aviso.classList.add( 'mt-aviso-escondido' );
+                    }, 3000 );
+                }
+            })();
+            </script>
+        <?php endif; ?>
+
         <div class="mt-header">
-            <h1>📊 Estatísticas do Site</h1>
+            <h1>📊 Estatísticas do Site: <a href="<?php echo esc_url( home_url() ); ?>" target="_blank" rel="noopener noreferrer" class="mt-site-link"><?php echo esc_html( preg_replace( '#^https?://#', '', home_url() ) ); ?></a></h1>
             <p>Acompanhe as visitas e os cliques nos botões do seu site.</p>
         </div>
 
@@ -178,7 +306,11 @@ function meu_tracker_pagina() {
                 <?php if ( $paginas_populares ) : ?>
                     <?php foreach ( $paginas_populares as $p ) : ?>
                         <tr>
-                            <td><?php echo esc_html( $p->pagina ); ?></td>
+                            <td>
+                                <a href="<?php echo esc_url( meu_tracker_montar_url( $p->pagina ) ); ?>" target="_blank" rel="noopener noreferrer">
+                                    <?php echo esc_html( meu_tracker_montar_url( $p->pagina ) ); ?>
+                                </a>
+                            </td>
                             <td><span class="mt-badge"><?php echo intval( $p->total ); ?></span></td>
                         </tr>
                     <?php endforeach; ?>
@@ -219,7 +351,11 @@ function meu_tracker_pagina() {
                                     <span class="mt-tag-click">🖱️ Clique</span>
                                 <?php endif; ?>
                             </td>
-                            <td><?php echo esc_html( $r->pagina ); ?></td>
+                            <td>
+                                <a href="<?php echo esc_url( meu_tracker_montar_url( $r->pagina ) ); ?>" target="_blank" rel="noopener noreferrer">
+                                    <?php echo esc_html( meu_tracker_montar_url( $r->pagina ) ); ?>
+                                </a>
+                            </td>
                             <td><?php echo $r->elemento ? meu_tracker_nome_amigavel( $r->elemento ) : '—'; ?></td>
                             <td><?php echo esc_html( date( 'd/m/Y H:i', strtotime( $r->data_hora ) ) ); ?></td>
                         </tr>
@@ -229,6 +365,13 @@ function meu_tracker_pagina() {
                 <?php endif; ?>
             </table>
         </div>
+
+        <form class="mt-reset-form" method="post" onsubmit="return confirm('Tem certeza que deseja apagar TODOS os dados de estatísticas? Essa ação não pode ser desfeita.');">
+            <?php wp_nonce_field( 'meu_tracker_reset_acao', 'meu_tracker_reset_nonce' ); ?>
+            <button type="submit" name="meu_tracker_reset" value="1" class="mt-reset-btn">
+                🗑️ Limpar dados
+            </button>
+        </form>
 
     </div>
     <?php
